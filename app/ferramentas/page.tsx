@@ -90,3 +90,10 @@ export default function FerramentasHub() {
     </div>
   );
 }
+{ 
+  slug: 'contrato-completo', 
+  titulo: "Contrato de Aluguel Completo", 
+  desc: "Gere um contrato seguro com vistoria e cláusulas de multa.", 
+  icone: "fa-file-signature", 
+  cor: "indigo" 
+},
