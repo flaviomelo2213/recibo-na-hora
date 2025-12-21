@@ -69,3 +69,10 @@ export default function FerramentasHub() {
     </div>
   );
 }
+{ 
+      slug: 'prefeitura', 
+      titulo: "Central do Cidadão", 
+      desc: "Requerimentos de IPTU, Recursos de Multa e Zeladoria.", 
+      icone: "fa-building-columns", 
+      cor: "blue" 
+    },
