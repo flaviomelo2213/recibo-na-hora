@@ -1,5 +1,5 @@
 import React from 'react';
-// Removi a importação do CSS que estava dando erro
+import Script from 'next/script'; // Importante para o AdSense funcionar rápido
 
 export const metadata = {
   title: 'Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis',
@@ -15,12 +15,21 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <head>
-        {/* Tailwind CSS (Motor Visual) */}
+        {/* Tailwind CSS (Visual) */}
         <script src="https://cdn.tailwindcss.com"></script>
-        {/* Ícones FontAwesome (Visual Premium) */}
+        {/* Ícones FontAwesome */}
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-        {/* Fonte Inter (A mesma do ReciboOnline e Nubank) */}
+        {/* Fonte Inter */}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        
+        {/* --- GOOGLE ADSENSE (INSTALAÇÃO OFICIAL) --- */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182690500"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        
         <style>{`
           body { font-family: 'Inter', sans-serif; }
           .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
@@ -28,7 +37,7 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-50 text-slate-800 flex flex-col min-h-screen">
         
-        {/* --- CABEÇALHO PRO --- */}
+        {/* --- CABEÇALHO --- */}
         <header className="sticky top-0 z-50 glass-effect border-b border-gray-100 shadow-sm">
           <div className="container mx-auto px-4 h-20 flex items-center justify-between">
             {/* Logo */}
@@ -48,10 +57,7 @@ export default function RootLayout({
               <a href="/ferramentas" className="text-blue-600 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
                 <i className="fa-solid fa-screwdriver-wrench"></i> Ferramentas Úteis
               </a>
-              <a href="#" className="hover:text-blue-600 transition">Contato</a>
-              <a href="#" className="bg-slate-900 text-white px-6 py-2.5 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-slate-900/20">
-                <i className="fa-solid fa-lock mr-2"></i> Área do Cliente
-              </a>
+              <a href="#contato" className="hover:text-blue-600 transition">Contato</a>
             </nav>
             
             {/* Menu Mobile */}
@@ -63,29 +69,38 @@ export default function RootLayout({
 
         {children}
 
-        {/* --- RODAPÉ --- */}
-        <footer className="bg-white border-t border-gray-200 mt-auto pt-16 pb-8">
+        {/* --- RODAPÉ OFICIAL (Via Certa Digital) --- */}
+        <footer className="bg-white border-t border-gray-200 mt-auto pt-16 pb-8" id="contato">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-4 gap-10 mb-12">
+              
+              {/* Coluna 1 */}
               <div className="col-span-1 md:col-span-1">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white"><i className="fa-solid fa-check"></i></div>
                   <span className="font-bold text-lg">ReciboNaHora</span>
                 </div>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  Simplificamos a burocracia do Brasil. Gere documentos com validade jurídica em segundos, direto do seu navegador.
+                <p className="text-sm text-gray-500 leading-relaxed mb-4">
+                  Simplificamos a burocracia. Gere documentos com validade jurídica em segundos.
                 </p>
+                <div className="text-xs text-gray-400">
+                  <p className="font-semibold text-gray-600">Via Certa Digital</p>
+                  <p>CNPJ: 27.779.948/0001-43</p>
+                  <p>Goose Creek, SC - USA / Brasil</p>
+                </div>
               </div>
               
+              {/* Coluna 2 */}
               <div>
                 <h4 className="font-bold text-slate-900 mb-4">Ferramentas</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
                   <li><a href="/ferramentas/checklist-vistoria" className="hover:text-blue-600">Checklist Vistoria</a></li>
-                  <li><a href="/ferramentas" className="hover:text-blue-600">Calculadora Aluguel</a></li>
+                  <li><a href="/ferramentas/calculadora-rescisao" className="hover:text-blue-600">Calculadora Trabalhista</a></li>
                   <li><a href="/gerar/recibo_aluguel" className="hover:text-blue-600">Recibo de Aluguel</a></li>
                 </ul>
               </div>
 
+              {/* Coluna 3 */}
               <div>
                 <h4 className="font-bold text-slate-900 mb-4">Veículos & Apps</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
@@ -95,22 +110,30 @@ export default function RootLayout({
                 </ul>
               </div>
 
+              {/* Coluna 4 */}
               <div>
-                <h4 className="font-bold text-slate-900 mb-4">Legal & Suporte</h4>
+                <h4 className="font-bold text-slate-900 mb-4">Fale Conosco</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
-                  <li><a href="#" className="hover:text-blue-600">Política de Privacidade</a></li>
-                  <li><a href="#" className="hover:text-blue-600">Termos de Uso</a></li>
-                  <li><a href="#" className="hover:text-blue-600">Fale Conosco</a></li>
+                  <li className="flex items-center gap-2">
+                    <i className="fa-solid fa-envelope text-blue-600"></i>
+                    <a href="mailto:viacertasf@gmail.com" className="hover:text-blue-600">viacertasf@gmail.com</a>
+                  </li>
+                  <li><a href="/politica-privacidade" className="hover:text-blue-600">Política de Privacidade</a></li>
+                  <li><a href="/termos-uso" className="hover:text-blue-600">Termos de Uso</a></li>
                 </ul>
               </div>
             </div>
             
             <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-              <p>&copy; 2025 ReciboNaHora.com.br - Todos os direitos reservados.</p>
+              <div>
+                <p>&copy; 2025 ReciboNaHora. Todos os direitos reservados.</p>
+                <p className="text-xs mt-1">Desenvolvido por <span className="font-bold text-slate-700">Via Certa Digital - Flavio Melo</span></p>
+              </div>
+              
               <div className="flex gap-4 text-xl">
-                <i className="fa-brands fa-instagram hover:text-blue-600 cursor-pointer"></i>
-                <i className="fa-brands fa-facebook hover:text-blue-600 cursor-pointer"></i>
-                <i className="fa-brands fa-whatsapp hover:text-green-600 cursor-pointer"></i>
+                <a href="#" className="text-gray-400 hover:text-pink-600 transition"><i className="fa-brands fa-instagram"></i></a>
+                <a href="#" className="text-gray-400 hover:text-blue-600 transition"><i className="fa-brands fa-facebook"></i></a>
+                <a href="#" className="text-gray-400 hover:text-green-600 transition"><i className="fa-brands fa-whatsapp"></i></a>
               </div>
             </div>
           </div>
