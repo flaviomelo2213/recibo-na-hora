@@ -1,0 +1,129 @@
+'use client';
+
+import React, { useState } from 'react';
+import { jsPDF } from 'jspdf';
+import LeadModal from '@/components/LeadModal'; // Importando o modal
+
+export default function ChecklistVistoria() {
+  const [modalOpen, setModalOpen] = useState(false);
+  
+  // Estado do Checklist
+  const [imovel, setImovel] = useState({ endereco: '', data: '' });
+  const [itens, setItens] = useState([
+    { nome: 'Pintura das Paredes', status: 'Bom', obs: '' },
+    { nome: 'Pisos e Azulejos', status: 'Bom', obs: '' },
+    { nome: 'Portas e Fechaduras', status: 'Bom', obs: '' },
+    { nome: 'Janelas e Vidros', status: 'Bom', obs: '' },
+    { nome: 'Instalação Elétrica', status: 'Bom', obs: '' },
+    { nome: 'Instalação Hidráulica', status: 'Bom', obs: '' },
+  ]);
+
+  // Função chamada APÓS o lead preencher o modal
+  const handleDownload = (leadData: { nome: string }) => {
+    setModalOpen(false); // Fecha o modal
+    
+    const doc = new jsPDF();
+    
+    // Cabeçalho
+    doc.setFontSize(22);
+    doc.text("RELATÓRIO DE VISTORIA", 105, 20, { align: "center" });
+    
+    doc.setFontSize(10);
+    doc.text(`Gerado por ReciboNaHora.com.br para ${leadData.nome}`, 105, 28, { align: "center" });
+
+    doc.setFontSize(12);
+    doc.text(`Imóvel: ${imovel.endereco}`, 20, 40);
+    doc.text(`Data da Vistoria: ${imovel.data}`, 20, 48);
+
+    // Tabela de Itens
+    let y = 60;
+    doc.setFontSize(11);
+    doc.text("ITEM", 20, y);
+    doc.text("ESTADO", 80, y);
+    doc.text("OBSERVAÇÕES", 120, y);
+    doc.line(20, y+2, 190, y+2); // Linha separadora
+
+    y += 10;
+    itens.forEach(item => {
+      doc.text(item.nome, 20, y);
+      doc.text(item.status, 80, y);
+      doc.text(item.obs || "-", 120, y);
+      y += 10;
+    });
+
+    // Rodapé de Branding (Exigência do projeto)
+    doc.setFontSize(9);
+    doc.text("Gerado gratuitamente por ReciboNaHora.com.br - Ferramentas para Corretores", 105, 280, { align: "center" });
+
+    doc.save("vistoria-imovel.pdf");
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      {/* O "Gate" (Modal) fica aqui escondido esperando ser chamado */}
+      <LeadModal 
+        isOpen={modalOpen} 
+        onClose={() => setModalOpen(false)} 
+        onSuccess={handleDownload} 
+      />
+
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+        <h1 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <i className="fa-solid fa-clipboard-check text-blue-600"></i> Checklist de Vistoria
+        </h1>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <input 
+            placeholder="Endereço do Imóvel" 
+            className="p-3 border rounded-lg w-full"
+            onChange={(e) => setImovel({...imovel, endereco: e.target.value})}
+          />
+          <input 
+            type="date" 
+            className="p-3 border rounded-lg w-full"
+            onChange={(e) => setImovel({...imovel, data: e.target.value})}
+          />
+        </div>
+
+        <div className="space-y-4">
+          {itens.map((item, idx) => (
+            <div key={idx} className="flex flex-col md:flex-row gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+              <span className="font-bold w-48 pt-2">{item.nome}</span>
+              <select 
+                className="p-2 border rounded bg-white"
+                value={item.status}
+                onChange={(e) => {
+                  const novos = [...itens];
+                  novos[idx].status = e.target.value;
+                  setItens(novos);
+                }}
+              >
+                <option>Novo</option>
+                <option>Bom</option>
+                <option>Regular</option>
+                <option>Ruim</option>
+                <option>Danificado</option>
+              </select>
+              <input 
+                placeholder="Observações (ex: Risco na pintura)" 
+                className="flex-1 p-2 border rounded"
+                onChange={(e) => {
+                  const novos = [...itens];
+                  novos[idx].obs = e.target.value;
+                  setItens(novos);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        <button 
+          onClick={() => setModalOpen(true)} // AQUI ESTÁ O SEGREDO: Abre o modal em vez de baixar direto
+          className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2"
+        >
+          <i className="fa-solid fa-file-pdf"></i> Gerar Relatório PDF
+        </button>
+      </div>
+    </div>
+  );
+}
