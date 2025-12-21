@@ -1,5 +1,5 @@
 import React from 'react';
-import './globals.css'; 
+// Removi a importação do CSS que estava dando erro
 
 export const metadata = {
   title: 'Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis',
@@ -42,7 +42,7 @@ export default function RootLayout({
               </div>
             </a>
 
-            {/* Menu Desktop (ATUALIZADO AQUI) */}
+            {/* Menu Desktop */}
             <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
               <a href="/" className="hover:text-blue-600 transition">Início</a>
               <a href="/ferramentas" className="text-blue-600 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
