@@ -5,7 +5,14 @@ import Link from 'next/link';
 
 export default function FerramentasHub() {
   const ferramentas = [
-    // As Novidades
+    // --- IMOBILIÁRIO (O seu carro-chefe) ---
+    { 
+      slug: 'contrato-completo', 
+      titulo: "Contrato de Aluguel Completo", 
+      desc: "Gere um contrato seguro com vistoria, fiador/caução e cláusulas de multa.", 
+      icone: "fa-file-signature", 
+      cor: "indigo" 
+    },
     { 
       slug: 'imobiliario', 
       titulo: "Central Imobiliária", 
@@ -13,6 +20,15 @@ export default function FerramentasHub() {
       icone: "fa-city", 
       cor: "orange" 
     },
+    { 
+      slug: 'checklist-vistoria', 
+      titulo: "Checklist de Vistoria", 
+      desc: "Relatório profissional para entrada e saída de imóveis.", 
+      icone: "fa-list-check", 
+      cor: "teal" 
+    },
+
+    // --- UTILIDADE PÚBLICA ---
     { 
       slug: 'prefeitura', 
       titulo: "Central do Cidadão", 
@@ -27,28 +43,21 @@ export default function FerramentasHub() {
       icone: "fa-calculator", 
       cor: "green" 
     },
-    { 
-      slug: 'checklist-vistoria', 
-      titulo: "Checklist de Vistoria", 
-      desc: "Relatório profissional para entrada e saída de imóveis.", 
-      icone: "fa-list-check", 
-      cor: "teal" 
-    },
     
-    // Atalhos para o que já existe
-    { 
-      slug: '/gerar/recibo_aluguel', 
-      titulo: "Recibo de Aluguel", 
-      desc: "Emita recibos com cálculo automático.", 
-      icone: "fa-file-invoice-dollar", 
-      cor: "purple" 
-    },
+    // --- RECIBOS RÁPIDOS (Atalhos) ---
     { 
       slug: '/gerar/venda_veiculo', 
       titulo: "Recibo de Veículo", 
       desc: "Compra e venda para Carro e Moto.", 
       icone: "fa-car", 
       cor: "red" 
+    },
+    { 
+      slug: '/gerar/recibo_aluguel', 
+      titulo: "Recibo de Aluguel (Simples)", 
+      desc: "Apenas o recibo de pagamento mensal.", 
+      icone: "fa-file-invoice-dollar", 
+      cor: "purple" 
     },
   ];
 
@@ -64,23 +73,26 @@ export default function FerramentasHub() {
       </div>
 
       <div className="container mx-auto px-4 -mt-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {ferramentas.map((ferramenta, idx) => (
             <Link 
               key={idx} 
               href={ferramenta.slug.startsWith('/') ? ferramenta.slug : `/ferramentas/${ferramenta.slug}`}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all group"
+              className="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all group flex flex-col"
             >
               <div className={`w-16 h-16 bg-${ferramenta.cor}-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                 <i className={`fa-solid ${ferramenta.icone} text-3xl text-${ferramenta.cor}-600`}></i>
               </div>
+              
               <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">
                 {ferramenta.titulo}
               </h3>
-              <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+              
+              <p className="text-slate-500 text-sm mb-6 leading-relaxed flex-grow">
                 {ferramenta.desc}
               </p>
-              <span className="text-blue-600 font-bold text-sm flex items-center bg-blue-50 w-fit px-4 py-2 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-all">
+              
+              <span className="text-blue-600 font-bold text-sm flex items-center bg-blue-50 w-fit px-4 py-2 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-all mt-auto">
                 Acessar <i className="fa-solid fa-arrow-right ml-2"></i>
               </span>
             </Link>
@@ -90,10 +102,3 @@ export default function FerramentasHub() {
     </div>
   );
 }
-{ 
-  slug: 'contrato-completo', 
-  titulo: "Contrato de Aluguel Completo", 
-  desc: "Gere um contrato seguro com vistoria e cláusulas de multa.", 
-  icone: "fa-file-signature", 
-  cor: "indigo" 
-},
