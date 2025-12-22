@@ -1,197 +1,175 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { jsPDF } from 'jspdf';
-import { useParams } from 'next/navigation';
 
-export default function GeradorUniversal() {
-  const params = useParams();
-  const tipo = params.tipo; // Pega o id do documento da URL
-
-  // Estado Único para todos os formulários
-  const [formData, setFormData] = useState<any>({
-    valor: '', data: new Date().toISOString().split('T')[0], cidade: '',
+export default function GeradorReciboPro() {
+  // Estado Completo (Campos que os concorrentes têm)
+  const [dados, setDados] = useState({
+    valor: '',
+    data: new Date().toISOString().split('T')[0],
     pagadorNome: '', pagadorCPF: '',
-    recebedorNome: '', recebedorCPF: '',
+    recebedorNome: '', recebedorCPF: '', recebedorEndereco: '', recebedorTel: '',
     referente: '',
-    // Campos específicos Veículo
-    veiculoModelo: '', placa: '', ano: '',
-    // Campos específicos Aluguel
-    enderecoImovel: '', inicio: '', fim: '',
-    // Campos específicos Promissória
-    vencimento: ''
+    cidade: '',
+    formaPagamento: 'Dinheiro', // PIX, Cheque, Transferência
+    parcela: 'Única', // 1 de 3, etc.
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [logo, setLogo] = useState<string | null>(null);
+  const [assinatura, setAssinatura] = useState<string | null>(null);
+
+  // Função para ler arquivos de imagem (Logo/Assinatura)
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, setImg: Function) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImg(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
-  // --- LÓGICA DE GERAÇÃO DO PDF PARA CADA TIPO ---
+  const handleChange = (e: any) => {
+    setDados({ ...dados, [e.target.name]: e.target.value });
+  };
+
   const gerarPDF = () => {
     const doc = new jsPDF();
-    doc.setFont("helvetica");
-
-    if (tipo === 'recibo_simples' || tipo === 'recibo_aluguel') {
-        doc.setFontSize(22);
-        doc.text(tipo === 'recibo_aluguel' ? "RECIBO DE ALUGUEL" : "RECIBO DE PAGAMENTO", 105, 20, { align: "center" });
-        
-        doc.setFontSize(12);
-        doc.rect(20, 35, 170, 120); // Borda
-        
-        doc.text(`VALOR: R$ ${formData.valor}`, 30, 50);
-        doc.text(`Recebi(emos) de ${formData.pagadorNome.toUpperCase()}`, 30, 70);
-        if(formData.pagadorCPF) doc.text(`CPF: ${formData.pagadorCPF}`, 30, 77);
-        
-        doc.text(`A importância de R$ ${formData.valor}`, 30, 90);
-        doc.text(`Referente a: ${formData.referente || (tipo === 'recibo_aluguel' ? 'Aluguel do imóvel' : 'Serviços prestados')}`, 30, 105);
-        if(tipo === 'recibo_aluguel' && formData.enderecoImovel) doc.text(`Imóvel: ${formData.enderecoImovel}`, 30, 115);
-
-        doc.text(`${formData.cidade}, ${formData.data.split('-').reverse().join('/')}`, 30, 135);
-        
-        doc.line(30, 155, 120, 155);
-        doc.text(formData.recebedorNome.toUpperCase(), 30, 160);
-        doc.text(`CPF/CNPJ: ${formData.recebedorCPF}`, 30, 166);
-    } 
     
-    else if (tipo === 'nota_promissoria') {
-        doc.setFontSize(20);
-        doc.text("NOTA PROMISSÓRIA", 105, 20, { align: "center" });
-        doc.rect(20, 30, 170, 100);
-        doc.setFontSize(12);
-        doc.text(`No dia ${formData.vencimento ? formData.vencimento.split('-').reverse().join('/') : '___/___/___'} pagarei por esta única via de NOTA PROMISSÓRIA`, 30, 50);
-        doc.text(`a ${formData.recebedorNome.toUpperCase()} ou à sua ordem,`, 30, 60);
-        doc.text(`a quantia de R$ ${formData.valor}.`, 30, 70);
-        doc.text(`Pagável em ${formData.cidade}.`, 30, 80);
+    // --- CABEÇALHO COM LOGO ---
+    if (logo) {
+        doc.addImage(logo, 'PNG', 20, 10, 30, 30); // Logo à esquerda
+        doc.setFontSize(22);
+        doc.setFont("helvetica", "bold");
+        doc.text("RECIBO DE PAGAMENTO", 190, 25, { align: "right" });
         doc.setFontSize(10);
-        doc.text("EMITENTE (Devedor):", 30, 100);
-        doc.text(`Nome: ${formData.pagadorNome.toUpperCase()}`, 30, 108);
-        doc.text(`CPF: ${formData.pagadorCPF}`, 30, 114);
-        doc.line(100, 120, 180, 120);
-        doc.text("Assinatura", 140, 125, {align: 'center'});
+        doc.text(`Nº Controle: ${Date.now().toString().slice(-6)}`, 190, 32, { align: "right" });
+    } else {
+        doc.setFontSize(22);
+        doc.setFont("helvetica", "bold");
+        doc.text("RECIBO DE PAGAMENTO", 105, 25, { align: "center" });
     }
 
-    else if (tipo === 'venda_veiculo' || tipo === 'sinal_veiculo') {
-        doc.setFontSize(18);
-        doc.text(tipo === 'sinal_veiculo' ? "RECIBO DE SINAL (VEÍCULO)" : "RECIBO DE COMPRA E VENDA", 105, 20, { align: "center" });
-        doc.setFontSize(12);
-        const texto = `Eu, ${formData.recebedorNome.toUpperCase()} (Vendedor), CPF ${formData.recebedorCPF}, declaro que RECEBI de ${formData.pagadorNome.toUpperCase()} (Comprador), CPF ${formData.pagadorCPF}, o valor de R$ ${formData.valor}.`;
-        const veiculo = `Referente ao veículo: ${formData.veiculoModelo.toUpperCase()}, Placa ${formData.placa.toUpperCase()}, Ano ${formData.ano}.`;
-        
-        const splitTexto = doc.splitTextToSize(texto, 170);
-        doc.text(splitTexto, 20, 50);
-        doc.text(veiculo, 20, 50 + (splitTexto.length * 7) + 10);
-        
-        doc.text(`${formData.cidade}, ${formData.data.split('-').reverse().join('/')}`, 20, 120);
-        doc.line(20, 150, 150, 150);
-        doc.text("Assinatura do Vendedor", 20, 156);
+    // --- CAIXA DE VALOR ---
+    doc.setFillColor(240, 240, 240);
+    doc.rect(20, 45, 170, 15, 'F');
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`VALOR: R$ ${dados.valor}`, 105, 55, { align: "center" });
+
+    // --- CORPO DO RECIBO ---
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    let y = 80;
+
+    const texto = `Recebi(emos) de ${dados.pagadorNome.toUpperCase()}, inscrito(a) no CPF/CNPJ ${dados.pagadorCPF}, a importância supra de R$ ${dados.valor}, referente a: ${dados.referente}.`;
+    const linhas = doc.splitTextToSize(texto, 170);
+    doc.text(linhas, 20, y);
+    y += (linhas.length * 8) + 10;
+
+    doc.text(`Forma de Pagamento: ${dados.formaPagamento}`, 20, y);
+    doc.text(`Parcela: ${dados.parcela}`, 120, y);
+    y += 20;
+
+    doc.text(`Para maior clareza, firmo(amos) o presente recibo.`, 20, y);
+    y += 15;
+
+    doc.text(`${dados.cidade || 'Local'}, ${new Date(dados.data).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'})}.`, 20, y);
+
+    // --- ASSINATURA ---
+    y += 30;
+    if (assinatura) {
+        doc.addImage(assinatura, 'PNG', 75, y - 25, 60, 20); // Imagem da assinatura
     }
+    doc.line(60, y, 150, y); // Linha
+    doc.setFontSize(10);
+    doc.text(dados.recebedorNome.toUpperCase(), 105, y + 5, { align: "center" });
+    doc.text(`CPF/CNPJ: ${dados.recebedorCPF}`, 105, y + 10, { align: "center" });
+    if(dados.recebedorTel) doc.text(`Tel: ${dados.recebedorTel}`, 105, y + 15, { align: "center" });
+    if(dados.recebedorEndereco) doc.text(dados.recebedorEndereco, 105, y + 20, { align: "center" });
 
-    else if (tipo === 'declaracao_uber') {
-        doc.setFontSize(18);
-        doc.text("DECLARAÇÃO DE RENDIMENTOS", 105, 20, { align: "center" });
-        doc.setFontSize(12);
-        const texto = `Eu, ${formData.recebedorNome.toUpperCase()}, inscrito(a) no CPF sob o nº ${formData.recebedorCPF}, DECLARO para os devidos fins de comprovação de renda que exerço atividade autônoma de Motorista de Aplicativo/Prestador de Serviços.`;
-        const renda = `Declaro que minha renda média mensal é de R$ ${formData.valor}.`;
-        
-        const splitTexto = doc.splitTextToSize(texto, 170);
-        doc.text(splitTexto, 20, 50);
-        doc.text(renda, 20, 50 + (splitTexto.length * 7) + 10);
-        doc.text("Declaro ser verdade e dou fé.", 20, 100);
-        
-        doc.text(`${formData.cidade}, ${formData.data.split('-').reverse().join('/')}`, 20, 120);
-        doc.line(50, 150, 160, 150);
-        doc.text("Assinatura do Declarante", 105, 156, { align: "center" });
-    }
+    // --- RODAPÉ MARCA D'ÁGUA ---
+    doc.setFontSize(8);
+    doc.setTextColor(150);
+    doc.text("Gerado por ReciboNaHora.com.br - Ferramentas para MEI e Profissionais", 105, 290, { align: "center" });
 
-    else {
-        alert("Modelo em desenvolvimento!");
-        return;
-    }
-
-    doc.save(`${tipo}.pdf`);
-  };
-
-  // --- INTERFACE (O que aparece na tela) ---
-  const titulos: any = {
-    recibo_simples: "Gerar Recibo Simples",
-    nota_promissoria: "Gerar Nota Promissória",
-    venda_veiculo: "Recibo de Venda de Veículo",
-    sinal_veiculo: "Recibo de Sinal (Veículo)",
-    recibo_aluguel: "Recibo de Aluguel",
-    declaracao_uber: "Declaração de Renda (Autônomo)"
+    doc.save("recibo-profissional.pdf");
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-      <div className="mb-8 border-b pb-4">
-        <h1 className="text-2xl font-bold text-slate-800">{titulos[tipo as string] || "Gerador de Documento"}</h1>
-        <p className="text-gray-500 text-sm">Preencha os dados abaixo.</p>
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg border border-slate-200">
+      <div className="text-center mb-8 bg-slate-900 text-white p-6 rounded-lg">
+        <h1 className="text-3xl font-bold mb-2"><i className="fa-solid fa-receipt text-yellow-400"></i> Recibo Profissional 2.0</h1>
+        <p className="text-slate-300 text-sm">Adicione logo, assinatura e gere um documento oficial.</p>
       </div>
 
-      <div className="space-y-4">
-        {/* CAMPOS COMUNS */}
-        <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-8">
+        
+        {/* COLUNA ESQUERDA: DADOS */}
+        <div className="space-y-4">
+          <h3 className="font-bold text-slate-700 border-b pb-2">1. Detalhes do Pagamento</h3>
+          <div className="grid grid-cols-2 gap-4">
             <div>
-                <label className="block text-sm font-bold text-gray-700">Valor (R$)</label>
-                <input name="valor" onChange={handleChange} className="w-full p-3 border rounded-lg" placeholder="0,00" />
+                <label className="block text-xs font-bold text-gray-500">Valor (R$)</label>
+                <input name="valor" onChange={handleChange} className="w-full p-3 border rounded font-bold text-green-700" placeholder="0,00" />
             </div>
             <div>
-                <label className="block text-sm font-bold text-gray-700">Data</label>
-                <input type="date" name="data" value={formData.data} onChange={handleChange} className="w-full p-3 border rounded-lg" />
+                <label className="block text-xs font-bold text-gray-500">Data</label>
+                <input type="date" name="data" value={dados.data} onChange={handleChange} className="w-full p-3 border rounded" />
             </div>
+          </div>
+          <input name="referente" onChange={handleChange} placeholder="Referente a (Ex: Prestação de Serviços de Pintura)" className="w-full p-3 border rounded bg-yellow-50" />
+          
+          <div className="grid grid-cols-2 gap-4">
+            <select name="formaPagamento" onChange={handleChange} className="p-3 border rounded bg-white">
+                <option>Dinheiro</option>
+                <option>PIX</option>
+                <option>Cartão de Crédito</option>
+                <option>Cartão de Débito</option>
+                <option>Transferência</option>
+            </select>
+            <input name="parcela" onChange={handleChange} placeholder="Parcela (Ex: 1 de 3)" className="p-3 border rounded" />
+          </div>
+
+          <h3 className="font-bold text-slate-700 border-b pb-2 pt-4">2. Quem Pagou (Cliente)</h3>
+          <input name="pagadorNome" onChange={handleChange} placeholder="Nome do Pagador" className="w-full p-3 border rounded" />
+          <input name="pagadorCPF" onChange={handleChange} placeholder="CPF/CNPJ do Pagador" className="w-full p-3 border rounded" />
         </div>
 
-        {/* CAMPOS DINÂMICOS */}
-        {(tipo === 'venda_veiculo' || tipo === 'sinal_veiculo') && (
-            <div className="bg-orange-50 p-4 rounded-lg border border-orange-100 grid grid-cols-3 gap-3">
-                <input name="veiculoModelo" onChange={handleChange} placeholder="Modelo do Veículo" className="col-span-3 p-2 border rounded" />
-                <input name="placa" onChange={handleChange} placeholder="Placa" className="p-2 border rounded" />
-                <input name="ano" onChange={handleChange} placeholder="Ano" className="p-2 border rounded" />
+        {/* COLUNA DIREITA: EMISSOR E BRANDING */}
+        <div className="space-y-4">
+          <h3 className="font-bold text-slate-700 border-b pb-2">3. Quem Recebeu (Você/MEI)</h3>
+          <input name="recebedorNome" onChange={handleChange} placeholder="Seu Nome / Razão Social" className="w-full p-3 border rounded" />
+          <input name="recebedorCPF" onChange={handleChange} placeholder="Seu CPF/CNPJ" className="w-full p-3 border rounded" />
+          <input name="recebedorTel" onChange={handleChange} placeholder="Seu Telefone/WhatsApp" className="w-full p-3 border rounded" />
+          <input name="cidade" onChange={handleChange} placeholder="Cidade/UF" className="w-full p-3 border rounded" />
+
+          <h3 className="font-bold text-blue-600 border-b pb-2 pt-4 flex items-center gap-2">
+            <i className="fa-solid fa-star"></i> Personalização (Diferencial)
+          </h3>
+          
+          <div className="flex gap-4">
+            <div className="w-1/2">
+                <label className="block text-xs font-bold text-gray-500 mb-1">Sua Logo (Opcional)</label>
+                <label className="cursor-pointer flex flex-col items-center justify-center h-20 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50 hover:bg-blue-100 transition">
+                    <span className="text-xs text-blue-600 font-bold">{logo ? 'Logo Carregada!' : 'Carregar Imagem'}</span>
+                    <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, setLogo)} className="hidden" />
+                </label>
             </div>
-        )}
-        
-        {(tipo === 'nota_promissoria') && (
-            <div>
-                <label className="block text-sm font-bold text-gray-700">Data de Vencimento</label>
-                <input type="date" name="vencimento" onChange={handleChange} className="w-full p-3 border rounded-lg" />
+            <div className="w-1/2">
+                <label className="block text-xs font-bold text-gray-500 mb-1">Assinatura (Opcional)</label>
+                <label className="cursor-pointer flex flex-col items-center justify-center h-20 border-2 border-dashed border-green-300 rounded-lg bg-green-50 hover:bg-green-100 transition">
+                    <span className="text-xs text-green-600 font-bold">{assinatura ? 'Assinatura OK!' : 'Carregar Assinatura'}</span>
+                    <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, setAssinatura)} className="hidden" />
+                </label>
             </div>
-        )}
-
-        {(tipo === 'recibo_aluguel') && (
-            <input name="enderecoImovel" onChange={handleChange} placeholder="Endereço do Imóvel" className="w-full p-3 border rounded-lg" />
-        )}
-
-        {tipo !== 'declaracao_uber' && (
-            <>
-                <div className="grid grid-cols-2 gap-4">
-                    <input name="pagadorNome" onChange={handleChange} placeholder="Quem Paga (Nome)" className="p-3 border rounded-lg" />
-                    <input name="pagadorCPF" onChange={handleChange} placeholder="CPF do Pagador" className="p-3 border rounded-lg" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <input name="recebedorNome" onChange={handleChange} placeholder="Quem Recebe (Nome)" className="p-3 border rounded-lg" />
-                    <input name="recebedorCPF" onChange={handleChange} placeholder="CPF/CNPJ Recebedor" className="p-3 border rounded-lg" />
-                </div>
-            </>
-        )}
-
-        {tipo === 'declaracao_uber' && (
-            <div className="bg-purple-50 p-4 rounded-lg">
-                <p className="mb-2 text-sm text-purple-800 font-bold">Dados do Motorista/Autônomo:</p>
-                <input name="recebedorNome" onChange={handleChange} placeholder="Seu Nome Completo" className="w-full p-3 border rounded-lg mb-2" />
-                <input name="recebedorCPF" onChange={handleChange} placeholder="Seu CPF" className="w-full p-3 border rounded-lg" />
-            </div>
-        )}
-        
-        {tipo !== 'declaracao_uber' && (
-            <input name="referente" onChange={handleChange} placeholder="Referente a (Opcional)" className="w-full p-3 border rounded-lg" />
-        )}
-        
-        <input name="cidade" onChange={handleChange} placeholder="Cidade" className="w-full p-3 border rounded-lg" />
-
-        <button onClick={gerarPDF} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg mt-6 text-lg transition-transform hover:scale-[1.02]">
-          <i className="fa-solid fa-download mr-2"></i> Baixar PDF
-        </button>
+          </div>
+        </div>
       </div>
+
+      <button onClick={gerarPDF} className="w-full mt-8 bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02]">
+        <i className="fa-solid fa-file-invoice-dollar text-2xl"></i> BAIXAR RECIBO PROFISSIONAL
+      </button>
     </div>
   );
 }
