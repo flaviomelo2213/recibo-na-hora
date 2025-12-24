@@ -1,23 +1,32 @@
+import React from 'react';
+
 export default function PoliticaPrivacidade() {
   return (
-    <div className="max-w-4xl mx-auto py-16 px-4">
-      <h1 className="text-3xl font-bold mb-6">Política de Privacidade</h1>
-      <div className="prose text-slate-600">
-        <p><strong>Última atualização: Dezembro de 2025</strong></p>
-        <p>A sua privacidade é importante para nós. É política do <strong>ReciboNaHora</strong> respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site.</p>
-        
-        <h3 className="text-xl font-bold mt-6 mb-2">1. Dados Processados Localmente</h3>
-        <p>O ReciboNaHora opera sob um modelo de "Processamento Local". Isso significa que os dados que você digita nos formulários (CPFs, Valores, Nomes) são processados <strong>exclusivamente no seu navegador</strong> e não são enviados para nenhum servidor externo. Nós não armazenamos seus recibos.</p>
+    <main className="min-h-screen bg-slate-50 py-12 px-4">
+      <div className="container mx-auto max-w-3xl bg-white p-8 rounded-2xl shadow-sm">
+        <h1 className="text-3xl font-bold mb-6 text-slate-900">Política de Privacidade</h1>
+        <p className="text-sm text-slate-500 mb-8">Última atualização: 24 de Dezembro de 2025</p>
 
-        <h3 className="text-xl font-bold mt-6 mb-2">2. Coleta de Leads (Opcional)</h3>
-        <p>Em ferramentas específicas, podemos solicitar Nome e WhatsApp/E-mail para liberar o download de materiais ricos. Esses dados são armazenados de forma segura pela <strong>Via Certa Digital (CNPJ 27.779.948/0001-43)</strong> e utilizados apenas para comunicação sobre nossos serviços.</p>
+        <div className="space-y-6 text-slate-700 leading-relaxed">
+          <p>A sua privacidade é importante para nós. É política do <strong>ReciboNaHora</strong> respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site.</p>
 
-        <h3 className="text-xl font-bold mt-6 mb-2">3. Anúncios (Google AdSense)</h3>
-        <p>Utilizamos o Google AdSense para veicular anúncios. O Google usa cookies para exibir anúncios com base nas suas visitas anteriores a este ou outros sites.</p>
+          <h2 className="text-xl font-bold text-slate-900 mt-4">1. Dados Coletados</h2>
+          <p>Não solicitamos informações pessoais como nome, e-mail ou telefone para o uso das ferramentas gratuitas. Todos os documentos são gerados localmente no seu navegador ("Client-Side"), o que significa que os dados que você digita nos formulários (nomes, valores, CPFs) <strong>NÃO são enviados para nossos servidores</strong> e são apagados assim que você fecha a página.</p>
 
-        <h3 className="text-xl font-bold mt-6 mb-2">4. Contato</h3>
-        <p>Para dúvidas sobre esta política, entre em contato através do e-mail: <strong>viacertasf@gmail.com</strong>.</p>
+          <h2 className="text-xl font-bold text-slate-900 mt-4">2. Anúncios (Google AdSense)</h2>
+          <p>O ReciboNaHora exibe anúncios fornecidos pelo Google AdSense. O Google utiliza cookies para exibir anúncios com base nas suas visitas anteriores a este ou a outros websites.</p>
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>O uso de cookies de publicidade permite que o Google e seus parceiros exibam anúncios com base na sua navegação.</li>
+            <li>Você pode desativar a publicidade personalizada acessando as Configurações de Anúncios do Google.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 mt-4">3. Cookies</h2>
+          <p>Utilizamos cookies apenas para fins de funcionalidade (como lembrar suas preferências de cor no site) e para as métricas de publicidade citadas acima.</p>
+
+          <h2 className="text-xl font-bold text-slate-900 mt-4">4. Compromisso do Usuário</h2>
+          <p>O usuário se compromete a fazer uso adequado dos conteúdos e informações que o ReciboNaHora oferece, não utilizando os geradores para fins ilegais ou fraudulentos.</p>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
