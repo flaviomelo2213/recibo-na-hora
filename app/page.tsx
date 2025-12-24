@@ -1,92 +1,123 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 export default function Home() {
-  const [categoriaAtiva, setCategoriaAtiva] = useState('todos');
-
-  // O SEU INVENTÁRIO MESTRE (Adicionei o campo 'link' para funcionar)
-  const documentos = [
-    // Financeiro
-    { id: 'recibo_simples', titulo: "Recibo Simples", desc: "Pagamentos diversos e vendas rápidas.", icone: "fa-receipt", cat: "financeiro", cor: "blue" },
-    { id: 'nota_promissoria', titulo: "Nota Promissória", desc: "Promessa de pagamento com validade legal.", icone: "fa-file-signature", cat: "financeiro", cor: "indigo" },
-    { id: 'vale', titulo: "Vale / Adiantamento", desc: "Comprovante de adiantamento para funcionários.", icone: "fa-money-bill-wave", cat: "financeiro", cor: "green" },
-    
-    // Veículos (Seu Nicho)
-    { id: 'venda_veiculo', titulo: "Venda de Veículo", desc: "Contrato de compra e venda (Carro/Moto).", icone: "fa-car", cat: "veiculos", cor: "orange" },
-    { id: 'sinal_veiculo', titulo: "Recibo de Sinal", desc: "Garanta o negócio com segurança.", icone: "fa-hand-holding-dollar", cat: "veiculos", cor: "orange" },
-    
-    // Imóveis
-    { id: 'recibo_aluguel', titulo: "Recibo de Aluguel", desc: "Para locadores e inquilinos.", icone: "fa-house", cat: "imoveis", cor: "teal" },
-    
-    // Serviços / Oceano Azul
-    { id: 'declaracao_uber', titulo: "Renda Uber/Autônomo", desc: "Comprovante de ganhos para bancos/lojas.", icone: "fa-id-card", cat: "servicos", cor: "purple" },
-    { id: 'orcamento', titulo: "Orçamento", desc: "Orçamento profissional para serviços.", icone: "fa-calculator", cat: "servicos", cor: "blue" },
-  ];
-
-  const docsFiltrados = categoriaAtiva === 'todos' ? documentos : documentos.filter(doc => doc.cat === categoriaAtiva);
-
   return (
-    <div className="max-w-7xl mx-auto pb-20">
-      {/* Hero Section */}
-      <div className="text-center py-16 bg-gradient-to-b from-blue-50 to-white rounded-b-3xl mb-12 border-b border-gray-100">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-          Qual documento você precisa hoje?
-        </h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto px-4">
-          Gerador de documentos gratuito, rápido e seguro. <br/>
-          <span className="text-blue-600 font-bold">Sem cadastro. Sem enrolação.</span>
-        </p>
-      </div>
+    <main className="min-h-screen bg-slate-50">
+      
+      {/* --- HERO SECTION (Topo) --- */}
+      <section className="bg-slate-900 text-white pt-20 pb-24 px-4 text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+           <i className="fa-solid fa-file-invoice text-[200px] absolute -top-10 -left-10 text-white transform -rotate-12"></i>
+           <i className="fa-solid fa-print text-[200px] absolute -bottom-10 -right-10 text-white transform rotate-12"></i>
+        </div>
+        
+        <div className="container mx-auto relative z-10 max-w-4xl">
+          <div className="inline-block bg-blue-600/20 border border-blue-500/30 rounded-full px-4 py-1 mb-6 animate-fade-in-down">
+            <span className="text-blue-300 text-sm font-bold tracking-wide uppercase">⚡ 100% Grátis e Ilimitado</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
+            Crie Documentos e Recibos <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Profissionais</span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Gerador automático de recibos, contratos de aluguel, relatórios MEI e muito mais. 
+            Sem cadastro, sem login, direto no seu navegador.
+          </p>
+          
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <Link href="/ferramentas" className="w-full md:w-auto bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-blue-900/50 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+              <i className="fa-solid fa-screwdriver-wrench"></i> Ver Todas as Ferramentas
+            </Link>
+            <Link href="/gerar/recibo-pro" className="w-full md:w-auto bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-8 rounded-xl border border-white/20 transition-all backdrop-blur-sm flex items-center justify-center gap-3">
+              <i className="fa-solid fa-receipt"></i> Novo Recibo 2.0
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      {/* Navegação */}
-      <div className="flex flex-wrap justify-center gap-2 mb-10 px-4">
-        {[
-          { id: 'todos', label: 'Todos', icon: 'fa-layer-group' },
-          { id: 'financeiro', label: 'Dinheiro', icon: 'fa-wallet' },
-          { id: 'veiculos', label: 'Veículos', icon: 'fa-car' },
-          { id: 'imoveis', label: 'Imóveis', icon: 'fa-house' },
-          { id: 'servicos', label: 'Serviços', icon: 'fa-briefcase' },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setCategoriaAtiva(tab.id)}
-            className={`px-5 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 border
-              ${categoriaAtiva === tab.id 
-                ? 'bg-slate-800 text-white border-slate-800 shadow-md' 
-                : 'bg-white text-slate-600 hover:bg-gray-50 border-gray-200'}`}
-          >
-            <i className={`fa-solid ${tab.icon}`}></i> {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Grid de Cards (Agora com Links!) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4">
-        {docsFiltrados.map((doc) => (
-          <Link href={`/gerar/${doc.id}`} key={doc.id} className="group no-underline">
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all h-full flex flex-col items-start relative overflow-hidden">
-              <div className={`absolute top-0 right-0 w-20 h-20 bg-${doc.cor}-50 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-150`}></div>
-              
-              <div className={`w-12 h-12 rounded-lg bg-${doc.cor}-100 flex items-center justify-center mb-4 relative z-10`}>
-                <i className={`fa-solid ${doc.icone} text-xl text-${doc.cor}-600`}></i>
-              </div>
-              
-              <h3 className="text-lg font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors relative z-10">
-                {doc.titulo}
-              </h3>
-              <p className="text-sm text-slate-500 mb-4 flex-grow relative z-10">
-                {doc.desc}
-              </p>
-              
-              <span className="text-xs font-bold text-blue-600 uppercase tracking-wider flex items-center mt-auto relative z-10">
-                Preencher <i className="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-              </span>
+      {/* --- DESTAQUES RÁPIDOS --- */}
+      <section className="py-16 container mx-auto px-4 -mt-12 relative z-20">
+        <div className="grid md:grid-cols-3 gap-6">
+          
+          {/* Card 1 */}
+          <Link href="/ferramentas/mei-relatorio" className="bg-white p-6 rounded-2xl shadow-xl border-b-4 border-blue-600 hover:-translate-y-1 transition-all group">
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 text-2xl mb-4 group-hover:scale-110 transition-transform">
+              <i className="fa-solid fa-chart-line"></i>
             </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-2">Relatório MEI</h3>
+            <p className="text-slate-500 text-sm">Obrigatório mensalmente. Preencha e baixe o PDF oficial.</p>
           </Link>
-        ))}
-      </div>
-    </div>
+
+          {/* Card 2 */}
+          <Link href="/ferramentas/calculadora-rescisao" className="bg-white p-6 rounded-2xl shadow-xl border-b-4 border-green-600 hover:-translate-y-1 transition-all group">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 text-2xl mb-4 group-hover:scale-110 transition-transform">
+              <i className="fa-solid fa-calculator"></i>
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-2">Rescisão CLT</h3>
+            <p className="text-slate-500 text-sm">Calcule acerto trabalhista, férias e décimo terceiro.</p>
+          </Link>
+
+          {/* Card 3 */}
+          <Link href="/ferramentas/contrato-completo" className="bg-white p-6 rounded-2xl shadow-xl border-b-4 border-indigo-600 hover:-translate-y-1 transition-all group">
+            <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-2xl mb-4 group-hover:scale-110 transition-transform">
+              <i className="fa-solid fa-file-contract"></i>
+            </div>
+            <h3 className="text-xl font-bold text-slate-800 mb-2">Contrato de Aluguel</h3>
+            <p className="text-slate-500 text-sm">Modelo completo com vistoria e cláusulas de multa.</p>
+          </Link>
+
+        </div>
+      </section>
+
+      {/* --- CAIXA DE IDEIAS (NOVIDADE) --- */}
+      <section className="py-20 bg-gradient-to-br from-yellow-400 to-orange-500 text-slate-900">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <div className="inline-block bg-white/30 backdrop-blur-md rounded-full p-4 mb-6 shadow-sm">
+            <i className="fa-regular fa-lightbulb text-4xl text-white"></i>
+          </div>
+          
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-white drop-shadow-sm">
+            Não encontrou o que precisava?
+          </h2>
+          <p className="text-lg text-white/90 mb-8 font-medium">
+            O ReciboNaHora é feito para você. Digite abaixo qual documento ou ferramenta você gostaria de ver aqui, e nós criaremos!
+          </p>
+
+          {/* Formulário Conectado ao E-mail via FormSubmit */}
+          <form 
+            action="https://formsubmit.co/viacertasf@gmail.com" 
+            method="POST" 
+            className="bg-white p-2 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 max-w-xl mx-auto"
+          >
+            {/* Configurações Ocultas do FormSubmit */}
+            <input type="hidden" name="_subject" value="Nova Ideia para o Site!" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://recibonahora.com.br/ferramentas" />
+            <input type="hidden" name="_template" value="table" />
+
+            <input 
+              type="text" 
+              name="sugestao" 
+              placeholder="Ex: Contrato de Namoro, Recibo de Diarista..." 
+              required
+              className="flex-grow p-4 rounded-xl text-slate-800 outline-none placeholder-gray-400 font-medium"
+            />
+            <button 
+              type="submit" 
+              className="bg-slate-900 text-white font-bold py-4 px-8 rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 whitespace-nowrap"
+            >
+              <i className="fa-solid fa-paper-plane"></i> Enviar Ideia
+            </button>
+          </form>
+          
+          <p className="text-white/60 text-xs mt-4">
+            Sua sugestão será enviada diretamente para nossa equipe de desenvolvimento.
+          </p>
+        </div>
+      </section>
+
+    </main>
   );
 }
