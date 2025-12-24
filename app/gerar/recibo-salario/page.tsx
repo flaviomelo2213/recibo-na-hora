@@ -7,7 +7,7 @@ export default function ReciboSalario() {
     empresaNome: '', empresaCNPJ: '',
     funcNome: '', funcCPF: '', funcCargo: '',
     valor: '', valorExtenso: '',
-    referencia: new Date().getMonth() + 1 + '/' + new Date().getFullYear(),
+    referencia: `${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
     tipoPagamento: 'Salário Mensal', // Salário, Adiantamento, 13º, Férias, Diária
     dataPagamento: new Date().toISOString().split('T')[0],
     cidade: ''
@@ -135,7 +135,7 @@ export default function ReciboSalario() {
         </div>
       </div>
 
-      {/* --- TEXTO DE SEO (A ESTRATÉGIA DO CONCORRENTE) --- */}
+      {/* --- TEXTO DE SEO (Estratégia do Concorrente) --- */}
       <section className="max-w-4xl mx-auto prose prose-slate">
         <h2 className="text-3xl font-bold text-slate-900 mb-6">Tudo sobre Recibo de Pagamento de Salário</h2>
         
