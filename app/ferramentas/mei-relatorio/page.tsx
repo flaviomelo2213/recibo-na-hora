@@ -1,138 +1,110 @@
 'use client';
-
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
 
-export default function RelatorioMei() {
+export default function RelatorioMEI() {
   const [dados, setDados] = useState({
-    cnpj: '', empreendedor: '', periodo: '',
-    vendaMercadoriaComNF: '', vendaMercadoriaSemNF: '',
-    revendaMercadoriaComNF: '', revendaMercadoriaSemNF: '',
-    servicosComNF: '', servicosSemNF: '',
+    cnpj: '', nome: '', ano: new Date().getFullYear().toString(),
+    receitaComercio: Array(12).fill('0,00'),
+    receitaServico: Array(12).fill('0,00'),
   });
 
-  const handleChange = (e: any) => {
-    setDados({ ...dados, [e.target.name]: e.target.value });
+  const handleValorChange = (index: number, tipo: 'receitaComercio' | 'receitaServico', valor: string) => {
+    const novosValores = [...dados[tipo]];
+    novosValores[index] = valor;
+    setDados({ ...dados, [tipo]: novosValores });
   };
 
   const gerarPDF = () => {
     const doc = new jsPDF();
-    const toNum = (str: string) => parseFloat(str.replace(',', '.') || '0');
-    
-    // Cálculos
-    const totalVenda = toNum(dados.vendaMercadoriaComNF) + toNum(dados.vendaMercadoriaSemNF);
-    const totalRevenda = toNum(dados.revendaMercadoriaComNF) + toNum(dados.revendaMercadoriaSemNF);
-    const totalServico = toNum(dados.servicosComNF) + toNum(dados.servicosSemNF);
-    const totalGeral = totalVenda + totalRevenda + totalServico;
-
-    // Layout Oficial do Governo (Cópia fiel para validade)
+    doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(14);
     doc.text("RELATÓRIO MENSAL DAS RECEITAS BRUTAS - MEI", 105, 20, { align: "center" });
     
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text("(Anexo da Resolução CGSN nº 140, de 2018)", 105, 27, { align: "center" });
+    doc.text(`CNPJ: ${dados.cnpj}`, 20, 40);
+    doc.text(`Empreendedor: ${dados.nome}`, 20, 45);
+    doc.text(`Ano Calendário: ${dados.ano}`, 150, 40);
 
-    doc.rect(10, 35, 190, 25);
-    doc.text(`CNPJ: ${dados.cnpj}`, 15, 45);
-    doc.text(`Empreendedor: ${dados.empreendedor.toUpperCase()}`, 15, 52);
-    doc.text(`Período de Apuração (Mês/Ano): ${dados.periodo}`, 15, 59);
+    doc.autoTable({
+        startY: 55,
+        head: [['Mês', 'Revenda de Mercadorias (R$)', 'Prestação de Serviços (R$)']],
+        body: dados.receitaComercio.map((val, i) => [
+            ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'][i],
+            val,
+            dados.receitaServico[i]
+        ]),
+    } as any);
 
-    // Tabela I - Revenda
-    let y = 70;
-    doc.setFont("helvetica", "bold");
-    doc.text("I - REVENDA DE MERCADORIAS (Comércio)", 10, y);
-    y += 5;
-    doc.setFont("helvetica", "normal");
-    doc.text("Com Dispensa de Nota Fiscal: R$ " + dados.revendaMercadoriaSemNF, 15, y+5);
-    doc.text("Com Emissão de Nota Fiscal: R$ " + dados.revendaMercadoriaComNF, 15, y+12);
-    doc.setFont("helvetica", "bold");
-    doc.text("TOTAL I: R$ " + totalRevenda.toFixed(2), 150, y+12);
+    doc.text("Declaro que as informações acima são verdadeiras.", 105, 250, { align: "center" });
+    doc.line(60, 270, 150, 270);
+    doc.text("Assinatura do Empresário", 105, 275, { align: "center" });
 
-    // Tabela II - Venda Industrial
-    y += 25;
-    doc.text("II - VENDA DE PRODUTOS INDUSTRIALIZADOS (Indústria)", 10, y);
-    y += 5;
-    doc.setFont("helvetica", "normal");
-    doc.text("Com Dispensa de Nota Fiscal: R$ " + dados.vendaMercadoriaSemNF, 15, y+5);
-    doc.text("Com Emissão de Nota Fiscal: R$ " + dados.vendaMercadoriaComNF, 15, y+12);
-    doc.setFont("helvetica", "bold");
-    doc.text("TOTAL II: R$ " + totalVenda.toFixed(2), 150, y+12);
-
-    // Tabela III - Serviços
-    y += 25;
-    doc.text("III - PRESTAÇÃO DE SERVIÇOS", 10, y);
-    y += 5;
-    doc.setFont("helvetica", "normal");
-    doc.text("Com Dispensa de Nota Fiscal: R$ " + dados.servicosSemNF, 15, y+5);
-    doc.text("Com Emissão de Nota Fiscal: R$ " + dados.servicosComNF, 15, y+12);
-    doc.setFont("helvetica", "bold");
-    doc.text("TOTAL III: R$ " + totalServico.toFixed(2), 150, y+12);
-
-    // Total Geral
-    y += 25;
-    doc.setFillColor(220, 220, 220);
-    doc.rect(10, y, 190, 15, 'F');
-    doc.setFontSize(12);
-    doc.text("TOTAL GERAL DAS RECEITAS BRUTAS NO MÊS: R$ " + totalGeral.toFixed(2), 105, y+10, {align:'center'});
-
-    // Assinatura
-    y += 40;
-    doc.text("________________________________________________", 105, y, {align:'center'});
-    doc.setFontSize(10);
-    doc.text("Assinatura do Empresário", 105, y+5, {align:'center'});
-    doc.text(`Local e Data: __________________, ${new Date().toLocaleDateString()}`, 105, y+15, {align:'center'});
-
-    doc.save("relatorio-mensal-mei.pdf");
+    doc.save("relatorio_mensal_mei.pdf");
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
-      <div className="bg-slate-900 text-white p-8 rounded-t-2xl text-center">
-        <h1 className="text-3xl font-bold mb-2">Relatório Mensal MEI (Obrigatório)</h1>
-        <p className="text-slate-300">Preencha seus ganhos do mês e gere o PDF oficial para sua contabilidade.</p>
-      </div>
-      
-      <div className="bg-white p-8 border border-gray-200 rounded-b-2xl shadow-lg">
-        {/* Identificação */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-            <input name="cnpj" placeholder="Seu CNPJ" onChange={handleChange} className="p-3 border rounded" />
-            <input name="empreendedor" placeholder="Nome Completo" onChange={handleChange} className="p-3 border rounded" />
-            <input name="periodo" placeholder="Mês/Ano (Ex: 01/2025)" onChange={handleChange} className="p-3 border rounded" />
+    <div className="min-h-screen bg-slate-50 py-10 px-4">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-12">
+        <div className="bg-blue-600 text-white p-6 text-center">
+             <h1 className="text-2xl font-bold"><i className="fa-solid fa-chart-line"></i> Relatório Mensal MEI</h1>
+             <p className="text-blue-100 text-sm">Preencha mensalmente para facilitar sua declaração anual (DASN).</p>
         </div>
 
-        {/* Tabelas de Valores */}
-        <div className="space-y-6">
-            <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-bold text-blue-900 mb-2">Comércio / Revenda</h3>
-                <div className="grid grid-cols-2 gap-4">
-                    <input name="revendaMercadoriaSemNF" placeholder="Venda SEM Nota (R$)" onChange={handleChange} className="p-2 border rounded" />
-                    <input name="revendaMercadoriaComNF" placeholder="Venda COM Nota (R$)" onChange={handleChange} className="p-2 border rounded" />
-                </div>
+        <div className="p-8">
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+                <input placeholder="CNPJ" onChange={(e) => setDados({...dados, cnpj: e.target.value})} className="p-3 border rounded" />
+                <input placeholder="Nome do Empreendedor" onChange={(e) => setDados({...dados, nome: e.target.value})} className="p-3 border rounded" />
+                <input placeholder="Ano (Ex: 2025)" value={dados.ano} onChange={(e) => setDados({...dados, ano: e.target.value})} className="p-3 border rounded" />
             </div>
 
-            <div className="bg-orange-50 p-4 rounded-lg">
-                <h3 className="font-bold text-orange-900 mb-2">Indústria (Fabricação Própria)</h3>
-                <div className="grid grid-cols-2 gap-4">
-                    <input name="vendaMercadoriaSemNF" placeholder="Venda SEM Nota (R$)" onChange={handleChange} className="p-2 border rounded" />
-                    <input name="vendaMercadoriaComNF" placeholder="Venda COM Nota (R$)" onChange={handleChange} className="p-2 border rounded" />
-                </div>
+            <div className="grid grid-cols-12 gap-2 mb-2 text-xs font-bold text-center text-slate-500">
+                <div className="col-span-4 text-left pl-2">MÊS</div>
+                <div className="col-span-4">COMÉRCIO (R$)</div>
+                <div className="col-span-4">SERVIÇOS (R$)</div>
             </div>
 
-            <div className="bg-purple-50 p-4 rounded-lg">
-                <h3 className="font-bold text-purple-900 mb-2">Prestação de Serviços</h3>
-                <div className="grid grid-cols-2 gap-4">
-                    <input name="servicosSemNF" placeholder="Serviço SEM Nota (R$)" onChange={handleChange} className="p-2 border rounded" />
-                    <input name="servicosComNF" placeholder="Serviço COM Nota (R$)" onChange={handleChange} className="p-2 border rounded" />
+            {['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'].map((mes, i) => (
+                <div key={i} className="grid grid-cols-12 gap-2 mb-2 items-center">
+                    <div className="col-span-4 font-bold text-slate-700 pl-2 bg-gray-50 p-2 rounded">{mes}</div>
+                    <div className="col-span-4"><input placeholder="0,00" onChange={(e) => handleValorChange(i, 'receitaComercio', e.target.value)} className="w-full p-2 border rounded text-center" /></div>
+                    <div className="col-span-4"><input placeholder="0,00" onChange={(e) => handleValorChange(i, 'receitaServico', e.target.value)} className="w-full p-2 border rounded text-center" /></div>
                 </div>
-            </div>
+            ))}
+
+            <button onClick={gerarPDF} className="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2">
+                <i className="fa-solid fa-file-pdf"></i> BAIXAR RELATÓRIO PDF
+            </button>
         </div>
-
-        <button onClick={gerarPDF} className="w-full mt-8 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition">
-            BAIXAR RELATÓRIO OFICIAL (PDF)
-        </button>
       </div>
+
+      {/* --- TEXTO RICO PARA SEO --- */}
+      <section className="max-w-4xl mx-auto prose prose-slate">
+        <h2 className="text-3xl font-bold text-slate-900 mb-6">Como preencher o Relatório Mensal MEI?</h2>
+        <p className="text-slate-600 mb-6">
+            Todo Microempreendedor Individual (MEI) tem a obrigação de controlar seu faturamento mensalmente. Embora o <strong>Relatório Mensal das Receitas Brutas</strong> não precise ser entregue em nenhum órgão público, ele é <strong>obrigatório</strong> pela legislação e deve ser guardado junto com as Notas Fiscais de compra e venda por 5 anos.
+        </p>
+
+        <h3 className="text-xl font-bold text-slate-800 mt-6 mb-3">Passo a Passo para preencher:</h3>
+        <ul className="list-decimal pl-5 space-y-3 text-slate-600">
+            <li><strong>Separe suas Receitas:</strong> Identifique o que você vendeu com Nota Fiscal e o que vendeu sem Nota Fiscal.</li>
+            <li><strong>Comércio vs Serviços:</strong>
+                <ul className="list-disc pl-5 mt-1 text-sm text-slate-500">
+                    <li>Se você vende produtos (roupas, comida, eletrônicos), preencha na coluna <strong>Revenda de Mercadorias</strong>.</li>
+                    <li>Se você presta serviços (pintor, marketing, manicure), preencha na coluna <strong>Prestação de Serviços</strong>.</li>
+                </ul>
+            </li>
+            <li><strong>Some o Total:</strong> No final do mês, some todas as vendas (dinheiro, cartão, PIX) e coloque o valor bruto.</li>
+        </ul>
+
+        <div className="bg-blue-50 p-6 rounded-xl border border-blue-200 mt-8">
+            <h4 className="font-bold text-blue-800 mb-2 flex items-center gap-2"><i className="fa-solid fa-info-circle"></i> Para que serve este relatório?</h4>
+            <p className="text-sm text-blue-900 leading-relaxed">
+                Este relatório é a "cola" para você fazer sua declaração anual (DASN-SIMEI) sem erros. Quando chegar em janeiro, basta pegar os 12 relatórios mensais que você gerou aqui, somar os valores e enviar para a Receita Federal. Isso evita multas e garante que você não ultrapasse o limite de faturamento do MEI (R$ 81.000,00 anuais).
+            </p>
+        </div>
+      </section>
     </div>
   );
 }
