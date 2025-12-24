@@ -1,10 +1,10 @@
 import React from 'react';
-import Script from 'next/script'; // Importante para o AdSense funcionar rápido
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis',
-  description: 'Crie recibos de Aluguel, Venda de Veículos, Promissória e Comprovantes para Uber/MEI. Gerador de PDF profissional, rápido e sem cadastro.',
-  keywords: 'recibo online, gerador de recibo, recibo veiculo, recibo aluguel, nota promissoria, declaração uber, ferramentas corretor',
+  description: 'Crie recibos de Aluguel, Venda de Veículos, Promissória e Relatórios MEI. Ferramentas gratuitas para corretores e autônomos no Brasil.',
+  keywords: 'recibo online, gerador de recibo, recibo veiculo, recibo aluguel, mei, nota promissoria, ferramentas corretor',
 };
 
 export default function RootLayout({
@@ -15,14 +15,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <head>
-        {/* Tailwind CSS (Visual) */}
+        {/* Tailwind CSS */}
         <script src="https://cdn.tailwindcss.com"></script>
-        {/* Ícones FontAwesome */}
+        {/* FontAwesome Icons */}
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-        {/* Fonte Inter */}
+        {/* Google Fonts (Inter) */}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         
-        {/* --- GOOGLE ADSENSE (INSTALAÇÃO OFICIAL) --- */}
+        {/* Google AdSense */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182690500"
@@ -47,7 +47,7 @@ export default function RootLayout({
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold tracking-tight text-slate-900 leading-none">Recibo<span className="text-blue-600">NaHora</span></span>
-                <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-1">Gerador Inteligente</span>
+                <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-1">Simples & Grátis</span>
               </div>
             </a>
 
@@ -55,7 +55,7 @@ export default function RootLayout({
             <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
               <a href="/" className="hover:text-blue-600 transition">Início</a>
               <a href="/ferramentas" className="text-blue-600 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-full">
-                <i className="fa-solid fa-screwdriver-wrench"></i> Ferramentas Úteis
+                <i className="fa-solid fa-screwdriver-wrench"></i> Ferramentas
               </a>
               <a href="#contato" className="hover:text-blue-600 transition">Contato</a>
             </nav>
@@ -69,54 +69,49 @@ export default function RootLayout({
 
         {children}
 
-        {/* --- RODAPÉ OFICIAL (Via Certa Digital) --- */}
+        {/* --- RODAPÉ SIMPLIFICADO --- */}
         <footer className="bg-white border-t border-gray-200 mt-auto pt-16 pb-8" id="contato">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-4 gap-10 mb-12">
               
-              {/* Coluna 1 */}
+              {/* Coluna 1: Sobre */}
               <div className="col-span-1 md:col-span-1">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white"><i className="fa-solid fa-check"></i></div>
                   <span className="font-bold text-lg">ReciboNaHora</span>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4">
-                  Simplificamos a burocracia. Gere documentos com validade jurídica em segundos.
+                  Plataforma gratuita para gerar documentos, recibos e relatórios com validade jurídica. Feito para o Brasil. 🇧🇷
                 </p>
-                <div className="text-xs text-gray-400">
-                  <p className="font-semibold text-gray-600">Via Certa Digital</p>
-                  <p>CNPJ: 27.779.948/0001-43</p>
-                  <p>Goose Creek, SC - USA / Brasil</p>
-                </div>
               </div>
               
-              {/* Coluna 2 */}
+              {/* Coluna 2: Ferramentas */}
               <div>
-                <h4 className="font-bold text-slate-900 mb-4">Ferramentas</h4>
+                <h4 className="font-bold text-slate-900 mb-4">Úteis</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
-                  <li><a href="/ferramentas/checklist-vistoria" className="hover:text-blue-600">Checklist Vistoria</a></li>
+                  <li><a href="/ferramentas/mei-relatorio" className="hover:text-blue-600">Relatório MEI</a></li>
                   <li><a href="/ferramentas/calculadora-rescisao" className="hover:text-blue-600">Calculadora Trabalhista</a></li>
+                  <li><a href="/ferramentas/checklist-vistoria" className="hover:text-blue-600">Checklist Imobiliário</a></li>
+                </ul>
+              </div>
+
+              {/* Coluna 3: Geradores */}
+              <div>
+                <h4 className="font-bold text-slate-900 mb-4">Geradores</h4>
+                <ul className="space-y-3 text-sm text-gray-600">
+                  <li><a href="/gerar/recibo-pro" className="hover:text-blue-600">Recibo Profissional</a></li>
+                  <li><a href="/gerar/venda_veiculo" className="hover:text-blue-600">Recibo de Veículo</a></li>
                   <li><a href="/gerar/recibo_aluguel" className="hover:text-blue-600">Recibo de Aluguel</a></li>
                 </ul>
               </div>
 
-              {/* Coluna 3 */}
+              {/* Coluna 4: Contato e Legal */}
               <div>
-                <h4 className="font-bold text-slate-900 mb-4">Veículos & Apps</h4>
-                <ul className="space-y-3 text-sm text-gray-600">
-                  <li><a href="/gerar/venda_veiculo" className="hover:text-blue-600">Recibo de Compra e Venda</a></li>
-                  <li><a href="/gerar/declaracao_uber" className="hover:text-blue-600">Declaração de Renda Uber</a></li>
-                  <li><a href="/gerar/isencao_multas" className="hover:text-blue-600">Isenção de Multas</a></li>
-                </ul>
-              </div>
-
-              {/* Coluna 4 */}
-              <div>
-                <h4 className="font-bold text-slate-900 mb-4">Fale Conosco</h4>
+                <h4 className="font-bold text-slate-900 mb-4">Suporte</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
                   <li className="flex items-center gap-2">
                     <i className="fa-solid fa-envelope text-blue-600"></i>
-                    <a href="mailto:viacertasf@gmail.com" className="hover:text-blue-600">viacertasf@gmail.com</a>
+                    <a href="mailto:viacertasf@gmail.com" className="hover:text-blue-600">Fale Conosco</a>
                   </li>
                   <li><a href="/politica-privacidade" className="hover:text-blue-600">Política de Privacidade</a></li>
                   <li><a href="/termos-uso" className="hover:text-blue-600">Termos de Uso</a></li>
@@ -126,14 +121,13 @@ export default function RootLayout({
             
             <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
               <div>
-                <p>&copy; 2025 ReciboNaHora. Todos os direitos reservados.</p>
-                <p className="text-xs mt-1">Desenvolvido por <span className="font-bold text-slate-700">Via Certa Digital - Flavio Melo</span></p>
+                <p>&copy; 2025 ReciboNaHora.com.br</p>
+                <p className="text-xs mt-1 text-gray-400">Desenvolvido por <span className="font-semibold">Via Certa Digital</span></p>
               </div>
               
               <div className="flex gap-4 text-xl">
                 <a href="#" className="text-gray-400 hover:text-pink-600 transition"><i className="fa-brands fa-instagram"></i></a>
                 <a href="#" className="text-gray-400 hover:text-blue-600 transition"><i className="fa-brands fa-facebook"></i></a>
-                <a href="#" className="text-gray-400 hover:text-green-600 transition"><i className="fa-brands fa-whatsapp"></i></a>
               </div>
             </div>
           </div>
