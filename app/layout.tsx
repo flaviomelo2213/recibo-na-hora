@@ -69,7 +69,7 @@ export default function RootLayout({
 
         {children}
 
-        {/* --- RODAPÉ SIMPLIFICADO --- */}
+        {/* --- RODAPÉ SIMPLIFICADO (Brasil) --- */}
         <footer className="bg-white border-t border-gray-200 mt-auto pt-16 pb-8" id="contato">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-4 gap-10 mb-12">
@@ -85,7 +85,7 @@ export default function RootLayout({
                 </p>
               </div>
               
-              {/* Coluna 2: Ferramentas */}
+              {/* Coluna 2: Ferramentas Úteis */}
               <div>
                 <h4 className="font-bold text-slate-900 mb-4">Úteis</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
@@ -95,7 +95,7 @@ export default function RootLayout({
                 </ul>
               </div>
 
-              {/* Coluna 3: Geradores */}
+              {/* Coluna 3: Geradores Populares */}
               <div>
                 <h4 className="font-bold text-slate-900 mb-4">Geradores</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
@@ -105,7 +105,7 @@ export default function RootLayout({
                 </ul>
               </div>
 
-              {/* Coluna 4: Contato e Legal */}
+              {/* Coluna 4: Suporte */}
               <div>
                 <h4 className="font-bold text-slate-900 mb-4">Suporte</h4>
                 <ul className="space-y-3 text-sm text-gray-600">
@@ -122,7 +122,7 @@ export default function RootLayout({
             <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
               <div>
                 <p>&copy; 2025 ReciboNaHora.com.br</p>
-                <p className="text-xs mt-1 text-gray-400">Desenvolvido por <span className="font-semibold">Via Certa Digital</span></p>
+                <p className="text-xs mt-1 text-gray-400">Desenvolvido por <span className="font-semibold text-slate-600">Via Certa Digital</span></p>
               </div>
               
               <div className="flex gap-4 text-xl">
