@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 export default function RelatorioMEI() {
   const [dados, setDados] = useState({
@@ -27,7 +28,7 @@ export default function RelatorioMEI() {
     doc.text(`Empreendedor: ${dados.nome}`, 20, 45);
     doc.text(`Ano Calendário: ${dados.ano}`, 150, 40);
 
-    doc.autoTable({
+    (doc as any).autoTable({
         startY: 55,
         head: [['Mês', 'Revenda de Mercadorias (R$)', 'Prestação de Serviços (R$)']],
         body: dados.receitaComercio.map((val, i) => [
@@ -35,7 +36,7 @@ export default function RelatorioMEI() {
             val,
             dados.receitaServico[i]
         ]),
-    } as any);
+    });
 
     doc.text("Declaro que as informações acima são verdadeiras.", 105, 250, { align: "center" });
     doc.line(60, 270, 150, 270);

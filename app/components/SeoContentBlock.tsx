@@ -1,18 +1,18 @@
+'use client';
+
 import React from 'react';
 
-interface SeoBlockProps {
+interface SeoContentBlockProps {
   title: string;
-  content: string | React.ReactNode;
+  content: React.ReactNode;
 }
 
-export default function SeoContentBlock({ title, content }: SeoBlockProps) {
+export default function SeoContentBlock({ title, content }: SeoContentBlockProps) {
   return (
-    <div className="mb-8">
-      <h3 className="text-xl font-bold text-gray-800 mb-3 border-l-4 border-blue-500 pl-3">
-        {title}
-      </h3>
-      <div className="text-gray-600 leading-relaxed text-justify">
-        {content}
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-stone-800 border-b border-stone-200 pb-3">{title}</h2>
+      <div className="text-stone-700 leading-relaxed">
+        {typeof content === 'string' ? <p>{content}</p> : content}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import FerramentaProcuracao from "./_components/FerramentaProcuracao";
-import LegalDisclaimer from "@/components/LegalDisclaimer"; // Seu aviso legal criado anteriormente
-import SeoContentBlock from "@/components/SeoContentBlock"; // O componente criado no Passo 1
+import LegalDisclaimer from "../../components/LegalDisclaimer"; // Seu aviso legal criado anteriormente
+import SeoContentBlock from "../../components/SeoContentBlock"; // O componente criado no Passo 1
 
 export default function ProcuracaoPage() {
   return (
