@@ -3,7 +3,13 @@
 
 import { useState } from 'react';
 
-const FaqItem = ({ question, answer }) => {
+// Define the type for a single FAQ item's props
+interface FaqItemProps {
+  question: string;
+  answer: string;
+}
+
+const FaqItem = ({ question, answer }: FaqItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,14 +31,22 @@ const FaqItem = ({ question, answer }) => {
   );
 };
 
-const FaqAccordion = ({ faqs }) => {
+// Define the type for the props of the main accordion component
+interface FaqAccordionProps {
+  faqs: {
+    question: string;
+    answer: string;
+  }[];
+}
+
+const FaqAccordion = ({ faqs }: FaqAccordionProps) => {
   if (!faqs || faqs.length === 0) {
     return null;
   }
 
   return (
     <div className="max-w-4xl mx-auto mt-16">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Perguntas Frequentes</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Perguntas Frequentes</h2>
         <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
             {faqs.map((faq, index) => (
             <FaqItem key={index} question={faq.question} answer={faq.answer} />
