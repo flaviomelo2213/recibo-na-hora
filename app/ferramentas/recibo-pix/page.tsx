@@ -1,84 +1,87 @@
+
 import React from 'react';
-import FerramentaReciboPix from "./_components/FerramentaPix";
+import FerramentaReciboPix from "./_components/FerramentaReciboPix";
 import LegalDisclaimer from "../../components/LegalDisclaimer"; 
-import SeoContentBlock from "../../components/SeoContentBlock"; 
+import FaqAccordion from "../../components/FaqAccordion";
+
+const faqs = [
+  {
+    question: "Qual a validade jurídica de um Recibo PIX?",
+    answer: "O Recibo PIX gerado por esta ferramenta é um documento robusto para comprovar uma transação. Ele tem validade jurídica como comprovante de pagamento para a maioria das situações cotidianas, como quitação de aluguéis, serviços autônomos e vendas informais. No entanto, ele não substitui uma Nota Fiscal em operações comerciais que exigem o recolhimento de impostos."
+  },
+  {
+    question: "O QR Code gerado no recibo faz a transferência do dinheiro?",
+    answer: "Não. O QR Code presente no recibo serve apenas para simples conferência e validação dos dados da transação (Chave PIX, valor, etc.). Ele não é um QR Code de pagamento. O comprovante oficial da transação é sempre aquele emitido pelo seu banco após a efetivação do PIX."
+  },
+  {
+    question: "As informações que eu preencho são seguras?",
+    answer: "Sim, 100% seguras. A ferramenta opera inteiramente no seu navegador (client-side), o que significa que nenhum dado informado por você (nomes, chaves PIX, valores) é enviado, registrado ou armazenado em nossos servidores. Sua privacidade é total."
+  },
+  {
+    question: "Este site é uma ferramenta oficial do Banco Central?",
+    answer: "Não. O ReciboNaHora.com.br é uma plataforma independente que oferece ferramentas gratuitas para facilitar a criação de documentos. Não temos qualquer vínculo com o Banco Central do Brasil ou com instituições bancárias. O PIX é um meio de pagamento do Banco Central, e nossa ferramenta apenas gera um recibo referente a transações feitas por esse meio."
+  }
+];
 
 export default function ReciboPixPage() {
   return (
-    <main className="bg-stone-50 py-12">
+    <main className="bg-slate-50 py-12">
       <div className="container mx-auto px-4 max-w-7xl">
       
-      {/* 1. HEADER DE IMPACTO */}
+      {/* 1. HEADER */}
       <div className="text-center mb-12">
-        <span className="bg-amber-100 text-amber-800 text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
-          Ferramenta Mais Usada
+        <span className="bg-blue-100 text-blue-800 text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
+          Ferramenta Popular
         </span>
-        <h1 className="text-4xl md:text-5xl font-bold text-stone-900 mb-4 tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
           Gerador de Recibo PIX Online Grátis
         </h1>
-        <p className="text-lg text-stone-600 max-w-3xl mx-auto">
-          Crie e baixe um recibo de pagamento PIX em PDF, com QR Code, de forma online e gratuita. Modelo pronto para preencher, imprimir e assinar.
+        <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+          Crie um recibo de pagamento PIX com pré-visualização em tempo real. Preencha os dados e baixe o PDF pronto para enviar.
         </p>
       </div>
 
-      {/* 2. ÁREA DA FERRAMENTA (DESTAQUE) */}
-      <div className="bg-white shadow-2xl shadow-stone-200/80 rounded-2xl p-6 md:p-10 mb-16 border border-stone-200 max-w-6xl mx-auto relative overflow-hidden">
-        {/* Efeito visual de fundo (Opcional) */}
-        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-amber-50 rounded-full blur-2xl opacity-60"></div>
-        
+      {/* 2. ÁREA DA FERRAMENTA */}
+      <div className="bg-white shadow-2xl shadow-slate-200/80 rounded-2xl p-6 md:p-10 mb-16 border border-slate-200 max-w-7xl mx-auto relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blue-50 rounded-full blur-2xl opacity-60"></div>
         <FerramentaReciboPix />
       </div>
 
-      {/* 3. CONTEÚDO SEO + SIDEBAR */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-stone-200 pt-12">
+      {/* 3. CONTEÚDO FAQ + SIDEBAR */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-slate-200 pt-12">
         
-        {/* COLUNA ESQUERDA (SEO) */}
-        <div className="lg:col-span-2 space-y-10">
-          <SeoContentBlock 
-            title="O que é um Recibo PIX e qual sua validade?"
-            content="O Recibo PIX é um documento que comprova a efetivação de uma transação financeira realizada através do sistema de pagamentos instantâneos do Banco Central. Ele serve como prova formal de que uma quantia foi transferida de um pagador para um beneficiário, quitando uma dívida ou obrigação. Embora não substitua uma Nota Fiscal em operações comerciais que exigem tributação, o recibo PIX possui plena validade jurídica para a maioria das transações do dia a dia, como pagamento de serviços autônomos, aluguéis informais, vendas particulares e outras negociações entre pessoas físicas ou jurídicas."
-          />
-          
-          <SeoContentBlock 
-            title="Como Preencher e Gerar seu Recibo PIX"
-            content="Para emitir seu documento, preencha os campos do formulário acima. As informações serão atualizadas em tempo real no preview ao lado. 1) Informe a Chave PIX do recebedor (CPF, CNPJ, celular ou e-mail). 2) Digite o nome completo ou a razão social do beneficiário. 3) Insira o valor exato da transação, usando vírgula para centavos. 4) Preencha a cidade de emissão do recibo. 5) Adicione uma breve descrição, como 'Referente ao serviço de consultoria'. Após preencher, um QR Code será gerado e você poderá baixar o PDF, que já inclui a imagem para comprovação."
-          />
-
-           <div className="bg-amber-50/80 p-6 rounded-lg border-l-4 border-amber-500">
-             <h4 className="font-bold text-amber-900 mb-2">Segurança Client-Side é Prioridade</h4>
-             <p className="text-sm text-amber-800">
-              Este gerador de recibos funciona 100% no seu navegador. Nenhuma informação preenchida nos campos é enviada, salva ou armazenada em nossos servidores. Sua privacidade é total.
-             </p>
-           </div>
-
-          <LegalDisclaimer />
+        {/* COLUNA ESQUERDA (FAQ) */}
+        <div className="lg:col-span-2">
+          <FaqAccordion faqs={faqs} />
+          <div className="mt-8 p-4 bg-white rounded-lg shadow-md border border-slate-200/80">
+             <LegalDisclaimer />
+          </div>
         </div>
 
         {/* COLUNA DIREITA (SIDEBAR) */}
         <aside className="space-y-8 lg:sticky lg:top-8 self-start">
-          {/* Navegação Cruzada */}
-          <div className="bg-white p-6 rounded-xl shadow-md border border-stone-200">
-            <h4 className="font-bold text-stone-800 mb-4 border-b border-stone-200 pb-3">Ecossistema de Ferramentas</h4>
+          <div className="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+            <h4 className="font-bold text-slate-800 mb-4 border-b border-slate-200 pb-3">Outras Ferramentas Úteis</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="/ferramentas/recibo-simples" className="flex items-center gap-3 text-stone-600 hover:text-amber-600 group">
-                  <span className="w-9 h-9 bg-stone-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100 text-amber-600/80 group-hover:text-amber-700 transition-all">
+                <a href="/ferramentas/recibo-simples" className="flex items-center gap-3 text-slate-600 hover:text-amber-600 group">
+                  <span className="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100 text-amber-600/80 group-hover:text-amber-700 transition-all">
                     <i className="fa-solid fa-file-invoice"></i>
                   </span>
                   Gerador de Recibo Simples
                 </a>
               </li>
               <li>
-                <a href="/ferramentas/orcamento" className="flex items-center gap-3 text-stone-600 hover:text-amber-600 group">
-                  <span className="w-9 h-9 bg-stone-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100 text-amber-600/80 group-hover:text-amber-700 transition-all">
+                <a href="/ferramentas/orcamento" className="flex items-center gap-3 text-slate-600 hover:text-amber-600 group">
+                  <span className="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100 text-amber-600/80 group-hover:text-amber-700 transition-all">
                     <i className="fa-solid fa-calculator"></i>
                   </span>
                   Gerador de Orçamento
                 </a>
               </li>
                <li>
-                <a href="/ferramentas/nota-promissoria" className="flex items-center gap-3 text-stone-600 hover:text-amber-600 group">
-                  <span className="w-9 h-9 bg-stone-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100 text-amber-600/80 group-hover:text-amber-700 transition-all">
+                <a href="/ferramentas/nota-promissoria" className="flex items-center gap-3 text-slate-600 hover:text-amber-600 group">
+                  <span className="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center group-hover:bg-amber-100 text-amber-600/80 group-hover:text-amber-700 transition-all">
                     <i className="fa-solid fa-file-contract"></i>
                   </span>
                   Nota Promissória Online
@@ -88,7 +91,7 @@ export default function ReciboPixPage() {
           </div>
 
           {/* Espaço Publicidade */}
-          <div className="bg-white h-96 rounded-xl flex items-center justify-center border-2 border-dashed border-stone-200 text-stone-400 text-sm shadow-inner-sm">
+          <div className="bg-white h-96 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-200 text-slate-400 text-sm shadow-inner-sm">
             Anúncio Google Ads (Vertical)
           </div>
         </aside>

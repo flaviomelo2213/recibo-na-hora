@@ -1,70 +1,57 @@
+"use client";
+
 import React from 'react';
 import FerramentaReciboSimples from "./_components/FerramentaReciboSimples";
 import LegalDisclaimer from "../../components/LegalDisclaimer";
-import SeoContentBlock from "../../components/SeoContentBlock";
+import FaqAccordion from "../../components/FaqAccordion";
+
+// Conteúdo para o FAQ
+const faqs = [
+  {
+    question: "Qual a validade jurídica de um recibo simples?",
+    answer: "Um recibo simples é um documento plenamente válido para comprovar pagamentos e quitações de dívidas entre pessoas físicas, profissionais autônomos e empresas. Ele serve como prova de que um valor foi pago por um serviço ou produto, sendo essencial para a organização financeira e para evitar cobranças indevidas. Para maior segurança, ele deve ser preenchido corretamente e, se possível, assinado por quem recebeu o valor."
+  },
+  {
+    question: "O gerador de recibos é realmente gratuito?",
+    answer: "Sim, nossa ferramenta para gerar recibos simples é 100% gratuita e não possui limites de uso. Você pode criar, baixar e imprimir quantos recibos precisar, sem nenhum custo ou necessidade de cadastro."
+  },
+  {
+    question: "Preciso preencher todos os campos?",
+    answer: "Recomendamos fortemente que todos os campos sejam preenchidos para garantir a clareza e a validade do documento. Informações como CPF/CNPJ do pagador e do beneficiário, a descrição clara do que está sendo pago e a cidade de emissão são cruciais para a formalidade do recibo."
+  },
+  {
+    question: "Os dados que eu preencho são salvos no site?",
+    answer: "Não. A sua privacidade é nossa prioridade. A ferramenta funciona inteiramente no seu navegador (client-side). Nenhuma informação digitada nos campos do recibo é enviada, armazenada ou compartilhada por nossos servidores. Ao fechar a página, todos os dados são perdidos."
+  }
+];
 
 export default function ReciboSimplesPage() {
   return (
-    <main className="container mx-auto px-4 py-8 max-w-6xl">
+    <main className="bg-slate-50">
+      <div className="container mx-auto px-4 py-8 md:py-12 max-w-7xl">
       
-      {/* 1. HEADER DE IMPACTO */}
-      <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-5xl font-bold text-stone-900 mb-4 tracking-tight">
-          Gerador de Recibo de Pagamento
-        </h1>
-        <p className="text-lg text-stone-600 max-w-2xl mx-auto">
-          Crie recibos de pagamento em PDF, prontos para imprimir e com validade jurídica. Gratuito, rápido e sem necessidade de cadastro.
-        </p>
-      </div>
-
-      {/* 2. ÁREA DA FERRAMENTA (DESTAQUE) */}
-      <div className="bg-white shadow-xl rounded-2xl p-6 md:p-10 mb-16 border border-stone-200 max-w-4xl mx-auto">
-        <FerramentaReciboSimples />
-      </div>
-
-      {/* 3. CONTEÚDO SEO + SIDEBAR */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-stone-200 pt-12">
-        
-        {/* COLUNA ESQUERDA (SEO) */}
-        <div className="lg:col-span-2 space-y-8">
-          <SeoContentBlock 
-            title="Qual a finalidade de um Recibo de Pagamento?"
-            content="O Recibo Simples é um documento essencial para comprovar a quitação de uma dívida ou o pagamento por um serviço ou produto. Ele oferece segurança jurídica para ambas as partes, servindo como prova de que a transação financeira foi concluída com sucesso."
-          />
-          
-          <SeoContentBlock 
-            title="Recibo vs. Nota Fiscal: Entenda a Diferença"
-            content="Enquanto o Recibo comprova um pagamento, a Nota Fiscal é um documento de natureza tributária, utilizado para o recolhimento de impostos. Para Microempreendedores Individuais (MEI) e outras empresas, a NF é obrigatória em transações com outras pessoas jurídicas, mas o recibo é perfeitamente válido para controle interno e transações com pessoas físicas."
-          />
-
-           <div className="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-500">
-             <h4 className="font-bold text-amber-900 mb-2">Dica de Ouro</h4>
-             <p className="text-sm text-amber-800">
-               Para máxima segurança, emita sempre duas vias do recibo: uma para o pagador e outra, assinada por ele, para seu próprio controle.
-             </p>
-           </div>
-
-          <LegalDisclaimer />
+        {/* Cabeçalho */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-3 tracking-tight">
+            Gerador de Recibo de Pagamento Simples
+          </h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Crie um recibo completo em segundos. Preencha os campos, visualize em tempo real e baixe o PDF pronto para imprimir ou enviar.
+          </p>
         </div>
 
-        {/* COLUNA DIREITA (SIDEBAR) */}
-        <aside className="space-y-6">
-          {/* Navegação Cruzada */}
-           <div className="bg-stone-100 p-6 rounded-xl border border-stone-200">
-            <h4 className="font-bold text-stone-800 mb-4">Outras Ferramentas Úteis</h4>
-            <ul className="space-y-3 text-sm font-medium">
-              <li><a href="/ferramentas/orcamento" className="text-amber-700 hover:text-amber-800 hover:underline">› Gerador de Orçamento</a></li>
-              <li><a href="/ferramentas/recibo-pix" className="text-amber-700 hover:text-amber-800 hover:underline">› Gerador de Recibo PIX</a></li>
-              <li><a href="/ferramentas/vale-transporte" className="text-amber-700 hover:text-amber-800 hover:underline">› Calculadora de Vale-Transporte</a></li>
-              <li><a href="/ferramentas/nota-promissoria" className="text-amber-700 hover:text-amber-800 hover:underline">› Gerador de Nota Promissória</a></li>
-            </ul>
-           </div>
+        {/* Área da Ferramenta */}
+        <div className="bg-white shadow-2xl shadow-gray-200/70 rounded-2xl border border-gray-200/80">
+          <FerramentaReciboSimples />
+        </div>
 
-          {/* Espaço Publicidade */}
-          <div className="bg-stone-100 h-80 rounded-xl flex items-center justify-center border border-dashed border-stone-200 text-stone-400 text-sm">
-            (Anúncio Vertical)
-          </div>
-        </aside>
+        {/* Seção de Perguntas Frequentes (FAQ) */}
+        <FaqAccordion faqs={faqs} />
+
+        {/* Rodapé com aviso legal */}
+        <div className="mt-16 text-center">
+            <LegalDisclaimer />
+        </div>
 
       </div>
     </main>
