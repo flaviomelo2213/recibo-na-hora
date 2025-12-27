@@ -1,5 +1,6 @@
 import './globals.css';
 import React from 'react';
+import CookieBanner from './components/CookieBanner';
 
 export const metadata = {
   title: 'Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis',
@@ -128,7 +129,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
-
+        <CookieBanner />
       </body>
     </html>
   );
