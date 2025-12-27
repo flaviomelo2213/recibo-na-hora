@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Verifica se o usuário já aceitou antes
     const consent = localStorage.getItem('cookie_consent');
     if (!consent) {
@@ -17,7 +19,7 @@ export default function CookieBanner() {
     setShow(false);
   };
 
-  if (!show) return null;
+  if (!mounted || !show) return null;
 
   return (
     <div className="fixed bottom-0 left-0 w-full bg-slate-900 text-white p-4 z-50 shadow-lg border-t border-slate-700 animate-fade-in-up">
