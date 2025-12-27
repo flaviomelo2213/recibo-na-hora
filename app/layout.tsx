@@ -1,11 +1,13 @@
 import './globals.css';
 import React from 'react';
-import Script from 'next/script';
 
 export const metadata = {
   title: 'Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis',
   description: 'Crie recibos de Aluguel, Venda de Veículos, Promissória e Relatórios MEI. Ferramentas gratuitas para corretores e autônomos no Brasil.',
   keywords: 'recibo online, gerador de recibo, recibo veiculo, recibo aluguel, mei, nota promissoria, ferramentas corretor',
+  other: {
+    'google-adsense-account': 'ca-pub-4754892182698508'
+  }
 };
 
 export default function RootLayout({
@@ -126,14 +128,6 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
-        
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182698508"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
 
       </body>
     </html>
