@@ -1,11 +1,11 @@
 import React from 'react';
-import { ProcuracaoData } from './FerramentaProcuracaoProfissional';
+import { ProcuracaoData } from './FerramentaProcuracao';
 
-interface PreviewProcuracaoProfissionalProps {
+interface PreviewProcuracaoProps {
   data: ProcuracaoData;
 }
 
-export default function PreviewProcuracaoProfissional({ data }: PreviewProcuracaoProfissionalProps) {
+export default function PreviewProcuracao({ data }: PreviewProcuracaoProps) {
   const formatarData = (dataString: string): string => {
     if (!dataString || !/^\d{4}-\d{2}-\d{2}$/.test(dataString)) {
       return '...';

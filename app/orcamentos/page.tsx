@@ -34,7 +34,7 @@ const faqItems = [
     },
     {
       question: "Orçamento substitui um contrato?",
-      answer: "Não. O orçamento detalha 'o quê' e 'quanto custa'. O contrato detalha 'como', 'quando', e quais as regras, multas, garantias e responsabilidades. Use o orçamento para a proposta e o contrato para formalizar o acordo. Explore nossa página sobre <a href=\"/contratos\" class=\"text-amber-700 hover:underline\">contratos</a>."
+      answer: "Não. O orçamento detalha 'o quê' e 'quanto custa'. O contrato detalha 'como', 'quando', e quais as regras, multas, garantias e responsabilidades. Use o orçamento para a proposta e o contrato para formalizar o acordo. Explore nossa página sobre <a href=\\"/contratos\\" class=\\"text-amber-700 hover:underline\\">contratos</a>."
     },
     {
       question: "Preciso emitir Nota Fiscal ao apresentar um orçamento?",
@@ -42,7 +42,7 @@ const faqItems = [
     },
     {
       question: "É seguro usar um gerador de orçamentos online?",
-      answer: "Sim. Assim como nossas outras ferramentas, o gerador de orçamentos utiliza seus dados apenas no seu navegador para criar o documento. Nenhuma informação pessoal ou financeira é armazenada em nossos servidores, garantindo sua privacidade."
+      answer: "Os dados que você preenche no formulário não são enviados nem armazenados em nossos servidores; o documento é gerado localmente no seu navegador. Dados de navegação podem ser coletados por terceiros para anúncios, conforme a <a href='/politica-de-privacidade' class='text-amber-700 hover:underline'>Política de Privacidade</a>."
     }
   ];
 
@@ -167,7 +167,7 @@ export default function OrcamentosPage() {
                         </summary>
                         <p className="text-stone-600 mt-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: item.answer }} />
                     </details>
-                ))}
+                ))}\
                 </div>
             </div>
         </section>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
-import FerramentaProcuracaoProfissional, { ProcuracaoData } from "./_components/FerramentaProcuracaoProfissional";
-import PreviewProcuracaoProfissional from "./_components/PreviewProcuracaoProfissional";
+import FerramentaProcuracao, { ProcuracaoData } from "./_components/FerramentaProcuracao";
+import PreviewProcuracao from "./_components/PreviewProcuracao";
 import SeoContentBlock from "../../components/SeoContentBlock"; 
 import LegalDisclaimer from "../../components/LegalDisclaimer";
 
@@ -34,13 +34,13 @@ export default function ProcuracaoProfissionalPage() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <div className="md:col-span-7">
           <div className="bg-white shadow-lg rounded-xl p-6 md:p-8 border border-gray-200">
-            <FerramentaProcuracaoProfissional data={data} setData={setData} />
+            <FerramentaProcuracao data={data} setData={setData} />
           </div>
         </div>
         <div className="md:col-span-5">
           <div className="sticky top-8">
             <div className="bg-white shadow-lg rounded-xl border border-gray-200 aspect-[1/1.414] p-8">
-              <PreviewProcuracaoProfissional data={data} />
+              <PreviewProcuracao data={data} />
             </div>
           </div>
         </div>

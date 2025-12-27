@@ -50,7 +50,7 @@ export default function ContratoLocacao() {
       `\n`,
       `5. DO VALOR: O aluguel mensal será de R$ ${dados.valorAluguel}, devendo ser pago até o dia ${dados.diaVencimento} de cada mês.`,
       `\n`,
-      `6. DAS DISPOSIÇÕES GERAIS: O LOCATÁRIO obriga-se a manter o imóvel em perfeitas condições, sendo vedada a sublocação sem anuência expressa do LOCADOR.`,
+      `6. DAS DISPOSIÇÕES GERAIS: O LOCATÁRIO obriga-se a manter o imóvel em perfeitas condições (em termos práticos: manutenção do dia a dia como limpeza, troca de lâmpadas, pequenos reparos e uso adequado), sendo vedada a sublocação sem anuência expressa do LOCADOR.`,
       `\n`,
       `E, por estarem assim justos e contratados, assinam o presente em 02 (duas) vias de igual teor.`,
     ];

@@ -16,12 +16,12 @@ export interface ProcuracaoData {
   data: string;
 }
 
-interface FerramentaProcuracaoProfissionalProps {
+interface FerramentaProcuracaoProps {
   data: ProcuracaoData;
   setData: React.Dispatch<React.SetStateAction<ProcuracaoData>>;
 }
 
-export default function FerramentaProcuracaoProfissional({ data, setData }: FerramentaProcuracaoProfissionalProps) {
+export default function FerramentaProcuracao({ data, setData }: FerramentaProcuracaoProps) {
   
   useEffect(() => {
     if (!data.data) {
