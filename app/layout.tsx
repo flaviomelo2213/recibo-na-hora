@@ -22,14 +22,6 @@ export default function RootLayout({
         {/* Google Fonts (Inter) */}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182698508"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        
         <style>{`
           body { font-family: 'Inter', sans-serif; }
           .glass-effect { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); }
@@ -134,6 +126,14 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182698508"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
 
       </body>
     </html>
