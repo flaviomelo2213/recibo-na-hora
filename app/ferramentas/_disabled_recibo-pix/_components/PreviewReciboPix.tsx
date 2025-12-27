@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import QRCode from 'qrcode';
 
 // Componente que renderiza a pré-visualização do recibo
-const PreviewReciboPix = ({ data }) => {
+const PreviewReciboPix = ({ data }: { data: any }) => {
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   const previewRef = useRef(null);
 

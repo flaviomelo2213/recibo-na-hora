@@ -152,19 +152,10 @@ export default function RecibosPillarPage() {
               </p>
             </Link>
 
-            <Link
-              href="/ferramentas/recibo-pix"
-              className="group block bg-white p-6 rounded-lg border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
-            >
-              <h3 className="font-bold text-xl text-slate-800 group-hover:text-blue-600">
-                Gerador de Recibo PIX
-              </h3>
-              <p className="text-slate-600 mt-2 leading-relaxed">
-                Comprove transferências PIX com um recibo mais completo do que o
-                comprovante bancário, incluindo motivo do pagamento e dados das
-                partes.
-              </p>
-            </Link>
+            <DisabledCard
+              title="Gerador de Recibo PIX"
+              description="Comprove transferências PIX com um recibo mais completo do que o comprovante bancário, incluindo motivo do pagamento e dados das partes."
+            />
 
             {/* Em breve (evita 404 e não polui SEO com “TODO”) */}
             <DisabledCard

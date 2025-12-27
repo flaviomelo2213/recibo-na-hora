@@ -1,59 +1,61 @@
+"use client";
 
-'use client';
+import { useState } from "react";
 
-import { useState } from 'react';
-
-// Define the type for a single FAQ item's props
-interface FaqItemProps {
+type Faq = {
   question: string;
   answer: string;
-}
+};
 
-const FaqItem = ({ question, answer }: FaqItemProps) => {
+type FaqItemProps = {
+  question: string;
+  answer: string;
+};
+
+function FaqItem({ question, answer }: FaqItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200 py-4">
+    <div className="border-b border-slate-200 py-3">
       <button
-        className="w-full flex justify-between items-center text-left text-lg font-semibold text-gray-800 focus:outline-none"
-        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+        onClick={() => setIsOpen((v) => !v)}
+        className="w-full text-left flex items-center justify-between gap-3"
+        aria-expanded={isOpen}
       >
-        <span>{question}</span>
-        <i className={`fa-solid fa-chevron-down transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}></i>
+        <span className="font-semibold text-slate-800">{question}</span>
+        <span className="text-slate-500">{isOpen ? "−" : "+"}</span>
       </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen mt-4' : 'max-h-0'}`}>
-        <p className="text-gray-600 leading-relaxed">
-          {answer}
-        </p>
-      </div>
+
+      {isOpen && (
+        <p className="mt-2 text-slate-600 leading-relaxed">{answer}</p>
+      )}
     </div>
   );
-};
-
-// Define the type for the props of the main accordion component
-interface FaqAccordionProps {
-  faqs: {
-    question: string;
-    answer: string;
-  }[];
 }
 
-const FaqAccordion = ({ faqs }: FaqAccordionProps) => {
-  if (!faqs || faqs.length === 0) {
-    return null;
-  }
-
-  return (
-    <div className="max-w-4xl mx-auto mt-16">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Perguntas Frequentes</h2>
-        <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-            {faqs.map((faq, index) => (
-            <FaqItem key={index} question={faq.question} answer={faq.answer} />
-            ))}
-        </div>
-    </div>
-  );
+type FaqAccordionProps = {
+  faqs: Faq[];
+  title?: string;
 };
 
-export default FaqAccordion;
+export default function FaqAccordion({
+  faqs,
+  title = "Perguntas Frequentes",
+}: FaqAccordionProps) {
+  if (!faqs || faqs.length === 0) return null;
+
+  return (
+    <section className="max-w-4xl mx-auto mt-16">
+      <h2 className="text-3xl font-bold text-center text-slate-900 mb-8">
+        {title}
+      </h2>
+
+      <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-200">
+        {faqs.map((faq, index) => (
+          <FaqItem key={index} question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
+    </section>
+  );
+}

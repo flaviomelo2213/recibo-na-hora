@@ -79,13 +79,16 @@ export default function Home() {
               title="Gerador de Recibo Simples"
               description="A ferramenta ideal para comprovar pagamentos de serviços, vendas ou aluguéis informais."
             />
-            {/* CARD: RECIBO PIX */}
-            <ToolCard 
-              href="/ferramentas/recibo-pix"
-              icon="fa-qrcode"
-              title="Recibo PIX com QR Code"
-              description="Crie um comprovante de pagamento moderno com um QR Code para validação instantânea."
-            />
+            {/* CARD: EM BREVE */}
+            <div className="block group">
+              <div className="bg-white p-7 rounded-xl shadow-md border border-gray-200 h-full flex flex-col items-center justify-center text-center">
+                <div className="w-14 h-14 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 mb-5">
+                  <i className="fa-solid fa-qrcode text-2xl"></i>
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-gray-500">Recibo PIX em breve</h3>
+                <p className="text-sm text-gray-400">Estamos trabalhando para trazer esta ferramenta de volta em breve.</p>
+              </div>
+            </div>
             {/* CARD: ORÇAMENTO */}
             <ToolCard 
               href="/ferramentas/orcamento"
