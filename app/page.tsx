@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 // Ícones para a seção "Como Funciona", poderiam ser componentes mais elaborados
-const Step = ({ icon, title, description }) => (
+type StepProps = { icon: string; title: string; description: string };
+const Step = ({ icon, title, description }: StepProps) => (
   <div className="text-center px-4">
     <div className="inline-block bg-blue-100 text-blue-600 rounded-full p-4 mb-4">
       <i className={`fa-solid ${icon} text-2xl`}></i>
@@ -36,7 +37,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- NOVA SEÇÃO "COMO FUNCIONA" --- */}
+      {/* --- NOVA SEÇÃO \"COMO FUNCIONA\" --- */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
@@ -114,7 +115,13 @@ export default function Home() {
 }
 
 // Componente auxiliar para os cards de ferramentas
-const ToolCard = ({ href, icon, title, description }) => (
+type ToolCardProps = {
+  href: string;
+  icon: string;
+  title: string;
+  description: string;
+};
+const ToolCard = ({ href, icon, title, description }: ToolCardProps) => (
   <Link href={href} className="block group">
     <div className="bg-white p-7 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-200 hover:border-blue-300 hover:-translate-y-1 h-full">
       <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-5 transition-colors group-hover:bg-blue-600 group-hover:text-white">

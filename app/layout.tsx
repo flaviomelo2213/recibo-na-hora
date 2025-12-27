@@ -81,6 +81,12 @@ export default function RootLayout({
               >
                 <i className="fa-solid fa-layer-group" /> Todas as Ferramentas
               </a>
+              <a href="/parcerias" className="hover:text-amber-600 transition">
+                Parcerias
+              </a>
+              <a href="/como-ganhamos-dinheiro" className="hover:text-amber-600 transition">
+                Transparência
+              </a>
               <a href="#contato" className="hover:text-amber-600 transition">
                 Contato
               </a>
@@ -176,6 +182,16 @@ export default function RootLayout({
                       className="hover:text-amber-600"
                     >
                       Fale Conosco
+                    </a>
+                  </li>
+                   <li>
+                    <a href="/parcerias" className="hover:text-amber-600">
+                      Parcerias
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/como-ganhamos-dinheiro" className="hover:text-amber-600">
+                      Transparência
                     </a>
                   </li>
                   <li>
