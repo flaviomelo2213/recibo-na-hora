@@ -73,6 +73,14 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* CARD: CURRÍCULO PROFISSIONAL */}
+            <ToolCard 
+              href="/ferramentas/curriculo-profissional"
+              icon="fa-user-tie"
+              title="Currículo Profissional"
+              description="Crie um currículo com foto e assinatura, otimizado para se destacar no mercado."
+              isNew={true}
+            />
             {/* CARD: RECIBO SIMPLES */}
             <ToolCard 
               href="/ferramentas/recibo-simples"
@@ -80,16 +88,6 @@ export default function Home() {
               title="Gerador de Recibo Simples"
               description="A ferramenta ideal para comprovar pagamentos de serviços, vendas ou aluguéis informais."
             />
-            {/* CARD: EM BREVE */}
-            <div className="block group">
-              <div className="bg-white p-7 rounded-xl shadow-md border border-gray-200 h-full flex flex-col items-center justify-center text-center">
-                <div className="w-14 h-14 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 mb-5">
-                  <i className="fa-solid fa-qrcode text-2xl"></i>
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-gray-500">Recibo PIX em breve</h3>
-                <p className="text-sm text-gray-400">Estamos trabalhando para trazer esta ferramenta de volta em breve.</p>
-              </div>
-            </div>
             {/* CARD: ORÇAMENTO */}
             <ToolCard 
               href="/ferramentas/orcamento"
@@ -120,9 +118,15 @@ type ToolCardProps = {
   icon: string;
   title: string;
   description: string;
+  isNew?: boolean;
 };
-const ToolCard = ({ href, icon, title, description }: ToolCardProps) => (
-  <Link href={href} className="block group">
+const ToolCard = ({ href, icon, title, description, isNew }: ToolCardProps) => (
+  <Link href={href} className="block group relative">
+    {isNew && (
+       <span className="absolute top-0 right-0 z-10 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full transform translate-x-1/3 -translate-y-1/3">
+         NOVO
+       </span>
+    )}
     <div className="bg-white p-7 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-200 hover:border-blue-300 hover:-translate-y-1 h-full">
       <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-5 transition-colors group-hover:bg-blue-600 group-hover:text-white">
         <i className={`fa-solid ${icon} text-2xl`}></i>

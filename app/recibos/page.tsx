@@ -25,36 +25,36 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
-    q: "Um recibo gerado online tem validade jurídica?",
-    a: "Sim. Desde que contenha valor, identificação das partes, data, descrição do pagamento e assinatura do recebedor, o recibo é um comprovante válido.",
+    question: "Um recibo gerado online tem validade jurídica?",
+    answer: "Sim. Desde que contenha valor, identificação das partes, data, descrição do pagamento e assinatura do recebedor, o recibo é um comprovante válido.",
   },
   {
-    q: "Preciso assinar o recibo digitalmente?",
-    a: "A assinatura do recebedor é essencial. Você pode imprimir e assinar manualmente. Para um fluxo 100% digital, use assinatura eletrônica/assinatura digital.",
+    question: "Preciso assinar o recibo digitalmente?",
+    answer: "A assinatura do recebedor é essencial. Você pode imprimir e assinar manualmente. Para um fluxo 100% digital, use assinatura eletrônica/assinatura digital.",
   },
   {
-    q: "O gerador de recibos é gratuito?",
-    a: "Sim. Você pode gerar recibos gratuitamente. Alguns recursos avançados e parcerias podem aparecer como recomendações opcionais.",
+    question: "O gerador de recibos é gratuito?",
+    answer: "Sim. Você pode gerar recibos gratuitamente. Alguns recursos avançados e parcerias podem aparecer como recomendações opcionais.",
   },
   {
-    q: "Posso usar um recibo simples no lugar da Nota Fiscal?",
-    a: "Depende. O recibo comprova o pagamento. A Nota Fiscal é um documento fiscal e pode ser obrigatória em determinadas operações, especialmente entre CNPJs ou conforme regras locais.",
+    question: "Posso usar um recibo simples no lugar da Nota Fiscal?",
+    answer: "Depende. O recibo comprova o pagamento. A Nota Fiscal é um documento fiscal e pode ser obrigatória em determinadas operações, especialmente entre CNPJs ou conforme regras locais.",
   },
   {
-    q: "Os dados que preencho são armazenados?",
-    a: "A proposta é maximizar privacidade: o preenchimento ocorre no navegador e você gera o PDF localmente. Se houver alguma funcionalidade que exija envio de dados, isso deve ficar explícito na política do site.",
+    question: "Os dados que preencho são armazenados?",
+    answer: "Os dados que você preenche no formulário não são enviados nem armazenados em nossos servidores; o documento é gerado localmente no seu navegador. Dados de navegação podem ser coletados por terceiros para anúncios, conforme a <a href='/politica-de-privacidade' class='text-amber-700 hover:underline'>Política de Privacidade</a>.",
   },
   {
-    q: "Qual a diferença do recibo para o comprovante do banco?",
-    a: "O comprovante bancário confirma a transação financeira. O recibo descreve o motivo do pagamento (serviço/produto), tornando o registro mais completo e claro.",
+    question: "Qual a diferença do recibo para o comprovante do banco?",
+    answer: "O comprovante bancário confirma a transação financeira. O recibo descreve o motivo do pagamento (serviço/produto), tornando o registro mais completo e claro.",
   },
   {
-    q: "Posso editar um recibo depois de gerado o PDF?",
-    a: "O PDF é um formato final. Se precisar corrigir dados, gere um novo recibo com as informações corretas.",
+    question: "Posso editar um recibo depois de gerado o PDF?",
+    answer: "O PDF é um formato final. Se precisar corrigir dados, gere um novo recibo com as informações corretas.",
   },
   {
-    q: "O que significa valor por extenso?",
-    a: "É escrever o valor em palavras (ex.: R$ 250,50 → “duzentos e cinquenta reais e cinquenta centavos”), aumentando segurança contra fraudes e rasuras.",
+    question: "O que significa valor por extenso?",
+    answer: "É escrever o valor em palavras (ex.: R$ 250,50 → “duzentos e cinquenta reais e cinquenta centavos”), aumentando segurança contra fraudes e rasuras.",
   },
 ];
 
@@ -64,10 +64,10 @@ function jsonLdFAQ() {
     "@type": "FAQPage",
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
-      name: f.q,
+      name: f.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: f.a,
+        text: f.answer,
       },
     })),
   };
@@ -330,13 +330,16 @@ export default function RecibosPillarPage() {
           <div className="max-w-3xl mx-auto space-y-4">
             {faqs.map((f, idx) => (
               <div
-                key={f.q}
+                key={f.question}
                 className="bg-white p-5 rounded-lg border border-slate-200"
               >
                 <h3 className="font-semibold text-slate-800">
-                  {idx + 1}. {f.q}
+                  {idx + 1}. {f.question}
                 </h3>
-                <p className="mt-2 text-slate-600 leading-relaxed">{f.a}</p>
+                <p
+                  className="mt-2 text-slate-600 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: f.answer }}
+                />
               </div>
             ))}
           </div>
