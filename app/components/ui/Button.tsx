@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
 // 1. Tipagem explícita para as props do botão
 type Variant = 'primary' | 'secondary' | 'ghost' | 'success';
@@ -9,6 +10,7 @@ type Size = 'sm' | 'md' | 'lg';
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
   size?: Size;
+  asChild?: boolean;
   children?: React.ReactNode;
 };
 
@@ -22,10 +24,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ 
     variant = 'primary', 
     size = 'md', 
+    asChild = false,
     className, 
     children, 
     ...props 
   }, ref) => {
+    const Comp = asChild ? Slot : 'button';
 
     const baseClasses =
       'inline-flex items-center justify-center rounded-2xl font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:pointer-events-none';
@@ -44,7 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     return (
-      <button
+      <Comp
         ref={ref}
         className={cn(
           baseClasses,
@@ -55,7 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {children}
-      </button>
+      </Comp>
     );
   }
 );

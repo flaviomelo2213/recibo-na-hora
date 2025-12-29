@@ -81,6 +81,9 @@ export default function RootLayout({
               >
                 <i className="fa-solid fa-layer-group" /> Todas as Ferramentas
               </a>
+              <a href="/requerimentos" className="hover:text-amber-600 transition">
+                Requerimentos
+              </a>
               <a href="/parcerias" className="hover:text-amber-600 transition">
                 Parcerias
               </a>

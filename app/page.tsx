@@ -1,138 +1,115 @@
-import Link from "next/link";
 
-// Ícones para a seção "Como Funciona", poderiam ser componentes mais elaborados
-type StepProps = { icon: string; title: string; description: string };
-const Step = ({ icon, title, description }: StepProps) => (
-  <div className="text-center px-4">
-    <div className="inline-block bg-blue-100 text-blue-600 rounded-full p-4 mb-4">
-      <i className={`fa-solid ${icon} text-2xl`}></i>
-    </div>
-    <h3 className="font-bold text-lg text-gray-800 mb-2">{title}</h3>
-    <p className="text-gray-600 text-sm">{description}</p>
-  </div>
-);
+import Link from 'next/link';
+import { TOOL_CATALOG } from './_data/catalog';
+import { Card } from './components/ui/Card';
+import Badge from './components/ui/Badge';
+import * as Icons from 'lucide-react';
+import { Button } from './components/ui/Button';
+import React from 'react';
 
-export default function Home() {
+// Helper to get Lucide icon component by name
+const Icon = ({ name, ...props }: { name: string } & Icons.LucideProps) => {
+  const LucideIcon = Icons[name as keyof typeof Icons] as React.ElementType;
+  if (LucideIcon) {
+    return <LucideIcon {...props} />;
+  }
+  return <Icons.FileText {...props} />; // Fallback icon
+};
+
+export default function HomePage() {
+  const popularTools = TOOL_CATALOG.TOOLS.filter(tool => tool.badges?.includes('Popular')).slice(0, 6);
+
   return (
-    // Fundo geral mais claro e moderno
-    <main className="bg-gray-50 text-gray-800">
-      
-      {/* --- NOVA SEÇÃO HERO --- */}
-      <section className="bg-white text-center py-20 md:py-28 px-4 border-b border-gray-200">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-5 tracking-tight">
-            Gerador de Documentos Online
+    <div className="bg-[#F8FAF0] min-h-screen">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* 1. Hero Section */}
+        <section className="text-center py-20 md:py-32">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tighter">
+            Documentos simples, <br /> 
+            <span className="text-indigo-600">para uma vida sem complicação.</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            Crie, visualize e baixe recibos, contratos e outros documentos em PDF. Rápido, seguro e totalmente gratuito.
+          <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-600">
+            Crie recibos, contratos, requerimentos e outros documentos essenciais em segundos. Ferramentas online, grátis e sem burocracia.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/ferramentas/recibo-simples" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105">
-              Começar a Criar Agora
-            </Link>
-            <Link href="/ferramentas" className="bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-lg hover:bg-gray-300 transition-colors">
-              Ver Todos os Modelos
-            </Link>
+          <div className="mt-8 flex justify-center gap-4">
+            <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/30">
+              <Link href="/ferramentas/recibo-simples">Criar Recibo Agora</Link>
+            </Button>
+            <Button asChild size="lg" variant="secondary" className="bg-white/80 backdrop-blur-sm">
+              <Link href="/ferramentas">Explorar Todos os Modelos</Link>
+            </Button>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* --- NOVA SEÇÃO \"COMO FUNCIONA\" --- */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800">Simples como 1, 2, 3</h2>
-            <p className="text-gray-600 mt-2">Nosso processo é desenhado para ser rápido e intuitivo.</p>
+        {/* 2. Seção "Mais Usados" */}
+        <section className="pb-20">
+          <h2 className="text-3xl font-bold text-slate-800 text-center mb-10">Mais Populares</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {popularTools.map(tool => (
+              <Link href={tool.href || '#'} key={tool.id} passHref>
+                 <Card className="flex flex-col p-6 rounded-2xl shadow-soft hover:shadow-md transition-all h-full transform hover:-translate-y-1">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="bg-indigo-100 text-indigo-600 p-3 rounded-xl">
+                       <Icon name={tool.icon} className="w-6 h-6" />
+                    </div>
+                    {tool.badges && tool.badges[0] && <Badge>{tool.badges[0]}</Badge>}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900">{tool.name}</h3>
+                    <p className="mt-1 text-sm text-slate-600">{tool.description}</p>
+                  </div>
+                </Card>
+              </Link>
+            ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <Step 
-              icon="fa-keyboard"
-              title="1. Preencha os Dados"
-              description="Selecione um modelo e complete os campos do formulário com as informações necessárias."
-            />
-            <Step 
-              icon="fa-eye"
-              title="2. Visualize em Tempo Real"
-              description="Veja o documento ser formatado ao vivo, exatamente como ele ficará no PDF final."
-            />
-            <Step 
-              icon="fa-file-arrow-down"
-              title="3. Baixe seu PDF"
-              description="Gere e baixe seu documento em PDF com um único clique, pronto para usar."
-            />
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* --- FERRAMENTAS PRINCIPAIS (REDESENHADO) --- */}
-      <section className="bg-white py-20 px-4 border-t border-b border-gray-200">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800">Nossas Ferramentas Populares</h2>
-            <p className="text-gray-600 mt-2">Comece com um dos nossos modelos mais usados pela comunidade.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* CARD: CURRÍCULO PROFISSIONAL */}
-            <ToolCard 
-              href="/ferramentas/curriculo-profissional"
-              icon="fa-user-tie"
-              title="Currículo Profissional"
-              description="Crie um currículo com foto e assinatura, otimizado para se destacar no mercado."
-              isNew={true}
-            />
-            {/* CARD: RECIBO SIMPLES */}
-            <ToolCard 
-              href="/ferramentas/recibo-simples"
-              icon="fa-receipt"
-              title="Gerador de Recibo Simples"
-              description="A ferramenta ideal para comprovar pagamentos de serviços, vendas ou aluguéis informais."
-            />
-            {/* CARD: ORÇAMENTO */}
-            <ToolCard 
-              href="/ferramentas/orcamento"
-              icon="fa-file-invoice-dollar"
-              title="Gerador de Orçamento"
-              description="Elabore orçamentos profissionais e detalhados para seus clientes com cálculo automático."
-            />
-          </div>
-        </div>
-      </section>
-
-       {/* --- SEO TEXT (Mantido por relevância) --- */}
-      <section className="py-20 px-4 container mx-auto max-w-4xl text-center">
-        <h3 className="text-2xl font-bold text-gray-800 mb-4">Por que usar o ReciboNaHora?</h3>
-        <p className="text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          Nossa plataforma foi desenvolvida para agilizar a vida de autônomos, pequenos empresários e cidadãos que precisam de documentos e recibos para o dia a dia. 
-          Diferente de outros sites, o nosso foco é a sua privacidade: não pedimos seu e-mail e não salvamos nenhum dado que você digita. 
-          Tudo é gerado diretamente no seu navegador, garantindo total segurança e confidencialidade.
-        </p>
-      </section>
-    </main>
+        {/* 3. Seção "Categorias" */}
+        <section className="pb-20 text-center">
+           <h2 className="text-3xl font-bold text-slate-800 mb-6">Explore por Categoria</h2>
+           <div className="flex flex-wrap justify-center gap-3">
+                {TOOL_CATALOG.CATEGORIES.map(category => (
+                    <Link href={`/ferramentas?category=${encodeURIComponent(category.id)}`} key={category.id} passHref>
+                         <Badge className="text-md px-4 py-2 rounded-full cursor-pointer hover:bg-slate-100 transition-colors">
+                            {category.label}
+                         </Badge>
+                    </Link>
+                ))}
+           </div>
+        </section>
+        
+        {/* 4 & 5. Seções de Confiança (Parcerias e Transparência) */}
+        <section className="pb-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                 {/* Parcerias */}
+                 <Link href="/parcerias">
+                    <Card className="p-8 rounded-2xl flex items-center gap-6 hover:bg-slate-50 transition-colors">
+                        <div className="bg-emerald-100 text-emerald-600 p-4 rounded-xl">
+                             <Icons.ShieldCheck className="w-8 h-8" />
+                        </div>
+                        <div>
+                             <h3 className="font-bold text-slate-800 text-lg">Parceiros Oficiais</h3>
+                             <p className="text-slate-600 text-sm">Colaboramos com os melhores para oferecer mais a você.</p>
+                        </div>
+                    </Card>
+                 </Link>
+                 
+                 {/* Transparência */}
+                 <Link href="/como-ganhamos-dinheiro">
+                     <Card className="p-8 rounded-2xl flex items-center gap-6 hover:bg-slate-50 transition-colors">
+                         <div className="bg-amber-100 text-amber-600 p-4 rounded-xl">
+                             <Icons.Sparkles className="w-8 h-8" />
+                         </div>
+                         <div>
+                             <h3 className="font-bold text-slate-800 text-lg">Transparência</h3>
+                             <p className="text-slate-600 text-sm">Entenda como nosso negócio funciona e se sustenta.</p>
+                         </div>
+                     </Card>
+                 </Link>
+            </div>
+        </section>
+      </main>
+    </div>
   );
 }
-
-// Componente auxiliar para os cards de ferramentas
-type ToolCardProps = {
-  href: string;
-  icon: string;
-  title: string;
-  description: string;
-  isNew?: boolean;
-};
-const ToolCard = ({ href, icon, title, description, isNew }: ToolCardProps) => (
-  <Link href={href} className="block group relative">
-    {isNew && (
-       <span className="absolute top-0 right-0 z-10 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full transform translate-x-1/3 -translate-y-1/3">
-         NOVO
-       </span>
-    )}
-    <div className="bg-white p-7 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-200 hover:border-blue-300 hover:-translate-y-1 h-full">
-      <div className="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-5 transition-colors group-hover:bg-blue-600 group-hover:text-white">
-        <i className={`fa-solid ${icon} text-2xl`}></i>
-      </div>
-      <h3 className="font-bold text-lg mb-2 text-gray-800 group-hover:text-blue-700">{title}</h3>
-      <p className="text-sm text-gray-600">{description}</p>
-    </div>
-  </Link>
-);
