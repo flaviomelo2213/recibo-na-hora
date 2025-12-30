@@ -3,7 +3,7 @@
 import React from 'react';
 import { ChevronLeft, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/Accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
 
 export interface ToolShellProps {
   title: string;

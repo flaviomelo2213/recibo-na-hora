@@ -7,8 +7,8 @@ import Link from 'next/link';
 import FerramentaCurriculoProfissional from './_components/FerramentaCurriculoProfissional';
 import PreviewCurriculoProfissional from './_components/PreviewCurriculoProfissional';
 import type { CurriculumData } from './_components/types';
-import ToolTwoColumn from '@/app/components/ToolTwoColumn';
-import PreviewPaper from '@/app/components/PreviewPaper';
+import ToolTwoColumn from '@/components/ToolTwoColumn';
+import PreviewPaper from '@/components/PreviewPaper';
 
 const initialData: CurriculumData = {
   dadosPessoais: {
