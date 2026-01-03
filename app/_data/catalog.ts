@@ -1,25 +1,27 @@
-import * as React from "react";
-import { 
-  FileText, 
-  Receipt, 
-  Home,
-  QrCode,
-  PenSquare,
-  ClipboardList,
-  Gavel,
-  Mail,
-  Landmark,
-  FileSignature,
-  Calculator,
-  UserCircle
-} from "lucide-react";
+export type ToolCategoryId =
+  | "recibos"
+  | "contratos"
+  | "orcamentos"
+  | "requerimentos"
+  | "mei"
+  | "outros";
 
-// Retiramos a importação de LucideIcon, pois não era usada diretamente aqui.
+export type Badge = "Popular" | "Novo" | "Grátis" | "Beta" | "Em breve";
 
-type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+export type IconKey =
+  | "receipt"
+  | "fileText"
+  | "fileSignature"
+  | "clipboard"
+  | "scale"
+  | "shield"
+  | "sparkles"
+  | "home"
+  | "contact"
+  | "calculator";
 
 export type ToolCategory = {
-  id: string;
+  id: ToolCategoryId;
   label: string;
   description?: string;
 };
@@ -28,135 +30,120 @@ export type ToolItem = {
   id: string;
   name: string;
   description: string;
-  categoryId: string;
-  href?: string;
-  comingSoon?: boolean;
-  badges?: string[];
-  icon: string; // Trocado para string para simplicidade
+  categoryId: ToolCategoryId;
+  href?: string;           // quando rota existe
+  comingSoon?: boolean;    // true quando NÃO existe rota
+  badges?: Badge[];
+  iconKey?: IconKey;
+  mostUsed?: boolean;      // “Mais usados”
 };
 
-const CATEGORIES: ToolCategory[] = [
-  { id: "recibos", label: "Recibos" },
-  { id: "contratos", label: "Contratos" },
-  { id: "orcamentos", label: "Orçamentos" },
-  { id: "requerimentos", label: "Requerimentos" },
-  { id: "outros", label: "Outros" },
+export const CATEGORIES: ToolCategory[] = [
+  { id: "recibos", label: "Recibos", description: "Modelos de recibo prontos para preencher e baixar." },
+  { id: "contratos", label: "Contratos", description: "Contratos simples e objetivos para o dia a dia." },
+  { id: "orcamentos", label: "Orçamentos", description: "Gere propostas e orçamentos profissionais." },
+  { id: "requerimentos", label: "Requerimentos", description: "Modelos formais para órgãos e solicitações." },
+  { id: "mei", label: "MEI", description: "Ferramentas e guias rápidos para MEI." },
+  { id: "outros", label: "Outros", description: "Documentos e utilitários diversos." },
 ];
 
-const TOOLS: ToolItem[] = [
-  // Recibos
+// Importante: só coloque href quando tiver certeza que a rota existe.
+// Caso contrário: comingSoon: true e sem href.
+export const TOOLS: ToolItem[] = [
   {
-    id: 'recibo-simples',
-    name: 'Gerador de Recibo Simples',
-    description: 'Crie recibos de pagamento genéricos para qualquer finalidade. Rápido e fácil.',
-    href: '/ferramentas/recibo-simples',
-    categoryId: 'recibos',
-    badges: ['Popular'],
-    icon: 'Receipt',
+    id: "recibos-landing",
+    name: "Recibos",
+    description: "Acesse modelos de recibo e gere versões prontas para imprimir.",
+    categoryId: "recibos",
+    href: "/recibos",
+    badges: ["Grátis", "Popular"],
+    iconKey: "receipt",
+    mostUsed: true,
   },
   {
-    id: 'recibo-aluguel',
-    name: 'Recibo de Aluguel',
-    description: 'Gere recibos específicos para aluguel de imóveis, com campos detalhados.',
-    href: '/ferramentas/imobiliario',
-    categoryId: 'recibos',
-    badges: ['Popular'],
-    icon: 'Home',
+    id: "contratos-landing",
+    name: "Contratos",
+    description: "Modelos essenciais com linguagem clara e objetiva.",
+    categoryId: "contratos",
+    href: "/contratos",
+    badges: ["Beta"],
+    iconKey: "fileSignature",
+    mostUsed: true,
   },
   {
-    id: 'recibo-pix',
-    name: 'Recibo com PIX',
-    description: 'Crie um recibo de pagamento moderno com um QR Code PIX para facilitar a quitação.',
-    categoryId: 'recibos',
-    badges: ['Novo'],
-    icon: 'QrCode',
+    id: "orcamentos-landing",
+    name: "Orçamentos",
+    description: "Crie orçamentos com aparência profissional e pronta para enviar.",
+    categoryId: "orcamentos",
+    href: "/orcamentos",
+    badges: ["Grátis", "Popular"],
+    iconKey: "clipboard",
+    mostUsed: true,
+  },
+  {
+    id: "mei-landing",
+    name: "MEI",
+    description: "Página pilar com recursos e atalhos para MEI.",
+    categoryId: "mei",
+    href: "/mei",
+    badges: ["Novo"],
+    iconKey: "shield",
+  },
+  {
+    id: "lai-pedido",
+    name: "Pedido via Lei de Acesso à Informação (LAI)",
+    description: "Solicite informações a órgãos públicos com modelo formal e PDF.",
+    categoryId: "requerimentos",
+    href: "/requerimentos/lai-pedido",
+    badges: ["Novo", "Grátis"],
+    iconKey: "fileText",
+    mostUsed: true,
+  },
+  {
+    id: "declaracao-endereco",
+    name: "Declaração de Endereço",
+    description: "Gere uma declaração simples de endereço, pronta para baixar.",
+    categoryId: "requerimentos",
+    href: "/requerimentos/declaracao-endereco",
+    badges: ["Grátis"],
+    iconKey: "home",
+  },
+  {
+    id: "itbi-modelo",
+    name: "Requerimento de Benefício no ITBI",
+    description: "Modelo para solicitar benefício/redução/isenção de ITBI.",
+    categoryId: "requerimentos",
+    href: "/requerimentos/itbi-modelo",
+    badges: ["Grátis"],
+    iconKey: "scale",
+  },
+
+  // Exemplos (sem rota confirmada) — ficam “Em breve” e sem link:
+  {
+    id: "recibo-pix",
+    name: "Recibo com PIX",
+    description: "Recibo moderno com QR Code PIX para facilitar a quitação.",
+    categoryId: "recibos",
     comingSoon: true,
-  },
-
-  // Contratos
-  {
-    id: 'contrato-completo',
-    name: 'Gerador de Contrato (beta)',
-    description: 'Elabore contratos de prestação de serviços com cláusulas essenciais.',
-    href: '/ferramentas/contrato-completo',
-    categoryId: 'contratos',
-    icon: 'FileText',
+    badges: ["Em breve"],
+    iconKey: "sparkles",
   },
   {
-    id: 'procuracao',
-    name: 'Gerador de Procuração',
-    description: 'Crie procurações para diversas finalidades, nomeando um representante legal.',
-    href: '/ferramentas/procuracao',
-    categoryId: 'contratos',
-    icon: 'PenSquare',
-  },
-
-  // Orçamentos
-  {
-    id: 'orcamento',
-    name: 'Gerador de Orçamento',
-    description: 'Crie e envie propostas comerciais e orçamentos detalhados para seus clientes.',
-    href: '/ferramentas/orcamento',
-    categoryId: 'orcamentos',
-    icon: 'ClipboardList',
-  },
-
-  // Requerimentos
-  {
-    id: 'requerimento-lai',
-    name: 'Pedido via Lei de Acesso à Informação',
-    description: 'Solicite informações a órgãos públicos com base na LAI.',
-    href: '/requerimentos/lai-pedido',
-    categoryId: 'requerimentos',
-    badges: ['Novo'],
-    icon: 'Gavel',
+    id: "curriculo",
+    name: "Gerador de Currículo",
+    description: "Crie um currículo enxuto e profissional em minutos.",
+    categoryId: "outros",
+    comingSoon: true,
+    badges: ["Em breve"],
+    iconKey: "contact",
   },
   {
-    id: 'declaracao-endereco',
-    name: 'Declaração de Residência',
-    description: 'Gere uma declaração de endereço para comprovar sua moradia atual.',
-    href: '/requerimentos/declaracao-endereco',
-    categoryId: 'requerimentos',
-    icon: 'Mail',
-  },
-   {
-    id: 'requerimento-itbi',
-    name: 'Requerimento de Benefício no ITBI',
-    description: 'Peça isenção ou redução do ITBI na compra do seu primeiro imóvel.',
-    href: '/requerimentos/itbi-modelo',
-    categoryId: 'requerimentos',
-    icon: 'Landmark',
-  },
-
-  // Outros
-  {
-    id: 'nota-promissoria',
-    name: 'Nota Promissória',
-    description: 'Emita notas promissórias para formalizar promessas de pagamento.',
-    href: '/ferramentas/nota-promissoria',
-    categoryId: 'outros',
-    badges: ['Popular'],
-    icon: 'FileSignature',
-  },
-  {
-    id: 'calculadora-rescisao',
-    name: 'Calculadora de Rescisão CLT',
-    description: 'Calcule os valores a receber em uma rescisão de contrato de trabalho CLT.',
-    href: '/ferramentas/calculadora-rescisao',
-    categoryId: 'outros',
-    icon: 'Calculator',
-  },
-  {
-    id: 'curriculo-profissional',
-    name: 'Gerador de Currículo',
-    description: 'Crie um currículo profissional em minutos com nosso modelo otimizado.',
-    href: '/ferramentas/curriculo-profissional',
-    categoryId: 'outros',
-    icon: 'UserCircle',
+    id: "rescisao-clt",
+    name: "Calculadora de Rescisão CLT",
+    description: "Estimativa rápida de verbas rescisórias.",
+    categoryId: "outros",
+    comingSoon: true,
+    badges: ["Em breve"],
+    iconKey: "calculator",
   },
 ];
-
-export const TOOL_CATALOG = {
-    TOOLS,
-    CATEGORIES
-};
