@@ -7,7 +7,7 @@ import { Input } from '../../../components/ui/Input';
 import { Textarea } from '../../../components/ui/Textarea';
 import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
-import { Terminal, Wand2 } from 'lucide-react';
+import { Terminal, Wand2, KeyRound } from 'lucide-react';
 
 interface LaiPedidoData {
   destinatarioNome: string;
@@ -32,7 +32,11 @@ const generateLaiPDF = (data: LaiPedidoData) => {
   const pageWidth = doc.internal.pageSize.getWidth();
   const usableWidth = pageWidth - margin * 2;
   const dataObj = new Date(data.data + 'T00:00:00');
-  const dataFormatada = dataObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  const dataFormatada = dataObj.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
 
   let y = margin;
 
@@ -109,6 +113,8 @@ export default function LaiPedidoGenerator() {
     data: new Date().toISOString().split('T')[0],
   });
 
+  // BYOK: chave do usuário (não salvamos no servidor)
+  const [geminiKey, setGeminiKey] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
 
@@ -123,32 +129,36 @@ export default function LaiPedidoGenerator() {
   async function handleImproveWithAI() {
     setAiError(null);
 
+    if (!geminiKey.trim()) {
+      setAiError('Cole sua Gemini API Key (Google AI Studio) para usar a IA.');
+      return;
+    }
     if (!data.pedido.trim()) {
-      setAiError('Escreva um rascunho no campo "Informação Solicitada" antes de pedir melhoria com IA.');
+      setAiError('Escreva um rascunho no campo “Informação Solicitada” antes de pedir melhoria.');
       return;
     }
 
     setAiLoading(true);
     try {
-      const res = await fetch('/api/ai/lai', {
+      const res = await fetch('/api/ai/rewrite', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          pedido: data.pedido,
-          destinatarioCargo: data.destinatarioCargo,
-          destinatarioOrgao: data.destinatarioOrgao,
-          formaPreferencial: data.formaPreferencial,
+          kind: 'lai',
+          tone: 'formal',
+          text: data.pedido,
+          geminiApiKey: geminiKey.trim(),
+          model: 'gemini-2.5-flash', // você pode trocar depois; este é o exemplo comum na doc :contentReference[oaicite:5]{index=5}
         }),
       });
 
       const json = await res.json().catch(() => null);
 
       if (!res.ok) {
-        const msg = json?.error || 'Falha ao gerar sugestão com IA.';
-        throw new Error(msg);
+        throw new Error(json?.error || 'Falha ao chamar IA.');
       }
 
-      const improved = String(json?.improvedPedido ?? '').trim();
+      const improved = String(json?.improvedText ?? '').trim();
       if (!improved) throw new Error('IA retornou vazio. Tente novamente.');
 
       setData((prev) => ({ ...prev, pedido: improved }));
@@ -186,7 +196,7 @@ export default function LaiPedidoGenerator() {
   return (
     <Card className="w-full p-4 sm:p-6 lg:p-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-start">
-        {/* Coluna de Formulário */}
+        {/* Formulário */}
         <section className="w-full min-w-0 space-y-6">
           <Alert>
             <Terminal className="h-4 w-4" />
@@ -202,12 +212,40 @@ export default function LaiPedidoGenerator() {
             </div>
           ) : null}
 
+          {/* BYOK Key */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <div className="flex items-center gap-2">
+              <KeyRound className="h-4 w-4 text-slate-600" />
+              <h3 className="text-sm font-semibold text-slate-900">Usar minha chave do Google (Gemini)</h3>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">
+              Você cria uma Gemini API Key no Google AI Studio e cola aqui. Nós não armazenamos essa chave.
+            </p>
+            <div className="mt-3 space-y-3">
+              <Input
+                name="geminiKey"
+                label="Gemini API Key (BYOK)"
+                value={geminiKey}
+                onChange={(e) => setGeminiKey((e.target as HTMLInputElement).value)}
+                placeholder="Cole aqui sua API key do Google AI Studio"
+              />
+              <a
+                className="text-xs font-medium text-indigo-700 hover:text-indigo-800"
+                href="https://ai.google.dev/gemini-api/docs/api-key"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Como criar minha Gemini API Key
+              </a>
+            </div>
+          </div>
+
           <div>
             <h3 className="text-lg font-semibold text-slate-800 border-b pb-2 mb-4">Destinatário</h3>
             <div className="space-y-4">
-              <Input name="destinatarioNome" label="Nome do Destinatário (Opcional)" value={data.destinatarioNome} onChange={handleChange} placeholder="Ex: Maria da Silva" />
-              <Input name="destinatarioCargo" label="Cargo do Destinatário" value={data.destinatarioCargo} onChange={handleChange} placeholder="Ex: Secretário(a) de Finanças" />
-              <Input name="destinatarioOrgao" label="Nome do Órgão/Entidade" value={data.destinatarioOrgao} onChange={handleChange} placeholder="Ex: Prefeitura Municipal de..." />
+              <Input name="destinatarioNome" label="Nome do Destinatário (Opcional)" value={data.destinatarioNome} onChange={handleChange} />
+              <Input name="destinatarioCargo" label="Cargo do Destinatário" value={data.destinatarioCargo} onChange={handleChange} />
+              <Input name="destinatarioOrgao" label="Nome do Órgão/Entidade" value={data.destinatarioOrgao} onChange={handleChange} />
             </div>
           </div>
 
@@ -230,7 +268,7 @@ export default function LaiPedidoGenerator() {
                 onClick={handleImproveWithAI}
                 disabled={aiLoading}
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60 disabled:cursor-not-allowed transition"
-                title="Melhorar o texto do pedido com IA (sem incluir dados pessoais)"
+                title="Melhorar o texto do pedido com IA (usa a sua chave do Google)"
               >
                 <Wand2 className="h-4 w-4" />
                 {aiLoading ? 'Gerando…' : 'Melhorar com IA'}
@@ -238,19 +276,12 @@ export default function LaiPedidoGenerator() {
             </div>
 
             <div className="space-y-4">
-              <Textarea
-                name="pedido"
-                label="Informação Solicitada"
-                value={data.pedido}
-                onChange={handleChange}
-                rows={6}
-                placeholder="Seja específico. Ex: Cópia do contrato nº 123/2023, planilha de gastos com publicidade de 2024, etc."
-              />
+              <Textarea name="pedido" label="Informação Solicitada" value={data.pedido} onChange={handleChange} rows={6} />
               <Input name="formaPreferencial" label="Forma de Acesso Preferencial" value={data.formaPreferencial} onChange={handleChange} />
             </div>
 
             <p className="mt-2 text-xs text-slate-500">
-              Dica: escreva um rascunho e clique em “Melhorar com IA”. Evite inserir CPF, RG, e-mail e endereço no campo do pedido.
+              Evite colocar CPF/RG/endereço no campo do pedido. A IA serve apenas para melhorar a redação.
             </p>
           </div>
 
@@ -269,7 +300,7 @@ export default function LaiPedidoGenerator() {
           </div>
         </section>
 
-        {/* Coluna de Preview */}
+        {/* Preview */}
         <aside className="w-full min-w-0 lg:sticky lg:top-24">
           <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
             <div className="p-4 border-b border-slate-200">
