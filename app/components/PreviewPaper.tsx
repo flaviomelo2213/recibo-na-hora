@@ -1,20 +1,25 @@
-'use client';
 
 import React from 'react';
 
 interface PreviewPaperProps {
+  // Alterado para aceitar qualquer elemento React como filho
   children: React.ReactNode;
 }
 
-export default function PreviewPaper({ children }: PreviewPaperProps) {
+const PreviewPaper: React.FC<PreviewPaperProps> = ({ children }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg w-full max-w-3xl mx-auto">
-      <div
-        className="aspect-[1/1.414] w-full p-8 md:p-12 text-sm text-slate-800 overflow-y-auto"
-        style={{ fontFamily: `'Inter', 'Helvetica', 'Arial', sans-serif` }}
-      >
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div className="p-4 border-b border-slate-200">
+        <h3 className="text-base font-semibold text-slate-800">Pré-visualização</h3>
+        <p className="text-xs text-slate-500 mt-1">O documento final será um PDF em formato A4.</p>
+      </div>
+
+      <div className="p-4 overflow-x-auto">
+        {/* O conteúdo (seja texto ou componente) é renderizado aqui */}
         {children}
       </div>
     </div>
   );
-}
+};
+
+export default PreviewPaper;

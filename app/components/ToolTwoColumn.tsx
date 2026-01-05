@@ -1,20 +1,30 @@
+
 'use client';
 
 import React from 'react';
 
 interface ToolTwoColumnProps {
-  left: React.ReactNode;
-  right: React.ReactNode;
+  form: React.ReactNode;
+  preview: React.ReactNode;
 }
 
-export default function ToolTwoColumn({ left, right }: ToolTwoColumnProps) {
+export function ToolTwoColumn({ form, preview }: ToolTwoColumnProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-      <div className="w-full">
-        {left}
+    <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12">
+      {/* Coluna do Formulário */}
+      <div className="min-w-0">
+        {form}
       </div>
-      <div className="w-full lg:sticky top-28 self-start">
-        {right}
+      
+      {/* Coluna do Preview (sticky no desktop) */}
+      <div className="hidden lg:block lg:sticky lg:top-24 self-start">
+        {preview}
+      </div>
+
+      {/* Preview visível apenas no mobile, abaixo do formulário */}
+      <div className="block lg:hidden mt-8">
+        <h2 className="text-xl font-semibold mb-4 text-center">Pré-visualização</h2>
+        {preview}
       </div>
     </div>
   );

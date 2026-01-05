@@ -82,7 +82,7 @@ export default function LeadModal({ isOpen, onClose, onSuccess }: LeadModalProps
           </button>
 
           <p className="text-xs text-center text-gray-400 mt-4">
-            <i className="fa-solid fa-shield-halved mr-1"></i> Seus dados estão 100% seguros.
+            <i className="fa-solid fa-shield-halved mr-1"></i> Sim, seus dados estão 100% seguros.
           </p>
         </form>
         
