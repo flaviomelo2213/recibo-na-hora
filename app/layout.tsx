@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "ferramentas corretor",
   ],
   other: {
-    "google-adsense-account": "ca-pub-4754892182698508",
+    "google-adsense-account": "ca-pub-4754892182690500",
   },
 };
 
