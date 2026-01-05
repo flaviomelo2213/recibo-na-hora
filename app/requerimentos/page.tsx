@@ -107,7 +107,7 @@ export default function RequerimentosPage() {
                 <h2 className="mt-4 text-3xl font-bold text-slate-800">Dúvidas Frequentes</h2>
                 <p className="mt-2 text-md text-slate-600">Respostas para as perguntas mais comuns sobre requerimentos.</p>
             </div>
-            <FaqAccordion faqs={faqItems} />
+            <FaqAccordion items={faqItems} />
         </section>
 
       </main>

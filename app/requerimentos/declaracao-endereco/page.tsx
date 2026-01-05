@@ -1,7 +1,8 @@
 
 import { Metadata } from 'next';
-import { ToolShell } from '../../components/layout/ToolShell';
+import { ToolTwoColumn } from '../../components/ToolTwoColumn';
 import DeclaracaoEnderecoGenerator from './_components/DeclaracaoEnderecoGenerator';
+import FaqAccordion from '../../components/FaqAccordion';
 
 const faqItems = [
     { question: "Para que serve uma Declaração de Residência?", answer: "Serve para comprovar seu endereço em situações onde não se possui um comprovante tradicional (conta de água, luz, etc.) em seu nome. É comum para quem mora com parentes."}, 
@@ -18,15 +19,28 @@ export const metadata: Metadata = {
 };
 
 export default function DeclaracaoEnderecoPage() {
+
+  const generator = <DeclaracaoEnderecoGenerator />;
+  // O preview é renderizado dentro do Generator, então passamos o mesmo componente
+  const preview = <DeclaracaoEnderecoGenerator />;
+
   return (
-    <>
-      <ToolShell 
-        title="Gerador de Declaração de Residência" 
-        description="Elabore uma declaração simples para comprovar seu endereço para fins cadastrais, bancários ou outros. Preencha, gere o PDF e assine."
-        faqItems={faqItems}
-      >
-        <DeclaracaoEnderecoGenerator />
-      </ToolShell>
+    <main className="w-full mx-auto py-12 px-4 md:px-6 lg:px-8">
+      {/* Cabeçalho da Ferramenta */}
+      <div className="mb-10 text-center">
+        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Declaração de Residência</h1>
+        <p className="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Elabore uma declaração simples para comprovar seu endereço para fins cadastrais, bancários ou outros. Preencha, gere o PDF e assine.</p>
+      </div>
+
+      {/* Layout de Duas Colunas */}
+      <ToolTwoColumn form={generator} preview={preview} />
+
+      {/* Seção de FAQ */}
+      <div className="mt-20 max-w-3xl mx-auto">
+          <FaqAccordion items={faqItems} />
+      </div>
+
+      {/* Schema de FAQ para SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -42,6 +56,6 @@ export default function DeclaracaoEnderecoPage() {
           }))
         })}}
       />
-    </>
+    </main>
   );
 }
