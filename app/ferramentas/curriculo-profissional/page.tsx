@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -7,8 +8,9 @@ import Link from 'next/link';
 import FerramentaCurriculoProfissional from './_components/FerramentaCurriculoProfissional';
 import PreviewCurriculoProfissional from './_components/PreviewCurriculoProfissional';
 import type { CurriculumData } from './_components/types';
-import ToolTwoColumn from '@/components/ToolTwoColumn';
+import { ToolTwoColumn } from '@/components/ToolTwoColumn';
 import PreviewPaper from '@/components/PreviewPaper';
+import FaqAccordion from '@/components/FaqAccordion';
 
 const initialData: CurriculumData = {
   dadosPessoais: {
@@ -65,51 +67,44 @@ export default function Page() {
     },
   };
 
+  const form = <FerramentaCurriculoProfissional data={data} onDataChange={setData} />;
+  const preview = <PreviewCurriculoProfissional data={data} />;
+
   return (
-    <main className="bg-slate-50 text-slate-800">
+    <main className="w-full mx-auto py-12 px-4 md:px-6 lg:px-8">
         <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
         />
-        <div className="container mx-auto max-w-7xl px-4 py-12">
-            <header className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                    Gerador de Currículo Profissional
-                </h1>
-                <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-                    Crie e baixe um currículo moderno com foto e assinatura, pronto para se destacar.
-                </p>
-            </header>
-
-            <ToolTwoColumn
-                left={<FerramentaCurriculoProfissional data={data} onDataChange={setData} />}
-                right={
-                    <div id="preview-content">
-                        <PreviewPaper>
-                            <PreviewCurriculoProfissional data={data} />
-                        </PreviewPaper>
-                    </div>
-                }
-            />
-
-            <div className="text-center mt-8">
-                <Link href="/parcerias" className="text-sm text-slate-600 hover:text-blue-700 hover:underline">
-                  Buscando assinatura com validade jurídica? Veja nossos parceiros.
-                </Link>
-            </div>
-
-            <section className="mt-16 mb-12">
-                <h2 className="text-3xl font-bold text-center text-slate-900 mb-8">Perguntas Frequentes</h2>
-                <div className="max-w-3xl mx-auto space-y-4">
-                    {faqs.map((f, idx) => (
-                        <div key={idx} className="bg-white p-5 rounded-lg border border-slate-200">
-                            <h3 className="font-semibold text-slate-800">{f.question}</h3>
-                            <p className="mt-2 text-slate-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: f.answer }} />
-                        </div>
-                    ))}
-                </div>
-            </section>
+        <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 tracking-tight">
+                Gerador de Currículo Profissional
+            </h1>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+                Crie e baixe um currículo moderno com foto e assinatura, pronto para se destacar.
+            </p>
         </div>
+
+        <ToolTwoColumn
+            form={form}
+            preview={
+                <div id="preview-content">
+                    <PreviewPaper>
+                        {preview}
+                    </PreviewPaper>
+                </div>
+            }
+        />
+
+        <div className="text-center mt-8">
+            <Link href="/parcerias" className="text-sm text-slate-600 hover:text-blue-700 hover:underline">
+                Buscando assinatura com validade jurídica? Veja nossos parceiros.
+            </Link>
+        </div>
+
+        <section className="mt-16 mb-12 max-w-3xl mx-auto">
+          <FaqAccordion items={faqs} />
+        </section>
     </main>
   );
 }

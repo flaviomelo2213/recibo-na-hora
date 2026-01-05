@@ -1,157 +1,199 @@
+
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
+import { Download, Share2, Info } from 'lucide-react';
+import Link from 'next/link';
 
+import PreviewPaper from '../../../components/PreviewPaper';
 import { Card } from '../../../components/ui/Card';
 import { Input } from '../../../components/ui/Input';
+import { Textarea } from '../../../components/ui/Textarea';
 import { Button } from '../../../components/ui/Button';
 
-// Importa os novos tipos e templates
-import { ReciboModelo, ReciboData, RECIBO_TEMPLATES } from '../_lib/templates';
+// Definição do tipo para os dados do formulário
+interface ReciboData {
+  pagadorNome: string;
+  pagadorCpfCnpj: string;
+  recebedorNome: string;
+  recebedorCpfCnpj: string;
+  valor: string;
+  valorExtenso: string;
+  descricao: string;
+  cidade: string;
+  data: string;
+}
 
-// Função para gerar o PDF, agora usando o texto do template
-const generateReciboSimplesPDF = (data: ReciboData, modelo: ReciboModelo) => {
-  const doc = new jsPDF('p', 'mm', 'a4');
-  const template = RECIBO_TEMPLATES[modelo];
-  const textoDoRecibo = template.textoPreview(data);
-  const dataObj = new Date(data.data + 'T00:00:00'); // Ajuste de fuso
-  const dataFormatada = dataObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-
-  const corpoDoRecibo = 
-    `----------- RECIBO DE PAGAMENTO -----------\n\n` +
-    `${textoDoRecibo}\n\n` +
-    `Por ser verdade, firmo o presente.\n\n` +
-    `${data.cidade || '[Cidade]'}, ${dataFormatada}.\n\n\n` +
-    `________________________________________\n` +
-    `${data.beneficiarioNome || '[Nome do Beneficiário]'}\n` +
-    `${data.beneficiarioDocumento || '[CPF/CNPJ do Beneficiário]'}`;
-
-
-  doc.setFont('Helvetica', 'normal');
-  doc.setFontSize(12);
-  const splitText = doc.splitTextToSize(corpoDoRecibo, 180);
-  doc.text(splitText, 15, 20);
-  doc.save(`recibo-${modelo}.pdf`);
-};
+// Função para formatar CPF/CNPJ
+function formatarCpfCnpj(valor: string): string {
+  const digitos = valor.replace(/\D/g, '');
+  if (digitos.length <= 11) {
+    return digitos
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  } else {
+    return digitos
+      .slice(0, 14)
+      .replace(/(\d{2})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1/$2')
+      .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+  }
+}
 
 export default function ReciboSimplesGenerator() {
-  const [modeloAtual, setModeloAtual] = useState<ReciboModelo>('aluguel');
   const [data, setData] = useState<ReciboData>({
-    valor: '1250,00',
-    pagadorNome: 'José da Silva',
-    pagadorDocumento: '123.456.789-00',
-    beneficiarioNome: 'Maria Souza',
-    beneficiarioDocumento: '987.654.321-99',
-    cidade: 'São Paulo',
-    data: new Date().toISOString().split('T')[0],
-    // Campos específicos inicializados
-    referenciaMesAno: 'Janeiro/2024',
-    enderecoImovel: 'Rua das Flores, 123, Apto 4B',
-    servicoDescricao: '',
-    periodo: '',
-    itemVendido: '',
-    condicoes: '',
+    pagadorNome: '',
+    pagadorCpfCnpj: '',
+    recebedorNome: '',
+    recebedorCpfCnpj: '',
+    valor: '',
+    valorExtenso: '',
+    descricao: 'Referente a... ',
+    cidade: '',
+    data: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  useEffect(() => {
+    if (!data.data) {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        setData(prev => ({ ...prev, data: `${year}-${month}-${day}` }));
+    }
+  }, [data.data]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    if (name === 'pagadorCpfCnpj' || name === 'recebedorCpfCnpj') {
+      setData(prev => ({ ...prev, [name]: formatarCpfCnpj(value) }));
+    } else {
+      setData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
-  const handleGeneratePDF = () => {
-    generateReciboSimplesPDF(data, modeloAtual);
+  const getReciboText = () => {
+    const dataObj = data.data ? new Date(data.data + 'T00:00:00') : new Date();
+    const dataFormatada = dataObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    const textoRecibo = `Eu, ${data.recebedorNome || '[Nome do Recebedor]'}, ` +
+    (data.recebedorCpfCnpj ? `inscrito(a) no CPF/CNPJ sob o nº ${data.recebedorCpfCnpj}, ` : '') +
+    `declaro que recebi de ${data.pagadorNome || '[Nome do Pagador]'}` +
+    (data.pagadorCpfCnpj ? `, inscrito(a) no CPF/CNPJ sob o nº ${data.pagadorCpfCnpj}, ` : ', ') +
+    `a importância de R$ ${data.valor || '0,00'} (${data.valorExtenso || '[Valor por Extenso]'}), referente a ${data.descricao || '[Descrição do pagamento]'}.`;
+
+    return (
+      `----------- RECIBO DE PAGAMENTO -----------\n\n` +
+      `Valor: R$ ${data.valor || '0,00'}\n\n` +
+      `${textoRecibo}\n\n` +
+      `Por ser verdade, firmo o presente recibo, para que produza seus devidos e legais efeitos.\n\n` +
+      `${data.cidade || '[Cidade]'}, ${dataFormatada}.\n\n\n` +
+      `________________________________________\n` +
+      `${data.recebedorNome || '[Nome do Recebedor]'}\n`
+    );
   };
   
-  const handleSendWhatsApp = () => {
-    const template = RECIBO_TEMPLATES[modeloAtual];
-    const mensagem = template.mensagemWhatsApp(data);
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const text = getReciboText();
+
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(12);
+    const splitText = doc.splitTextToSize(text, 180);
+    doc.text(splitText, 15, 20);
+    doc.save('recibo-de-pagamento.pdf');
+  };
+
+  const handleShareWhatsApp = () => {
+    const valor = data.valor ? `R$ ${data.valor}` : '';
+    const recebedor = data.recebedorNome || '';
+    const texto = `Gerado no ReciboNaHora: Recibo de ${valor} para ${recebedor}.`;
+    const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
     window.open(url, '_blank');
   };
 
-  const renderCamposModelo = () => {
-    switch (modeloAtual) {
-      case 'aluguel':
-        return (
-          <>
-            <Input name="referenciaMesAno" label="Mês/Ano de Referência" value={data.referenciaMesAno} onChange={handleChange} placeholder="Ex: Janeiro/2024" />
-            <Input name="enderecoImovel" label="Endereço do Imóvel (Opcional)" value={data.enderecoImovel} onChange={handleChange} placeholder="Ex: Rua das Flores, 123" />
-          </>
-        );
-      case 'servicos':
-        return (
-          <>
-            <Input name="servicoDescricao" label="Descrição do Serviço" value={data.servicoDescricao} onChange={handleChange} placeholder="Ex: Consultoria de marketing" />
-            <Input name="periodo" label="Período de Execução (Opcional)" value={data.periodo} onChange={handleChange} placeholder="Ex: 01/01/2024 a 31/01/2024"/>
-          </>
-        );
-      case 'venda':
-        return (
-          <>
-            <Input name="itemVendido" label="Item Vendido" value={data.itemVendido} onChange={handleChange} placeholder="Ex: Notebook usado" />
-            <Input name="condicoes" label="Condições (Opcional)" value={data.condicoes} onChange={handleChange} placeholder="Ex: À vista" />
-          </>
-        );
-      default:
-        return null;
-    }
-  }
+  const FormFields = (
+    <Card className="p-6 md:p-8">
+      <div className="space-y-6">
+        <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Para quem você pagou?</legend>
+          <Input label="Nome do Recebedor" name="recebedorNome" value={data.recebedorNome} onChange={handleInputChange} placeholder="Ex: João da Silva" required />
+          <Input label="CPF/CNPJ do Recebedor" name="recebedorCpfCnpj" value={data.recebedorCpfCnpj} onChange={handleInputChange} placeholder="00.000.000/0000-00" />
+        </fieldset>
 
-  return (
-    <Card className="max-w-4xl mx-auto p-6 md:p-8">
-      
-      {/* Seletor de Modelo */}
-      <div className="mb-6 flex justify-center border-b border-slate-200">
-        {(Object.keys(RECIBO_TEMPLATES) as ReciboModelo[]).map((modelo) => (
-          <button 
-            key={modelo} 
-            onClick={() => setModeloAtual(modelo)}
-            className={`px-4 py-2 text-sm font-medium transition-colors 
-              ${modeloAtual === modelo 
-                ? 'border-b-2 border-blue-600 text-blue-600' 
-                : 'text-slate-500 hover:text-slate-700'}`}>
-            {RECIBO_TEMPLATES[modelo].label}
-          </button>
-        ))}
-      </div>
+        <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Quem realizou o pagamento?</legend>
+          <Input label="Nome do Pagador" name="pagadorNome" value={data.pagadorNome} onChange={handleInputChange} placeholder="Ex: Maria Souza" required />
+          <Input label="CPF/CNPJ do Pagador" name="pagadorCpfCnpj" value={data.pagadorCpfCnpj} onChange={handleInputChange} placeholder="000.000.000-00" />
+        </fieldset>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-slate-800 border-b pb-2">Quem Pagou</h2>
-          <Input name="pagadorNome" label="Nome Completo do Pagador" value={data.pagadorNome} onChange={handleChange} />
-          <Input name="pagadorDocumento" label="CPF/CNPJ do Pagador" value={data.pagadorDocumento} onChange={handleChange} />
-        </div>
-
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-slate-800 border-b pb-2">Quem Recebeu</h2>
-          <Input name="beneficiarioNome" label="Nome Completo do Beneficiário" value={data.beneficiarioNome} onChange={handleChange} />
-          <Input name="beneficiarioDocumento" label="CPF/CNPJ do Beneficiário" value={data.beneficiarioDocumento} onChange={handleChange} />
-        </div>
-
-        <div className="md:col-span-2 space-y-4">
-           <h2 className="text-lg font-semibold text-slate-800 border-b pb-2">Detalhes do Pagamento</h2>
-          <Input name="valor" type="number" label="Valor Recebido (R$)" value={data.valor} onChange={handleChange} placeholder="Ex: 150,00"/>
-          
-          {/* Campos dinâmicos baseados no modelo */}
-          {renderCamposModelo()}
-
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Input name="cidade" label="Cidade" value={data.cidade} onChange={handleChange} placeholder="Ex: São Paulo" />
-            <Input name="data" type="date" label="Data de Emissão" value={data.data} onChange={handleChange} />
+        <fieldset className="space-y-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4">Detalhes do Pagamento</legend>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Input label="Valor (R$)" name="valor" value={data.valor} onChange={handleInputChange} placeholder="150,00" type="number" step="0.01" required />
+            <Input label="Valor por Extenso" name="valorExtenso" value={data.valorExtenso} onChange={handleInputChange} placeholder="Cento e cinquenta reais" required />
           </div>
-        </div>
+          <Textarea rows={3} label="Descrição do Pagamento" name="descricao" value={data.descricao} onChange={handleInputChange} required />
+        </fieldset>
 
-      </div>
-      
-      <div className="mt-8 flex justify-center gap-4">
-        <Button size="lg" onClick={handleGeneratePDF}>
-          Gerar Recibo em PDF
-        </Button>
-        <Button size="lg" variant="secondary" onClick={handleSendWhatsApp}>
-          Enviar por WhatsApp
-        </Button>
+        <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Local e Data</legend>
+          <Input label="Cidade de Emissão" name="cidade" value={data.cidade} onChange={handleInputChange} placeholder="Ex: São Paulo" required />
+          <Input label="Data do Pagamento" name="data" value={data.data} onChange={handleInputChange} type="date" required />
+        </fieldset>
+        
+        <div className="space-y-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Button onClick={handleDownloadPdf} size="lg">
+              <Download className="w-4 h-4 mr-2" />
+              Baixar PDF
+            </Button>
+            <Button onClick={handleShareWhatsApp} variant="success" size="lg">
+              <Share2 className="w-4 h-4 mr-2" />
+              WhatsApp
+            </Button>
+          </div>
+           <Card className="p-4">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Info className="h-8 w-8 text-indigo-500" />
+                </div>
+                <div className="ml-4 flex-grow">
+                  <h4 className="font-semibold text-slate-800">Parceria Recomendada</h4>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Precisa de assinatura com validade jurídica? 
+                    <Link href="/parcerias" className="text-indigo-600 font-semibold hover:underline ml-1">
+                      Veja nossos parceiros.
+                    </Link>
+                  </p>
+                </div>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-2 text-right">Podemos receber uma comissão.</p>
+          </Card>
+        </div>
       </div>
     </Card>
   );
+
+  const Preview = (
+    <PreviewPaper>
+      <div className="p-2 text-sm text-slate-800 whitespace-pre-wrap font-mono">
+        {getReciboText()}
+      </div>
+    </PreviewPaper>
+  );
+
+  return (
+    <div className="lg:flex gap-8">
+      <div className="flex-1">
+        {FormFields}
+      </div>
+      <div className="flex-1 mt-8 lg:mt-0">
+        {Preview}
+      </div>
+    </div>
+  )
 }
