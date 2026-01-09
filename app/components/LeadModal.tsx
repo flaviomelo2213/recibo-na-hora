@@ -19,12 +19,12 @@ export default function LeadModal({ isOpen, onClose, onSuccess }: LeadModalProps
     e.preventDefault();
     setLoading(true);
 
-    // Simula salvamento (futuro: integrar DB/CRM)
+    // Aqui simulamos o salvamento (No futuro conectamos com banco de dados)
     console.log('Lead Capturado:', { nome, whatsapp });
 
     setTimeout(() => {
       setLoading(false);
-      onSuccess({ nome, whatsapp });
+      onSuccess({ nome, whatsapp }); // Libera o Download
     }, 1000);
   };
 
@@ -44,11 +44,11 @@ export default function LeadModal({ isOpen, onClose, onSuccess }: LeadModalProps
       />
 
       {/* Conteúdo */}
-      <div className="relative w-full max-w-xl rounded-2xl bg-white shadow-2xl overflow-hidden animate-fade-in max-h-[90vh] flex flex-col">
-        {/* Cabeçalho */}
-        <div className="bg-blue-600 px-6 py-6 text-center">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden animate-fade-in max-h-[90vh] flex flex-col">
+        {/* Cabeçalho do Modal */}
+        <div className="bg-blue-600 p-6 text-center">
           <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
-            <i className="fa-solid fa-lock text-2xl text-white" />
+            <i className="fa-solid fa-lock text-2xl text-white"></i>
           </div>
           <h3 className="text-xl font-bold text-white">Documento Pronto!</h3>
           <p className="text-blue-100 text-sm mt-1">
@@ -56,15 +56,13 @@ export default function LeadModal({ isOpen, onClose, onSuccess }: LeadModalProps
           </p>
         </div>
 
-        {/* Corpo (scroll no mobile se precisar) */}
+        {/* Corpo com scroll (mobile) */}
         <div className="p-6 sm:p-8 overflow-y-auto">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                Seu Nome Completo
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Seu Nome Completo</label>
               <div className="relative">
-                <i className="fa-solid fa-user absolute left-4 top-3.5 text-gray-400" />
+                <i className="fa-solid fa-user absolute left-4 top-3.5 text-gray-400"></i>
                 <input
                   required
                   type="text"
@@ -77,11 +75,9 @@ export default function LeadModal({ isOpen, onClose, onSuccess }: LeadModalProps
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                Seu WhatsApp
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Seu WhatsApp</label>
               <div className="relative">
-                <i className="fa-brands fa-whatsapp absolute left-4 top-3.5 text-green-500 text-lg" />
+                <i className="fa-brands fa-whatsapp absolute left-4 top-3.5 text-green-500 text-lg"></i>
                 <input
                   required
                   type="tel"
@@ -105,25 +101,25 @@ export default function LeadModal({ isOpen, onClose, onSuccess }: LeadModalProps
                 'Liberando...'
               ) : (
                 <>
-                  <i className="fa-solid fa-download" /> Baixar Documento Agora
+                  <i className="fa-solid fa-download"></i> Baixar Documento Agora
                 </>
               )}
             </button>
 
             <p className="text-xs text-center text-gray-400 mt-4">
-              <i className="fa-solid fa-shield-halved mr-1" /> Sim, seus dados estão seguros.
+              <i className="fa-solid fa-shield-halved mr-1"></i> Sim, seus dados estão seguros.
             </p>
           </form>
         </div>
 
         {/* Botão Fechar */}
         <button
-          type="button"
           onClick={onClose}
           className="absolute top-4 right-4 text-white/80 hover:text-white transition"
           aria-label="Fechar"
+          type="button"
         >
-          <i className="fa-solid fa-times text-xl" />
+          <i className="fa-solid fa-times text-xl"></i>
         </button>
       </div>
     </div>
