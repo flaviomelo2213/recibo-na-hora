@@ -1,153 +1,418 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { jsPDF } from "jspdf";
-import PreviewReciboSimples from "./PreviewReciboSimples"; // Importando o novo componente
+import React, { useState, useEffect } from 'react';
+import { jsPDF } from 'jspdf';
+import { Download, Share2, Info } from 'lucide-react';
+import Link from 'next/link';
 
-export default function FerramentaReciboSimples() {
-  const [formData, setFormData] = useState({
-    valor: "150,00",
-    pagador: "José Carlos da Silva",
-    referente: "Pagamento de serviço de consultoria de SEO",
-    emissor: "Maria Joaquina de Amaral Pereira",
-    cpfCnpj: "111.222.333-44",
-    cidade: "São Paulo",
-    data: new Date().toLocaleDateString('pt-BR')
+import PreviewPaper from '../../../components/PreviewPaper';
+import { Card } from '../../../components/ui/Card';
+import { Input } from '../../../components/ui/Input';
+import { Textarea } from '../../../components/ui/Textarea';
+import { Button } from '../../../components/ui/Button';
+
+interface ReciboData {
+  pagadorNome: string;
+  pagadorCpfCnpj: string;
+  recebedorNome: string;
+  recebedorCpfCnpj: string;
+  valor: string;
+  valorExtenso: string;
+  descricao: string;
+  cidade: string;
+  data: string;
+}
+
+function formatarCpfCnpj(valor: string): string {
+  const digitos = valor.replace(/\D/g, '');
+  if (digitos.length <= 11) {
+    return digitos
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  } else {
+    return digitos
+      .slice(0, 14)
+      .replace(/(\d{2})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1/$2')
+      .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+  }
+}
+
+export default function ReciboSimplesGenerator() {
+  const [data, setData] = useState<ReciboData>({
+    pagadorNome: '',
+    pagadorCpfCnpj: '',
+    recebedorNome: '',
+    recebedorCpfCnpj: '',
+    valor: '',
+    valorExtenso: '',
+    descricao: 'Referente a... ',
+    cidade: '',
+    data: '',
   });
 
-  const handlePrint = () => {
-    const doc = new jsPDF();
-    
-    doc.setFillColor(40, 38, 36);
-    doc.rect(10, 10, 190, 20, "F");
-    doc.setTextColor(250, 250, 249);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(20);
-    doc.text("RECIBO DE PAGAMENTO", 105, 22, { align: "center" });
+  // =========================
+  // IA (BYOK Gemini) — Descrição
+  // =========================
+  const [geminiKey, setGeminiKey] = useState('');
+  const [persistKey, setPersistKey] = useState(true);
+  const [showKey, setShowKey] = useState(false);
+  const [tone, setTone] = useState<'formal' | 'profissional' | 'simples'>('profissional');
+  const [aiLoadingDescricao, setAiLoadingDescricao] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
 
-    doc.setDrawColor(231, 229, 228);
-    doc.setLineWidth(0.5);
-    doc.rect(10, 10, 190, 120);
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(28, 25, 23);
-    doc.text(`VALOR:`, 15, 45);
-    doc.text(`R$ ${formData.valor}`, 40, 45);
+  useEffect(() => {
+    try {
+      const p = localStorage.getItem('rnh_recibo_ai_persist');
+      const shouldPersist = p === null ? true : p === '1';
+      setPersistKey(shouldPersist);
 
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(87, 83, 78);
-    const textoPrincipal = `Recebi(emos) de ${formData.pagador.toUpperCase()}, a importância de R$ ${formData.valor}, referente a ${formData.referente}.`;
-    const linhas = doc.splitTextToSize(textoPrincipal, 170);
-    doc.text(linhas, 15, 60);
-    doc.text("Pelo que firmo(amos) o presente recibo, para os devidos fins de direito.", 15, 85);
+      const savedKey = localStorage.getItem('rnh_gemini_api_key') || '';
+      if (shouldPersist) setGeminiKey(savedKey);
 
-    doc.text(`${formData.cidade}, ${formData.data}`, 105, 100, { align: "center" });
+      const savedTone = (localStorage.getItem('rnh_recibo_ai_tone') as any) || 'profissional';
+      if (savedTone === 'formal' || savedTone === 'profissional' || savedTone === 'simples') {
+        setTone(savedTone);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
-    doc.line(60, 115, 150, 115);
-    doc.setFontSize(10);
-    doc.setTextColor(28, 25, 23);
-    doc.text(formData.emissor.toUpperCase(), 105, 120, { align: "center" });
-    doc.text(`CPF/CNPJ: ${formData.cpfCnpj}`, 105, 125, { align: "center" });
+  useEffect(() => {
+    try {
+      localStorage.setItem('rnh_recibo_ai_persist', persistKey ? '1' : '0');
+      if (!persistKey) localStorage.removeItem('rnh_gemini_api_key');
+      else localStorage.setItem('rnh_gemini_api_key', geminiKey);
+    } catch {
+      // ignore
+    }
+  }, [persistKey, geminiKey]);
 
-    doc.save(`recibo-${formData.pagador.toLowerCase().replace(/\s/g, '-')}.pdf`);
+  useEffect(() => {
+    try {
+      localStorage.setItem('rnh_recibo_ai_tone', tone);
+    } catch {
+      // ignore
+    }
+  }, [tone]);
+
+  async function melhorarDescricaoComIA() {
+    setAiError(null);
+
+    const key = geminiKey.trim();
+    if (!key) {
+      setAiError('Cole sua Gemini API Key para usar a IA.');
+      return;
+    }
+    if (!data.descricao.trim()) {
+      setAiError('Escreva a descrição antes de pedir melhoria.');
+      return;
+    }
+
+    setAiLoadingDescricao(true);
+    try {
+      const res = await fetch('/api/ai/rewrite', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          kind: 'recibo',
+          tone,
+          model: 'gemini-2.5-flash',
+          geminiApiKey: key,
+          text: data.descricao,
+        }),
+      });
+
+      const json = await res.json().catch(() => null);
+      if (!res.ok) throw new Error(json?.error || 'Falha ao chamar IA. Verifique sua chave.');
+
+      const improved = String(json?.improvedText ?? '').trim();
+      if (!improved) throw new Error('IA retornou vazio. Tente novamente.');
+
+      setData((prev) => ({ ...prev, descricao: improved }));
+    } catch (err: any) {
+      setAiError(err?.message || 'Erro inesperado ao usar IA.');
+    } finally {
+      setAiLoadingDescricao(false);
+    }
+  }
+
+  // =========================
+  // Datas e form
+  // =========================
+  useEffect(() => {
+    if (!data.data) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      setData((prev) => ({ ...prev, data: `${year}-${month}-${day}` }));
+    }
+  }, [data.data]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    if (name === 'pagadorCpfCnpj' || name === 'recebedorCpfCnpj') {
+      setData((prev) => ({ ...prev, [name]: formatarCpfCnpj(value) }));
+    } else {
+      setData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  return (
-    // Grid principal com 2 colunas em telas grandes (lg) e 1 em telas pequenas
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-      
-      {/* Coluna da Esquerda: Formulário */}
-      <div className="space-y-5">
-        <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Valor do Recibo (R$)</label>
-          <input 
-            type="text"
-            placeholder="Ex: 150,00"
-            value={formData.valor}
-            className="border border-gray-300 focus:border-blue-500 p-3 rounded-lg w-full text-lg font-bold text-gray-800 outline-none transition-colors bg-white"
-            onChange={(e) => setFormData({...formData, valor: e.target.value})}
+  const getReciboText = () => {
+    const dataObj = data.data ? new Date(data.data + 'T00:00:00') : new Date();
+    const dataFormatada = dataObj.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    const textoRecibo =
+      `Eu, ${data.recebedorNome || '[Nome do Recebedor]'}, ` +
+      (data.recebedorCpfCnpj ? `inscrito(a) no CPF/CNPJ sob o nº ${data.recebedorCpfCnpj}, ` : '') +
+      `declaro que recebi de ${data.pagadorNome || '[Nome do Pagador]'}` +
+      (data.pagadorCpfCnpj ? `, inscrito(a) no CPF/CNPJ sob o nº ${data.pagadorCpfCnpj}, ` : ', ') +
+      `a importância de R$ ${data.valor || '0,00'} (${data.valorExtenso || '[Valor por Extenso]'}), referente a ${
+        data.descricao || '[Descrição do pagamento]'
+      }.`;
+
+    return (
+      `----------- RECIBO DE PAGAMENTO -----------\n\n` +
+      `Valor: R$ ${data.valor || '0,00'}\n\n` +
+      `${textoRecibo}\n\n` +
+      `Por ser verdade, firmo o presente recibo, para que produza seus devidos e legais efeitos.\n\n` +
+      `${data.cidade || '[Cidade]'}, ${dataFormatada}.\n\n\n` +
+      `________________________________________\n` +
+      `${data.recebedorNome || '[Nome do Recebedor]'}\n`
+    );
+  };
+
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const text = getReciboText();
+
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(12);
+    const splitText = doc.splitTextToSize(text, 180);
+    doc.text(splitText, 15, 20);
+    doc.save('recibo-de-pagamento.pdf');
+  };
+
+  const handleShareWhatsApp = () => {
+    const valor = data.valor ? `R$ ${data.valor}` : '';
+    const recebedor = data.recebedorNome || '';
+    const texto = `Gerado no ReciboNaHora: Recibo de ${valor} para ${recebedor}.`;
+    const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+  };
+
+  const FormFields = (
+    <Card className="p-6 md:p-8">
+      <div className="space-y-6">
+        <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Para quem você pagou?</legend>
+          <Input
+            label="Nome do Recebedor"
+            name="recebedorNome"
+            value={data.recebedorNome}
+            onChange={handleInputChange}
+            placeholder="Ex: João da Silva"
+            required
           />
-        </div>
+          <Input
+            label="CPF/CNPJ do Recebedor"
+            name="recebedorCpfCnpj"
+            value={data.recebedorCpfCnpj}
+            onChange={handleInputChange}
+            placeholder="00.000.000/0000-00"
+          />
+        </fieldset>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:col-span-2">
-            <label className="block text-sm text-gray-600 mb-1">Nome do Pagador</label>
-            <input 
-              placeholder="Ex: João da Silva"
-              value={formData.pagador}
-              className="border border-gray-300 p-3 rounded-md w-full bg-white focus:ring-1 focus:ring-blue-500 outline-none"
-              onChange={(e) => setFormData({...formData, pagador: e.target.value})}
+        <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Quem realizou o pagamento?</legend>
+          <Input
+            label="Nome do Pagador"
+            name="pagadorNome"
+            value={data.pagadorNome}
+            onChange={handleInputChange}
+            placeholder="Ex: Maria Souza"
+            required
+          />
+          <Input
+            label="CPF/CNPJ do Pagador"
+            name="pagadorCpfCnpj"
+            value={data.pagadorCpfCnpj}
+            onChange={handleInputChange}
+            placeholder="000.000.000-00"
+          />
+        </fieldset>
+
+        <fieldset className="space-y-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4">Detalhes do Pagamento</legend>
+
+          {/* Painel IA (opcional) */}
+          <div className="rounded-xl border border-slate-200 bg-white p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h4 className="font-bold text-slate-800 flex items-center gap-2">
+                  <i className="fa-solid fa-wand-magic-sparkles text-indigo-600"></i> IA (Gemini BYOK) — opcional
+                </h4>
+                <p className="text-xs text-slate-500 mt-1">
+                  Use sua Gemini API Key para melhorar a descrição do pagamento. A chave fica só no seu navegador.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowKey((v) => !v)}
+                className="text-xs font-semibold text-slate-600 hover:text-slate-800"
+              >
+                {showKey ? 'Ocultar' : 'Mostrar'}
+              </button>
+            </div>
+
+            {aiError ? (
+              <div className="mt-3 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                {aiError}
+              </div>
+            ) : null}
+
+            <div className="mt-3 grid md:grid-cols-2 gap-3">
+              <input
+                value={geminiKey}
+                onChange={(e) => setGeminiKey(e.target.value)}
+                type={showKey ? 'text' : 'password'}
+                placeholder="Cole sua Gemini API Key aqui"
+                className="w-full p-3 border rounded"
+              />
+
+              <select
+                value={tone}
+                onChange={(e) => setTone(e.target.value as any)}
+                className="w-full p-3 border rounded bg-white"
+                title="Tom da reescrita"
+              >
+                <option value="profissional">Tom: Profissional</option>
+                <option value="formal">Tom: Formal</option>
+                <option value="simples">Tom: Simples</option>
+              </select>
+            </div>
+
+            <div className="mt-3 flex items-center justify-between gap-3 flex-wrap">
+              <label className="flex items-center gap-2 text-xs text-slate-600">
+                <input type="checkbox" checked={persistKey} onChange={(e) => setPersistKey(e.target.checked)} />
+                Salvar chave neste navegador
+              </label>
+
+              <button
+                type="button"
+                onClick={melhorarDescricaoComIA}
+                disabled={aiLoadingDescricao}
+                className="text-sm font-bold bg-white border border-indigo-200 rounded-lg px-3 py-2 hover:bg-indigo-50 transition disabled:opacity-60"
+              >
+                {aiLoadingDescricao ? 'Melhorando…' : 'Melhorar descrição com IA'}
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Input
+              label="Valor (R$)"
+              name="valor"
+              value={data.valor}
+              onChange={handleInputChange}
+              placeholder="150,00"
+              type="number"
+              step="0.01"
+              required
+            />
+            <Input
+              label="Valor por Extenso"
+              name="valorExtenso"
+              value={data.valorExtenso}
+              onChange={handleInputChange}
+              placeholder="Cento e cinquenta reais"
+              required
             />
           </div>
 
-          <div className="md:col-span-2">
-            <label className="block text-sm text-gray-600 mb-1">Referente a</label>
-            <input 
-              placeholder="Ex: Serviços de pintura residencial..."
-              value={formData.referente}
-              className="border border-gray-300 p-3 rounded-md w-full bg-white focus:ring-1 focus:ring-blue-500 outline-none"
-              onChange={(e) => setFormData({...formData, referente: e.target.value})}
-            />
+          <Textarea
+            rows={3}
+            label="Descrição do Pagamento"
+            name="descricao"
+            value={data.descricao}
+            onChange={handleInputChange}
+            required
+          />
+        </fieldset>
+
+        <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Local e Data</legend>
+          <Input
+            label="Cidade de Emissão"
+            name="cidade"
+            value={data.cidade}
+            onChange={handleInputChange}
+            placeholder="Ex: São Paulo"
+            required
+          />
+          <Input
+            label="Data do Pagamento"
+            name="data"
+            value={data.data}
+            onChange={handleInputChange}
+            type="date"
+            required
+          />
+        </fieldset>
+
+        <div className="space-y-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Button onClick={handleDownloadPdf} size="lg">
+              <Download className="w-4 h-4 mr-2" />
+              Baixar PDF
+            </Button>
+            <Button onClick={handleShareWhatsApp} variant="success" size="lg">
+              <Share2 className="w-4 h-4 mr-2" />
+              WhatsApp
+            </Button>
           </div>
 
-          <div>
-            <label className="block text-sm text-gray-600 mb-1">Nome do Emissor</label>
-            <input 
-              placeholder="Seu Nome ou Nome da Empresa"
-              value={formData.emissor}
-              className="border border-gray-300 p-3 rounded-md w-full bg-white focus:ring-1 focus:ring-blue-500 outline-none"
-              onChange={(e) => setFormData({...formData, emissor: e.target.value})}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm text-gray-600 mb-1">CPF ou CNPJ do Emissor</label>
-            <input 
-              placeholder="000.000.000-00"
-              value={formData.cpfCnpj}
-              className="border border-gray-300 p-3 rounded-md w-full bg-white focus:ring-1 focus:ring-blue-500 outline-none"
-              onChange={(e) => setFormData({...formData, cpfCnpj: e.target.value})}
-            />
-          </div>
-
-          <div>
-             <label className="block text-sm text-gray-600 mb-1">Cidade de Emissão</label>
-             <input 
-              placeholder="Sua Cidade"
-              value={formData.cidade}
-              className="border border-gray-300 p-3 rounded-md w-full bg-white focus:ring-1 focus:ring-blue-500 outline-none"
-              onChange={(e) => setFormData({...formData, cidade: e.target.value})}
-            />
-          </div>
-          
-          <div>
-             <label className="block text-sm text-gray-500 mb-1">Data</label>
-             <input 
-              type="text"
-              value={formData.data}
-              className="border border-gray-200 p-3 rounded-md w-full bg-gray-100 text-gray-500 cursor-not-allowed"
-              readOnly
-            />
-          </div>
-        </div>
-        
-        <div className="border-t border-gray-200 pt-5 space-y-3">
-            <button 
-              onClick={handlePrint}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 text-lg"
-            >
-              <i className="fa-solid fa-file-pdf"></i> Gerar e Baixar PDF
-            </button>
-            <p className="text-center text-xs text-gray-500">Seus dados são privados e o PDF é gerado no seu navegador.</p>
+          <Card className="p-4">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <Info className="h-8 w-8 text-indigo-500" />
+              </div>
+              <div className="ml-4 flex-grow">
+                <h4 className="font-semibold text-slate-800">Parceria Recomendada</h4>
+                <p className="text-xs text-slate-600 mt-1">
+                  Precisa de assinatura com validade jurídica?
+                  <Link href="/parcerias" className="text-indigo-600 font-semibold hover:underline ml-1">
+                    Veja nossos parceiros.
+                  </Link>
+                </p>
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-400 mt-2 text-right">Podemos receber uma comissão.</p>
+          </Card>
         </div>
       </div>
+    </Card>
+  );
 
-      {/* Coluna da Direita: Pré-visualização */}
-      <div className="lg:sticky lg:top-24 h-full">
-        <PreviewReciboSimples formData={formData} />
-      </div>
+  const Preview = (
+    <PreviewPaper>
+      <div className="p-2 text-sm text-slate-800 whitespace-pre-wrap font-mono">{getReciboText()}</div>
+    </PreviewPaper>
+  );
 
+  return (
+    <div className="lg:flex gap-8">
+      <div className="flex-1">{FormFields}</div>
+      <div className="flex-1 mt-8 lg:mt-0">{Preview}</div>
     </div>
   );
 }
