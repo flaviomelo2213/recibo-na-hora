@@ -17,12 +17,13 @@ export default function DeclaracaoEnderecoGenerator() {
   const [cidade, setCidade] = useState('');
   const [data, setData] = useState(new Date().toISOString().split('T')[0]);
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF('p', 'mm', 'a4');
-    doc.setFontSize(12);
-    doc.text('DECLARAÇÃO DE RESIDÊNCIA', 20, 20);
-    // ... (rest of PDF generation logic) ...
-    doc.save('declaracao-de-residencia.pdf');
+  const formatDateLongPtBR = (iso: string) => {
+    try {
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    } catch {
+      return iso;
+    }
   };
 
   const getPreviewText = () =>
@@ -33,8 +34,85 @@ export default function DeclaracaoEnderecoGenerator() {
       endereco || '[Endereço Completo]'
     }.\n\n` +
     `Declaro ainda estar ciente de que a falsidade desta declaração pode implicar sanções civis, administrativas e criminais.\n\n` +
-    `${cidade || '[Cidade]'}, ${data}.\n\n` +
+    `${cidade || '[Cidade]'}, ${formatDateLongPtBR(data)}.\n\n` +
     `_________________________\n${nome || '[Nome Completo]'}`;
+
+  const handleGeneratePDF = () => {
+    const doc = new jsPDF('p', 'mm', 'a4');
+
+    const marginX = 20;
+    const marginTop = 20;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const usableWidth = pageWidth - marginX * 2;
+    const bottomLimit = pageHeight - 20;
+
+    let y = marginTop;
+
+    const addLine = (text: string, font: 'normal' | 'bold' = 'normal', size = 12, gap = 6) => {
+      doc.setFont('times', font);
+      doc.setFontSize(size);
+
+      const lines = doc.splitTextToSize(text, usableWidth);
+      const blockHeight = lines.length * gap;
+
+      // quebra de página simples
+      if (y + blockHeight > bottomLimit) {
+        doc.addPage();
+        y = marginTop;
+      }
+
+      doc.text(lines, marginX, y);
+      y += blockHeight + 2;
+    };
+
+    // Título
+    doc.setFont('times', 'bold');
+    doc.setFontSize(14);
+    doc.text('DECLARAÇÃO DE RESIDÊNCIA', pageWidth / 2, y, { align: 'center' });
+    y += 12;
+
+    // Corpo
+    addLine(
+      `Eu, ${nome || '[NOME COMPLETO]'}, ${nacionalidade || '[NACIONALIDADE]'}, portador(a) do RG nº ${
+        rg || '[RG]'
+      } e do CPF nº ${cpf || '[CPF]'}, declaro para os devidos fins que resido e sou domiciliado(a) no endereço: ${
+        endereco || '[ENDEREÇO COMPLETO]'
+      }.`,
+      'normal',
+      12,
+      6
+    );
+
+    addLine(
+      `Declaro ainda estar ciente de que a falsidade desta declaração pode implicar sanções civis, administrativas e criminais, nos termos da legislação vigente.`,
+      'normal',
+      12,
+      6
+    );
+
+    y += 6;
+
+    // Local/Data
+    const cidadeFinal = cidade || '[CIDADE]';
+    const dataFinal = formatDateLongPtBR(data);
+    doc.setFont('times', 'normal');
+    doc.setFontSize(12);
+    doc.text(`${cidadeFinal}, ${dataFinal}.`, pageWidth / 2, y, { align: 'center' });
+    y += 18;
+
+    // Assinatura
+    doc.text('________________________________________', pageWidth / 2, y, { align: 'center' });
+    y += 6;
+    doc.text(nome || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
+
+    // Rodapé simples
+    doc.setFontSize(8);
+    doc.setTextColor(120);
+    doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+    doc.save('declaracao-de-residencia.pdf');
+  };
 
   return (
     <Card className="w-full p-4 sm:p-6 lg:p-8">
