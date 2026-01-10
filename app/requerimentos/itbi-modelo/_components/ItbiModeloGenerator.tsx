@@ -14,20 +14,112 @@ export default function ItbiModeloGenerator() {
   const [cidade, setCidade] = useState('');
   const [data, setData] = useState(new Date().toISOString().split('T')[0]);
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF('p', 'mm', 'a4');
-    doc.setFontSize(12);
-    doc.text('REQUERIMENTO DE ISENÇÃO/REDUÇÃO DE ITBI', 20, 20);
-    // ... (rest of PDF generation logic) ...
-    doc.save('requerimento-itbi.pdf');
+  const formatDateLongPtBR = (iso: string) => {
+    try {
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    } catch {
+      return iso;
+    }
   };
 
   const getPreviewText = () =>
     `À\nSecretaria de Finanças de ${cidade || '[Cidade]'}\n\n` +
     `Eu, ${requerente || '[Nome Completo]'}, CPF ${cpf || '[CPF]'}, venho solicitar a isenção/redução do ITBI referente à aquisição do meu primeiro imóvel, conforme a legislação municipal e as regras do SFH.\n\n` +
     `Termos em que, pede deferimento.\n\n` +
-    `${cidade || '[Cidade]'}, ${data}.\n\n` +
+    `${cidade || '[Cidade]'}, ${formatDateLongPtBR(data)}.\n\n` +
     `_________________________\n${requerente || '[Nome Completo]'}`;
+
+  const handleGeneratePDF = () => {
+    const doc = new jsPDF('p', 'mm', 'a4');
+
+    const marginX = 20;
+    const marginTop = 20;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const usableWidth = pageWidth - marginX * 2;
+    const bottomLimit = pageHeight - 20;
+
+    let y = marginTop;
+
+    const addBlock = (text: string, font: 'normal' | 'bold' = 'normal', size = 12, gap = 6) => {
+      doc.setFont('times', font);
+      doc.setFontSize(size);
+
+      const lines = doc.splitTextToSize(text, usableWidth);
+      const blockHeight = lines.length * gap;
+
+      if (y + blockHeight > bottomLimit) {
+        doc.addPage();
+        y = marginTop;
+      }
+
+      doc.text(lines, marginX, y);
+      y += blockHeight + 2;
+    };
+
+    // Cabeçalho
+    doc.setFont('times', 'bold');
+    doc.setFontSize(13);
+    doc.text('REQUERIMENTO DE ISENÇÃO/REDUÇÃO DE ITBI', pageWidth / 2, y, { align: 'center' });
+    y += 14;
+
+    // Destinatário
+    addBlock(`À`, 'bold', 12, 6);
+    addBlock(`Secretaria de Finanças de ${cidade || '[CIDADE]'}`, 'bold', 12, 6);
+    y += 4;
+
+    // Qualificação
+    addBlock(
+      `Eu, ${requerente || '[NOME COMPLETO]'}, inscrito(a) no CPF nº ${cpf || '[CPF]'}, venho, respeitosamente, requerer:`,
+      'normal',
+      12,
+      6
+    );
+
+    // Pedido
+    addBlock(
+      `A isenção/redução do ITBI referente à aquisição do meu primeiro imóvel, conforme a legislação municipal aplicável e as regras do Sistema Financeiro da Habitação (SFH), se pertinente, bem como a análise e deferimento do presente pedido.`,
+      'normal',
+      12,
+      6
+    );
+
+    addBlock(
+      `Solicito, ainda, a indicação de eventuais documentos complementares necessários para instrução do processo, caso aplicável.`,
+      'normal',
+      12,
+      6
+    );
+
+    y += 8;
+
+    // Fecho
+    addBlock(`Termos em que, pede deferimento.`, 'normal', 12, 6);
+    y += 10;
+
+    // Local/data
+    doc.setFont('times', 'normal');
+    doc.setFontSize(12);
+    doc.text(`${cidade || '[CIDADE]'}, ${formatDateLongPtBR(data)}.`, pageWidth / 2, y, { align: 'center' });
+    y += 18;
+
+    // Assinatura
+    doc.text('________________________________________', pageWidth / 2, y, { align: 'center' });
+    y += 6;
+    doc.text(requerente || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
+    y += 5;
+    doc.setFontSize(10);
+    doc.setTextColor(120);
+    doc.text(`CPF: ${cpf || '[CPF]'}`, pageWidth / 2, y, { align: 'center' });
+
+    // Rodapé
+    doc.setFontSize(8);
+    doc.setTextColor(120);
+    doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+    doc.save('requerimento-itbi.pdf');
+  };
 
   return (
     <Card className="w-full p-4 sm:p-6 lg:p-8">
