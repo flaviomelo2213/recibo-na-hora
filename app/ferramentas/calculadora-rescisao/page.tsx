@@ -1,122 +1,148 @@
-'use client';
-import React, { useState } from 'react';
+import type { Metadata } from 'next';
+import RescisaoCalculator from './_components/RescisaoCalculator';
+import FaqAccordion from '@/components/FaqAccordion';
 
-export default function CalculadoraRescisao() {
-  const [salario, setSalario] = useState('');
-  const [mesesTrabalhados, setMesesTrabalhados] = useState('');
-  const [feriasVencidas, setFeriasVencidas] = useState(false);
-  const [avisoPrevio, setAvisoPrevio] = useState('trabalhado'); // trabalhado, indenizado, nao
-  const [resultado, setResultado] = useState<any>(null);
+export const metadata: Metadata = {
+  title: 'Calculadora de Rescisão CLT Online | Simule seu Acerto',
+  description:
+    'Calcule uma estimativa do seu acerto trabalhista (rescisão de contrato) em uma demissão sem justa causa. Informe salário, meses trabalhados e veja o resultado na hora.',
+  alternates: {
+    canonical: '/ferramentas/calculadora-rescisao',
+  },
+};
 
-  const calcular = () => {
-    const sal = parseFloat(salario);
-    const meses = parseInt(mesesTrabalhados);
-    
-    if (!sal || !meses) return;
+const faqItems = [
+  {
+    question: 'O que a calculadora de rescisão inclui?',
+    answer:
+      'Nossa calculadora foca nas verbas rescisórias principais: saldo de salário, 13º proporcional e férias proporcionais + 1/3. Ela não inclui FGTS, multa de 40% nem descontos como INSS e IRRF.',
+  },
+  {
+    question: 'Esta calculadora serve para qualquer tipo de demissão?',
+    answer:
+      'Ela é mais adequada para demissão sem justa causa. Em pedido de demissão, você perde o direito ao aviso prévio indenizado, ao saque do FGTS e à multa de 40%. Em demissão por justa causa, você recebe apenas o saldo de salário e férias vencidas (se houver).',
+  },
+  {
+    question: 'O que é aviso prévio indenizado?',
+    answer:
+      'É quando a empresa encerra o contrato imediatamente e paga o valor referente ao período do aviso (normalmente 30 dias), em vez de você trabalhar esse período. Este valor não está incluído nesta calculadora.',
+  },
+  {
+    question: 'Como sei meu salário bruto?',
+    answer:
+      'É o salário registrado em carteira antes dos descontos. Você pode encontrá-lo no holerite (contracheque) ou no app da Carteira de Trabalho Digital.',
+  },
+  {
+    question: 'O resultado da calculadora é o valor exato que vou receber?',
+    answer:
+      'Não. É uma estimativa. O valor líquido pode ser menor por descontos (INSS e Imposto de Renda, se aplicável) e por regras específicas do seu caso. Em situações importantes, consulte um contador, sindicato ou advogado.',
+  },
+];
 
-    const saldoSalario = sal; // Simplificado para exemplo
-    const decimoTerceiro = (sal / 12) * meses;
-    const feriasProp = (sal / 12) * meses + ((sal / 12) * meses) / 3;
-    const valorFeriasVencidas = feriasVencidas ? (sal + sal/3) : 0;
-    
-    let total = saldoSalario + decimoTerceiro + feriasProp + valorFeriasVencidas;
-
-    setResultado({
-        saldoSalario, decimoTerceiro, feriasProp, valorFeriasVencidas, total
-    });
+function jsonLdFAQ() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer,
+      },
+    })),
   };
+}
 
+export default function CalculadoraRescisaoPage() {
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-12">
-        <div className="bg-green-700 text-white p-6 text-center">
-             <h1 className="text-2xl font-bold"><i className="fa-solid fa-calculator"></i> Calculadora de Rescisão CLT</h1>
-             <p className="text-green-100 text-sm">Simule seus direitos trabalhistas (Férias, 13º e Saldo).</p>
-        </div>
+    <main className="bg-slate-50 py-12 md:py-20">
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ()) }}
+      />
 
-        <div className="p-8 grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-                <label className="block text-sm font-bold text-slate-700">Último Salário Bruto (R$)</label>
-                <input type="number" value={salario} onChange={(e) => setSalario(e.target.value)} placeholder="Ex: 2500.00" className="w-full p-3 border rounded bg-gray-50" />
-                
-                <label className="block text-sm font-bold text-slate-700">Meses Trabalhados no Ano</label>
-                <input type="number" value={mesesTrabalhados} onChange={(e) => setMesesTrabalhados(e.target.value)} placeholder="Ex: 8" className="w-full p-3 border rounded bg-gray-50" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="text-center mb-12 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+            Calculadora de Rescisão Trabalhista
+          </h1>
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+            Tenha uma estimativa clara dos seus direitos ao sair de um emprego. Preencha os dados
+            abaixo e simule o cálculo das suas verbas rescisórias.
+          </p>
+        </header>
 
-                <div className="flex items-center gap-2 py-2">
-                    <input type="checkbox" checked={feriasVencidas} onChange={(e) => setFeriasVencidas(e.target.checked)} id="ferias" className="w-5 h-5" />
-                    <label htmlFor="ferias" className="text-slate-700">Tenho férias vencidas (1 ano sem tirar)</label>
-                </div>
+        <RescisaoCalculator />
 
-                <button onClick={calcular} className="w-full mt-4 bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition shadow-lg">
-                    CALCULAR AGORA
-                </button>
-            </div>
-
-            <div className="bg-green-50 p-6 rounded-xl border border-green-100">
-                <h3 className="font-bold text-green-800 mb-4 border-b border-green-200 pb-2">Resultado da Simulação</h3>
-                {resultado ? (
-                    <div className="space-y-3 text-sm">
-                        <div className="flex justify-between"><span>Saldo de Salário:</span> <strong>R$ {resultado.saldoSalario.toFixed(2)}</strong></div>
-                        <div className="flex justify-between"><span>13º Proporcional:</span> <strong>R$ {resultado.decimoTerceiro.toFixed(2)}</strong></div>
-                        <div className="flex justify-between"><span>Férias + 1/3:</span> <strong>R$ {resultado.feriasProp.toFixed(2)}</strong></div>
-                        {resultado.valorFeriasVencidas > 0 && <div className="flex justify-between text-blue-600"><span>Férias Vencidas:</span> <strong>R$ {resultado.valorFeriasVencidas.toFixed(2)}</strong></div>}
-                        <div className="border-t border-green-300 pt-3 mt-3 flex justify-between text-lg font-bold text-green-900">
-                            <span>TOTAL ESTIMADO:</span> <span>R$ {resultado.total.toFixed(2)}</span>
-                        </div>
-                        <p className="text-xs text-green-700 mt-4 text-center">* Valores aproximados. Não substitui cálculo contábil oficial.</p>
-                    </div>
-                ) : (
-                    <div className="text-center text-green-700/50 py-10">
-                        <i className="fa-solid fa-calculator text-4xl mb-2"></i>
-                        <p>Preencha os dados ao lado para ver o resultado.</p>
-                    </div>
-                )}
-            </div>
-        </div>
-      </div>
-
-      {/* --- TEXTO RICO PARA SEO (MONETIZAÇÃO) --- */}
-      <section className="max-w-4xl mx-auto prose prose-slate">
-        <h2 className="text-3xl font-bold text-slate-900 mb-6">Entenda seu Cálculo de Rescisão</h2>
-        
-        <p className="text-slate-600 mb-6 leading-relaxed">
-            A <strong>rescisão de contrato de trabalho</strong> é o momento em que se encerra o vínculo entre empresa e funcionário. Saber calcular os valores corretos é essencial para não sair no prejuízo. Nossa calculadora online ajuda você a ter uma estimativa precisa dos seus direitos baseada na CLT (Consolidação das Leis do Trabalho).
-        </p>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-             <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
-                <h3 className="font-bold text-slate-800 mb-2 text-lg">💰 O que é Saldo de Salário?</h3>
-                <p className="text-sm text-slate-500">São os dias que você trabalhou no mês da demissão. Se você saiu no dia 15, deve receber pelos 15 dias trabalhados.</p>
-             </div>
-             <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
-                <h3 className="font-bold text-slate-800 mb-2 text-lg">🏖️ Férias Proporcionais</h3>
-                <p className="text-sm text-slate-500">Para cada mês que você trabalhou mais de 14 dias, você ganha o direito a 1/12 avos de férias, sempre com o acréscimo de 1/3 constitucional.</p>
-             </div>
-        </div>
-
-        <h3 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Diferença entre Demissão e Pedido de Demissão</h3>
-        <ul className="space-y-4 list-none pl-0">
-            <li className="flex gap-4 items-start">
-                <div className="bg-red-100 text-red-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold">1</div>
-                <div>
-                    <strong>Demissão sem Justa Causa:</strong> O patrão te demite. Você recebe tudo: Aviso prévio, Férias, 13º e a Multa de 40% do FGTS. Também pode sacar o FGTS e pedir Seguro-Desemprego.
-                </div>
-            </li>
-            <li className="flex gap-4 items-start">
-                <div className="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold">2</div>
-                <div>
-                    <strong>Pedido de Demissão:</strong> Você pede para sair. Você recebe Férias e 13º, mas <strong>NÃO</strong> saca o FGTS, não recebe a multa de 40% e não tem direito ao Seguro-Desemprego.
-                </div>
-            </li>
-        </ul>
-
-        <div className="bg-yellow-50 p-6 rounded-xl border-l-4 border-yellow-400 mt-8">
-            <h4 className="font-bold text-yellow-800 mb-2">💡 Dica de Ouro: Onde encontrar as informações?</h4>
-            <p className="text-sm text-yellow-900">
-                Para usar a calculadora com exatidão, pegue sua <strong>Carteira de Trabalho Digital</strong> ou seu último <strong>Holerite</strong>. Lá você encontra a data exata de admissão e o valor bruto do seu salário (sem os descontos de INSS/Vale Transporte).
+        <section className="max-w-4xl mx-auto mt-20 space-y-12">
+          <div className="prose prose-lg prose-slate mx-auto">
+            <h2 className="text-3xl font-bold text-slate-900">Entendendo as verbas rescisórias</h2>
+            <p>
+              A rescisão do contrato de trabalho envolve direitos e deveres. Conhecer as verbas que
+              compõem o acerto ajuda a entender se os valores estão coerentes com o seu caso.
             </p>
-        </div>
-      </section>
-    </div>
+            <ul>
+              <li>
+                <strong>Saldo de salário:</strong> pagamento pelos dias trabalhados no mês da rescisão.
+              </li>
+              <li>
+                <strong>Aviso prévio:</strong> período de 30 dias (ou mais, em alguns casos). Pode ser trabalhado
+                ou indenizado.
+              </li>
+              <li>
+                <strong>13º proporcional:</strong> referente aos meses trabalhados no ano.
+              </li>
+              <li>
+                <strong>Férias proporcionais + 1/3:</strong> férias do período aquisitivo em curso, com adicional.
+              </li>
+              <li>
+                <strong>Férias vencidas + 1/3 (se houver):</strong> quando existirem períodos não gozados.
+              </li>
+            </ul>
+
+            <h3 className="text-2xl font-bold text-slate-900">Diferenças por tipo de desligamento</h3>
+            <p>
+              O motivo do término do contrato impacta diretamente o que é devido ao trabalhador. Abaixo,
+              um resumo das diferenças mais comuns.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+              <h4 className="font-bold text-slate-800 text-xl mb-2">Demissão sem justa causa</h4>
+              <p className="text-slate-600">
+                Em geral, dá direito às verbas rescisórias completas e pode incluir saque do FGTS + multa
+                de 40% e acesso ao seguro-desemprego (conforme regras).
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+              <h4 className="font-bold text-slate-800 text-xl mb-2">Pedido de demissão</h4>
+              <p className="text-slate-600">
+                Normalmente não dá direito à multa de 40% do FGTS, nem ao saque do FGTS e nem ao seguro-desemprego.
+                Pode haver cumprimento (ou desconto) do aviso prévio.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-amber-50 p-6 rounded-xl border-l-4 border-amber-400 prose prose-slate mx-auto">
+            <h4 className="font-bold text-amber-900">Aviso importante</h4>
+            <p className="text-amber-800">
+              Esta ferramenta oferece uma <strong>estimativa</strong> e não substitui o cálculo oficial feito pelo RH
+              ou por um profissional. Os valores são brutos e podem variar por descontos (INSS/IR), adicionais,
+              convenções coletivas e regras específicas do seu contrato.
+            </p>
+          </div>
+        </section>
+
+        <section className="max-w-3xl mx-auto mt-20">
+          <h2 className="text-3xl font-bold text-center text-slate-900 mb-8">
+            Dúvidas frequentes sobre rescisão
+          </h2>
+          <FaqAccordion items={faqItems} />
+        </section>
+      </div>
+    </main>
   );
 }
