@@ -1,37 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.recibonahora.com.br/</loc></url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <url><loc>https://www.recibonahora.com.br/ferramentas</loc></url>
-  <url><loc>https://www.recibonahora.com.br/recibos</loc></url>
-  <url><loc>https://www.recibonahora.com.br/contratos</loc></url>
-  <url><loc>https://www.recibonahora.com.br/orcamentos</loc></url>
-  <url><loc>https://www.recibonahora.com.br/mei</loc></url>
-  <url><loc>https://www.recibonahora.com.br/requerimentos</loc></url>
+<url>
+  <loc>https://www.recibonahora.com.br/</loc>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas</loc>
+  <priority>0.90</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/recibos</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/contratos</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/orcamentos</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/requerimentos</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/mei</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/recibo-simples</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/recibo-pix</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/vale-transporte</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/nota-promissoria</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/contrato-locacao</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/contrato-completo</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/orcamento</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/procuracao</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/procuracao-profissional</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/autorizacao-viagem</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/calculadora-rescisao</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/curriculo-profissional</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/ferramentas/mei-relatorio</loc>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/requerimentos/declaracao-endereco</loc>
+  <priority>0.60</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/requerimentos/itbi-modelo</loc>
+  <priority>0.60</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/requerimentos/lai-pedido</loc>
+  <priority>0.60</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/sobre</loc>
+  <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/contato</loc>
+  <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/politica-privacidade</loc>
+  <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/termos-uso</loc>
+  <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://www.recibonahora.com.br/como-ganhamos-dinheiro</loc>
+  <priority>0.50</priority>
+</url>
 
-  <url><loc>https://www.recibonahora.com.br/ferramentas/recibo-simples</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/procuracao</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/procuracao-profissional</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/contrato-completo</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/contrato-locacao</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/autorizacao-viagem</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/nota-promissoria</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/orcamento</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/prefeitura</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/calculadora-rescisao</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/mei-relatorio</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/imobiliario</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/curriculo-profissional</loc></url>
-  <url><loc>https://www.recibonahora.com.br/ferramentas/vale-transporte</loc></url>
-
-  <url><loc>https://www.recibonahora.com.br/requerimentos/lai-pedido</loc></url>
-  <url><loc>https://www.recibonahora.com.br/requerimentos/declaracao-endereco</loc></url>
-  <url><loc>https://www.recibonahora.com.br/requerimentos/itbi-modelo</loc></url>
-
-  <url><loc>https://www.recibonahora.com.br/parcerias</loc></url>
-  <url><loc>https://www.recibonahora.com.br/como-ganhamos-dinheiro</loc></url>
-  <url><loc>https://www.recibonahora.com.br/sobre</loc></url>
-  <url><loc>https://www.recibonahora.com.br/contato</loc></url>
-  <url><loc>https://www.recibonahora.com.br/politica-privacidade</loc></url>
-  <url><loc>https://www.recibonahora.com.br/termos-uso</loc></url>
 </urlset>
