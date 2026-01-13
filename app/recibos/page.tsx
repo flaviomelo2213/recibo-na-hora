@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     question: "Os dados que preencho são armazenados?",
-    answer: "Os dados que você preenche no formulário não são enviados nem armazenados em nossos servidores; o documento é gerado localmente no seu navegador. Dados de navegação podem ser coletados por terceiros para anúncios, conforme a <a href='/politica-de-privacidade' class='text-amber-700 hover:underline'>Política de Privacidade</a>.",
+    answer: "Os dados que você preenche no formulário não são enviados nem armazenados em nossos servidores; o documento é gerado localmente no seu navegador. Dados de navegação podem ser coletados por terceiros para anúncios, conforme a <a href='/politica-privacidade' class='text-amber-700 hover:underline'>Política de Privacidade</a>.",
   },
   {
     question: "Qual a diferença do recibo para o comprovante do banco?",
@@ -152,16 +152,29 @@ export default function RecibosPillarPage() {
               </p>
             </Link>
 
-            <DisabledCard
-              title="Gerador de Recibo PIX"
-              description="Comprove transferências PIX com um recibo mais completo do que o comprovante bancário, incluindo motivo do pagamento e dados das partes."
-            />
+            <Link
+              href="/ferramentas/recibo-pix"
+              className="group block bg-white p-6 rounded-lg border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+            >
+              <h3 className="font-bold text-xl text-slate-800 group-hover:text-blue-600">
+                Gerador de Recibo PIX
+              </h3>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                Comprove transferências PIX com um recibo mais completo do que o comprovante bancário.
+              </p>
+            </Link>
 
-            {/* Em breve (evita 404 e não polui SEO com “TODO”) */}
-            <DisabledCard
-              title="Gerador de Recibo de Aluguel"
-              description="Formalize o pagamento mensal de aluguéis residenciais ou comerciais com informações do locador, locatário e mês de referência."
-            />
+            <Link
+              href="/ferramentas/recibo-aluguel"
+              className="group block bg-white p-6 rounded-lg border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+            >
+              <h3 className="font-bold text-xl text-slate-800 group-hover:text-blue-600">
+                Gerador de Recibo de Aluguel
+              </h3>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                Formalize o pagamento mensal de aluguéis residenciais ou comerciais com informações do locador, locatário e mês de referência.
+              </p>
+            </Link>
 
             <DisabledCard
               title="Recibo para MEI (RPA)"
@@ -364,16 +377,29 @@ export default function RecibosPillarPage() {
               </p>
             </Link>
 
-            {/* Se a rota não existir ainda, melhor não linkar para evitar 404 */}
-            <DisabledCard
-              title="Gerador de Nota Promissória"
-              description="Em breve: formalize uma promessa de pagamento futuro com um modelo completo."
-            />
+            <Link
+              href="/ferramentas/nota-promissoria"
+              className="group block bg-white p-6 rounded-lg border border-slate-200 hover:border-amber-500 hover:shadow-lg transition-all duration-300"
+            >
+              <h3 className="font-bold text-xl text-slate-800 group-hover:text-amber-600">
+                Gerador de Nota Promissória
+              </h3>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                Formalize uma promessa de pagamento futuro com um modelo completo.
+              </p>
+            </Link>
 
-            <DisabledCard
-              title="Contrato de Aluguel"
-              description="Em breve: gere um contrato de locação completo para proteger locador e locatário."
-            />
+            <Link
+              href="/contrato-locacao"
+              className="group block bg-white p-6 rounded-lg border border-slate-200 hover:border-amber-500 hover:shadow-lg transition-all duration-300"
+            >
+              <h3 className="font-bold text-xl text-slate-800 group-hover:text-amber-600">
+                Contrato de Aluguel
+              </h3>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                Gere um contrato de locação completo para proteger locador e locatário.
+              </p>
+            </Link>
           </div>
 
           <div className="mt-10 text-center">

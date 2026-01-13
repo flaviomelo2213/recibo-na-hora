@@ -1,173 +1,51 @@
-'use client';
 
-import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
+import type { Metadata } from 'next';
+import ContratoLocacaoGenerator from './_components/ContratoLocacaoGenerator';
 
-export default function ContratoLocacao() {
-  // Estado do formulário
-  const [dados, setDados] = useState({
-    locadorNome: '',
-    locadorCPF: '',
-    locatarioNome: '',
-    locatarioCPF: '',
-    enderecoImovel: '',
-    valorAluguel: '',
-    dataInicio: '',
-    prazoMeses: '12',
-    diaVencimento: '05',
-    cidade: '',
-    dataAssinatura: new Date().toISOString().split('T')[0]
-  });
+export const metadata: Metadata = {
+  title: 'Gerador de Contrato de Aluguel | ReciboNaHora',
+  description: 'Crie um Contrato de Aluguel residencial simples e seguro. Preencha os dados do locador, locatário e imóvel para gerar seu documento em PDF.',
+  alternates: {
+    canonical: '/contrato-locacao'
+  }
+};
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setDados({ ...dados, [e.target.name]: e.target.value });
-  };
-
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    const margemEsq = 20;
-    let linha = 20;
-
-    // Configuração de Fonte
-    doc.setFont("times", "bold");
-    doc.setFontSize(18);
-    doc.text("CONTRATO DE LOCAÇÃO RESIDENCIAL", 105, linha, { align: "center" });
-    
-    linha += 20;
-    doc.setFont("times", "normal");
-    doc.setFontSize(12);
-
-    // Texto Legal (Lógica de quebra de linha automática)
-    const texto = [
-      `PELO PRESENTE INSTRUMENTO PARTICULAR, as partes abaixo qualificadas têm, entre si, justo e contratado o presente CONTRATO DE LOCAÇÃO RESIDENCIAL, mediante as cláusulas e condições seguintes:`,
-      `\n`,
-      `1. LOCADOR: ${dados.locadorNome.toUpperCase()}, portador(a) do CPF nº ${dados.locadorCPF}.`,
-      `2. LOCATÁRIO: ${dados.locatarioNome.toUpperCase()}, portador(a) do CPF nº ${dados.locatarioCPF}.`,
-      `\n`,
-      `3. DO OBJETO: O presente contrato tem como objeto a locação do imóvel residencial situado à: ${dados.enderecoImovel.toUpperCase()}.`,
-      `\n`,
-      `4. DO PRAZO: A locação terá a duração de ${dados.prazoMeses} meses, iniciando-se em ${dados.dataInicio.split('-').reverse().join('/')}.`,
-      `\n`,
-      `5. DO VALOR: O aluguel mensal será de R$ ${dados.valorAluguel}, devendo ser pago até o dia ${dados.diaVencimento} de cada mês.`,
-      `\n`,
-      `6. DAS DISPOSIÇÕES GERAIS: O LOCATÁRIO obriga-se a manter o imóvel em perfeitas condições (em termos práticos: manutenção do dia a dia como limpeza, troca de lâmpadas, pequenos reparos e uso adequado), sendo vedada a sublocação sem anuência expressa do LOCADOR.`,
-      `\n`,
-      `E, por estarem assim justos e contratados, assinam o presente em 02 (duas) vias de igual teor.`,
-    ];
-
-    // Escrever o texto no PDF
-    texto.forEach((paragrafo) => {
-        const linhasDoParagrafo = doc.splitTextToSize(paragrafo, 170); // Quebra automática na largura
-        doc.text(linhasDoParagrafo, margemEsq, linha);
-        linha += (linhasDoParagrafo.length * 7) + 5; // Calcula espaço para próxima linha
-    });
-
-    linha += 20;
-    doc.text(`${dados.cidade}, ${dados.dataAssinatura.split('-').reverse().join('/')}`, margemEsq, linha);
-
-    // Assinaturas
-    linha += 40;
-    doc.line(margemEsq, linha, 90, linha);
-    doc.line(110, linha, 190, linha);
-    
-    linha += 5;
-    doc.setFontSize(10);
-    doc.text("LOCADOR", 55, linha, { align: "center" });
-    doc.text("LOCATÁRIO", 150, linha, { align: "center" });
-
-    doc.save("contrato-locacao.pdf");
-  };
-
+export default function ContratoAluguelPage() {
   return (
-    <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-      
-      {/* Título da Página */}
-      <div className="mb-8 text-center border-b pb-6">
-        <h2 className="text-3xl font-bold text-slate-800"><i className="fa-solid fa-house text-blue-600 mr-2"></i>Contrato de Locação</h2>
-        <p className="text-gray-500 mt-2">Preencha os dados para gerar seu contrato residencial automaticamente.</p>
+    <div className="bg-slate-50 py-12 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <header className="text-center mb-12 max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                Gerador de Contrato de Aluguel
+            </h1>
+            <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+                Preencha as informações abaixo para gerar uma prévia do seu contrato de aluguel. A versão final em PDF conterá todas as cláusulas legais para sua segurança.
+            </p>
+        </header>
+
+        <ContratoLocacaoGenerator />
+
+        <section className="max-w-4xl mx-auto mt-20 space-y-8 prose prose-lg prose-slate">
+            <h2 className="text-3xl font-bold text-slate-900">A Importância de um Bom Contrato</h2>
+            <p>
+                O contrato de aluguel é o documento mais importante na relação entre locador e locatário. Ele estabelece os direitos e deveres de cada um, definindo regras sobre o valor do aluguel, prazo de locação, responsabilidades por manutenções e multas por descumprimento. Ter um contrato claro e completo evita dores de cabeça e disputas futuras.
+            </p>
+            <h3>Principais Cláusulas (Presentes na versão final):</h3>
+            <ul>
+                <li><strong>Qualificação das Partes:</strong> Informações completas do locador e do locatário.</li>
+                <li><strong>Descrição do Imóvel:</strong> Endereço e características do imóvel alugado.</li>
+                <li><strong>Valor e Pagamento:</strong> Definição do valor do aluguel, data de vencimento e forma de pagamento.</li>
+                <li><strong>Garantia:</strong> Caução, fiador ou seguro-fiança para proteger contra inadimplência.</li>
+                <li><strong>Vigência:</strong> Prazo de duração do contrato de aluguel.</li>
+            </ul>
+             <div className="bg-amber-50 p-6 rounded-xl border-l-4 border-amber-400 mt-8">
+                <h4 className="font-bold text-amber-900">Funcionalidade de Geração de PDF</h4>
+                <p className="text-amber-800">
+                    A capacidade de gerar o contrato final em PDF a partir dos dados preenchidos está em desenvolvimento e será adicionada em breve a esta página.
+                </p>
+            </div>
+        </section>
       </div>
-
-      {/* Formulário Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
-        
-        {/* Bloco 1: Pessoas */}
-        <div className="space-y-4">
-          <h3 className="font-bold text-blue-900 border-b pb-2">1. Quem são as partes?</h3>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Nome do Locador (Dono)</label>
-            <input name="locadorNome" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Ex: João da Silva" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">CPF do Locador</label>
-            <input name="locadorCPF" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="000.000.000-00" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Nome do Locatário (Inquilino)</label>
-            <input name="locatarioNome" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Ex: Maria Oliveira" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">CPF do Locatário</label>
-            <input name="locatarioCPF" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="000.000.000-00" />
-          </div>
-        </div>
-
-        {/* Bloco 2: Imóvel e Valores */}
-        <div className="space-y-4">
-          <h3 className="font-bold text-blue-900 border-b pb-2">2. Dados do Aluguel</h3>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Endereço Completo do Imóvel</label>
-            <input name="enderecoImovel" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Rua, Número, Bairro, Cidade-UF" />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Valor Mensal (R$)</label>
-              <input name="valorAluguel" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg" placeholder="1.500,00" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Dia Vencimento</label>
-              <select name="diaVencimento" onChange={handleChange} className="w-full p-3 border rounded-lg bg-white">
-                <option value="05">Dia 05</option>
-                <option value="10">Dia 10</option>
-                <option value="15">Dia 15</option>
-                <option value="30">Dia 30</option>
-              </select>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Início do Contrato</label>
-              <input name="dataInicio" onChange={handleChange} type="date" className="w-full p-3 border rounded-lg" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Duração (Meses)</label>
-              <input name="prazoMeses" onChange={handleChange} type="number" defaultValue="12" className="w-full p-3 border rounded-lg" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bloco 3: Finalização */}
-      <div className="mt-8 pt-6 border-t">
-        <div className="grid grid-cols-2 gap-6 mb-6">
-           <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Cidade da Assinatura</label>
-              <input name="cidade" onChange={handleChange} type="text" className="w-full p-3 border rounded-lg" placeholder="Ex: São Paulo" />
-           </div>
-           <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Data da Assinatura</label>
-              <input name="dataAssinatura" onChange={handleChange} type="date" value={dados.dataAssinatura} className="w-full p-3 border rounded-lg" />
-           </div>
-        </div>
-
-        <button 
-          onClick={gerarPDF}
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
-        >
-          <i className="fa-solid fa-file-pdf text-2xl"></i>
-          Baixar Contrato em PDF
-        </button>
-      </div>
-
     </div>
   );
 }

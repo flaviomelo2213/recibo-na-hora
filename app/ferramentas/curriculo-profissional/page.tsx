@@ -31,7 +31,7 @@ const initialData: CurriculumData = {
   assinaturaDataUrl: undefined,
 };
 
-const faqs = [
+const faqItems = [
     { question: "O gerador de currículo é gratuito?", answer: "Sim, nossa ferramenta para criar currículo é totalmente gratuita. Você pode preencher seus dados, adicionar foto, desenhar sua assinatura e baixar o PDF sem custos." },
     { question: "Meus dados ficam salvos no site?", answer: "Não. Sua privacidade é nossa prioridade. Todos os dados, incluindo sua foto e assinatura, são processados localmente no seu navegador e não são enviados para nossos servidores." },
     { question: "Posso usar esse currículo em processos seletivos?", answer: "Sim. O modelo foi desenhado para ser moderno, profissional e de fácil leitura, inclusive por sistemas de triagem automática (ATS), aumentando suas chances de ser notado." },
@@ -44,7 +44,7 @@ function jsonLdFAQ() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    mainEntity: faqItems.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: {
@@ -103,7 +103,7 @@ export default function Page() {
         </div>
 
         <section className="mt-16 mb-12 max-w-3xl mx-auto">
-          <FaqAccordion items={faqs} />
+          <FaqAccordion items={faqItems} />
         </section>
     </main>
   );

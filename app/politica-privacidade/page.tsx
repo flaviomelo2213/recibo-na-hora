@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "06/01/2026";
+const LAST_UPDATED = new Date().toLocaleDateString('pt-BR');
 
 export default function PoliticaPrivacidadePage() {
   return (

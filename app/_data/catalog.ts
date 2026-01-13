@@ -117,15 +117,13 @@ export const TOOLS: ToolItem[] = [
     badges: ["Grátis"],
     iconKey: "scale",
   },
-
-  // Exemplos (sem rota confirmada) — ficam “Em breve” e sem link:
   {
     id: "recibo-pix",
     name: "Recibo com PIX",
     description: "Recibo moderno com QR Code PIX para facilitar a quitação.",
     categoryId: "recibos",
-    comingSoon: true,
-    badges: ["Em breve"],
+    href: "/ferramentas/recibo-pix",
+    badges: ["Novo", "Beta"],
     iconKey: "sparkles",
   },
   {
@@ -133,8 +131,8 @@ export const TOOLS: ToolItem[] = [
     name: "Gerador de Currículo",
     description: "Crie um currículo enxuto e profissional em minutos.",
     categoryId: "outros",
-    comingSoon: true,
-    badges: ["Em breve"],
+    href: "/ferramentas/curriculo-profissional",
+    badges: ["Novo", "Beta"],
     iconKey: "contact",
   },
   {
@@ -142,8 +140,8 @@ export const TOOLS: ToolItem[] = [
     name: "Calculadora de Rescisão CLT",
     description: "Estimativa rápida de verbas rescisórias.",
     categoryId: "outros",
-    comingSoon: true,
-    badges: ["Em breve"],
+    href: "/ferramentas/calculadora-rescisao",
+    badges: ["Popular"],
     iconKey: "calculator",
   },
 ];

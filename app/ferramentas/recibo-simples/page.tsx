@@ -7,7 +7,7 @@ import ReciboSimplesGenerator from './_components/ReciboSimplesGenerator';
 import FaqAccordion from '../../components/FaqAccordion';
 import LegalDisclaimer from '../../components/LegalDisclaimer';
 
-const faqs = [
+const faqItems = [
   {
     question: "Qual a validade jurídica de um recibo simples?",
     answer:
@@ -29,7 +29,7 @@ function jsonLdFAQ() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    mainEntity: faqItems.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: {
@@ -70,7 +70,7 @@ export default function ReciboSimplesPage() {
       <ReciboSimplesGenerator />
 
       <section className="mt-16 mb-12 max-w-3xl mx-auto">
-        <FaqAccordion items={faqs} />
+        <FaqAccordion items={faqItems} />
       </section>
 
       <div className="mt-16 text-center">
