@@ -120,7 +120,7 @@ export default function RootLayout({
                 >
                   Transparência
                 </a>
-                <a href="#contato" className="hover:text-amber-600 transition">
+                <a href="/contato" className="hover:text-amber-600 transition">
                   Contato
                 </a>
               </nav>
@@ -247,14 +247,14 @@ export default function RootLayout({
                     </li>
                     <li>
                       <a
-                        href="/politica-de-privacidade"
+                        href="/politica-privacidade"
                         className="hover:text-amber-600"
                       >
                         Política de Privacidade
                       </a>
                     </li>
                     <li>
-                      <a href="/termos-de-uso" className="hover:text-amber-600">
+                      <a href="/termos-uso" className="hover:text-amber-600">
                         Termos de Uso
                       </a>
                     </li>
@@ -276,22 +276,6 @@ export default function RootLayout({
                   </p>
                 </div>
 
-                <div className="flex gap-4 text-xl">
-                  <a
-                    href="#"
-                    className="text-stone-400 hover:text-amber-600 transition"
-                    aria-label="Instagram"
-                  >
-                    <i className="fa-brands fa-instagram" />
-                  </a>
-                  <a
-                    href="#"
-                    className="text-stone-400 hover:text-amber-600 transition"
-                    aria-label="Facebook"
-                  >
-                    <i className="fa-brands fa-facebook" />
-                  </a>
-                </div>
               </div>
             </div>
           </footer>

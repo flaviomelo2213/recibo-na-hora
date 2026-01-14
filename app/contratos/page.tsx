@@ -2,7 +2,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Gerador de Contratos Online em PDF | ReciboNaHora",
+  title: "Guia de Contratos | ReciboNaHora",
   description:
     "Crie contratos online em PDF com validade jurídica. Modelos para diversas finalidades. Ferramenta gratuita, rápida e segura.",
   alternates: {
@@ -69,7 +69,7 @@ export default function ContratosPage() {
         {/* Cabeçalho */}
         <header className="text-center max-w-4xl mx-auto mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 mb-4 tracking-tight">
-            Gerador de Contratos Online em PDF
+            Guia de Contratos
           </h1>
           <p className="text-lg text-stone-600">
             Crie, personalize e gere contratos com validade jurídica de forma
