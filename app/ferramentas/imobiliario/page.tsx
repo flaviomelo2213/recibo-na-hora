@@ -3,13 +3,13 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import ReciboDeAluguelGenerator from './_components/ReciboDeAluguelGenerator';
-import FaqAccordion from '../../components/FaqAccordion';
-import LegalDisclaimer from '../../components/LegalDisclaimer';
+import FaqAccordion from '../../../app/components/FaqAccordion';
+import LegalDisclaimer from '../../../app/components/LegalDisclaimer';
 import {
   ToolShell,
   ToolShellMain,
   ToolShellHeader,
-} from '../../components/layout/ToolShell';
+} from '../../../app/components/layout/ToolShell';
 
 const faqItems = [
   {

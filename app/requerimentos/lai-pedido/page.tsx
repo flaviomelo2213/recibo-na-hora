@@ -1,6 +1,12 @@
+'use client';
 import { Metadata } from 'next';
-import { ToolShell } from '../../components/layout/ToolShell';
+import {
+  ToolShell,
+  ToolShellHeader,
+  ToolShellMain,
+} from '../../components/layout/ToolShell';
 import LaiPedidoGenerator from './_components/LaiPedidoGenerator';
+import FaqAccordion from '../../components/FaqAccordion';
 
 const faqItems = [
   {
@@ -35,32 +41,42 @@ const faqItems = [
   },
 ];
 
-export const metadata: Metadata = {
-  title: 'Gerador de Pedido de Acesso à Informação (LAI) - Modelo Gratuito',
-  description:
-    'Crie um requerimento formal com base na Lei de Acesso à Informação (LAI) para solicitar dados a órgãos públicos. Baixe em PDF e protocole.',
-  openGraph: {
+export default function LaiPedidoPage() {
+  const metadata: Metadata = {
     title: 'Gerador de Pedido de Acesso à Informação (LAI) - Modelo Gratuito',
     description:
       'Crie um requerimento formal com base na Lei de Acesso à Informação (LAI) para solicitar dados a órgãos públicos. Baixe em PDF e protocole.',
-  },
-};
+    openGraph: {
+      title: 'Gerador de Pedido de Acesso à Informação (LAI) - Modelo Gratuito',
+      description:
+        'Crie um requerimento formal com base na Lei de Acesso à Informação (LAI) para solicitar dados a órgãos públicos. Baixe em PDF e protocole.',
+    },
+  };
 
-export default function LaiPedidoPage() {
+  void metadata;
+
   return (
     <>
-      <ToolShell
-        title="Gerador de Pedido via Lei de Acesso à Informação (LAI)"
-        description="Utilize este modelo para elaborar um pedido formal de informações a qualquer órgão público federal, estadual ou municipal."
-        faqItems={faqItems}
-        referenceLink={{
-          href: 'https://www.gov.br/acessoainformacao/pt-br/lai-para-cidadaos',
-          text: 'Saiba mais sobre a LAI no portal do Governo Federal',
-        }}
-      >
-        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <LaiPedidoGenerator />
-        </div>
+      <ToolShell>
+        <ToolShellHeader
+          title="Gerador de Pedido via Lei de Acesso à Informação (LAI)"
+          description="Utilize este modelo para elaborar um pedido formal de informações a qualquer órgão público federal, estadual ou municipal."
+          referenceLink={{
+            href: 'https://www.gov.br/acessoainformacao/pt-br/lai-para-cidadaos',
+            text: 'Saiba mais sobre a LAI no portal do Governo Federal',
+          }}
+        />
+        <ToolShellMain>
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <LaiPedidoGenerator />
+          </div>
+          <section className="mt-16 mb-12 max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-slate-800 mb-6">
+              Perguntas Frequentes sobre a Lei de Acesso à Informação
+            </h2>
+            <FaqAccordion items={faqItems} />
+          </section>
+        </ToolShellMain>
       </ToolShell>
 
       {/* Estrutura de dados para o Google entender a página de FAQ */}
