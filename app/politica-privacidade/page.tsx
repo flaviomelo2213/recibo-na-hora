@@ -87,12 +87,15 @@ export default function PoliticaPrivacidadePage() {
           <h2>5. Publicidade (Google AdSense)</h2>
           <p>
             O ReciboNaHora pode exibir anúncios por meio do <strong>Google AdSense</strong>. O
-            Google pode utilizar cookies/identificadores para exibir anúncios, medir performance e
-            combater fraude.
+            Google e seus parceiros podem utilizar cookies para exibir anúncios com base nas
+            visitas dos usuários a este e a outros sites na Internet. Um desses cookies é o
+            <strong>cookie DoubleClick DART</strong>.
           </p>
           <p>
-            Você pode ajustar preferências de anúncios nas configurações da sua conta Google e/ou
-            por meio das opções do seu navegador.
+            Você pode desativar o uso do cookie DART acessando a página de
+            <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">política de privacidade da rede de conteúdo e de anúncios do Google</a>.
+            Além disso, é possível gerenciar suas preferências de anúncios nas configurações de sua
+            conta do Google.
           </p>
 
           <h2>6. Recursos de IA (BYOK – “traga sua própria chave”)</h2>
