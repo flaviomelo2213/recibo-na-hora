@@ -6,6 +6,11 @@ import type { Metadata } from 'next';
 import ReciboSimplesGenerator from './_components/ReciboSimplesGenerator';
 import FaqAccordion from '../../components/FaqAccordion';
 import LegalDisclaimer from '../../components/LegalDisclaimer';
+import {
+  ToolShell,
+  ToolShellMain,
+  ToolShellHeader,
+} from '../../components/layout/ToolShell';
 
 const faqItems = [
   {
@@ -51,31 +56,103 @@ export default function ReciboSimplesPage() {
   void metadata; // evita warning de variável não usada (mantém como está)
 
   return (
-    <main className="w-full mx-auto py-12 px-4 md:px-6 lg:px-8">
+    <ToolShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ()) }}
       />
+      <ToolShellHeader
+        title="Gerador de Recibo de Pagamento"
+        description="Crie um recibo completo em segundos. Preencha, visualize e baixe o PDF."
+      />
+      <ToolShellMain>
+        <ReciboSimplesGenerator />
 
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 tracking-tight">
-          Gerador de Recibo de Pagamento
-        </h1>
-        <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-          Crie um recibo completo em segundos. Preencha, visualize e baixe o PDF.
-        </p>
-      </div>
+        <section className="mt-16 mb-12 max-w-3xl mx-auto prose prose-slate">
+          <h2 className="text-3xl font-bold text-slate-800 mb-6">
+            O que é um Recibo Simples e para que serve?
+          </h2>
 
-      {/* IMPORTANTE: Não usar ToolTwoColumn aqui, porque o gerador já contém form + preview */}
-      <ReciboSimplesGenerator />
+          <p>
+            O <strong>recibo de pagamento simples</strong> é um documento que
+            formaliza a quitação de uma dívida, seja ela referente a um produto
+            ou serviço. Ele é a prova de que o valor combinado foi entregue ao
+            credor, protegendo ambas as partes de futuras disputas.
+          </p>
 
-      <section className="mt-16 mb-12 max-w-3xl mx-auto">
-        <FaqAccordion items={faqItems} />
-      </section>
+          <p>
+            Este documento é essencial para autônomos, prestadores de serviço,
+            pequenos negócios e qualquer pessoa que realize transações
+            financeiras sem a emissão de uma nota fiscal. Ele garante a
+            segurança e a organização das suas finanças.
+          </p>
 
-      <div className="mt-16 text-center">
-        <LegalDisclaimer />
-      </div>
-    </main>
+          <h3 className="text-2xl font-bold text-slate-800 mt-8 mb-4">
+            Informações Essenciais em um Recibo
+          </h3>
+          <p>Para que um recibo seja válido, ele deve conter:</p>
+          <ul>
+            <li>
+              <strong>Nome e CPF/CNPJ do pagador:</strong> quem realizou o
+              pagamento.
+            </li>
+            <li>
+              <strong>Nome e CPF/CNPJ do beneficiário:</strong> quem recebeu o
+              valor.
+            </li>
+            <li>
+              <strong>Valor pago:</strong> por extenso e em numeral, para evitar
+              dúvidas.
+            </li>
+            <li>
+              <strong>Descrição:</strong> o motivo do pagamento (ex: "referente à
+              criação de um site").
+            </li>
+            <li>
+              <strong>Data e local:</strong> quando e onde o pagamento foi
+              efetuado.
+            </li>
+            <li>
+              <strong>Assinatura:</strong> do beneficiário, confirmando o
+              recebimento.
+            </li>
+          </ul>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Como preencher e usar o gerador
+          </h2>
+
+          <p>
+            Nossa ferramenta foi criada para ser intuitiva. Siga os passos:
+          </p>
+          <ol>
+            <li>
+              <strong>Preencha os campos:</strong> Insira os dados do pagador,
+              beneficiário, valor e a descrição do serviço ou produto.
+            </li>
+            <li>
+              <strong>Visualize em tempo real:</strong> O recibo será gerado ao
+              lado, permitindo que você veja como o documento final ficará.
+            </li>
+            <li>
+              <strong>Baixe em PDF:</strong> Com tudo pronto, clique em "Gerar
+              PDF" para baixar o arquivo. Ele estará pronto para ser impresso
+              ou enviado digitalmente.
+            </li>
+          </ol>
+        </section>
+
+        <section className="mt-16 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-800 mb-6">
+            Perguntas Frequentes
+          </h2>
+          <FaqAccordion items={faqItems} />
+        </section>
+
+        <div className="mt-16 text-center">
+          <LegalDisclaimer />
+        </div>
+      </ToolShellMain>
+    </ToolShell>
   );
 }

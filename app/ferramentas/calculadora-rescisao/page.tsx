@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
 import RescisaoCalculator from './_components/RescisaoCalculator';
 import FaqAccordion from '@/components/FaqAccordion';
+import {
+  ToolShell,
+  ToolShellHeader,
+  ToolShellMain,
+} from '@/components/layout/ToolShell';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Rescisão CLT Online | Simule seu Acerto',
@@ -56,93 +61,118 @@ function jsonLdFAQ() {
 
 export default function CalculadoraRescisaoPage() {
   return (
-    <main className="bg-slate-50 py-12 md:py-20">
-      {/* FAQ Schema */}
+    <ToolShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ()) }}
       />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-12 max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Calculadora de Rescisão Trabalhista
-          </h1>
-          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            Tenha uma estimativa clara dos seus direitos ao sair de um emprego. Preencha os dados
-            abaixo e simule o cálculo das suas verbas rescisórias.
-          </p>
-        </header>
-
+      <ToolShellHeader
+        title="Calculadora de Rescisão Trabalhista"
+        description="Tenha uma estimativa clara dos seus direitos ao sair de um emprego. Preencha os dados abaixo e simule o cálculo das suas verbas rescisórias."
+      />
+      <ToolShellMain>
         <RescisaoCalculator />
 
-        <section className="max-w-4xl mx-auto mt-20 space-y-12">
-          <div className="prose prose-lg prose-slate mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900">Entendendo as verbas rescisórias</h2>
-            <p>
-              A rescisão do contrato de trabalho envolve direitos e deveres. Conhecer as verbas que
-              compõem o acerto ajuda a entender se os valores estão coerentes com o seu caso.
-            </p>
-            <ul>
-              <li>
-                <strong>Saldo de salário:</strong> pagamento pelos dias trabalhados no mês da rescisão.
-              </li>
-              <li>
-                <strong>Aviso prévio:</strong> período de 30 dias (ou mais, em alguns casos). Pode ser trabalhado
-                ou indenizado.
-              </li>
-              <li>
-                <strong>13º proporcional:</strong> referente aos meses trabalhados no ano.
-              </li>
-              <li>
-                <strong>Férias proporcionais + 1/3:</strong> férias do período aquisitivo em curso, com adicional.
-              </li>
-              <li>
-                <strong>Férias vencidas + 1/3 (se houver):</strong> quando existirem períodos não gozados.
-              </li>
-            </ul>
+        <article className="prose prose-lg prose-slate mx-auto mt-12">
+          <h2 className="text-3xl font-bold text-slate-900">
+            Entendendo as Verbas Rescisórias
+          </h2>
+          <p>
+            A rescisão de um contrato de trabalho no regime CLT (Consolidação das
+            Leis do Trabalho) envolve uma série de cálculos para garantir que o
+            trabalhador receba todos os seus direitos. Conhecer cada uma dessas
+            verbas é fundamental para conferir seu acerto.
+          </p>
 
-            <h3 className="text-2xl font-bold text-slate-900">Diferenças por tipo de desligamento</h3>
-            <p>
-              O motivo do término do contrato impacta diretamente o que é devido ao trabalhador. Abaixo,
-              um resumo das diferenças mais comuns.
-            </p>
-          </div>
+          <h3>Saldo de Salário</h3>
+          <p>
+            Corresponde ao pagamento pelos dias que você efetivamente trabalhou no
+            mês da rescisão. O cálculo é simples: divide-se o salário mensal por
+            30 e multiplica-se pelo número de dias trabalhados.
+          </p>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-              <h4 className="font-bold text-slate-800 text-xl mb-2">Demissão sem justa causa</h4>
+          <h3>Aviso Prévio Indenizado</h3>
+          <p>
+            Quando a empresa opta por desligar o funcionário imediatamente, ela
+            deve pagar o valor correspondente a um mês de salário. Este é o aviso
+            prévio indenizado, que nossa calculadora simula como o principal
+            cenário.
+          </p>
+
+          <h3>13º Salário Proporcional</h3>
+          <p>
+            Você tem direito a 1/12 do seu 13º salário para cada mês trabalhado
+            no ano (ou fração igual ou superior a 15 dias). Se a rescisão ocorre
+            em junho, por exemplo, você receberá 6/12 do seu 13º.
+          </p>
+
+          <h3>Férias Proporcionais + 1/3 Constitucional</h3>
+          <p>
+            Assim como o 13º, as férias também são devidas de forma proporcional.
+            A cada 12 meses de trabalho, você tem direito a 30 dias de férias. Na
+            rescisão, você recebe o valor correspondente aos meses do período
+            aquisitivo incompleto, acrescido de 1/3.
+          </p>
+
+          <h2 className="text-3xl font-bold text-slate-900 mt-12">
+            Como o Tipo de Demissão Afeta o Cálculo
+          </h2>
+          <p>
+            O motivo do término do contrato de trabalho muda radicalmente os seus
+            direitos. Entenda os cenários mais comuns:
+          </p>
+
+          <div className="space-y-6">
+            <div className="p-4 bg-white border border-slate-200 rounded-lg">
+              <h4 className="font-bold text-slate-800">_Demissão sem justa causa</h4>
               <p className="text-slate-600">
-                Em geral, dá direito às verbas rescisórias completas e pode incluir saque do FGTS + multa
-                de 40% e acesso ao seguro-desemprego (conforme regras).
+                É o cenário mais vantajoso para o trabalhador. Garante o direito a
+                todas as verbas rescisórias (saldo de salário, aviso prévio,
+                férias e 13º proporcionais), além do direito a sacar o saldo do
+                FGTS acrescido de uma multa de 40% paga pela empresa.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-              <h4 className="font-bold text-slate-800 text-xl mb-2">Pedido de demissão</h4>
+            <div className="p-4 bg-white border border-slate-200 rounded-lg">
+              <h4 className="font-bold text-slate-800">_Pedido de demissão</h4>
               <p className="text-slate-600">
-                Normalmente não dá direito à multa de 40% do FGTS, nem ao saque do FGTS e nem ao seguro-desemprego.
-                Pode haver cumprimento (ou desconto) do aviso prévio.
+                Quando o trabalhador pede para sair, ele perde o direito ao aviso
+                prévio indenizado (podendo ter que cumpri-lo ou ser descontado),
+                ao saque do FGTS e à multa de 40%. Recebe apenas o saldo de
+                salário, 13º e férias proporcionais.
+              </p>
+            </div>
+            <div className="p-4 bg-white border border-slate-200 rounded-lg">
+              <h4 className="font-bold text-slate-800">_Demissão por justa causa</h4>
+              <p className="text-slate-600">
+                Ocorre quando o empregado comete uma falta grave. Neste caso, o
+                trabalhador perde a maior parte dos seus direitos, recebendo apenas
+                o saldo de salário e eventuais férias vencidas, se houver.
               </p>
             </div>
           </div>
 
-          <div className="bg-amber-50 p-6 rounded-xl border-l-4 border-amber-400 prose prose-slate mx-auto">
-            <h4 className="font-bold text-amber-900">Aviso importante</h4>
-            <p className="text-amber-800">
-              Esta ferramenta oferece uma <strong>estimativa</strong> e não substitui o cálculo oficial feito pelo RH
-              ou por um profissional. Os valores são brutos e podem variar por descontos (INSS/IR), adicionais,
-              convenções coletivas e regras específicas do seu contrato.
+          <div
+            className="p-6 mt-8 bg-amber-50 border-l-4 border-amber-400 text-amber-800 rounded-r-lg"
+            role="alert"
+          >
+            <h4 className="font-bold">Atenção: A Calculadora é uma Estimativa</h4>
+            <p className="mt-2">
+              Esta ferramenta foi criada para fornecer uma visão geral e
+              aproximada dos valores. O cálculo final, realizado pelo RH da
+              empresa, incluirá descontos obrigatórios como INSS e Imposto de
+              Renda (IRRF), além de outros fatores como horas extras, adicionais
+              e convenções coletivas. Use este resultado como um ponto de partida.
             </p>
           </div>
-        </section>
+        </article>
 
-        <section className="max-w-3xl mx-auto mt-20">
+        <section className="max-w-3xl mx-auto mt-16">
           <h2 className="text-3xl font-bold text-center text-slate-900 mb-8">
-            Dúvidas frequentes sobre rescisão
+            Dúvidas Frequentes Sobre a Rescisão
           </h2>
           <FaqAccordion items={faqItems} />
         </section>
-      </div>
-    </main>
+      </ToolShellMain>
+    </ToolShell>
   );
 }
