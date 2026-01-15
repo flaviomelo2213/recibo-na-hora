@@ -6,6 +6,7 @@ import ClientOnly from "./components/ClientOnly";
 import { AiProvider } from "./components/ai/AiProvider";
 import AiFab from "./components/ai/AiFab";
 import AiDrawer from "./components/ai/AiDrawer";
+import Header from "./components/Header";
 
 export const metadata: Metadata = {
   title: "Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis",
@@ -26,8 +27,6 @@ export const metadata: Metadata = {
 };
 
 function FooterYear() {
-  // Evita hydration mismatch: só escreve o ano após montar no client.
-  // No SSR, renderiza um placeholder fixo.
   return (
     <ClientOnly>
       <span>{new Date().getFullYear()}</span>
@@ -43,7 +42,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* Google Analytics (GA4) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YYX0MSP75Y"
           strategy="afterInteractive"
@@ -57,7 +55,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Google AdSense */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182690500"
@@ -65,12 +62,10 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* FontAwesome Icons */}
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           rel="stylesheet"
         />
-        {/* Google Fonts (Inter) */}
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
@@ -79,62 +74,7 @@ export default function RootLayout({
 
       <body className="bg-stone-50 text-stone-800 flex flex-col min-h-screen">
         <AiProvider>
-          {/* --- CABEÇALHO --- */}
-          <header className="sticky top-0 z-50 glass-effect border-b border-stone-200 shadow-sm">
-            <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-              {/* Logo */}
-              <a href="/" className="flex items-center gap-3 group">
-                <div className="bg-stone-800 text-amber-50 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-stone-800/20 transition-transform group-hover:scale-110">
-                  <i className="fa-solid fa-file-invoice text-xl" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xl font-bold tracking-tight text-stone-900 leading-none">
-                    Recibo<span className="text-amber-600">NaHora</span>
-                  </span>
-                  <span className="text-[10px] text-stone-500 font-medium uppercase tracking-wider mt-1">
-                    Simples &amp; Confiável
-                  </span>
-                </div>
-              </a>
-
-              {/* Menu Desktop */}
-              <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
-                <a href="/" className="hover:text-amber-600 transition">
-                  Início
-                </a>
-                <a
-                  href="/ferramentas"
-                  className="text-amber-700 font-bold hover:text-amber-800 transition flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full"
-                >
-                  <i className="fa-solid fa-layer-group" /> Todas as Ferramentas
-                </a>
-                <a href="/requerimentos" className="hover:text-amber-600 transition">
-                  Requerimentos
-                </a>
-                <a href="/parcerias" className="hover:text-amber-600 transition">
-                  Parcerias
-                </a>
-                <a
-                  href="/como-ganhamos-dinheiro"
-                  className="hover:text-amber-600 transition"
-                >
-                  Transparência
-                </a>
-                <a href="/contato" className="hover:text-amber-600 transition">
-                  Contato
-                </a>
-              </nav>
-
-              {/* Menu Mobile (apenas visual, sem JS para evitar mismatch) */}
-              <button
-                type="button"
-                className="md:hidden text-stone-600 text-2xl p-2"
-                aria-label="Abrir menu"
-              >
-                <i className="fa-solid fa-bars" />
-              </button>
-            </div>
-          </header>
+          <Header />
 
           {children}
 
@@ -166,7 +106,6 @@ export default function RootLayout({
                 <div>
                   <h4 className="font-bold text-stone-900 mb-4">Ferramentas</h4>
                   <ul className="space-y-3 text-sm text-stone-600">
-                    {/* Se você desativou Recibo PIX, mantenha como “Em breve” sem link */}
                     <li className="text-stone-400">Recibo com PIX (em breve)</li>
 
                     <li>
