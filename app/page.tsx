@@ -14,10 +14,14 @@ import {
   Home as HomeIcon,
   Contact,
   Calculator as CalculatorIcon,
+  Calculator,
   MessageCircle,
   TrendingDown,
   Clock,
-  DollarSign
+  DollarSign,
+  CheckCircle2,
+  XCircle,
+  AlertCircle
 } from "lucide-react";
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -62,11 +66,9 @@ export default function HomePage() {
   const handleWhatsAppClick = () => {
     const phone = "5569993401868";
     const message = encodeURIComponent(
-      `Olá! Tenho interesse em estratégia de crédito para capital de giro.\n\n` +
-      `Crédito desejado: ${formatCurrency(creditAmount)}\n` +
-      `Valor líquido estimado: ${formatCurrency(realPurchasingPower)}\n` +
-      `Lance estimado: ${formatCurrency(fixedBidValue)}\n\n` +
-      `Gostaria de falar com um especialista sobre as opções disponíveis.`
+      `Olá! Tenho dúvidas sobre estratégia de consórcio.\n\n` +
+      `Valor de referência: ${formatCurrency(creditAmount)}\n` +
+      `Gostaria de entender melhor como funciona a matemática do consórcio e como avaliar propostas.`
     );
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
   };
@@ -76,19 +78,31 @@ export default function HomePage() {
       <section id="simulador-credito" className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:32px_32px]" />
         <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="bg-amber-50 border-2 border-amber-400 rounded-xl p-4 sm:p-6 mb-8 text-slate-900">
+            <div className="flex items-start gap-3">
+              <Shield className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-bold text-amber-900 mb-2">Transparência e Educação Financeira</h3>
+                <p className="text-sm leading-relaxed text-slate-700">
+                  Este simulador é uma ferramenta educativa. O consórcio é uma compra planejada fiscalizada pelo Banco Central. <strong>Não há garantia de data de contemplação.</strong> Cada administradora possui taxas, prazos e regras de crédito próprias, auditadas conforme seus contratos específicos. Os valores aqui apresentados são exemplificativos para fins didáticos.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-              <TrendingDown className="w-4 h-4 text-green-300" />
-              <span className="text-sm font-medium text-white">Estratégia de Mercado - Educação Financeira</span>
+              <Calculator className="w-4 h-4 text-green-300" />
+              <span className="text-sm font-medium text-white">Guia Educativo de Consórcio</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
-              Capital de giro inteligente
+              Entenda a matemática
               <span className="block text-green-300 mt-2">
-                para crescimento empresarial
+                do consórcio na prática
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Simulador educativo de estratégia de crédito planejado. Compare taxas e entenda como substituir dívidas caras por custos administrativos menores.
+              Simulador educativo para você entender como funcionam taxas, prazos e lances. Compare com outras opções de crédito e tome decisões informadas.
             </p>
           </div>
 
@@ -181,7 +195,7 @@ export default function HomePage() {
                     className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors flex items-center justify-center gap-3 shadow-lg"
                   >
                     <MessageCircle className="w-5 h-5" />
-                    Falar com Especialista em Estratégia de Crédito
+                    Dúvidas sobre a estratégia? Fale com o apoiador do projeto
                   </button>
 
                   <Link
@@ -220,13 +234,127 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="bg-slate-50 border-y border-slate-200 py-16">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Comparador Técnico: Financiamento vs Consórcio
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Entenda as diferenças fundamentais entre as duas principais formas de crédito no Brasil
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="bg-white border-2 border-red-200 rounded-xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                  <XCircle className="w-6 h-6 text-red-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">Financiamento Bancário</h3>
+              </div>
+              <div className="space-y-3 text-sm text-slate-700">
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-red-600 mt-0.5">•</span>
+                  <p><strong>Juros Compostos:</strong> Taxa mensal incide sobre saldo devedor (juros sobre juros)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-red-600 mt-0.5">•</span>
+                  <p><strong>Entrada Alta:</strong> Geralmente 20-30% do valor à vista</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-red-600 mt-0.5">•</span>
+                  <p><strong>Parcelas Variáveis:</strong> Sistema SAC (decrescente) ou Price (fixas com juros embutidos)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-red-600 mt-0.5">•</span>
+                  <p><strong>Custo Total Alto:</strong> Juros podem dobrar o valor final em prazos longos</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-red-600 mt-0.5">•</span>
+                  <p><strong>Crédito Imediato:</strong> Aprovação em dias, bem liberado rapidamente</p>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-red-50 rounded-lg">
+                <p className="text-xs text-red-800">
+                  <strong>Exemplo:</strong> R$ 200k financiados a 9,5% a.a. por 30 anos = R$ 513k pagos (R$ 213k de juros)
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white border-2 border-green-200 rounded-xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">Consórcio</h3>
+              </div>
+              <div className="space-y-3 text-sm text-slate-700">
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-green-600 mt-0.5">•</span>
+                  <p><strong>Taxa Administrativa Única:</strong> Calculada uma vez no início, sem juros compostos</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-green-600 mt-0.5">•</span>
+                  <p><strong>Sem Entrada:</strong> Pode começar sem valor inicial (ou lance embutido diluído)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-green-600 mt-0.5">•</span>
+                  <p><strong>Parcelas Fixas:</strong> Valor previsível durante todo o período</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-green-600 mt-0.5">•</span>
+                  <p><strong>Custo Total Planejado:</strong> Sabe exatamente quanto pagará desde o início</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-bold text-green-600 mt-0.5">•</span>
+                  <p><strong>Contemplação Variável:</strong> Sorteio ou lance (sem garantia de prazo)</p>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-green-50 rounded-lg">
+                <p className="text-xs text-green-800">
+                  <strong>Exemplo:</strong> R$ 263k (24,20% taxa adm) em 220 meses = R$ 263k pagos (sem juros compostos)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-bold text-blue-900 mb-2">Quando cada opção faz mais sentido?</h4>
+                <div className="grid sm:grid-cols-2 gap-4 text-sm text-blue-900">
+                  <div>
+                    <p className="font-semibold mb-1">Financiamento é melhor se:</p>
+                    <ul className="space-y-1 ml-4 list-disc">
+                      <li>Você precisa do bem imediatamente</li>
+                      <li>Tem entrada disponível em dinheiro</li>
+                      <li>Prefere certeza de prazo curto</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">Consórcio é melhor se:</p>
+                    <ul className="space-y-1 ml-4 list-disc">
+                      <li>Pode planejar a aquisição (6-8 meses ou mais)</li>
+                      <li>Quer custo total menor no longo prazo</li>
+                      <li>Prefere parcelas menores e previsíveis</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="como-funciona" className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            Educação Financeira: Como Funciona
+            Entendendo a Matemática do Consórcio
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Entenda como substituir dívidas caras por estratégias de crédito com custos administrativos previsíveis
+            Aprenda a calcular e comparar propostas para tomar decisões informadas
           </p>
         </div>
 
@@ -236,10 +364,13 @@ export default function HomePage() {
               1
             </div>
             <div className="bg-white border border-slate-200 rounded-xl p-6 pt-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Taxa Administrativa Fixa</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Diferente de financiamentos com juros compostos, consórcios trabalham com uma taxa administrativa única calculada no início. Exemplo: 24,20% sobre o valor total, distribuída ao longo do prazo.
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Taxa Administrativa Total vs Mensal</h3>
+              <p className="text-sm text-slate-600 leading-relaxed mb-3">
+                Se a taxa administrativa é 24,20% sobre R$ 100.000 (R$ 24.200), distribuída em 220 meses, a taxa mensal efetiva é apenas R$ 110/mês, muito inferior aos 2-3% de juros bancários.
               </p>
+              <div className="p-3 bg-blue-50 rounded-lg text-xs text-blue-900">
+                <strong>Fórmula:</strong> Taxa Adm Total ÷ Prazo em Meses = Custo Mensal Fixo
+              </div>
             </div>
           </div>
 
@@ -248,10 +379,13 @@ export default function HomePage() {
               2
             </div>
             <div className="bg-white border border-slate-200 rounded-xl p-6 pt-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Planejamento de Fluxo de Caixa</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Com parcelas previsíveis e contemplação acelerada via lance, você pode planejar melhor o capital de giro da empresa e substituir empréstimos com taxas superiores a 2-3% ao mês.
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Custo Efetivo Total (CET)</h3>
+              <p className="text-sm text-slate-600 leading-relaxed mb-3">
+                O CET inclui TODAS as despesas: taxa administrativa, seguro prestamista, fundo de reserva e taxa de adesão. Sempre peça o CET da proposta.
               </p>
+              <div className="p-3 bg-blue-50 rounded-lg text-xs text-blue-900">
+                <strong>Exemplo:</strong> CET de 25,5% a.a. = 1,91% a.m. efetivo (sem juros compostos)
+              </div>
             </div>
           </div>
 
@@ -260,10 +394,33 @@ export default function HomePage() {
               3
             </div>
             <div className="bg-white border border-slate-200 rounded-xl p-6 pt-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Alavancagem Inteligente</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Use o crédito contemplado para investir em estoque, equipamentos ou expansão. O custo administrativo fixo tende a ser inferior aos juros bancários acumulados ao longo dos anos.
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Impacto do Lance Embutido</h3>
+              <p className="text-sm text-slate-600 leading-relaxed mb-3">
+                Lance de 25% em 44 parcelas aumenta parcela temporariamente, mas garante contemplação rápida. Após contemplação, volta à parcela base.
               </p>
+              <div className="p-3 bg-blue-50 rounded-lg text-xs text-blue-900">
+                <strong>Cálculo:</strong> R$ 25.148 ÷ 44 = R$ 571/mês adicional por 44 meses
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-8">
+          <h3 className="text-2xl font-bold text-slate-900 mb-4 text-center">
+            Use o Simulador Acima para Testar Seus Próprios Números
+          </h3>
+          <div className="grid sm:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-3xl font-bold text-green-700 mb-2">24,20%</div>
+              <p className="text-sm text-slate-700">Taxa administrativa exemplificativa</p>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-green-700 mb-2">220</div>
+              <p className="text-sm text-slate-700">Meses de prazo típico</p>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-green-700 mb-2">6-8</div>
+              <p className="text-sm text-slate-700">Meses até contemplação com lance</p>
             </div>
           </div>
         </div>
@@ -273,7 +430,7 @@ export default function HomePage() {
             href="/blog/estrategia-vencedora-consorcio"
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors"
           >
-            Ler Guia de Educação Financeira
+            Ler Guia Completo de Consórcio
           </Link>
         </div>
       </section>
@@ -439,6 +596,88 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="bg-white border-y border-slate-200 py-16">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Guia de Documentação e Regras
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Entenda o que você precisa preparar e o que perguntar a qualquer administradora
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Documentos Comuns Exigidos</h3>
+              <div className="space-y-2 text-sm text-slate-700">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <p><strong>RG e CPF:</strong> Identificação básica (pode variar conforme administradora)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <p><strong>Comprovante de Residência:</strong> Atualizado (últimos 3 meses)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <p><strong>Comprovante de Renda:</strong> Holerite, Decore, extrato bancário ou declaração IR</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <p><strong>Certidões Negativas:</strong> Algumas administradoras podem exigir certidões de débitos</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                  <p><strong>Análise de Crédito:</strong> CPF limpo ou score mínimo (varia por instituição)</p>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                <p className="text-xs text-amber-900">
+                  <strong>Importante:</strong> Cada administradora tem suas próprias diretrizes de aprovação. Consulte documentação específica antes de se comprometer.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Perguntas Essenciais a Fazer</h3>
+              <div className="space-y-3 text-sm text-slate-700">
+                <div className="p-3 bg-white border border-slate-200 rounded-lg">
+                  <p className="font-semibold text-slate-900 mb-1">1. Qual a taxa de administração total?</p>
+                  <p className="text-xs text-slate-600">E como ela é distribuída nas parcelas?</p>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded-lg">
+                  <p className="font-semibold text-slate-900 mb-1">2. Qual o Custo Efetivo Total (CET)?</p>
+                  <p className="text-xs text-slate-600">Inclui todas as taxas, seguros e encargos?</p>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded-lg">
+                  <p className="font-semibold text-slate-900 mb-1">3. Como funcionam os lances?</p>
+                  <p className="text-xs text-slate-600">Qual o percentual mínimo? Posso fazer lance embutido?</p>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded-lg">
+                  <p className="font-semibold text-slate-900 mb-1">4. Qual o histórico de contemplação?</p>
+                  <p className="text-xs text-slate-600">Tempo médio de contemplação deste grupo específico?</p>
+                </div>
+                <div className="p-3 bg-white border border-slate-200 rounded-lg">
+                  <p className="font-semibold text-slate-900 mb-1">5. Quais as regras de desistência?</p>
+                  <p className="text-xs text-slate-600">Posso sair antes da contemplação? Qual o custo?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+            <h4 className="font-bold text-blue-900 mb-3">Regulamentação e Fiscalização</h4>
+            <p className="text-sm text-blue-900 leading-relaxed mb-3">
+              O consórcio é regulamentado pelo <strong>Banco Central do Brasil</strong> através da Circular 3.432/2009 e alterações posteriores. Todas as administradoras devem ser autorizadas pelo Bacen e seguir normas rígidas de transparência, cálculo de taxas e prestação de contas aos consorciados.
+            </p>
+            <p className="text-xs text-blue-800">
+              Você pode verificar se uma administradora é regularizada consultando o site do Banco Central ou a ABAC (Associação Brasileira de Administradoras de Consórcios).
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-slate-50 border-t border-slate-200">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid gap-6 sm:grid-cols-2">
@@ -459,19 +698,17 @@ export default function HomePage() {
             </div>
 
             <div className="rounded-lg border border-slate-200 bg-white p-6">
-              <h3 className="text-base font-semibold text-slate-900">Como ganhamos dinheiro</h3>
+              <h3 className="text-base font-semibold text-slate-900">Apoio ao Projeto</h3>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                Entenda como mantemos o projeto gratuito e sustentável.
+                Este site é apoiado por <strong>Flavio Melo - Especialista em Estratégia de Crédito</strong>.
               </p>
-              <Link
-                href="/como-ganhamos-dinheiro"
-                className="mt-4 inline-flex items-center text-sm font-medium text-blue-900 hover:text-blue-800"
+              <button
+                onClick={handleWhatsAppClick}
+                className="mt-4 inline-flex items-center text-sm font-medium text-green-600 hover:text-green-700"
               >
-                Ver transparência
-                <svg className="ml-1 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
+                <MessageCircle className="w-4 h-4 mr-1" />
+                Dúvidas? Fale com o apoiador
+              </button>
             </div>
           </div>
         </div>
