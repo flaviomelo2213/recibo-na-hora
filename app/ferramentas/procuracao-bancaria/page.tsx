@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import ProcuracaoBancariaGenerator from "./_components/ProcuracaoBancariaGenerator";
+import SeoContentBlock from "@/components/SeoContentBlock";
 
 export const metadata: Metadata = {
-  title: "Procuração Bancária | ReciboNaHora",
-  description: "Gere procuração específica para transações bancárias. Modelo gratuito, pronto para preencher e baixar em PDF.",
+  title: "Procuração Bancária Grátis | Modelo para Movimentação de Conta",
+  description: "Procuração bancária online grátis. Autorize movimentação de conta corrente, saques, depósitos e transações financeiras. Modelo com firma reconhecida em PDF.",
 };
 
 export default function ProcuracaoBancariaPage() {
@@ -21,6 +22,11 @@ export default function ProcuracaoBancariaPage() {
         </div>
 
         <ProcuracaoBancariaGenerator />
+
+        <SeoContentBlock
+          title="Procuração Bancária: Como Usar e Quando é Necessária"
+          content="A procuração bancária é um documento legal específico que autoriza uma pessoa (procurador) a realizar operações financeiras e movimentar contas bancárias em nome do titular (outorgante). Este modelo de procuração bancária é fundamental para situações em que o titular da conta não pode comparecer pessoalmente ao banco, seja por viagem, internação hospitalar, residência no exterior ou qualquer impedimento. Com a procuração bancária, o procurador pode efetuar saques, depósitos, transferências, pagamentos de contas, consultas de saldo, abertura e encerramento de contas, contratação de empréstimos e demais operações especificadas no documento. Para preencher corretamente, insira os dados completos do titular da conta (outorgante), incluindo nome, CPF, RG e endereço, bem como os dados bancários específicos (banco, agência e conta). O procurador também deve ter sua qualificação completa registrada. É OBRIGATÓRIO o reconhecimento de firma em cartório para que a procuração bancária tenha validade. Os bancos não aceitam procurações bancárias sem reconhecimento de firma por questões de segurança. Este gerador gratuito cria o documento profissional em PDF pronto para reconhecimento em cartório, economizando custos com advogados e facilitando operações financeiras emergenciais."
+        />
       </div>
     </main>
   );

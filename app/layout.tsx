@@ -9,14 +9,17 @@ import AiDrawer from "./components/ai/AiDrawer";
 import Header from "./components/Header";
 
 export const metadata: Metadata = {
-  title: "Recibo Na Hora | Gerador de Documentos e Recibos Online Grátis",
+  title: "Recibo Grátis e Documentos Essenciais | Gerador Online com Simulador de Crédito",
   description:
-    "Crie recibos, contratos e documentos em PDF. Ferramentas gratuitas para autônomos, corretores e profissionais no Brasil.",
+    "Recibo Grátis e Documentos Essenciais: Gerador online de contratos, procurações e simulador de estratégia financeira. 100% gratuito, seguro e sem retenção de dados.",
   keywords: [
     "recibo online",
     "gerador de recibo",
-    "recibo veiculo",
+    "contrato de aluguel",
+    "procuração",
     "recibo aluguel",
+    "contrato locação",
+    "simulador de crédito",
     "mei",
     "nota promissoria",
     "ferramentas corretor",
@@ -114,7 +117,14 @@ export default function RootLayout({
                         Recibo com PIX
                       </a>
                     </li>
-
+                    <li>
+                      <a
+                        href="/contrato-locacao"
+                        className="hover:text-amber-600"
+                      >
+                        Contrato de Aluguel
+                      </a>
+                    </li>
                     <li>
                       <a
                         href="/ferramentas/calculadora-rescisao"
@@ -148,10 +158,18 @@ export default function RootLayout({
                     </li>
                     <li>
                       <a
-                        href="/ferramentas/procuracao"
+                        href="/ferramentas/procuracao-plenos-poderes"
                         className="hover:text-amber-600"
                       >
-                        Procuração
+                        Procuração de Plenos Poderes
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/ferramentas/procuracao-inss"
+                        className="hover:text-amber-600"
+                      >
+                        Procuração INSS
                       </a>
                     </li>
                     <li>
@@ -205,6 +223,23 @@ export default function RootLayout({
                       </a>
                     </li>
                   </ul>
+                </div>
+              </div>
+
+              <div className="border-t border-stone-200 pt-8 mb-6">
+                <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-6 text-center">
+                  <p className="text-slate-700 font-medium mb-3">
+                    <i className="fa-solid fa-home text-blue-600 mr-2"></i>
+                    Planejando seu próximo imóvel?
+                  </p>
+                  <a
+                    href="/educacao-financeira"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                  >
+                    <i className="fa-solid fa-calculator"></i>
+                    Use nosso Simulador de Crédito Planejado
+                    <i className="fa-solid fa-arrow-right"></i>
+                  </a>
                 </div>
               </div>
 
