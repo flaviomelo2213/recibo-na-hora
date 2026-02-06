@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import ContratoLocacaoGenerator from './_components/ContratoLocacaoGenerator';
 import SeoContentBlock from '@/components/SeoContentBlock';
+import LegalDisclaimer from '@/components/LegalDisclaimer';
 
 export const metadata: Metadata = {
   title: 'Contrato de Aluguel Grátis | Modelo Residencial em PDF',
@@ -42,6 +43,8 @@ export default function ContratoAluguelPage() {
                 <li><strong>Responsabilidades:</strong> Quem paga condomínio, IPTU e despesas</li>
             </ul>
         </section>
+
+        <LegalDisclaimer showProcuracaoWarning={false} />
       </div>
     </div>
   );
