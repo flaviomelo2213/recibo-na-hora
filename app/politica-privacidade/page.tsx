@@ -15,15 +15,15 @@ const LAST_UPDATED = '12/01/2026';
 
 export default function PoliticaPrivacidadePage() {
   return (
-    <main className="bg-[#F8FAF0]">
+    <main className="bg-white">
       <section className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 pt-12 pb-16">
         <header className="mb-10">
-          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
             Política de Privacidade
           </h1>
           <p className="mt-3 text-slate-600">
             Esta página explica como o ReciboNaHora trata informações quando você acessa o site,
-            utiliza as ferramentas e gera documentos.
+            utiliza as ferramentas, calculadoras e gera documentos.
           </p>
           <p className="mt-2 text-sm text-slate-500">
             Última atualização: <span className="font-medium">{LAST_UPDATED}</span>
@@ -46,6 +46,12 @@ export default function PoliticaPrivacidadePage() {
             Em muitas páginas do ReciboNaHora, o preenchimento de dados e a geração de prévia/PDF
             acontecem <strong>no seu próprio navegador</strong>. Isso significa que, em geral, os
             dados digitados ficam no seu dispositivo enquanto você utiliza a ferramenta.
+          </p>
+          <p>
+            Nossas calculadoras, incluindo a <strong>Calculadora de Estratégia Financeira</strong>,
+            processam todos os cálculos localmente no seu navegador. Os valores inseridos não são
+            enviados aos nossos servidores, exceto quando você opta por compartilhar via WhatsApp
+            ou outro canal.
           </p>
 
           <h2>3. Quais dados podem ser coletados</h2>
@@ -181,17 +187,17 @@ export default function PoliticaPrivacidadePage() {
 
           <p className="text-sm text-slate-600">
             Voltar para:{" "}
-            <Link href="/" className="font-medium text-indigo-700 hover:text-indigo-800">
+            <Link href="/" className="font-medium text-blue-900 hover:text-blue-800">
               Início
             </Link>{" "}
             •{" "}
-            <Link href="/termos-uso" className="font-medium text-indigo-700 hover:text-indigo-800">
+            <Link href="/termos-uso" className="font-medium text-blue-900 hover:text-blue-800">
               Termos de Uso
             </Link>{" "}
             •{" "}
             <Link
               href="/como-ganhamos-dinheiro"
-              className="font-medium text-indigo-700 hover:text-indigo-800"
+              className="font-medium text-blue-900 hover:text-blue-800"
             >
               Transparência
             </Link>

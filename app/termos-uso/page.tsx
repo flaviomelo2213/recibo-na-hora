@@ -15,11 +15,11 @@ const LAST_UPDATED = '12/01/2026';
 
 export default function TermosUsoPage() {
   return (
-    <main className="bg-[#F8FAF0]">
+    <main className="bg-white">
       <section className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8">
+        <div className="rounded-lg border border-slate-200 bg-white p-6 sm:p-8">
           <header className="mb-8">
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
               Termos de Uso
             </h1>
             <p className="mt-2 text-sm text-slate-500">
@@ -53,6 +53,12 @@ export default function TermosUsoPage() {
                   recibos, contratos, requerimentos).
                 </li>
                 <li>
+                  <strong>Calculadoras:</strong> ferramentas que processam
+                  cálculos financeiros e estratégias com base em parâmetros
+                  fornecidos pelo Usuário (ex.: calculadora de estratégia
+                  financeira para consórcios).
+                </li>
+                <li>
                   <strong>IA (BYOK):</strong> recurso opcional em que o Usuário
                   fornece sua própria chave (API Key) para um provedor de IA a
                   fim de melhorar redação de textos.
@@ -67,12 +73,14 @@ export default function TermosUsoPage() {
               <p className="mt-3">
                 A Plataforma disponibiliza ferramentas online para auxiliar o
                 Usuário a criar documentos e modelos em formato textual e/ou PDF,
-                com base nas informações fornecidas pelo próprio Usuário.
+                além de calculadoras para simulações financeiras, com base nas
+                informações fornecidas pelo próprio Usuário.
               </p>
               <p className="mt-3">
-                Em regra, as ferramentas funcionam no navegador. O Usuário é
-                responsável por conferir o conteúdo antes de usar, assinar,
-                enviar ou protocolar qualquer documento.
+                Em regra, as ferramentas e calculadoras funcionam no navegador.
+                O Usuário é responsável por conferir o conteúdo e resultados antes
+                de usar, assinar, enviar ou protocolar qualquer documento ou tomar
+                decisões financeiras.
               </p>
             </section>
 
@@ -81,12 +89,18 @@ export default function TermosUsoPage() {
                 3. Isenção de responsabilidade e natureza informativa
               </h2>
               <p className="mt-3">
-                A Plataforma fornece modelos e recursos de apoio.{" "}
+                A Plataforma fornece modelos, calculadoras e recursos de apoio.{" "}
                 <strong>
-                  Não prestamos consultoria jurídica, contábil ou profissional
+                  Não prestamos consultoria jurídica, contábil, financeira ou profissional
                 </strong>{" "}
                 e não garantimos que um documento seja aceito por um órgão,
                 empresa, cartório ou instituição específica.
+              </p>
+              <p className="mt-3">
+                As calculadoras apresentam simulações e estimativas baseadas em
+                parâmetros fixos. Os resultados são informativos e não constituem
+                garantia ou oferta. Valores reais podem variar conforme condições
+                específicas de cada grupo, administradora ou instituição financeira.
               </p>
               <p className="mt-3">
                 A validade e adequação de qualquer Documento Gerado depende, por
@@ -142,7 +156,7 @@ export default function TermosUsoPage() {
                 Para entender melhor como tratamos dados e cookies, consulte a{" "}
                 <Link
                   href="/politica-privacidade"
-                  className="text-indigo-700 hover:text-indigo-800 hover:underline"
+                  className="text-blue-900 hover:text-blue-800 hover:underline"
                 >
                   Política de Privacidade
                 </Link>
@@ -195,7 +209,7 @@ export default function TermosUsoPage() {
                 Usuário e ajuda a manter o projeto no ar. Consulte a página de{" "}
                 <Link
                   href="/como-ganhamos-dinheiro"
-                  className="text-indigo-700 hover:text-indigo-800 hover:underline"
+                  className="text-blue-900 hover:text-blue-800 hover:underline"
                 >
                   Transparência
                 </Link>
@@ -247,7 +261,7 @@ export default function TermosUsoPage() {
                 Para dúvidas ou sugestões, entre em contato pelo e-mail:{" "}
                 <a
                   href="mailto:contato@recibonahora.com.br"
-                  className="text-indigo-700 hover:text-indigo-800 hover:underline"
+                  className="text-blue-900 hover:text-blue-800 hover:underline"
                 >
                   contato@recibonahora.com.br
                 </a>

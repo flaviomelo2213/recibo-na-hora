@@ -1,122 +1,129 @@
-// app/page.tsx
 import Link from "next/link";
 import { CATEGORIES, TOOLS } from "@/_data/catalog";
+import {
+  FileText,
+  Receipt,
+  FileSignature,
+  Clipboard,
+  Scale,
+  Shield,
+  Sparkles,
+  Home as HomeIcon,
+  Contact,
+  Calculator
+} from "lucide-react";
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
+const iconMap = {
+  receipt: Receipt,
+  fileText: FileText,
+  fileSignature: FileSignature,
+  clipboard: Clipboard,
+  scale: Scale,
+  shield: Shield,
+  sparkles: Sparkles,
+  home: HomeIcon,
+  contact: Contact,
+  calculator: Calculator,
+};
+
 export default function HomePage() {
   const mostUsed = TOOLS.filter((t) => t.mostUsed).slice(0, 6);
 
   return (
-    <main className="bg-gradient-to-b from-white to-slate-50">
-      {/* HERO */}
-      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-16">
+    <main className="bg-white">
+      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-12">
         <div className="text-center">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
             Documentos simples,
-            <span className="block bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-              para uma vida sem complicação.
+            <span className="block text-blue-900 mt-1">
+              sem complicação
             </span>
           </h1>
 
-          <p className="mt-6 text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Crie recibos, contratos, requerimentos e outros documentos essenciais em segundos.
-            Ferramentas online, gratuitas e sem burocracia.
+            Ferramentas online, gratuitas e profissionais.
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
             <Link
               href="/ferramentas"
-              className="group rounded-2xl bg-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-200 hover:-translate-y-0.5"
+              className="rounded-lg bg-blue-900 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-800 transition-colors"
             >
               Explorar ferramentas
             </Link>
             <Link
               href="/como-ganhamos-dinheiro"
-              className="rounded-2xl border-2 border-slate-200 bg-white px-8 py-4 text-base font-semibold text-slate-700 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+              className="rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
             >
-              Como funciona (transparência)
-            </Link>
-          </div>
-
-          <div className="mt-8 flex items-center justify-center gap-6 text-sm text-slate-500">
-            <Link className="font-medium hover:text-slate-900 transition-colors" href="/parcerias">
-              Parceiros Oficiais
-            </Link>
-            <span className="text-slate-300">•</span>
-            <Link className="font-medium hover:text-slate-900 transition-colors" href="/como-ganhamos-dinheiro">
               Transparência
             </Link>
           </div>
         </div>
       </section>
 
-      {/* MAIS USADOS */}
-      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-16">
-        <header className="flex items-end justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Mais usados</h2>
-            <p className="mt-2 text-base text-slate-600">Os modelos mais acessados para resolver rápido.</p>
-          </div>
-          <Link
-            href="/ferramentas"
-            className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-1 group"
-          >
-            Ver tudo
-            <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
+      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-12">
+        <header className="mb-6">
+          <h2 className="text-2xl font-bold text-slate-900">Ferramentas mais usadas</h2>
+          <p className="mt-1 text-sm text-slate-600">Acesse os modelos mais populares</p>
         </header>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {mostUsed.map((t) => {
             const disabled = !!t.comingSoon || !t.href;
+            const Icon = t.iconKey ? iconMap[t.iconKey] : FileText;
+
             return (
               <div
                 key={t.id}
                 className={cx(
-                  "group rounded-2xl bg-white shadow-lg shadow-slate-200/50 border border-slate-100 p-6 hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300",
-                  disabled ? "opacity-70" : "hover:-translate-y-1"
+                  "rounded-lg bg-white border border-slate-200 p-5 transition-all",
+                  disabled ? "opacity-60" : "hover:border-slate-300 hover:shadow-sm"
                 )}
               >
-                <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-slate-700" />
+                  </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <h3 className="text-base font-bold text-slate-900 truncate">{t.name}</h3>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 mb-3">
-                      {(t.badges || []).map((b) => (
-                        <span
-                          key={b}
-                          className={cx(
-                            "text-[10px] font-semibold px-2.5 py-1 rounded-full",
-                            b === "Popular" && "bg-emerald-100 text-emerald-700",
-                            b === "Novo" && "bg-sky-100 text-sky-700",
-                            b === "Grátis" && "bg-slate-100 text-slate-700",
-                            b === "Beta" && "bg-amber-100 text-amber-700",
-                            b === "Em breve" && "bg-slate-50 text-slate-500"
-                          )}
-                        >
-                          {b}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">{t.description}</p>
+                    <h3 className="text-sm font-semibold text-slate-900 mb-1">{t.name}</h3>
+                    {(t.badges || []).length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {(t.badges || []).map((b) => (
+                          <span
+                            key={b}
+                            className={cx(
+                              "text-[10px] font-medium px-2 py-0.5 rounded",
+                              b === "Popular" && "bg-emerald-50 text-emerald-700",
+                              b === "Novo" && "bg-blue-50 text-blue-700",
+                              b === "Grátis" && "bg-slate-100 text-slate-600",
+                              b === "Beta" && "bg-amber-50 text-amber-700",
+                              b === "Em breve" && "bg-slate-50 text-slate-500"
+                            )}
+                          >
+                            {b}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-slate-100">
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">{t.description}</p>
+
+                <div className="pt-3 border-t border-slate-100">
                   {disabled ? (
-                    <span className="text-sm font-medium text-slate-400">Em breve</span>
+                    <span className="text-xs font-medium text-slate-400">Em breve</span>
                   ) : (
                     <Link
                       href={t.href!}
-                      className="inline-flex items-center justify-center w-full rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors"
+                      className="inline-flex items-center justify-center w-full rounded-md bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 transition-colors"
                     >
-                      Abrir ferramenta
+                      Acessar
                     </Link>
                   )}
                 </div>
@@ -126,57 +133,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORIAS */}
-      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-20">
-        <header className="mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Categorias</h2>
-          <p className="mt-2 text-base text-slate-600">Navegue por tipo e encontre o que precisa.</p>
+      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-12">
+        <header className="mb-6">
+          <h2 className="text-2xl font-bold text-slate-900">Categorias</h2>
+          <p className="mt-1 text-sm text-slate-600">Navegue por tipo de documento</p>
         </header>
 
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto pb-2">
           {CATEGORIES.map((c) => (
             <Link
               key={c.id}
               href={`/ferramentas?cat=${encodeURIComponent(c.id)}`}
-              className="shrink-0 rounded-full bg-white border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:border-slate-300 hover:shadow transition-all duration-200"
+              className="shrink-0 rounded-md bg-white border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors"
             >
               {c.label}
             </Link>
           ))}
         </div>
+      </section>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          <Link
-            href="/parcerias"
-            className="group rounded-2xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 p-8 hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-1 transition-all duration-300"
-          >
-            <h3 className="text-base font-bold text-slate-900">Parceiros Oficiais</h3>
-            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-              Colaboramos com parceiros para oferecer mais soluções e transparência.
-            </p>
-            <span className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600 group-hover:text-indigo-700 transition-colors">
-              Ver parcerias
-              <svg className="ml-1.5 w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+      <section className="bg-slate-50 border-t border-slate-200">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="rounded-lg border border-slate-200 bg-white p-6">
+              <h3 className="text-base font-semibold text-slate-900">Parceiros Oficiais</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Trabalhamos com parceiros selecionados para oferecer mais soluções.
+              </p>
+              <Link
+                href="/parcerias"
+                className="mt-4 inline-flex items-center text-sm font-medium text-blue-900 hover:text-blue-800"
+              >
+                Ver parcerias
+                <svg className="ml-1 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
 
-          <Link
-            href="/como-ganhamos-dinheiro"
-            className="group rounded-2xl border border-slate-100 bg-white shadow-lg shadow-slate-200/50 p-8 hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-1 transition-all duration-300"
-          >
-            <h3 className="text-base font-bold text-slate-900">Transparência</h3>
-            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-              Entenda como mantemos o projeto no ar e como a monetização funciona.
-            </p>
-            <span className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-600 group-hover:text-indigo-700 transition-colors">
-              Ler transparência
-              <svg className="ml-1.5 w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+            <div className="rounded-lg border border-slate-200 bg-white p-6">
+              <h3 className="text-base font-semibold text-slate-900">Como ganhamos dinheiro</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Entenda como mantemos o projeto gratuito e sustentável.
+              </p>
+              <Link
+                href="/como-ganhamos-dinheiro"
+                className="mt-4 inline-flex items-center text-sm font-medium text-blue-900 hover:text-blue-800"
+              >
+                Ver transparência
+                <svg className="ml-1 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </main>
