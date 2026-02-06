@@ -67,6 +67,26 @@ export default function ItbiModeloPage() {
             </h2>
             <FaqAccordion items={faqItems} />
           </section>
+
+          <section className="mt-12 mb-12 max-w-4xl mx-auto bg-white border border-slate-200 rounded-lg p-6">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              Como Preencher seu Requerimento de ITBI: Guia Completo
+            </h2>
+            <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed">
+              <p>
+                O <strong>modelo gratuito de requerimento de ITBI</strong> disponibilizado pelo ReciboNaHora foi desenvolvido para simplificar o processo de solicitação de isenção ou redução do Imposto sobre Transmissão de Bens Imóveis. Este documento possui <strong>validade jurídica</strong> quando preenchido corretamente e acompanhado da documentação complementar exigida pela prefeitura de seu município.
+              </p>
+              <p>
+                Para <strong>como preencher</strong> o requerimento adequadamente, é fundamental reunir informações precisas sobre o imóvel, incluindo o número da matrícula no Cartório de Registro de Imóveis, o valor de avaliação conforme a escritura ou contrato de compra e venda, além de seus dados pessoais completos. O formulário guiado orienta você em cada etapa, explicando por que cada informação é necessária e como ela será utilizada no processo administrativo.
+              </p>
+              <p>
+                A <strong>validade jurídica do modelo</strong> está fundamentada na legislação municipal aplicável e nas normas do Sistema Financeiro da Habitação (SFH), quando pertinente. O documento segue as formalidades requeridas para petições administrativas, incluindo identificação completa do requerente, qualificação do imóvel, fundamentação legal e fecho apropriado. É importante ressaltar que a concessão da isenção ou redução depende da análise da prefeitura e do cumprimento dos requisitos legais específicos de cada município.
+              </p>
+              <p>
+                Este <strong>modelo gratuito</strong> serve como ponto de partida para sua solicitação, economizando tempo e recursos ao oferecer uma estrutura profissional pronta para uso. Recomendamos sempre consultar a legislação local e, em casos complexos, buscar orientação de um profissional habilitado para garantir que todos os requisitos sejam atendidos. <a href="/blog/guia-lance-embutido" className="text-blue-900 hover:underline">Confira também nosso guia sobre estratégias financeiras</a> e explore outras <a href="/ferramentas" className="text-blue-900 hover:underline">ferramentas gratuitas</a> disponíveis no site.
+              </p>
+            </div>
+          </section>
         </ToolShellMain>
       </ToolShell>
       <script

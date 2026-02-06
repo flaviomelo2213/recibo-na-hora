@@ -76,6 +76,26 @@ export default function LaiPedidoPage() {
             </h2>
             <FaqAccordion items={faqItems} />
           </section>
+
+          <section className="mt-12 mb-12 max-w-4xl mx-auto bg-white border border-slate-200 rounded-lg p-6">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              Como Preencher seu Pedido LAI: Guia Completo sobre a Lei de Acesso à Informação
+            </h2>
+            <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed">
+              <p>
+                O <strong>modelo gratuito de pedido LAI</strong> oferecido pelo ReciboNaHora facilita o exercício do seu direito constitucional de acesso à informação pública. Este requerimento possui <strong>validade jurídica</strong> plena quando preenchido corretamente, fundamentado na Lei nº 12.527/2011 (Lei de Acesso à Informação), que garante a qualquer cidadão o direito de obter informações de órgãos públicos sem necessidade de justificativa.
+              </p>
+              <p>
+                Para <strong>como preencher</strong> o pedido adequadamente, é essencial ser específico e objetivo na descrição da informação solicitada. Evite pedidos genéricos como "tudo sobre o assunto X" e prefira detalhamentos claros, como "contratos firmados entre o órgão Y e a empresa Z no período de janeiro a dezembro de 2025". O formulário guiado orienta você a identificar corretamente o órgão destinatário, qualificar-se como requerente e especificar a forma preferencial de recebimento da informação (digital ou física).
+              </p>
+              <p>
+                A <strong>validade jurídica do modelo</strong> está assegurada pelo cumprimento das formalidades previstas na legislação: identificação do requerente (nome completo e documento), endereço para correspondência, especificação da informação requerida e indicação da forma de acesso preferida. O órgão público tem o prazo legal de 20 dias (prorrogáveis por mais 10 dias) para responder, e eventual negativa deve ser sempre fundamentada por escrito, cabendo recursos em caso de recusa indevida.
+              </p>
+              <p>
+                Este <strong>modelo gratuito</strong> democratiza o acesso à administração pública, permitindo que qualquer pessoa exerça seu direito de transparência sem custos ou burocracia excessiva. O pedido via LAI é gratuito, e apenas custos de reprodução (cópias, digitalização) podem ser cobrados. Para mais informações sobre documentos e ferramentas jurídicas, explore nosso <a href="/requerimentos/itbi-modelo" className="text-blue-900 hover:underline">modelo de ITBI</a> e outras <a href="/ferramentas" className="text-blue-900 hover:underline">ferramentas gratuitas</a> no site.
+              </p>
+            </div>
+          </section>
         </ToolShellMain>
       </ToolShell>
 

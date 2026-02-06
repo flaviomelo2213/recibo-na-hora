@@ -133,7 +133,82 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pb-12">
+      <section className="bg-gradient-to-br from-blue-50 to-slate-50 border-y border-slate-200">
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+              Guia Definitivo do Recibo Seguro
+            </h2>
+            <p className="text-base text-slate-600 max-w-2xl mx-auto">
+              Aprenda a criar, validar e utilizar recibos com segurança jurídica
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white rounded-lg border border-slate-200 p-6">
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
+                <FileText className="w-6 h-6 text-blue-900" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Elementos Essenciais</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Todo recibo válido deve conter identificação completa das partes, valor por extenso e numeral, data, descrição do serviço ou produto, e assinatura do recebedor.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg border border-slate-200 p-6">
+              <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-green-700" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Validade Jurídica</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Recibos têm validade legal quando preenchidos corretamente. Guarde por no mínimo 5 anos para fins fiscais e trabalhistas, especialmente em casos de MEI e autônomos.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg border border-slate-200 p-6">
+              <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center mb-4">
+                <Receipt className="w-6 h-6 text-amber-700" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Tipos Mais Comuns</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Recibo de pagamento, recibo de aluguel, recibo de prestação de serviços, recibo de compra e venda, e recibo de adiantamento. Cada um possui especificidades próprias.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg border border-slate-200 p-6 sm:p-8">
+            <h3 className="text-xl font-bold text-slate-900 mb-4">Como Preencher um Recibo de Forma Segura</h3>
+            <div className="space-y-4 text-sm text-slate-700 leading-relaxed">
+              <p>
+                Um <strong>recibo seguro</strong> é aquele que contém todas as informações necessárias para comprovar uma transação financeira. Comece sempre identificando quem recebeu o pagamento (nome completo e CPF/CNPJ) e quem pagou (também com identificação completa). O valor deve ser escrito tanto em algarismos quanto por extenso para evitar adulterações.
+              </p>
+              <p>
+                A descrição detalhada é fundamental: especifique o que foi pago, o período referente (se aplicável) e qualquer informação relevante como número de contrato ou parcela. A data deve ser a do efetivo pagamento, e a assinatura do recebedor é obrigatória para dar validade ao documento. Em transações de maior valor, considere incluir duas testemunhas com assinatura.
+              </p>
+              <p>
+                Para <strong>modelos gratuitos e profissionais</strong>, o ReciboNaHora oferece ferramentas que já seguem as melhores práticas jurídicas. Nossos geradores incluem todos os campos obrigatórios e permitem personalização conforme sua necessidade. Você pode criar recibos simples, recibos com PIX, recibos de aluguel e muito mais, sempre com orientação sobre cada campo a ser preenchido.
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/ferramentas/recibo-simples"
+                className="inline-flex items-center px-4 py-2 bg-blue-900 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition-colors"
+              >
+                Criar Recibo Simples
+              </Link>
+              <Link
+                href="/blog/guia-lance-embutido"
+                className="inline-flex items-center px-4 py-2 border border-slate-300 bg-white text-slate-700 text-sm font-semibold rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                Ler Guia Completo
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
         <header className="mb-6">
           <h2 className="text-2xl font-bold text-slate-900">Categorias</h2>
           <p className="mt-1 text-sm text-slate-600">Navegue por tipo de documento</p>
