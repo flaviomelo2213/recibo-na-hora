@@ -1,0 +1,27 @@
+name: AI Web Upgrade
+on:
+  workflow_dispatch: # Permite que você rode manualmente pelo botão no GitHub
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Run AI Upgrade Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node scripts/ai-upgrade.js
+          
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "feat: melhoria do saas e calculadora de consorcio"
+          title: "Upgrade Moderno - SaaS Consórcio"
+          body: "Este PR adiciona a calculadora estratégica e melhora o SEO para AdSense."
+          branch: "ai-upgrade-modern"
