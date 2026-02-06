@@ -1,16 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
 const CONTACT_EMAIL = "contato@recibonahora.com.br";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, phone, email, value } = body;
+    const { name, phone, email, value, source = "educacao-financeira" } = body;
 
     if (!name || !phone || !email) {
       return NextResponse.json(
         { error: "Nome, telefone e e-mail são obrigatórios" },
         { status: 400 }
+      );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const { data, error } = await supabase
+      .from("leads")
+      .insert([
+        {
+          name,
+          phone,
+          email,
+          value: value || null,
+          source,
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error("Erro ao salvar lead no Supabase:", error);
+      return NextResponse.json(
+        { error: "Erro ao salvar solicitação" },
+        { status: 500 }
       );
     }
 
@@ -23,31 +50,15 @@ export async function POST(request: NextRequest) {
       }).format(parseFloat(numbers));
     };
 
-    const emailContent = `
-Nova Solicitação de Indicação de Profissionais
-==============================================
-
-Nome: ${name}
-Telefone: ${phone}
-E-mail: ${email}
-Valor de Interesse: ${value ? formatCurrency(value) : "Não informado"}
-
-Data: ${new Date().toLocaleString("pt-BR")}
-
----
-Este lead foi capturado através do formulário de educação financeira.
-    `.trim();
-
-    console.log("Lead recebido:", {
+    console.log("Lead salvo com sucesso:", {
+      id: data[0]?.id,
       name,
       phone,
       email,
       value: value ? formatCurrency(value) : "Não informado",
+      source,
       timestamp: new Date().toISOString(),
     });
-
-    console.log("Email a ser enviado para:", CONTACT_EMAIL);
-    console.log("Conteúdo:", emailContent);
 
     return NextResponse.json(
       {
