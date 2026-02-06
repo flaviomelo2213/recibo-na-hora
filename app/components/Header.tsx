@@ -26,7 +26,7 @@ export default function Header() {
           </a>
 
           {/* Menu Desktop */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
             <a href="/" className="hover:text-amber-600 transition">
               Início
             </a>
@@ -34,7 +34,13 @@ export default function Header() {
               href="/ferramentas"
               className="text-amber-700 font-bold hover:text-amber-800 transition flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full"
             >
-              <i className="fa-solid fa-layer-group" /> Todas as Ferramentas
+              <i className="fa-solid fa-layer-group" /> Ferramentas
+            </a>
+            <a
+              href="/educacao-financeira"
+              className="text-blue-700 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-100 px-3 py-1.5 rounded-full"
+            >
+              <i className="fa-solid fa-graduation-cap" /> Educação Financeira
             </a>
             <a href="/requerimentos" className="hover:text-amber-600 transition">
               Requerimentos
