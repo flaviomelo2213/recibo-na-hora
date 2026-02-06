@@ -62,11 +62,11 @@ export default function HomePage() {
   const handleWhatsAppClick = () => {
     const phone = "5569993401868";
     const message = encodeURIComponent(
-      `Olá! Tenho interesse na estratégia de consórcio com lance fixo de 44 parcelas.\n\n` +
+      `Olá! Tenho interesse em estratégia de crédito para capital de giro.\n\n` +
       `Crédito desejado: ${formatCurrency(creditAmount)}\n` +
-      `Poder de compra real: ${formatCurrency(realPurchasingPower)}\n` +
-      `Lance fixo: ${formatCurrency(fixedBidValue)}\n\n` +
-      `Gostaria de validar essa estratégia e entender melhor como funciona.`
+      `Valor líquido estimado: ${formatCurrency(realPurchasingPower)}\n` +
+      `Lance estimado: ${formatCurrency(fixedBidValue)}\n\n` +
+      `Gostaria de falar com um especialista sobre as opções disponíveis.`
     );
     window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
   };
@@ -79,16 +79,16 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
               <TrendingDown className="w-4 h-4 text-green-300" />
-              <span className="text-sm font-medium text-white">Grupo 012145 - Estratégia Comprovada</span>
+              <span className="text-sm font-medium text-white">Estratégia de Mercado - Educação Financeira</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
-              Economize até 50% em relação
+              Capital de giro inteligente
               <span className="block text-green-300 mt-2">
-                ao financiamento bancário
+                para crescimento empresarial
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Simulador de estratégia financeira com lance fixo de 44 parcelas. Contemple em até 6 meses e realize seu sonho mais rápido.
+              Simulador educativo de estratégia de crédito planejado. Compare taxas e entenda como substituir dívidas caras por custos administrativos menores.
             </p>
           </div>
 
@@ -98,7 +98,7 @@ export default function HomePage() {
                 <div className="space-y-6">
                   <div>
                     <label htmlFor="credit-hero" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Qual crédito você precisa?
+                      Quanto de capital de giro você precisa?
                     </label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-medium">R$</span>
@@ -141,13 +141,13 @@ export default function HomePage() {
                   <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <DollarSign className="w-5 h-5 text-blue-900" />
-                      <h3 className="text-sm font-semibold text-blue-900">Poder de Compra Real</h3>
+                      <h3 className="text-sm font-semibold text-blue-900">Valor Líquido Estimado</h3>
                     </div>
                     <div className="text-3xl font-bold text-blue-900 mb-1">
                       {formatCurrency(realPurchasingPower)}
                     </div>
                     <p className="text-xs text-blue-700">
-                      Valor disponível após taxa administrativa de {ADMIN_FEE_PERCENT}%
+                      Exemplo: após taxa administrativa de {ADMIN_FEE_PERCENT}%
                     </p>
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function HomePage() {
                     className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors flex items-center justify-center gap-3 shadow-lg"
                   >
                     <MessageCircle className="w-5 h-5" />
-                    Validar Estratégia no WhatsApp
+                    Falar com Especialista em Estratégia de Crédito
                   </button>
 
                   <Link
@@ -197,15 +197,15 @@ export default function HomePage() {
                 <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-green-500" />
-                    <span>Taxa Administrativa: 24,20%</span>
+                    <span>Exemplo de Taxa: 24,20%</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-blue-500" />
-                    <span>Prazo: 220 meses</span>
+                    <span>Prazo Estimado: 220 meses</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-amber-500" />
-                    <span>Grupo 012145 - Dados Reais</span>
+                    <span>Dados de Mercado</span>
                   </div>
                 </div>
               </div>
@@ -214,7 +214,7 @@ export default function HomePage() {
 
           <div className="mt-8 text-center">
             <p className="text-sm text-blue-200">
-              Esta é uma simulação educativa baseada em dados reais do Grupo 012145. Os valores podem variar conforme condições específicas.
+              Esta é uma simulação educativa baseada em dados de mercado. Os valores são exemplificativos e podem variar conforme administradora e condições específicas.
             </p>
           </div>
         </div>
@@ -223,10 +223,10 @@ export default function HomePage() {
       <section id="como-funciona" className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            Como Funciona a Estratégia
+            Educação Financeira: Como Funciona
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Entenda em 3 passos simples como o lance fixo de 44 parcelas acelera sua contemplação
+            Entenda como substituir dívidas caras por estratégias de crédito com custos administrativos previsíveis
           </p>
         </div>
 
@@ -236,9 +236,9 @@ export default function HomePage() {
               1
             </div>
             <div className="bg-white border border-slate-200 rounded-xl p-6 pt-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Lance Pré-Calculado</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Taxa Administrativa Fixa</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Você entra no grupo com um lance fixo já definido (25,15% do crédito), diluído nas primeiras 44 parcelas. Não precisa ter dinheiro guardado para dar lance.
+                Diferente de financiamentos com juros compostos, consórcios trabalham com uma taxa administrativa única calculada no início. Exemplo: 24,20% sobre o valor total, distribuída ao longo do prazo.
               </p>
             </div>
           </div>
@@ -248,9 +248,9 @@ export default function HomePage() {
               2
             </div>
             <div className="bg-white border border-slate-200 rounded-xl p-6 pt-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Contemplação Rápida</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Planejamento de Fluxo de Caixa</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Com o lance embutido, suas chances de contemplação nos primeiros 6-8 meses são muito maiores que aguardar sorteio (média de 110 meses).
+                Com parcelas previsíveis e contemplação acelerada via lance, você pode planejar melhor o capital de giro da empresa e substituir empréstimos com taxas superiores a 2-3% ao mês.
               </p>
             </div>
           </div>
@@ -260,9 +260,9 @@ export default function HomePage() {
               3
             </div>
             <div className="bg-white border border-slate-200 rounded-xl p-6 pt-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Economia Real</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Alavancagem Inteligente</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Contemplar cedo significa economizar anos de aluguel, aproveitar valorização imobiliária e ter o bem enquanto paga. Economia pode ultrapassar 30% do valor.
+                Use o crédito contemplado para investir em estoque, equipamentos ou expansão. O custo administrativo fixo tende a ser inferior aos juros bancários acumulados ao longo dos anos.
               </p>
             </div>
           </div>
@@ -270,10 +270,10 @@ export default function HomePage() {
 
         <div className="mt-12 text-center">
           <Link
-            href="/blog/guia-lance-embutido"
+            href="/blog/estrategia-vencedora-consorcio"
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors"
           >
-            Ler Guia Completo sobre Lance Fixo
+            Ler Guia de Educação Financeira
           </Link>
         </div>
       </section>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Calendar, User, ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Guia Completo: Lance Embutido de 44 Parcelas no Consórcio | ReciboNaHora",
+  title: "Guia Educativo: Lance Embutido de 44 Parcelas - Como Funciona | ReciboNaHora",
   description:
-    "Entenda como funciona a estratégia de lance fixo de 44 parcelas no Grupo 012145. Guia completo com cálculos, vantagens e como essa estratégia pode acelerar sua contemplação.",
+    "Entenda como funciona a estratégia de lance fixo de 44 parcelas em consórcios. Guia educativo com cálculos, vantagens e como essa estratégia pode acelerar sua contemplação.",
   alternates: {
     canonical: "/blog/guia-lance-embutido",
   },
@@ -41,7 +41,7 @@ export default function GuiaLanceEmbutidoPage() {
 
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-900">
-              Este artigo explica a estratégia de lance fixo utilizada no Grupo 012145 e como ela pode ser aplicada para acelerar a contemplação em consórcios.
+              <strong>Conteúdo Educativo:</strong> Este artigo explica a estratégia de lance fixo de 44 parcelas e como ela pode ser aplicada por administradoras de grande porte para acelerar a contemplação em consórcios.
             </p>
           </div>
         </header>
@@ -56,7 +56,7 @@ export default function GuiaLanceEmbutidoPage() {
           </p>
 
           <p className="text-slate-700 leading-relaxed mb-4">
-            No caso específico do Grupo 012145, o lance fixo de 44 parcelas representa aproximadamente 25% do valor da carta de crédito. Isso significa que, para cada R$ 100.000 de crédito, o lance embutido seria de aproximadamente R$ 25.148,48. Esse valor não precisa ser pago à vista, mas sim distribuído nas 44 primeiras parcelas do grupo.
+            Em estratégias de mercado com administradoras de grande porte, o lance fixo de 44 parcelas representa aproximadamente 25% do valor da carta de crédito. Isso significa que, para cada R$ 100.000 de crédito, o lance embutido seria de aproximadamente R$ 25.148,48. Esse valor não precisa ser pago à vista, mas sim distribuído nas 44 primeiras parcelas do grupo.
           </p>
 
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
