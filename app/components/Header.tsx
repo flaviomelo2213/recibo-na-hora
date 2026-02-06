@@ -26,21 +26,56 @@ export default function Header() {
           </a>
 
           {/* Menu Desktop */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
+          <nav className="hidden lg:flex items-center gap-4 text-sm font-medium text-stone-600">
             <a href="/" className="hover:text-amber-600 transition">
               Início
             </a>
-            <a
-              href="/ferramentas"
-              className="text-amber-700 font-bold hover:text-amber-800 transition flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full"
-            >
-              <i className="fa-solid fa-layer-group" /> Ferramentas
-            </a>
-            <a
-              href="/educacao-financeira"
-              className="text-blue-700 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-100 px-3 py-1.5 rounded-full"
-            >
-              <i className="fa-solid fa-graduation-cap" /> Educação Financeira
+
+            <div className="relative group">
+              <button className="hover:text-amber-600 transition flex items-center gap-1 py-2">
+                Recibos <i className="fa-solid fa-chevron-down text-xs"></i>
+              </button>
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <a href="/recibos" className="block px-4 py-2 hover:bg-amber-50 transition">Ver Todos os Recibos</a>
+                  <a href="/ferramentas/recibo-simples" className="block px-4 py-2 hover:bg-amber-50 transition">Recibo Simples</a>
+                  <a href="/ferramentas/recibo-pix" className="block px-4 py-2 hover:bg-amber-50 transition">Recibo com PIX</a>
+                  <a href="/ferramentas/imobiliario" className="block px-4 py-2 hover:bg-amber-50 transition">Recibo de Aluguel</a>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <button className="hover:text-amber-600 transition flex items-center gap-1 py-2">
+                Contratos <i className="fa-solid fa-chevron-down text-xs"></i>
+              </button>
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <a href="/contratos" className="block px-4 py-2 hover:bg-amber-50 transition">Ver Todos os Contratos</a>
+                  <a href="/contrato-locacao" className="block px-4 py-2 hover:bg-amber-50 transition">Contrato de Locação</a>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <button className="hover:text-amber-600 transition flex items-center gap-1 py-2">
+                Procurações <i className="fa-solid fa-chevron-down text-xs"></i>
+              </button>
+              <div className="absolute left-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <a href="/ferramentas/procuracao-plenos-poderes" className="block px-4 py-2 hover:bg-amber-50 transition">Plenos Poderes</a>
+                  <a href="/ferramentas/procuracao-inss" className="block px-4 py-2 hover:bg-amber-50 transition">INSS</a>
+                  <a href="/ferramentas/procuracao-bancaria" className="block px-4 py-2 hover:bg-amber-50 transition">Bancária</a>
+                  <a href="/ferramentas/procuracao-imoveis" className="block px-4 py-2 hover:bg-amber-50 transition">Imóveis e Inventário</a>
+                  <div className="border-t border-stone-200 my-1"></div>
+                  <a href="/ferramentas/procuracao" className="block px-4 py-2 hover:bg-amber-50 transition">Procuração Simples</a>
+                  <a href="/ferramentas/procuracao-profissional" className="block px-4 py-2 hover:bg-amber-50 transition">Procuração Profissional</a>
+                </div>
+              </div>
+            </div>
+
+            <a href="/orcamentos" className="hover:text-amber-600 transition">
+              Orçamentos
             </a>
             <a href="/apoio-corretor" className="hover:text-amber-600 transition">
               Corretor
@@ -48,17 +83,11 @@ export default function Header() {
             <a href="/requerimentos" className="hover:text-amber-600 transition">
               Requerimentos
             </a>
-            <a href="/parcerias" className="hover:text-amber-600 transition">
-              Parcerias
-            </a>
             <a
-              href="/como-ganhamos-dinheiro"
-              className="hover:text-amber-600 transition"
+              href="/educacao-financeira"
+              className="text-blue-700 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-100 px-3 py-1.5 rounded-full"
             >
-              Transparência
-            </a>
-            <a href="/contato" className="hover:text-amber-600 transition">
-              Contato
+              <i className="fa-solid fa-graduation-cap" /> Educação
             </a>
           </nav>
 
