@@ -1,30 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, Shield, TrendingUp, DollarSign, CheckCircle2, XCircle, AlertCircle, Building2, Target } from "lucide-react";
+import { Calculator, Shield, TrendingUp, DollarSign, CheckCircle2, XCircle, AlertCircle, Building2, Target, Edit3 } from "lucide-react";
 import Link from "next/link";
 import LeadModal from "../components/LeadModal";
 
 export default function EducacaoFinanceiraPage() {
   const [creditValue, setCreditValue] = useState("100000");
+  const [termMonths, setTermMonths] = useState("220");
+  const [adminFeePercent, setAdminFeePercent] = useState("24.20");
+  const [bidInstallments, setBidInstallments] = useState("44");
   const [showLeadModal, setShowLeadModal] = useState(false);
 
-  const ADMIN_FEE_PERCENT = 24.20;
-  const TERM_MONTHS = 220;
-  const FIXED_BID_INSTALLMENTS = 44;
-
   const creditAmount = parseFloat(creditValue.replace(/[^\d]/g, "")) || 0;
+  const term = parseFloat(termMonths) || 1;
+  const adminPercent = parseFloat(adminFeePercent.replace(",", ".")) || 0;
+  const bidMonths = parseFloat(bidInstallments) || 1;
 
-  const adminFee = creditAmount * (ADMIN_FEE_PERCENT / 100);
-  const fixedBidValue = (creditAmount * 0.25148);
-  const fixedBidMonthly = fixedBidValue / FIXED_BID_INSTALLMENTS;
-  const monthlyInstallment = (creditAmount / TERM_MONTHS);
-  const totalWithBid = monthlyInstallment + fixedBidMonthly;
+  const adminFeeTotal = creditAmount * (adminPercent / 100);
+  const totalCredit = creditAmount + adminFeeTotal;
+  const monthlyBase = totalCredit / term;
 
-  const cetAnual = 25.5;
-  const cetMensal = (Math.pow(1 + cetAnual / 100, 1 / 12) - 1) * 100;
+  const bidPercentage = (bidMonths / term) * 100;
+  const fixedBidValue = creditAmount * (bidPercentage / 100);
+  const fixedBidMonthly = fixedBidValue / bidMonths;
+  const totalWithBid = monthlyBase + fixedBidMonthly;
+
+  const realPurchasingPower = creditAmount - adminFeeTotal;
+
+  const cetAnualEstimated = adminPercent * (12 / term) * 10;
+  const cetMensal = cetAnualEstimated / 12;
 
   const formatCurrency = (value: number) => {
+    if (isNaN(value) || !isFinite(value)) return "R$ 0,00";
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -40,7 +48,7 @@ export default function EducacaoFinanceiraPage() {
             <div>
               <h3 className="font-bold text-amber-900 mb-2">Transparência e Educação Financeira</h3>
               <p className="text-sm leading-relaxed text-slate-700">
-                Este simulador é uma ferramenta educativa. O consórcio é uma compra planejada fiscalizada pelo Banco Central. <strong>Não há garantia de data de contemplação.</strong> Cada administradora possui taxas, prazos e regras de crédito próprias, auditadas conforme seus contratos específicos. Os valores aqui apresentados são exemplificativos para fins didáticos. <strong>Este simulador não garante contemplação.</strong> Cada contrato tem regras próprias de auditoria e diretrizes de crédito.
+                Este simulador é uma ferramenta educativa. O consórcio é uma compra planejada fiscalizada pelo Banco Central. <strong>Não há garantia de data de contemplação.</strong> Cada administradora possui taxas, prazos e regras de crédito próprias, auditadas conforme seus contratos específicos. <strong>Este simulador não garante contemplação.</strong> Cada contrato tem regras próprias de auditoria e diretrizes de crédito.
               </p>
             </div>
           </div>
@@ -54,7 +62,7 @@ export default function EducacaoFinanceiraPage() {
             Guia Técnico de Estratégias de Consórcio
           </h1>
           <p className="text-base text-slate-600 max-w-2xl mx-auto">
-            Entenda a matemática por trás do consórcio: taxas, prazos, lances e CET. Use este simulador para comparar propostas de qualquer administradora.
+            Calculadora dinâmica e editável. Use os dados do seu contrato ou proposta para simular. Os valores variam conforme a administradora escolhida.
           </p>
         </div>
 
@@ -74,97 +82,165 @@ export default function EducacaoFinanceiraPage() {
         </div>
 
         <div className="bg-white border-2 border-blue-200 rounded-xl p-6 sm:p-8 mb-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Simulador de Estratégia</h2>
+          <div className="flex items-center gap-3 mb-6">
+            <Edit3 className="w-6 h-6 text-blue-900" />
+            <h2 className="text-2xl font-bold text-slate-900">Calculadora Dinâmica e Editável</h2>
+          </div>
 
-          <div className="mb-6">
-            <label htmlFor="credit" className="block text-sm font-semibold text-slate-900 mb-2">
-              Valor do crédito que você precisa
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">R$</span>
-              <input
-                id="credit"
-                type="text"
-                value={creditValue}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^\d]/g, "");
-                  setCreditValue(value);
-                }}
-                className="w-full pl-10 pr-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent text-lg font-semibold"
-                placeholder="100000"
-              />
+          <div className="bg-blue-50 border border-blue-300 rounded-lg p-4 mb-6">
+            <p className="text-sm text-blue-900 font-medium">
+              <AlertCircle className="w-4 h-4 inline mr-2" />
+              Utilize os dados do seu contrato ou proposta para simular. Os valores variam conforme a administradora escolhida.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="credit" className="block text-sm font-semibold text-slate-900 mb-2">
+                Valor do Crédito *
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">R$</span>
+                <input
+                  id="credit"
+                  type="text"
+                  value={creditValue}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^\d]/g, "");
+                    setCreditValue(value);
+                  }}
+                  className="w-full pl-10 pr-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent text-lg font-semibold"
+                  placeholder="100000"
+                />
+              </div>
+              <p className="mt-1 text-xs text-slate-500">Valor total da carta de crédito</p>
             </div>
-            <p className="mt-2 text-xs text-slate-500">Digite apenas números (ex: 100000 para R$ 100 mil)</p>
+
+            <div>
+              <label htmlFor="term" className="block text-sm font-semibold text-slate-900 mb-2">
+                Prazo Total (meses) *
+              </label>
+              <input
+                id="term"
+                type="number"
+                value={termMonths}
+                onChange={(e) => setTermMonths(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent text-lg font-semibold"
+                placeholder="220"
+                min="1"
+              />
+              <p className="mt-1 text-xs text-slate-500">Duração do contrato em meses</p>
+            </div>
+
+            <div>
+              <label htmlFor="adminFee" className="block text-sm font-semibold text-slate-900 mb-2">
+                Taxa de Administração (%) *
+              </label>
+              <div className="relative">
+                <input
+                  id="adminFee"
+                  type="text"
+                  value={adminFeePercent}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^\d,\.]/g, "");
+                    setAdminFeePercent(value);
+                  }}
+                  className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent text-lg font-semibold"
+                  placeholder="24.20"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500">%</span>
+              </div>
+              <p className="mt-1 text-xs text-slate-500">Porcentagem total do contrato</p>
+            </div>
+
+            <div>
+              <label htmlFor="bidMonths" className="block text-sm font-semibold text-slate-900 mb-2">
+                Parcelas de Lance Embutido *
+              </label>
+              <input
+                id="bidMonths"
+                type="number"
+                value={bidInstallments}
+                onChange={(e) => setBidInstallments(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent text-lg font-semibold"
+                placeholder="44"
+                min="1"
+              />
+              <p className="mt-1 text-xs text-slate-500">Quantas parcelas para o lance</p>
+            </div>
           </div>
 
           <div className="grid sm:grid-cols-3 gap-4 mb-6">
             <button
-              onClick={() => setCreditValue("100000")}
+              onClick={() => {
+                setCreditValue("100000");
+                setTermMonths("220");
+                setAdminFeePercent("24.20");
+                setBidInstallments("44");
+              }}
               className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700 transition-colors"
             >
-              R$ 100 mil
+              Exemplo 1
             </button>
             <button
-              onClick={() => setCreditValue("200000")}
+              onClick={() => {
+                setCreditValue("200000");
+                setTermMonths("180");
+                setAdminFeePercent("22.50");
+                setBidInstallments("36");
+              }}
               className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700 transition-colors"
             >
-              R$ 200 mil
+              Exemplo 2
             </button>
             <button
-              onClick={() => setCreditValue("300000")}
+              onClick={() => {
+                setCreditValue("300000");
+                setTermMonths("240");
+                setAdminFeePercent("26.00");
+                setBidInstallments("48");
+              }}
               className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700 transition-colors"
             >
-              R$ 300 mil
+              Exemplo 3
             </button>
           </div>
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-6">
-            <h3 className="text-sm font-semibold text-slate-900 mb-4">Parâmetros Exemplificativos (Base de Mercado)</h3>
-            <div className="grid sm:grid-cols-3 gap-4 text-sm">
-              <div>
-                <span className="text-slate-600">Taxa administrativa</span>
-                <div className="text-lg font-bold text-slate-900">{ADMIN_FEE_PERCENT}%</div>
-              </div>
-              <div>
-                <span className="text-slate-600">Prazo</span>
-                <div className="text-lg font-bold text-slate-900">{TERM_MONTHS} meses</div>
-              </div>
-              <div>
-                <span className="text-slate-600">Lance embutido</span>
-                <div className="text-lg font-bold text-slate-900">{FIXED_BID_INSTALLMENTS} parcelas</div>
-              </div>
-            </div>
-          </div>
+          <div className="border-t-2 border-slate-200 pt-6 space-y-4">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Resultados Calculados</h3>
 
-          <div className="space-y-4 mb-6">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <DollarSign className="w-6 h-6 text-blue-900" />
                 <h3 className="text-base font-bold text-blue-900">Análise Financeira</h3>
               </div>
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-3 gap-4">
                 <div>
                   <div className="text-xs text-blue-800 mb-1">Crédito Total</div>
-                  <div className="text-2xl font-bold text-blue-900">{formatCurrency(creditAmount)}</div>
+                  <div className="text-xl font-bold text-blue-900">{formatCurrency(creditAmount)}</div>
                 </div>
                 <div>
                   <div className="text-xs text-blue-800 mb-1">Taxa Administrativa</div>
-                  <div className="text-2xl font-bold text-blue-900">{formatCurrency(adminFee)}</div>
+                  <div className="text-xl font-bold text-blue-900">{formatCurrency(adminFeeTotal)}</div>
+                </div>
+                <div>
+                  <div className="text-xs text-blue-800 mb-1">Poder de Compra Real</div>
+                  <div className="text-xl font-bold text-blue-900">{formatCurrency(realPurchasingPower)}</div>
                 </div>
               </div>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="bg-white border border-slate-200 rounded-lg p-4">
+              <div className="bg-white border-2 border-slate-200 rounded-lg p-4">
                 <div className="text-xs text-slate-600 font-medium mb-1">Parcela Base</div>
-                <div className="text-xl font-bold text-slate-900">{formatCurrency(monthlyInstallment)}</div>
-                <div className="text-xs text-slate-500 mt-1">Por {TERM_MONTHS} meses</div>
+                <div className="text-2xl font-bold text-slate-900">{formatCurrency(monthlyBase)}</div>
+                <div className="text-xs text-slate-500 mt-1">Após contemplação</div>
               </div>
 
-              <div className="bg-white border border-slate-200 rounded-lg p-4">
-                <div className="text-xs text-slate-600 font-medium mb-1">Parcela com Lance (44 meses)</div>
-                <div className="text-xl font-bold text-amber-700">{formatCurrency(totalWithBid)}</div>
-                <div className="text-xs text-slate-500 mt-1">Base + Lance embutido</div>
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4">
+                <div className="text-xs text-amber-800 font-medium mb-1">Parcela com Lance ({bidMonths} meses)</div>
+                <div className="text-2xl font-bold text-amber-900">{formatCurrency(totalWithBid)}</div>
+                <div className="text-xs text-amber-700 mt-1">Durante período de lance</div>
               </div>
             </div>
 
@@ -172,42 +248,42 @@ export default function EducacaoFinanceiraPage() {
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                 <div className="text-xs text-green-800 font-medium mb-1">Lance Embutido Total</div>
                 <div className="text-lg font-bold text-green-900">{formatCurrency(fixedBidValue)}</div>
-                <div className="text-xs text-green-700 mt-1">25,15% do crédito</div>
+                <div className="text-xs text-green-700 mt-1">{bidPercentage.toFixed(2)}% do crédito</div>
               </div>
 
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <div className="text-xs text-green-800 font-medium mb-1">Lance Mensal (44x)</div>
+                <div className="text-xs text-green-800 font-medium mb-1">Lance Mensal</div>
                 <div className="text-lg font-bold text-green-900">{formatCurrency(fixedBidMonthly)}</div>
-                <div className="text-xs text-green-700 mt-1">Adicional temporário</div>
+                <div className="text-xs text-green-700 mt-1">Adicional por {bidMonths} meses</div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 mb-6">
-            <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5" />
-              Custo Efetivo Total (CET) Estimado
-            </h4>
-            <div className="grid sm:grid-cols-2 gap-4 text-sm">
-              <div>
-                <span className="text-slate-600">CET Anual</span>
-                <div className="text-2xl font-bold text-slate-900">{cetAnual.toFixed(2)}% a.a.</div>
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5">
+              <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5" />
+                Custo Efetivo Total (CET) Estimado
+              </h4>
+              <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-slate-600">CET Anual Estimado</span>
+                  <div className="text-2xl font-bold text-slate-900">{cetAnualEstimated.toFixed(2)}% a.a.</div>
+                </div>
+                <div>
+                  <span className="text-slate-600">CET Mensal Equivalente</span>
+                  <div className="text-2xl font-bold text-slate-900">{cetMensal.toFixed(2)}% a.m.</div>
+                </div>
               </div>
-              <div>
-                <span className="text-slate-600">CET Mensal Equivalente</span>
-                <div className="text-2xl font-bold text-slate-900">{cetMensal.toFixed(2)}% a.m.</div>
+              <div className="mt-3 p-3 bg-blue-50 rounded-lg">
+                <p className="text-xs text-blue-900">
+                  <strong>O que é o CET?</strong> O Custo Efetivo Total inclui taxa administrativa, seguro, fundo de reserva e taxa de adesão. Diferente de juros bancários, este custo é fixo e não sofre capitalização composta.
+                </p>
               </div>
-            </div>
-            <div className="mt-3 p-3 bg-blue-50 rounded-lg">
-              <p className="text-xs text-blue-900">
-                <strong>O que é o CET?</strong> O Custo Efetivo Total inclui taxa administrativa, seguro, fundo de reserva e taxa de adesão. Diferente de juros bancários, este custo é fixo e não sofre capitalização composta.
-              </p>
             </div>
           </div>
 
           <button
             onClick={() => setShowLeadModal(true)}
-            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-3 text-base shadow-lg"
+            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-3 text-base shadow-lg mt-6"
           >
             <Target className="w-5 h-5" />
             Deseja indicações de profissionais que operam estas estratégias?
