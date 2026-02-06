@@ -38,24 +38,30 @@ const PreviewReciboPix = ({ data }: { data: any }) => {
 
       {/* Corpo do Recibo */}
       <div className="py-6 space-y-4">
-        <div className="flex justify-between">
-          <span className="text-gray-500">Recebemos de:</span>
-          <span className="font-medium text-gray-800">Pagador não identificado (via PIX)</span>
+        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+          <p className="text-xs text-gray-600 mb-2 font-semibold">PAGADOR (Quem Paga)</p>
+          <div className="space-y-1">
+            <p className="font-medium text-gray-800">{data.nomePagador || '[NOME DO PAGADOR]'}</p>
+            <p className="text-sm text-gray-600">CPF/CNPJ: {data.cpfCnpjPagador || '[000.000.000-00]'}</p>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span className="text-gray-500">Beneficiário:</span>
-          <span className="font-medium text-gray-800">{data.nomeBeneficiario || 'Não informado'}</span>
+
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <p className="text-xs text-gray-600 mb-2 font-semibold">BENEFICIÁRIO (Quem Recebe)</p>
+          <div className="space-y-1">
+            <p className="font-medium text-gray-800">{data.nomeBeneficiario || '[NOME DO BENEFICIÁRIO]'}</p>
+            <p className="text-sm text-gray-600">CPF/CNPJ: {data.cpfBeneficiario || '[000.000.000-00]'}</p>
+            <p className="text-xs text-gray-600 font-mono mt-2">Chave PIX: {data.chavePix || '[CHAVE PIX]'}</p>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <span className="text-gray-500">Chave PIX:</span>
-          <span className="font-mono text-gray-800">{data.chavePix || 'Não informada'}</span>
+
+        <div className="flex justify-between items-center bg-gradient-to-r from-blue-600 to-blue-700 p-4 rounded-lg shadow-md">
+          <span className="text-white font-bold">VALOR PAGO:</span>
+          <span className="text-2xl font-bold text-white">R$ {data.valor || '0,00'}</span>
         </div>
-        <div className="flex justify-between items-center bg-blue-50 p-4 rounded-lg">
-          <span className="text-gray-600 font-bold">VALOR TOTAL:</span>
-          <span className="text-2xl font-bold text-blue-600">R$ {data.valor || '0,00'}</span>
-        </div>
+
         <div className="pt-2">
-           <p className="text-sm text-gray-600">Eu, <strong className='font-bold'>{data.nomeBeneficiario || "(Nome do Beneficiário)"}</strong>, declaro que recebi o valor descrito neste recibo, referente a <strong className='font-bold'>{data.referente || "(descrição do pagamento)"}</strong>.</p>
+           <p className="text-sm text-gray-700 leading-relaxed">Declaro que recebi de <strong className='font-bold'>{data.nomePagador || "[PAGADOR]"}</strong> o valor acima descrito, referente a <strong className='font-bold'>{data.referente || "[DESCRIÇÃO DO PAGAMENTO]"}</strong>, através de transferência PIX.</p>
         </div>
       </div>
 

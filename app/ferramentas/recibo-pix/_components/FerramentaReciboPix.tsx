@@ -13,6 +13,9 @@ export default function FerramentaReciboPix() {
     id: '0001',
     chavePix: '',
     nomeBeneficiario: '',
+    cpfBeneficiario: '',
+    nomePagador: '',
+    cpfCnpjPagador: '',
     valor: '',
     cidade: '',
     referente: 'Pagamento de serviço',
@@ -57,43 +60,65 @@ export default function FerramentaReciboPix() {
         <div className="space-y-5 p-4 sm:p-6 border border-gray-200 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold text-gray-800">Preencha os Dados do Recibo</h3>
 
-          {/* Campo: Chave PIX */}
-          <div className="sm:col-span-2">
-            <label htmlFor="chavePix" className="block text-sm font-medium leading-6 text-gray-900">Chave PIX (CPF, CNPJ, Celular, etc.)</label>
-            <div className="mt-2">
-              <input type="text" name="chavePix" id="chavePix" value={formData.chavePix} onChange={handleInputChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Digite a chave PIX" />
+          {/* Seção: Beneficiário (Quem Recebe) */}
+          <div className="border-b border-gray-200 pb-4">
+            <h4 className="text-lg font-semibold text-blue-700 mb-3">Beneficiário (Quem Recebe)</h4>
+
+            <div className="space-y-3">
+              <div>
+                <label htmlFor="nomeBeneficiario" className="block text-sm font-medium text-gray-900">Nome Completo *</label>
+                <input type="text" name="nomeBeneficiario" id="nomeBeneficiario" value={formData.nomeBeneficiario} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: João da Silva" required />
+              </div>
+
+              <div>
+                <label htmlFor="cpfBeneficiario" className="block text-sm font-medium text-gray-900">CPF/CNPJ *</label>
+                <input type="text" name="cpfBeneficiario" id="cpfBeneficiario" value={formData.cpfBeneficiario} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="000.000.000-00" required />
+              </div>
+
+              <div>
+                <label htmlFor="chavePix" className="block text-sm font-medium text-gray-900">Chave PIX de Destino *</label>
+                <input type="text" name="chavePix" id="chavePix" value={formData.chavePix} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="CPF, CNPJ, Celular, E-mail ou Chave Aleatória" required />
+                <p className="mt-1 text-xs text-gray-500">Informe a chave PIX que receberá o pagamento</p>
+              </div>
             </div>
           </div>
 
-          {/* Campo: Nome do Beneficiário */}
-          <div className="sm:col-span-2">
-            <label htmlFor="nomeBeneficiario" className="block text-sm font-medium leading-6 text-gray-900">Nome Completo do Beneficiário</label>
-            <div className="mt-2">
-              <input type="text" name="nomeBeneficiario" id="nomeBeneficiario" value={formData.nomeBeneficiario} onChange={handleInputChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: João da Silva" />
-            </div>
-          </div>
-          
-          {/* Campo: Valor */}
-          <div className="sm:col-span-1">
-            <label htmlFor="valor" className="block text-sm font-medium leading-6 text-gray-900">Valor (R$)</label>
-            <div className="mt-2">
-              <input type="text" name="valor" id="valor" value={formData.valor} onChange={handleInputChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="150,00" />
+          {/* Seção: Pagador (Quem Paga) */}
+          <div className="border-b border-gray-200 pb-4">
+            <h4 className="text-lg font-semibold text-green-700 mb-3">Pagador (Quem Paga)</h4>
+
+            <div className="space-y-3">
+              <div>
+                <label htmlFor="nomePagador" className="block text-sm font-medium text-gray-900">Nome Completo *</label>
+                <input type="text" name="nomePagador" id="nomePagador" value={formData.nomePagador} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Ex: Maria Oliveira" required />
+              </div>
+
+              <div>
+                <label htmlFor="cpfCnpjPagador" className="block text-sm font-medium text-gray-900">CPF/CNPJ *</label>
+                <input type="text" name="cpfCnpjPagador" id="cpfCnpjPagador" value={formData.cpfCnpjPagador} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="000.000.000-00" required />
+              </div>
             </div>
           </div>
 
-          {/* Campo: Referente a */}
-          <div className="sm:col-span-2">
-            <label htmlFor="referente" className="block text-sm font-medium leading-6 text-gray-900">Referente a</label>
-            <div className="mt-2">
-              <input type="text" name="referente" id="referente" value={formData.referente} onChange={handleInputChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Venda de produto X" />
-            </div>
-          </div>
+          {/* Seção: Detalhes do Pagamento */}
+          <div>
+            <h4 className="text-lg font-semibold text-gray-700 mb-3">Detalhes do Pagamento</h4>
 
-          {/* Campo: Cidade */}
-          <div className="sm:col-span-1">
-            <label htmlFor="cidade" className="block text-sm font-medium leading-6 text-gray-900">Cidade da Emissão</label>
-            <div className="mt-2">
-              <input type="text" name="cidade" id="cidade" value={formData.cidade} onChange={handleInputChange} className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: São Paulo" />
+            <div className="space-y-3">
+              <div>
+                <label htmlFor="valor" className="block text-sm font-medium text-gray-900">Valor (R$) *</label>
+                <input type="text" name="valor" id="valor" value={formData.valor} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="150,00" required />
+              </div>
+
+              <div>
+                <label htmlFor="referente" className="block text-sm font-medium text-gray-900">Referente a *</label>
+                <input type="text" name="referente" id="referente" value={formData.referente} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: Venda de produto X" required />
+              </div>
+
+              <div>
+                <label htmlFor="cidade" className="block text-sm font-medium text-gray-900">Cidade da Emissão</label>
+                <input type="text" name="cidade" id="cidade" value={formData.cidade} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: São Paulo" />
+              </div>
             </div>
           </div>
 

@@ -136,6 +136,15 @@ export const TOOLS: ToolItem[] = [
     iconKey: "receipt",
   },
   {
+    id: "recibo-rpa",
+    name: "Recibo RPA (Autônomo)",
+    description: "Recibo de Pagamento a Autônomo com cálculo de impostos (INSS, IRRF, ISS).",
+    categoryId: "recibos",
+    href: "/ferramentas/recibo-rpa",
+    badges: ["Novo", "Grátis"],
+    iconKey: "receipt",
+  },
+  {
     id: "recibo-aluguel",
     name: "Recibo de Aluguel",
     description: "Recibo específico para locação de imóveis.",
