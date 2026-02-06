@@ -106,7 +106,14 @@ export default function RootLayout({
                 <div>
                   <h4 className="font-bold text-stone-900 mb-4">Ferramentas</h4>
                   <ul className="space-y-3 text-sm text-stone-600">
-                    <li className="text-stone-400">Recibo com PIX (em breve)</li>
+                    <li>
+                      <a
+                        href="/ferramentas/recibo-pix"
+                        className="hover:text-amber-600"
+                      >
+                        Recibo com PIX
+                      </a>
+                    </li>
 
                     <li>
                       <a
