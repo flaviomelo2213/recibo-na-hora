@@ -34,6 +34,10 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             <i className="fa-solid fa-graduation-cap mr-2" />
             Educação Financeira
           </Link>
+          <Link href="/apoio-corretor" className="hover:text-amber-600 transition" onClick={() => setIsOpen(false)}>
+            <i className="fa-solid fa-building mr-2" />
+            Apoio ao Corretor
+          </Link>
           <Link href="/requerimentos" className="hover:text-amber-600 transition" onClick={() => setIsOpen(false)}>
             Requerimentos
           </Link>

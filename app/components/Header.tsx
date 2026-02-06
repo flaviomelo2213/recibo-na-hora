@@ -42,6 +42,9 @@ export default function Header() {
             >
               <i className="fa-solid fa-graduation-cap" /> Educação Financeira
             </a>
+            <a href="/apoio-corretor" className="hover:text-amber-600 transition">
+              Corretor
+            </a>
             <a href="/requerimentos" className="hover:text-amber-600 transition">
               Requerimentos
             </a>
