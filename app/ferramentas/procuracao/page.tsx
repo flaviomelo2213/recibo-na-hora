@@ -1,8 +1,25 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import FerramentaProcuracao from "./_components/FerramentaProcuracao";
 import LegalDisclaimer from "../../components/LegalDisclaimer";
 import SeoContentBlock from "../../components/SeoContentBlock";
 import { ToolShell, ToolShellHeader, ToolShellMain } from '@/components/layout/ToolShell';
+
+export const metadata: Metadata = {
+  title: "Gerador de Procuração Simples Online Grátis | ReciboNaHora",
+  description:
+    "Crie uma procuração particular (ad negotia) em PDF para representar alguém em atos da vida civil. Gratuito, sem cadastro, com orientações jurídicas.",
+  keywords: ["procuração simples", "gerar procuração", "procuração online", "procuração pdf", "modelo procuração"],
+  alternates: {
+    canonical: "https://recibonahora.com.br/ferramentas/procuracao",
+  },
+  openGraph: {
+    title: "Gerador de Procuração Simples Online Grátis | ReciboNaHora",
+    description:
+      "Crie uma procuração particular (ad negotia) em PDF para representar alguém em atos da vida civil. Gratuito, sem cadastro.",
+    url: "https://recibonahora.com.br/ferramentas/procuracao",
+  },
+};
 
 export default function ProcuracaoPage() {
   return (

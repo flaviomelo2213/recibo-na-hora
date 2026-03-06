@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import CookieBanner from "./components/CookieBanner";
 import ClientOnly from "./components/ClientOnly";
@@ -7,6 +8,12 @@ import { AiProvider } from "./components/ai/AiProvider";
 import AiFab from "./components/ai/AiFab";
 import AiDrawer from "./components/ai/AiDrawer";
 import Header from "./components/Header";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -51,6 +58,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [
+      {
+        url: "https://recibonahora.com.br/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ReciboNaHora - Gerador de Documentos Online Gratis",
+      },
+    ],
     type: "website",
     locale: "pt_BR",
     siteName: "ReciboNaHora",
@@ -64,6 +79,7 @@ export const metadata: Metadata = {
     title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
     description:
       "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
+    images: ["https://recibonahora.com.br/og-image.png"],
   },
   other: {
     "google-adsense-account": "ca-pub-4754892182690500",
@@ -84,7 +100,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="pt-BR" className={`scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YYX0MSP75Y"
@@ -110,17 +126,15 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           rel="stylesheet"
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
+
       </head>
 
-      <body className="bg-stone-50 text-stone-800 flex flex-col min-h-screen">
+      <body className={`${inter.className} bg-stone-50 text-stone-800 flex flex-col min-h-screen`}>
         <AiProvider>
           <Header />
 
@@ -184,6 +198,14 @@ export default function RootLayout({
                         className="hover:text-amber-600"
                       >
                         Gerador de Orçamento
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/recursos"
+                        className="hover:text-amber-600"
+                      >
+                        Recursos Recomendados
                       </a>
                     </li>
                   </ul>

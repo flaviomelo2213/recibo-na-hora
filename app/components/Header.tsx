@@ -83,6 +83,9 @@ export default function Header() {
             <a href="/requerimentos" className="hover:text-amber-600 transition">
               Requerimentos
             </a>
+            <a href="/recursos" className="hover:text-amber-600 transition">
+              Recursos
+            </a>
             <a
               href="/educacao-financeira"
               className="text-blue-700 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-100 px-3 py-1.5 rounded-full"

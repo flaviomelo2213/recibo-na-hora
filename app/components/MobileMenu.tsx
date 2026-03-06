@@ -128,6 +128,10 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             <i className="fa-solid fa-building mr-2" />
             Apoio ao Corretor
           </Link>
+          <Link href="/recursos" className="px-3 py-2 hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+            <i className="fa-solid fa-bookmark mr-2" />
+            Recursos
+          </Link>
           <Link href="/educacao-financeira" className="px-3 py-2 bg-blue-100 text-blue-700 rounded transition font-bold" onClick={() => setIsOpen(false)}>
             <i className="fa-solid fa-graduation-cap mr-2" />
             Educação Financeira

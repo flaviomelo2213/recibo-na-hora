@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/contratos`,               lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/orcamentos`,              lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/mei`,                     lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/recursos`,               lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/educacao-financeira`,     lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/apoio-corretor`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/requerimentos`,           lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -56,5 +57,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticPages, ...toolPages]
+  const blogPages: MetadataRoute.Sitemap = [
+    '/blog/estrategia-vencedora-consorcio',
+    '/blog/guia-lance-embutido',
+  ].map((path) => ({
+    url: `${BASE}${path}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  return [...staticPages, ...toolPages, ...blogPages]
 }
