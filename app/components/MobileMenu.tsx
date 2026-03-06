@@ -128,6 +128,31 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             <i className="fa-solid fa-building mr-2" />
             Apoio ao Corretor
           </Link>
+          <div>
+            <button
+              onClick={() => toggleCategory('blog')}
+              className="w-full text-left px-3 py-2 hover:bg-amber-50 rounded transition flex items-center justify-between"
+            >
+              <span><i className="fa-solid fa-pen-nib mr-2" />Blog</span>
+              <i className={`fa-solid fa-chevron-${expandedCategory === 'blog' ? 'up' : 'down'} text-xs`}></i>
+            </button>
+            {expandedCategory === 'blog' && (
+              <div className="ml-4 mt-1 space-y-1">
+                <Link href="/blog" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+                  Ver Todos
+                </Link>
+                <Link href="/blog/como-fazer-recibo" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+                  Como fazer um recibo
+                </Link>
+                <Link href="/blog/recibo-tem-validade-legal" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+                  Recibo tem validade legal?
+                </Link>
+                <Link href="/blog/diferenca-recibo-nota-fiscal" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+                  Recibo vs Nota Fiscal
+                </Link>
+              </div>
+            )}
+          </div>
           <Link href="/recursos" className="px-3 py-2 hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
             <i className="fa-solid fa-bookmark mr-2" />
             Recursos

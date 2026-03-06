@@ -60,10 +60,10 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://recibonahora.com.br/og-image.png",
+        url: "https://recibonahora.com.br/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "ReciboNaHora - Gerador de Documentos Online Gratis",
+        alt: "ReciboNaHora - Gerador gratuito de recibos e documentos",
       },
     ],
     type: "website",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
     description:
       "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
-    images: ["https://recibonahora.com.br/og-image.png"],
+    images: ["https://recibonahora.com.br/opengraph-image"],
   },
   other: {
     "google-adsense-account": "ca-pub-4754892182690500",
@@ -261,6 +261,11 @@ export default function RootLayout({
                         className="hover:text-amber-600"
                       >
                         Fale Conosco
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/blog" className="hover:text-amber-600">
+                        Blog
                       </a>
                     </li>
                     <li>

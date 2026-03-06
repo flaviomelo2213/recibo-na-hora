@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/orcamentos`,              lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/mei`,                     lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/recursos`,               lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/blog`,                   lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/educacao-financeira`,     lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/apoio-corretor`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/requerimentos`,           lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -57,7 +58,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  const modeloPages: MetadataRoute.Sitemap = [
+    '/modelo/recibo-aluguel',
+    '/modelo/recibo-autonomo',
+    '/modelo/recibo-prestacao-servico',
+    '/modelo/recibo-pagamento',
+    '/modelo/contrato-simples',
+  ].map((path) => ({
+    url: `${BASE}${path}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   const blogPages: MetadataRoute.Sitemap = [
+    '/blog/como-fazer-recibo',
+    '/blog/recibo-tem-validade-legal',
+    '/blog/diferenca-recibo-nota-fiscal',
     '/blog/estrategia-vencedora-consorcio',
     '/blog/guia-lance-embutido',
   ].map((path) => ({
@@ -67,5 +84,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...toolPages, ...blogPages]
+  return [...staticPages, ...toolPages, ...modeloPages, ...blogPages]
 }
