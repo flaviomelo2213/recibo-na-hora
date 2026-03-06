@@ -3,17 +3,17 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gerador de Recibos Online em PDF | ReciboNaHora",
+  title: "Gerador de Recibo Online Grátis | PDF com Validade Jurídica — ReciboNaHora",
   description:
-    "Crie recibos online em PDF com validade jurídica: recibo simples, recibo PIX e outros modelos. Ferramenta gratuita, rápida e segura.",
+    "Crie recibos de pagamento online em PDF com validade jurídica: recibo simples, PIX, aluguel e RPA. Gratuito, sem cadastro, gerado no navegador.",
   alternates: {
-    canonical: "/recibos",
+    canonical: "https://recibonahora.com.br/recibos",
   },
   openGraph: {
-    title: "Gerador de Recibos Online em PDF | ReciboNaHora",
+    title: "Gerador de Recibo Online Grátis | PDF com Validade Jurídica — ReciboNaHora",
     description:
       "Gere recibos profissionais em PDF (recibo simples, recibo PIX e modelos). Rápido, gratuito e com foco em validade e clareza.",
-    url: "/recibos",
+    url: "https://recibonahora.com.br/recibos",
     siteName: "ReciboNaHora",
     type: "website",
   },
@@ -58,8 +58,7 @@ const faqs = [
   },
 ];
 
-function jsonLdFAQ() {
-  return {
+const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map((f) => ({
@@ -70,8 +69,7 @@ function jsonLdFAQ() {
         text: f.answer,
       },
     })),
-  };
-}
+};
 
 function DisabledCard({
   title,
@@ -94,14 +92,12 @@ function DisabledCard({
 }
 
 export default function RecibosPillarPage() {
-  const faqLd = jsonLdFAQ();
-
   return (
     <main className="bg-slate-50 text-slate-800">
       {/* FAQ Schema (JSON-LD) */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       <div className="container mx-auto max-w-5xl px-4 py-12 md:py-20">
@@ -131,6 +127,30 @@ export default function RecibosPillarPage() {
             </Link>
           </div>
         </header>
+
+
+        {/* Bloco AEO — Resposta Rápida */}
+        <section className="mb-12 bg-blue-50 border-l-4 border-blue-600 rounded-r-xl p-6">
+          <h2 className="text-xl font-bold text-blue-900 mb-2">
+            Como fazer um recibo online válido?
+          </h2>
+          <p className="text-slate-700 leading-relaxed mb-3">
+            Preencha o formulário com dados do pagador, recebedor, valor e descrição do serviço.
+            O sistema gera o PDF automaticamente no navegador — sem cadastro e sem custo. Seus dados
+            não são enviados para nossos servidores.
+          </p>
+          <ol className="list-decimal list-inside space-y-1 text-slate-700 text-sm mb-4">
+            <li>Escolha o tipo: recibo simples, PIX, aluguel ou RPA</li>
+            <li>Preencha nome das partes, CPF/CNPJ, valor e motivo do pagamento</li>
+            <li>Clique em gerar e baixe o PDF para imprimir e assinar</li>
+          </ol>
+          <Link
+            href="/ferramentas/recibo-simples"
+            className="inline-flex items-center gap-1 px-4 py-2 bg-blue-700 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition"
+          >
+            Gerar recibo simples agora →
+          </Link>
+        </section>
 
         {/* Grade de Ferramentas Principais */}
         <section className="mb-20">
@@ -165,7 +185,7 @@ export default function RecibosPillarPage() {
             </Link>
 
             <Link
-              href="/ferramentas/recibo-aluguel"
+              href="/ferramentas/imobiliario"
               className="group block bg-white p-6 rounded-lg border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
             >
               <h3 className="font-bold text-xl text-slate-800 group-hover:text-blue-600">

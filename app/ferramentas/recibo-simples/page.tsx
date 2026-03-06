@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import type { Metadata } from 'next';
 
@@ -30,8 +28,7 @@ const faqItems = [
   },
 ];
 
-function jsonLdFAQ() {
-  return {
+const jsonLdFAQ = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqItems.map((f) => ({
@@ -43,23 +40,20 @@ function jsonLdFAQ() {
       },
     })),
   };
-}
+
+export const metadata: Metadata = {
+  title: "Gerador de Recibo de Pagamento Simples Online | ReciboNaHora",
+  description:
+    "Crie, preencha e baixe um recibo de pagamento simples e válido em segundos. Ferramenta gratuita, segura e que funciona no seu navegador. Exporte em PDF.",
+  alternates: { canonical: "https://recibonahora.com.br/ferramentas/recibo-simples" },
+};
 
 export default function ReciboSimplesPage() {
-  const metadata: Metadata = {
-    title: "Gerador de Recibo de Pagamento Simples Online | ReciboNaHora",
-    description:
-      "Crie, preencha e baixe um recibo de pagamento simples e válido em segundos. Ferramenta gratuita, segura e que funciona no seu navegador. Exporte em PDF.",
-    alternates: { canonical: "/ferramentas/recibo-simples" },
-  };
-
-  void metadata; // evita warning de variável não usada (mantém como está)
-
   return (
     <ToolShell>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ) }}
       />
       <ToolShellHeader
         title="Gerador de Recibo de Pagamento"
