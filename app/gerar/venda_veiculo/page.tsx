@@ -1,15 +1,5 @@
-import type { Metadata } from 'next';
-import ReciboVeiculo from './_components/ReciboVeiculo';
+import { permanentRedirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Recibo de Compra e Venda de Veículo Grátis | PDF com RENAVAM — ReciboNaHora',
-  description:
-    'Gere recibo de compra e venda de carro, moto ou caminhão com placa, RENAVAM e declaração legal de quitação. Download em PDF gratuito, sem cadastro.',
-  alternates: {
-    canonical: 'https://recibonahora.com.br/gerar/venda_veiculo',
-  },
-};
-
-export default function VendaVeiculoPage() {
-  return <ReciboVeiculo />;
+export default function VendaVeiculoLegacyPage() {
+  permanentRedirect('/gerar/venda-veiculo');
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import type { Metadata } from 'next';
 import ReciboDeAluguelGenerator from './_components/ReciboDeAluguelGenerator';
@@ -34,16 +32,14 @@ const faqItems = [
   },
 ];
 
+export const metadata: Metadata = {
+  title: 'Gerador de Recibo de Aluguel para Imprimir | ReciboNaHora',
+  description:
+    'Crie um recibo de aluguel completo e válido em PDF. Preencha os dados do locador, locatário e imóvel. Ferramenta gratuita para proprietários e imobiliárias.',
+  alternates: { canonical: 'https://recibonahora.com.br/ferramentas/imobiliario' },
+};
+
 export default function ReciboAluguelPage() {
-  const metadata: Metadata = {
-    title: 'Gerador de Recibo de Aluguel para Imprimir | ReciboNaHora',
-    description:
-      'Crie um recibo de aluguel completo e válido em PDF. Preencha os dados do locador, locatário e imóvel. Ferramenta gratuita para proprietários e imobiliárias.',
-    alternates: { canonical: '/ferramentas/imobiliario' },
-  };
-
-  void metadata; // Evita warning
-
   return (
     <ToolShell>
       <ToolShellHeader

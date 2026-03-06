@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Crie orçamentos profissionais em PDF gratuitamente. Detalhe seus serviços e preços, envie para seus clientes e feche mais negócios. Simples e rápido.",
   alternates: {
-    canonical: "/orcamentos",
+    canonical: "https://recibonahora.com.br/orcamentos",
   },
 };
 
@@ -48,22 +48,20 @@ const faqItems = [
 ];
 
 // 3. Main Page Component
-export default function OrcamentosPage() {
-  // JSON-LD for FAQPage Schema
-  const faqJsonLd = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          // Remove HTML for pure text in JSON-LD
-          "text": item.answer.replace(/<[^>]*>?/gm, '')
-        }
-      }))
-    };
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer.replace(/<[^>]*>?/gm, '')
+    }
+  }))
+};
 
+export default function OrcamentosPage() {
   return (
     <>
       {/* JSON-LD Script */}
@@ -85,6 +83,28 @@ export default function OrcamentosPage() {
               Crie orçamentos claros e profissionais para seus clientes em minutos. Transmita confiança e feche mais negócios.
             </p>
           </header>
+
+          {/* Bloco AEO — Resposta Rápida */}
+          <section className="mb-10 bg-green-50 border-l-4 border-green-600 rounded-r-xl p-6">
+            <h2 className="text-xl font-bold text-green-900 mb-2">
+              O que um orçamento profissional deve conter?
+            </h2>
+            <p className="text-slate-700 leading-relaxed mb-3">
+              Um orçamento profissional deve identificar prestador e cliente, detalhar os serviços,
+              especificar valor total, prazo de execução e validade da proposta. Um bom orçamento
+              transmite confiança e reduz mal-entendidos antes do contrato.
+            </p>
+            <ol className="list-decimal list-inside space-y-1 text-slate-700 text-sm mb-4">
+              <li>Dados do prestador e do cliente</li>
+              <li>Descrição detalhada dos itens ou serviços</li>
+              <li>Valores unitários e total geral</li>
+              <li>Prazo de execução e validade da proposta</li>
+              <li>Forma de pagamento e condições</li>
+            </ol>
+            <Link href="/ferramentas/orcamento" className="inline-flex items-center gap-1 px-4 py-2 bg-green-700 text-white text-sm font-semibold rounded-lg hover:bg-green-800 transition">
+              Gerar orçamento agora →
+            </Link>
+          </section>
 
           {/* Section: What it is */}
           <section className="mb-16 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">

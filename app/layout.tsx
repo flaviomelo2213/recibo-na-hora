@@ -8,10 +8,26 @@ import AiFab from "./components/ai/AiFab";
 import AiDrawer from "./components/ai/AiDrawer";
 import Header from "./components/Header";
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ReciboNaHora",
+  "url": "https://recibonahora.com.br",
+  "logo": "https://recibonahora.com.br/icon.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "contato@recibonahora.com.br",
+    "contactType": "customer support",
+    "availableLanguage": "Portuguese"
+  },
+  "sameAs": []
+};
+
 export const metadata: Metadata = {
-  title: "Recibo Grátis e Documentos Essenciais | Gerador Online com Simulador de Crédito",
+  metadataBase: new URL("https://recibonahora.com.br"),
+  title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
   description:
-    "Recibo Grátis e Documentos Essenciais: Gerador online de contratos, procurações e simulador de estratégia financeira. 100% gratuito, seguro e sem retenção de dados.",
+    "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro. Para autônomos, MEI e pequenos negócios.",
   keywords: [
     "recibo online",
     "gerador de recibo",
@@ -24,6 +40,31 @@ export const metadata: Metadata = {
     "nota promissoria",
     "ferramentas corretor",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "ReciboNaHora",
+    url: "https://recibonahora.com.br",
+    title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
+    description:
+      "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
+    description:
+      "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
+  },
   other: {
     "google-adsense-account": "ca-pub-4754892182690500",
   },
@@ -65,6 +106,10 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           rel="stylesheet"

@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CATEGORIES, TOOLS } from "@/_data/catalog";
 import {
@@ -37,10 +36,63 @@ const iconMap = {
   calculator: CalculatorIcon,
 };
 
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ReciboNaHora",
+  "url": "https://recibonahora.com.br",
+  "description": "Plataforma gratuita de geração de documentos online: recibos, contratos, orçamentos e mais.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://recibonahora.com.br/ferramentas?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+const softwareJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ReciboNaHora",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://recibonahora.com.br",
+  "description": "Gerador gratuito de recibos, contratos e documentos online no Brasil.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL"
+  }
+};
+
+export const metadata: Metadata = {
+  title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
+  description:
+    "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro, instantaneamente. Para autônomos, MEI e pequenos negócios.",
+  alternates: {
+    canonical: "https://recibonahora.com.br",
+  },
+  openGraph: {
+    title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
+    description:
+      "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro, instantaneamente.",
+  },
+};
 export default function HomePage() {
   const mostUsed = TOOLS.filter((t) => t.mostUsed).slice(0, 6);
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
     <main className="bg-white">
       <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:32px_32px]" />
@@ -96,6 +148,24 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        {/* Bloco AEO */}
+        <section className="mb-10 bg-blue-50 border-l-4 border-blue-600 rounded-r-xl p-6">
+          <h2 className="text-xl font-bold text-blue-900 mb-2">
+            Como gerar documentos online gratuitamente?
+          </h2>
+          <p className="text-blue-800 mb-4">
+            Escolha a ferramenta na lista abaixo, preencha o formulário com os dados das partes e clique em gerar. O PDF é criado no próprio navegador, sem cadastro e sem instalar nada — em menos de 2 minutos.
+          </p>
+          <ol className="list-decimal list-inside space-y-1 text-blue-700 mb-4">
+            <li>Selecione o tipo de documento: recibo, contrato, orçamento ou procuração</li>
+            <li>Preencha nome das partes, valor, data e descrição</li>
+            <li>Clique em gerar e baixe o PDF profissional</li>
+          </ol>
+          <a href="/ferramentas" className="inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+            Ver todas as ferramentas →
+          </a>
+        </section>
+
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Ferramentas Mais Usadas
@@ -312,5 +382,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+    </>
   );
 }

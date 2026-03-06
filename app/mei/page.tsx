@@ -3,11 +3,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ferramentas para MEI e Autônomos | ReciboNaHora",
+  title: "Ferramentas para MEI e Autônomos | Recibos, Contratos e Organização — ReciboNaHora",
   description:
-    "Guia completo e ferramentas para MEI: recibos, contratos, orçamentos e dicas de organização para manter seu negócio em dia e evitar problemas.",
+    "Ferramentas gratuitas para MEI e autônomos: gere recibos, contratos e orçamentos online. Guia de organização financeira, relatório mensal e dicas para manter o CNPJ regularizado.",
   alternates: {
-    canonical: "/mei",
+    canonical: "https://recibonahora.com.br/mei",
   },
 };
 
@@ -84,6 +84,26 @@ export default function MeiPage() {
             Recibos, Contratos, Orçamentos e um guia essencial para você manter seu negócio em dia e focar no que realmente importa: crescer.
           </p>
         </header>
+
+        {/* Bloco AEO — Resposta Rápida */}
+        <section className="mb-10 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl p-6">
+          <h2 className="text-xl font-bold text-amber-900 mb-2">
+            MEI pode emitir recibo no lugar de nota fiscal?
+          </h2>
+          <p className="text-stone-700 leading-relaxed mb-3">
+            Sim, para vendas e serviços a pessoas físicas, o MEI pode usar recibo de pagamento.
+            Para clientes PJ (CNPJ), a Nota Fiscal é obrigatória. O recibo comprova o pagamento,
+            mas não substitui a NF para fins fiscais e tributários.
+          </p>
+          <ol className="list-decimal list-inside space-y-1 text-stone-700 text-sm mb-4">
+            <li>Cliente Pessoa Física → use recibo de pagamento</li>
+            <li>Cliente Pessoa Jurídica (CNPJ) → emita Nota Fiscal</li>
+            <li>Guarde todos os recibos para o Relatório Mensal de Receitas</li>
+          </ol>
+          <Link href="/ferramentas/recibo-simples" className="inline-flex items-center gap-1 px-4 py-2 bg-amber-600 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 transition">
+            Gerar recibo para MEI →
+          </Link>
+        </section>
 
         {/* Ferramentas Recomendadas */}
         <section className="mb-16">
