@@ -39,9 +39,28 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://recibonahora.com.br/ferramentas/imobiliario' },
 };
 
+const softwareAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Gerador de Recibo Online',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'BRL',
+  },
+  url: 'https://recibonahora.com.br/ferramentas/imobiliario',
+}
+
 export default function ReciboAluguelPage() {
   return (
-    <ToolShell>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+      />
+      <ToolShell>
       <ToolShellHeader
         title="Gerador de Recibo de Aluguel"
         description="Crie, preencha e baixe um recibo de aluguel válido em segundos. Ideal para proprietários, inquilinos e imobiliárias."
@@ -152,5 +171,6 @@ export default function ReciboAluguelPage() {
         </div>
       </ToolShellMain>
     </ToolShell>
+    </>
   );
 }
