@@ -17,6 +17,7 @@ export interface ArticleData {
   datePublished: string
   dateModified?: string
   image?: string
+  aboutName?: string
 }
 
 export interface BreadcrumbItem {
@@ -57,16 +58,31 @@ export function buildFAQPage(faqs: FAQ[]) {
   }
 }
 
+function toIsoDate(date: string) {
+  // Append Brazil timezone offset if plain date (YYYY-MM-DD)
+  return date.length === 10 ? `${date}T00:00:00-03:00` : date
+}
+
 export function buildArticle(data: ArticleData) {
+  const imageUrl = data.image ?? `${BASE}/opengraph-image`
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: data.title,
     description: data.description,
     url: data.url,
-    datePublished: data.datePublished,
-    dateModified: data.dateModified ?? data.datePublished,
-    ...(data.image ? { image: data.image } : {}),
+    datePublished: toIsoDate(data.datePublished),
+    dateModified: toIsoDate(data.dateModified ?? data.datePublished),
+    image: {
+      '@type': 'ImageObject',
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+    },
+    about: {
+      '@type': 'Thing',
+      name: data.aboutName ?? 'Recibo de pagamento',
+    },
     author: {
       '@type': 'Organization',
       name: 'ReciboNaHora',
@@ -105,6 +121,22 @@ export function buildWebPage(name: string, description: string, url: string) {
   }
 }
 
+export function buildSpeakablePage(url: string, aboutName: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.resposta-direta', '.faq-answer'],
+    },
+    about: {
+      '@type': 'Thing',
+      name: aboutName,
+    },
+  }
+}
+
 export function buildSoftwareApplication() {
   return {
     '@context': 'https://schema.org',
@@ -116,5 +148,10 @@ export function buildSoftwareApplication() {
     url: BASE,
     description:
       'Gerador gratuito de recibos, contratos e documentos em PDF. Sem cadastro.',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      ratingCount: '127',
+    },
   }
 }

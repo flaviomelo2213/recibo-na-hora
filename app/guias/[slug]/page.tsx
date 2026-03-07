@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { GUIAS, ALL_GUIA_SLUGS } from '@/_data/guias'
-import { buildFAQPage, buildArticle, buildBreadcrumb } from '@/lib/schema'
+import { buildFAQPage, buildArticle, buildBreadcrumb, buildSpeakablePage } from '@/lib/schema'
 
 const BASE = 'https://recibonahora.com.br'
 
@@ -51,6 +51,7 @@ export default function GuiaSlugPage({ params }: Props) {
     description: g.description,
     url,
     datePublished: g.datePublished,
+    aboutName: g.category,
   })
   const jsonLdFaq = buildFAQPage(g.faqs)
   const jsonLdBreadcrumb = buildBreadcrumb([
@@ -58,12 +59,14 @@ export default function GuiaSlugPage({ params }: Props) {
     { name: 'Guias', url: `${BASE}/guias` },
     { name: g.title, url },
   ])
+  const jsonLdSpeakable = buildSpeakablePage(url, g.category)
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSpeakable) }} />
 
       <main className="bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
@@ -121,7 +124,7 @@ export default function GuiaSlugPage({ params }: Props) {
               {g.faqs.map(({ q, a }, i) => (
                 <div key={i} className="border-b border-stone-200 pb-5">
                   <h3 className="font-semibold text-stone-900 mb-2">{q}</h3>
-                  <p className="text-stone-600 text-sm leading-relaxed">{a}</p>
+                  <p className="faq-answer text-stone-600 text-sm leading-relaxed">{a}</p>
                 </div>
               ))}
             </div>

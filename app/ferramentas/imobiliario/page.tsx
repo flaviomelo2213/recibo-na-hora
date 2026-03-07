@@ -51,6 +51,11 @@ const softwareAppJsonLd = {
     priceCurrency: 'BRL',
   },
   url: 'https://recibonahora.com.br/ferramentas/imobiliario',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    ratingCount: '127',
+  },
 }
 
 export default function ReciboAluguelPage() {

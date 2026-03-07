@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PERGUNTAS, ALL_PERGUNTA_SLUGS } from '@/_data/perguntas'
-import { buildFAQPage, buildArticle, buildBreadcrumb } from '@/lib/schema'
+import { buildFAQPage, buildArticle, buildBreadcrumb, buildSpeakablePage } from '@/lib/schema'
 
 const BASE = 'https://recibonahora.com.br'
 
@@ -46,19 +46,21 @@ export default function PerguntaSlugPage({ params }: Props) {
 
   const url = `${BASE}/perguntas/${p.slug}`
 
-  const jsonLdArticle = buildArticle({ title: p.question, description: p.metaDescription, url, datePublished: p.datePublished })
+  const jsonLdArticle = buildArticle({ title: p.question, description: p.metaDescription, url, datePublished: p.datePublished, aboutName: p.category })
   const jsonLdFaq = buildFAQPage([{ q: p.question, a: p.shortAnswer }, ...p.faqs])
   const jsonLdBreadcrumb = buildBreadcrumb([
     { name: 'Início', url: BASE },
     { name: 'Perguntas', url: `${BASE}/perguntas` },
     { name: p.question, url },
   ])
+  const jsonLdSpeakable = buildSpeakablePage(url, p.question)
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSpeakable) }} />
 
       <main className="bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
@@ -87,7 +89,7 @@ export default function PerguntaSlugPage({ params }: Props) {
             <h1 className="text-3xl sm:text-4xl font-bold text-stone-900 leading-tight mb-6">{p.question}</h1>
 
             {/* AEO — Resposta direta (AI Overview optimized) */}
-            <div className="bg-stone-50 border-l-4 border-amber-400 rounded-r-xl p-5 mb-2">
+            <div className="resposta-direta bg-stone-50 border-l-4 border-amber-400 rounded-r-xl p-5 mb-2">
               <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">Resposta direta</p>
               <p className="text-stone-800 font-medium leading-relaxed">{p.shortAnswer}</p>
             </div>
@@ -114,7 +116,7 @@ export default function PerguntaSlugPage({ params }: Props) {
               {p.faqs.map(({ q, a }, i) => (
                 <div key={i} className="border-b border-stone-200 pb-5">
                   <h3 className="font-semibold text-stone-900 mb-2">{q}</h3>
-                  <p className="text-stone-600 text-sm leading-relaxed">{a}</p>
+                  <p className="faq-answer text-stone-600 text-sm leading-relaxed">{a}</p>
                 </div>
               ))}
             </div>
