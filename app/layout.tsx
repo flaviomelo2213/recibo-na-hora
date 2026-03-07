@@ -20,7 +20,7 @@ const organizationJsonLd = {
   "@type": "Organization",
   "name": "ReciboNaHora",
   "url": "https://recibonahora.com.br",
-  "logo": "https://recibonahora.com.br/icon.png",
+  "logo": "https://recibonahora.com.br/logo.png",
   "contactPoint": {
     "@type": "ContactPoint",
     "email": "contato@recibonahora.com.br",
@@ -28,6 +28,14 @@ const organizationJsonLd = {
     "availableLanguage": "Portuguese"
   },
   "sameAs": []
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Flavio Melo",
+  "jobTitle": "Especialista em documentos e recibos",
+  "url": "https://recibonahora.com.br",
 };
 
 export const metadata: Metadata = {
@@ -125,6 +133,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link

@@ -47,7 +47,7 @@ export default function PerguntaSlugPage({ params }: Props) {
   const url = `${BASE}/perguntas/${p.slug}`
 
   const jsonLdArticle = buildArticle({ title: p.question, description: p.metaDescription, url, datePublished: p.datePublished })
-  const jsonLdFaq = buildFAQPage(p.faqs)
+  const jsonLdFaq = buildFAQPage([{ q: p.question, a: p.shortAnswer }, ...p.faqs])
   const jsonLdBreadcrumb = buildBreadcrumb([
     { name: 'Início', url: BASE },
     { name: 'Perguntas', url: `${BASE}/perguntas` },
