@@ -1,4 +1,7 @@
 import { MetadataRoute } from 'next'
+import { ALL_SLUGS } from './modelo/[tipo]/data'
+import { CITY_SLUGS } from './_data/seoCities'
+import { ALL_BLOG_SLUGS } from './_data/blogPosts'
 
 const BASE = 'https://recibonahora.com.br'
 
@@ -58,20 +61,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  const modeloPages: MetadataRoute.Sitemap = [
-    '/modelo/recibo-aluguel',
-    '/modelo/recibo-autonomo',
-    '/modelo/recibo-prestacao-servico',
-    '/modelo/recibo-pagamento',
-    '/modelo/contrato-simples',
-  ].map((path) => ({
-    url: `${BASE}${path}`,
+  // Base modelo pages (15 tipos)
+  const modeloBasePages: MetadataRoute.Sitemap = ALL_SLUGS.map((slug) => ({
+    url: `${BASE}/modelo/${slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: 0.8,
   }))
 
-  const blogPages: MetadataRoute.Sitemap = [
+  // Geo modelo pages (15 tipos × 60 cidades = 900 páginas)
+  const modeloGeoPages: MetadataRoute.Sitemap = ALL_SLUGS.flatMap((tipo) =>
+    CITY_SLUGS.map((cidade) => ({
+      url: `${BASE}/modelo/${tipo}/${cidade}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+  )
+
+  // Static blog posts (directories)
+  const blogStaticPages: MetadataRoute.Sitemap = [
     '/blog/como-fazer-recibo',
     '/blog/recibo-tem-validade-legal',
     '/blog/diferenca-recibo-nota-fiscal',
@@ -81,8 +90,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE}${path}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: 0.6,
+    priority: 0.7,
   }))
 
-  return [...staticPages, ...toolPages, ...modeloPages, ...blogPages]
+  // Dynamic blog posts (from blogPosts.ts)
+  const blogDynamicPages: MetadataRoute.Sitemap = ALL_BLOG_SLUGS.map((slug) => ({
+    url: `${BASE}/blog/${slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  return [
+    ...staticPages,
+    ...toolPages,
+    ...modeloBasePages,
+    ...modeloGeoPages,
+    ...blogStaticPages,
+    ...blogDynamicPages,
+  ]
 }
