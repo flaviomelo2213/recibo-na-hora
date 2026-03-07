@@ -36,7 +36,7 @@ export const MODELOS: Record<string, ModeloData> = {
     ],
     requiredFields: [
       'Nome e CPF do proprietário (locador)',
-      'Nome e CPF do inquíilino (locatario)',
+      'Nome e CPF do inquilino (locatario)',
       'Endereço completo do imóvel',
       'Valor do aluguel (em número e por extenso)',
       'Competência (mês e ano) a que se refere o pagamento',
@@ -44,7 +44,7 @@ export const MODELOS: Record<string, ModeloData> = {
       'Assinatura do locador',
     ],
     faqs: [
-      { q: 'O recibo de aluguel é obrigatório?', a: 'Sim. Pelo art. 22 da Lei do Inquilinato (Lei 8.245/91), o proprietário é obrigado a fornecer recibo detalhado dos pagamentos feitos pelo inquíilino.' },
+      { q: 'O recibo de aluguel é obrigatório?', a: 'Sim. Pelo art. 22 da Lei do Inquilinato (Lei 8.245/91), o proprietário é obrigado a fornecer recibo detalhado dos pagamentos feitos pelo inquilino.' },
       { q: 'O recibo de aluguel pode ser digital?', a: 'Sim. O recibo digital tem a mesma validade jurídica, desde que contenha todos os campos obrigatórios e a assinatura do proprietário (física ou eletrônica).' },
       { q: 'Posso usar recibo de aluguel no lugar do contrato?', a: 'Não. O recibo comprova o pagamento, não a relação de locação. Para isso, é necessário um contrato de aluguel separado.' },
     ],

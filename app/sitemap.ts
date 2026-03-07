@@ -1,7 +1,9 @@
 import { MetadataRoute } from 'next'
 import { ALL_SLUGS } from './modelo/[tipo]/data'
-import { CITY_SLUGS } from './_data/seoCities'
+import { CITY_SLUGS, SEO_CITIES } from './_data/seoCities'
 import { ALL_BLOG_SLUGS } from './_data/blogPosts'
+import { ALL_PROFISSAO_SLUGS } from './_data/profissoes'
+import { ALL_GUIA_SLUGS } from './_data/guias'
 
 const BASE = 'https://recibonahora.com.br'
 
@@ -61,13 +63,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  // Base modelo pages (15 tipos)
-  const modeloBasePages: MetadataRoute.Sitemap = ALL_SLUGS.map((slug) => ({
-    url: `${BASE}/modelo/${slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
+  // Base modelo pages (index + 15 tipos)
+  const modeloBasePages: MetadataRoute.Sitemap = [
+    { url: `${BASE}/modelo`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    ...ALL_SLUGS.map((slug) => ({
+      url: `${BASE}/modelo/${slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+  ]
 
   // Geo modelo pages (15 tipos × 60 cidades = 900 páginas)
   const modeloGeoPages: MetadataRoute.Sitemap = ALL_SLUGS.flatMap((tipo) =>
@@ -101,6 +106,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  // Profissoes base pages (30)
+  const profissoesBasePages: MetadataRoute.Sitemap = [
+    { url: `${BASE}/profissoes`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    ...ALL_PROFISSAO_SLUGS.map((slug) => ({
+      url: `${BASE}/profissoes/${slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]
+
+  // Profissoes geo pages (30 profissoes × 27 capitais = 810)
+  const capitals = SEO_CITIES.slice(0, 27)
+  const profissoesGeoPages: MetadataRoute.Sitemap = ALL_PROFISSAO_SLUGS.flatMap((profissao) =>
+    capitals.map((city) => ({
+      url: `${BASE}/profissoes/${profissao}/${city.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    })),
+  )
+
+  // Guias pages (8)
+  const guiasPages: MetadataRoute.Sitemap = [
+    { url: `${BASE}/guias`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    ...ALL_GUIA_SLUGS.map((slug) => ({
+      url: `${BASE}/guias/${slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]
+
   return [
     ...staticPages,
     ...toolPages,
@@ -108,5 +146,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...modeloGeoPages,
     ...blogStaticPages,
     ...blogDynamicPages,
+    ...profissoesBasePages,
+    ...profissoesGeoPages,
+    ...guiasPages,
   ]
 }

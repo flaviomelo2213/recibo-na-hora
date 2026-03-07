@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MODELOS, ALL_SLUGS } from './data';
+import { buildBreadcrumb } from '@/lib/schema';
+
+const BASE = 'https://recibonahora.com.br';
 
 interface Props {
   params: { tipo: string };
@@ -14,14 +17,24 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const modelo = MODELOS[params.tipo];
   if (!modelo) return {};
+  const url = `${BASE}/modelo/${modelo.slug}`;
   return {
     title: modelo.title,
     description: modelo.metaDescription,
-    alternates: { canonical: `https://recibonahora.com.br/modelo/${modelo.slug}` },
+    keywords: [modelo.slug.replace(/-/g, ' '), `modelo ${modelo.slug.replace(/-/g, ' ')}`, `${modelo.slug.replace(/-/g, ' ')} gratis`, `${modelo.slug.replace(/-/g, ' ')} pdf`],
+    alternates: { canonical: url },
     openGraph: {
       title: modelo.title,
       description: modelo.metaDescription,
-      url: `https://recibonahora.com.br/modelo/${modelo.slug}`,
+      url,
+      type: 'article',
+      locale: 'pt_BR',
+      siteName: 'ReciboNaHora',
+    },
+    twitter: {
+      card: 'summary',
+      title: modelo.title,
+      description: modelo.metaDescription,
     },
   };
 }
@@ -30,12 +43,14 @@ export default function ModeloPage({ params }: Props) {
   const modelo = MODELOS[params.tipo];
   if (!modelo) notFound();
 
+  const url = `${BASE}/modelo/${modelo.slug}`;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: modelo.h1,
     description: modelo.description,
-    url: `https://recibonahora.com.br/modelo/${modelo.slug}`,
+    url,
     step: modelo.requiredFields.map((field, i) => ({
       '@type': 'HowToStep',
       position: i + 1,
@@ -53,17 +68,24 @@ export default function ModeloPage({ params }: Props) {
     })),
   };
 
+  const breadcrumbJsonLd = buildBreadcrumb([
+    { name: 'Início', url: BASE },
+    { name: 'Modelos', url: `${BASE}/modelo` },
+    { name: modelo.h1, url },
+  ]);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <main className="bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
 
-          <nav className="flex items-center gap-2 text-sm text-stone-500 mb-8">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-sm text-stone-500 mb-8">
             <Link href="/" className="hover:text-stone-900">Início</Link>
             <span>/</span>
-            <Link href="/ferramentas" className="hover:text-stone-900">Ferramentas</Link>
+            <Link href="/modelo" className="hover:text-stone-900">Modelos</Link>
             <span>/</span>
             <span className="text-stone-900 font-medium truncate">{modelo.h1}</span>
           </nav>
