@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/como-ganhamos-dinheiro`,  lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/politica-privacidade`,    lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/termos-uso`,              lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/mapa-de-perguntas`,       lastModified: now, changeFrequency: 'weekly',  priority: 0.6 },
   ]
 
   const toolPages: MetadataRoute.Sitemap = [

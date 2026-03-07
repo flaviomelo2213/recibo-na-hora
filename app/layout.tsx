@@ -281,6 +281,11 @@ export default function RootLayout({
                       </a>
                     </li>
                     <li>
+                      <a href="/mapa-de-perguntas" className="hover:text-amber-600">
+                        Mapa de perguntas
+                      </a>
+                    </li>
+                    <li>
                       <a href="/parcerias" className="hover:text-amber-600">
                         Parcerias
                       </a>
