@@ -1,0 +1,99 @@
+export type Platform = 'hotmart' | 'kiwify' | 'monetizze' | 'telegram';
+export type Category = 'documentos' | 'mei-financeiro' | 'imoveis' | 'carreira' | 'tecnologia' | 'comunidade';
+
+export interface AffiliateProduct {
+  id: string;
+  title: string;
+  shortDescription: string;
+  category: Category;
+  platform: Platform;
+  url: string;
+  badge?: string;
+  featured?: boolean;
+}
+
+export const CATEGORY_META: Record<Category, { label: string; icon: string; colorClass: string; bgClass: string; borderClass: string; textClass: string }> = {
+  'documentos': { label: 'Documentos & Contratos', icon: 'FileText', colorClass: 'bg-blue-500', bgClass: 'bg-blue-50', borderClass: 'border-blue-200', textClass: 'text-blue-700' },
+  'mei-financeiro': { label: 'MEI & Financeiro', icon: 'Briefcase', colorClass: 'bg-green-500', bgClass: 'bg-green-50', borderClass: 'border-green-200', textClass: 'text-green-700' },
+  'imoveis': { label: 'Imóveis & Locação', icon: 'Home', colorClass: 'bg-orange-500', bgClass: 'bg-orange-50', borderClass: 'border-orange-200', textClass: 'text-orange-700' },
+  'carreira': { label: 'Carreira & Renda', icon: 'TrendingUp', colorClass: 'bg-purple-500', bgClass: 'bg-purple-50', borderClass: 'border-purple-200', textClass: 'text-purple-700' },
+  'tecnologia': { label: 'Tecnologia & Digital', icon: 'Monitor', colorClass: 'bg-cyan-500', bgClass: 'bg-cyan-50', borderClass: 'border-cyan-200', textClass: 'text-cyan-700' },
+  'comunidade': { label: 'Comunidade', icon: 'Users', colorClass: 'bg-pink-500', bgClass: 'bg-pink-50', borderClass: 'border-pink-200', textClass: 'text-pink-700' },
+};
+
+export const PLATFORM_META: Record<Platform, { label: string; colorClass: string }> = {
+  hotmart: { label: 'Hotmart', colorClass: 'bg-red-100 text-red-700' },
+  kiwify: { label: 'Kiwify', colorClass: 'bg-lime-100 text-lime-700' },
+  monetizze: { label: 'Monetizze', colorClass: 'bg-yellow-100 text-yellow-700' },
+  telegram: { label: 'Telegram', colorClass: 'bg-sky-100 text-sky-700' },
+};
+
+export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [
+  { id: 'D103919977V', title: 'Pack Completo de Contratos e Documentos', shortDescription: 'Modelos prontos de contratos, recibos e documentos jurídicos para usar imediatamente.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/D103919977V', featured: true },
+  { id: 'E47704281G', title: 'Kit Modelos de Documentos Profissionais', shortDescription: 'Documentos profissionais editáveis: procurações, declarações, requerimentos e mais.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/E47704281G' },
+  { id: 'Q84858354Y', title: 'Pacote de Contratos para Prestadores de Serviço', shortDescription: 'Contratos específicos para freelancers e autônomos, com cláusulas de proteção.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/Q84858354Y' },
+  { id: 'I45875916Q', title: 'Modelos de Contratos para Pequenas Empresas', shortDescription: 'Contratos empresariais validados por advogados para MEIs e pequenas empresas.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/I45875916Q', badge: 'Mais Vendido' },
+  { id: 'R47704284D', title: 'Documentos para Locação Residencial e Comercial', shortDescription: 'Contratos de locação completos com todas as cláusulas exigidas pela Lei do Inquilinato.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/R47704284D' },
+  { id: 'F103920067Q', title: 'Pack Jurídico: Contratos e Petições', shortDescription: 'Modelos de contratos e petições iniciais para uso pessoal e profissional.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/F103920067Q' },
+  { id: 'Y103920088U', title: 'Biblioteca de Modelos Jurídicos', shortDescription: 'Mais de 100 modelos jurídicos prontos para download e personalização imediata.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/Y103920088U', featured: true, badge: 'Novidade' },
+  { id: 'J104778152G', title: 'Contratos para Serviços de TI e Tecnologia', shortDescription: 'Contratos específicos para desenvolvedores, designers e profissionais de TI.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/J104778152G' },
+  { id: 'B104778155X', title: 'Kit Documentos para Autônomos e Freelancers', shortDescription: 'Proposta comercial, contrato de prestação e recibo: tudo que o autônomo precisa.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/B104778155X' },
+  { id: 'C104778221J', title: 'Modelos de Procuração e Declarações Oficiais', shortDescription: 'Procurações e declarações para os mais variados fins, prontos para assinar.', category: 'documentos', platform: 'hotmart', url: 'https://go.hotmart.com/C104778221J' },
+  { id: 'E104778129D', title: 'Curso: Abra seu MEI do Zero', shortDescription: 'Passo a passo completo para abrir, gerir e crescer como Microempreendedor Individual.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/E104778129D', featured: true },
+  { id: 'Q104778130A', title: 'Planilhas Financeiras para MEI', shortDescription: 'Controle de fluxo de caixa, DRE simplificado e controle de DAS em planilhas prontas.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/Q104778130A', badge: 'Mais Vendido' },
+  { id: 'I104778156O', title: 'Guia Completo de Finanças para Autônomos', shortDescription: 'Aprenda a organizar as finanças do seu negócio e separar pessoa física de jurídica.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/I104778156O' },
+  { id: 'C104778159R', title: 'Planejamento Financeiro Pessoal e MEI', shortDescription: 'Método prático para sair do vermelho e construir reserva mesmo sendo autônomo.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/C104778159R' },
+  { id: 'A104778162M', title: 'Como Declarar o IRPF como MEI', shortDescription: 'Guia completo para declarar o Imposto de Renda sem erros e sem pagar multa.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/A104778162M' },
+  { id: 'D104778164L', title: 'Controle de Estoque e Vendas para MEI', shortDescription: 'Planilhas e método simples para controlar estoque, vendas e margem de lucro.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/D104778164L' },
+  { id: 'S104778167K', title: 'Precificação Correta para Autônomos', shortDescription: 'Aprenda a calcular o preço justo dos seus serviços e parar de trabalhar no prejuízo.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/S104778167K', featured: true },
+  { id: 'J104778177O', title: 'DASN-SIMEI: Declaração Anual Sem Erros', shortDescription: 'Guia passo a passo para preencher e enviar a declaração anual do MEI corretamente.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/J104778177O' },
+  { id: 'L104778190C', title: 'Gestão Financeira para Pequenos Negócios', shortDescription: 'Curso de finanças práticas: fluxo de caixa, DRE e planejamento para crescer.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/L104778190C' },
+  { id: 'D104778192F', title: 'Marketing Digital para MEI', shortDescription: 'Estratégias de baixo custo para atrair mais clientes e aumentar o faturamento do MEI.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/D104778192F' },
+  { id: 'G104778227E', title: 'Kit Completo MEI: Abertura ao Crescimento', shortDescription: 'Tudo sobre MEI em um único kit: abertura, gestão, tributos e muito mais.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/G104778227E', badge: 'Kit Completo' },
+  { id: 'V104778228V', title: 'Como Migrar de MEI para ME com Segurança', shortDescription: 'Guia detalhado para saber o momento certo e o processo de migrar de MEI para ME.', category: 'mei-financeiro', platform: 'hotmart', url: 'https://go.hotmart.com/V104778228V' },
+  { id: 'O104778178E', title: 'Guia do Proprietário: Locação Sem Dor de Cabeça', shortDescription: 'Aprenda a alugar seu imóvel com segurança jurídica, sem imobiliária e sem inadimplência.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/O104778178E', featured: true },
+  { id: 'Q104778183Y', title: 'Contratos de Locação por Temporada', shortDescription: 'Modelos completos de contratos para Airbnb, temporadas e locações de curta duração.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/Q104778183Y' },
+  { id: 'K104778187B', title: 'Investir em Imóveis com Pouco Dinheiro', shortDescription: 'Estratégias práticas para começar a investir no mercado imobiliário com capital reduzido.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/K104778187B', featured: true, badge: 'Destaque' },
+  { id: 'X104778194Y', title: 'FIIs: Guia de Fundos Imobiliários para Iniciantes', shortDescription: 'Entenda como investir em Fundos de Investimento Imobiliário e gerar renda passiva.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/X104778194Y' },
+  { id: 'O104778197F', title: 'Como Comprar Imóvel Financiado: Guia Completo', shortDescription: 'Passo a passo do financiamento imobiliário: simulação, documentação e negociação.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/O104778197F' },
+  { id: 'R104778200X', title: 'Gestão de Imóveis para Locação por Temporada', shortDescription: 'Como gerenciar imóveis no Airbnb e Booking para maximizar a ocupação e renda.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/R104778200X' },
+  { id: 'Y104778201S', title: 'Direitos e Deveres do Inquilino', shortDescription: 'Guia completo sobre a Lei do Inquilinato: o que o locatário precisa saber.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/Y104778201S' },
+  { id: 'D104778202Y', title: 'Como Despejar Inquilino Inadimplente', shortDescription: 'Procedimentos legais e estratégias para lidar com inadimplência e ação de despejo.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/D104778202Y' },
+  { id: 'X104778213G', title: 'Captação e Venda de Imóveis para Corretores', shortDescription: 'Técnicas modernas de captação, avaliação e fechamento de vendas para corretores.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/X104778213G' },
+  { id: 'W104778211C', title: 'Avaliação de Imóveis: Método Comparativo', shortDescription: 'Aprenda a avaliar imóveis com precisão usando o método comparativo de mercado.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/W104778211C' },
+  { id: 'B104778206N', title: 'Marketing Imobiliário Digital', shortDescription: 'Estratégias de marketing digital para corretores venderem mais usando redes sociais.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/B104778206N' },
+  { id: 'H104778230T', title: 'Consórcio Imobiliário: Estratégia Vencedora', shortDescription: 'Como usar consórcio imobiliário para conquistar o imóvel próprio ou investir.', category: 'imoveis', platform: 'hotmart', url: 'https://go.hotmart.com/H104778230T' },
+  { id: 'A104778215C', title: 'Freelancer de Sucesso: Do Zero à Renda Consistente', shortDescription: 'Construa uma carreira freelancer lucrativa com clientes recorrentes e sem instabilidade.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/A104778215C', featured: true },
+  { id: 'W104778218H', title: 'Recolocação Profissional: Currículo e Entrevista', shortDescription: 'Estratégias atualizadas para se recolocar rapidamente no mercado de trabalho.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/W104778218H', badge: 'Mais Vendido' },
+  { id: 'R104778297M', title: 'LinkedIn: Perfil que Atrai Recrutadores', shortDescription: 'Otimize seu perfil do LinkedIn e receba propostas de emprego todos os meses.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/R104778297M' },
+  { id: 'J104778302I', title: 'Negociação Salarial: Ganhe o Que Você Merece', shortDescription: 'Técnicas comprovadas para negociar salário em promoções e novas oportunidades.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/J104778302I' },
+  { id: 'Q104778305F', title: 'Renda Extra: 10 Formas Comprovadas', shortDescription: 'Estratégias práticas para gerar renda extra sem largar o emprego atual.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/Q104778305F', featured: true },
+  { id: 'J104778306L', title: 'Empreendedorismo do Zero: Sua Primeira Empresa', shortDescription: 'Como validar uma ideia de negócio e abrir sua primeira empresa sem capital inicial.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/J104778306L' },
+  { id: 'M104778310D', title: 'Produtividade e Gestão de Tempo para Autônomos', shortDescription: 'Organize sua rotina de trabalho, bata metas e ainda tenha qualidade de vida.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/M104778310D' },
+  { id: 'Y104778316F', title: 'Personal Branding: Construa Sua Marca Pessoal', shortDescription: 'Destaque-se no mercado construindo uma marca pessoal forte e reconhecida.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/Y104778316F' },
+  { id: 'P104778318I', title: 'Mentoria de Carreira: Do Emprego ao Negócio', shortDescription: 'Programa de mentoria para profissionais que querem empreender com segurança.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/P104778318I', badge: 'Mentoria' },
+  { id: 'O104778314B', title: 'Copywriting para Vender Mais', shortDescription: 'Aprenda a escrever textos que vendem para qualquer produto ou serviço.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/O104778314B' },
+  { id: 'B104778319Q', title: 'Gestão de Projetos para Autônomos', shortDescription: 'Metodologias simples de gestão de projetos para entregar no prazo e fidelizar clientes.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/B104778319Q' },
+  { id: 'K104778321Q', title: 'Comunicação e Oratória Profissional', shortDescription: 'Desenvolva habilidades de comunicação para apresentações, reuniões e vendas.', category: 'carreira', platform: 'hotmart', url: 'https://go.hotmart.com/K104778321Q' },
+  { id: 'kiwify-7gUK3hr', title: 'Curso Completo de Carreira e Empregabilidade', shortDescription: 'Do currículo à entrevista: todo o processo de recolocação em um único treinamento.', category: 'carreira', platform: 'kiwify', url: 'https://kiwify.app/7gUK3hr', featured: true, badge: 'Destaque' },
+  { id: 'O104778330G', title: 'Criação de Sites com WordPress: Do Zero', shortDescription: 'Crie sites profissionais sem saber programar usando WordPress e construtores visuais.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/O104778330G', featured: true },
+  { id: 'N104778340V', title: 'Tráfego Pago: Google e Meta Ads para Iniciantes', shortDescription: 'Aprenda a criar campanhas lucrativas no Google Ads e Facebook Ads do zero.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/N104778340V', badge: 'Mais Vendido' },
+  { id: 'Q104778339N', title: 'Instagram e TikTok: Crescimento Orgânico', shortDescription: 'Estratégias de conteúdo para crescer nas redes sociais e monetizar o perfil.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/Q104778339N' },
+  { id: 'K104778344I', title: 'Automação de Processos com IA', shortDescription: 'Use ferramentas de Inteligência Artificial para automatizar tarefas e ser mais produtivo.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/K104778344I', featured: true, badge: 'Tendência' },
+  { id: 'D104778343J', title: 'E-commerce: Monte Sua Loja Virtual', shortDescription: 'Passo a passo para criar, lançar e escalar uma loja virtual do zero.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/D104778343J' },
+  { id: 'T104778348X', title: 'ChatGPT e IA Generativa para Negócios', shortDescription: 'Como usar ChatGPT e outras IAs para acelerar seu negócio e economizar tempo.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/T104778348X' },
+  { id: 'C104778347T', title: 'Marketing de Conteúdo e SEO Prático', shortDescription: 'Crie conteúdo que aparece no Google e atrai clientes organicamente todo mês.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/C104778347T' },
+  { id: 'S104778350X', title: 'Python para Automação: Primeira Lição Grátis', shortDescription: 'Aprenda Python do zero para automatizar tarefas repetitivas e criar ferramentas úteis.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/S104778350X' },
+  { id: 'J104778360D', title: 'Design Gráfico com Canva Pro: Guia Completo', shortDescription: 'Crie artes profissionais para redes sociais, apresentações e materiais de vendas.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/J104778360D' },
+  { id: 'R104778363M', title: 'Infoprodutos: Crie e Venda Cursos Online', shortDescription: 'Como criar, hospedar e vender cursos e e-books digitais com alta margem de lucro.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/R104778363M' },
+  { id: 'N104778362P', title: 'YouTube: Monetize Seu Canal do Zero', shortDescription: 'Estratégias para criar um canal monetizado e gerar renda recorrente com vídeos.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/N104778362P' },
+  { id: 'C104778411Q', title: 'Dropshipping Nacional: Venda Sem Estoque', shortDescription: 'Como montar uma operação de dropshipping com fornecedores nacionais e alta margem.', category: 'tecnologia', platform: 'hotmart', url: 'https://go.hotmart.com/C104778411Q' },
+  { id: 'kiwify-DrCeeGS', title: 'Lançamento Digital: Método Completo', shortDescription: 'Aprenda a fazer lançamentos de produtos digitais e gerar picos de faturamento.', category: 'tecnologia', platform: 'kiwify', url: 'https://pay.kiwify.com.br/DrCeeGS', badge: 'Destaque' },
+  { id: 'monetizze-1', title: 'Programa de Afiliados: Guia Definitivo', shortDescription: 'Como ganhar comissões como afiliado promovendo produtos digitais nas maiores plataformas.', category: 'tecnologia', platform: 'monetizze', url: 'https://app.monetizze.com.br/r/ATK291825', featured: true, badge: 'Mais Vendido' },
+  { id: 'monetizze-2', title: 'Funil de Vendas Automatizado', shortDescription: 'Monte um funil de vendas que trabalha 24h por dia gerando leads e conversões.', category: 'tecnologia', platform: 'monetizze', url: 'https://app.monetizze.com.br/r/AYE291826' },
+  { id: 'monetizze-3', title: 'E-mail Marketing que Converte', shortDescription: 'Estratégias avançadas de e-mail marketing para aumentar vendas e engajamento.', category: 'tecnologia', platform: 'monetizze', url: 'https://app.monetizze.com.br/r/AHN291827' },
+  { id: 'monetizze-4', title: 'Produção de Vídeo Profissional em Casa', shortDescription: 'Grave vídeos com qualidade profissional usando apenas smartphone e iluminação simples.', category: 'tecnologia', platform: 'monetizze', url: 'https://app.monetizze.com.br/r/AMC291828' },
+  { id: 'telegram-comunidade', title: 'Grupo VIP: Empreendedores e Autônomos', shortDescription: 'Entre no grupo do Telegram com dicas diárias, modelos gratuitos e networking de qualidade.', category: 'comunidade', platform: 'telegram', url: 'https://t.me/+El00n0HiYzdhMGY5', featured: true, badge: 'Gratuito' },
+];
+
+export const FEATURED_PRODUCTS = AFFILIATE_PRODUCTS.filter((p) => p.featured);

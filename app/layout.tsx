@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import CookieBanner from "./components/CookieBanner";
 import ClientOnly from "./components/ClientOnly";
@@ -8,10 +9,32 @@ import AiFab from "./components/ai/AiFab";
 import AiDrawer from "./components/ai/AiDrawer";
 import Header from "./components/Header";
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ReciboNaHora",
+  "url": "https://recibonahora.com.br",
+  "logo": "https://recibonahora.com.br/icon.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "contato@recibonahora.com.br",
+    "contactType": "customer support",
+    "availableLanguage": "Portuguese"
+  },
+  "sameAs": []
+};
+
 export const metadata: Metadata = {
-  title: "Recibo Grátis e Documentos Essenciais | Gerador Online com Simulador de Crédito",
+  metadataBase: new URL("https://recibonahora.com.br"),
+  title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
   description:
-    "Recibo Grátis e Documentos Essenciais: Gerador online de contratos, procurações e simulador de estratégia financeira. 100% gratuito, seguro e sem retenção de dados.",
+    "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro. Para autônomos, MEI e pequenos negócios.",
   keywords: [
     "recibo online",
     "gerador de recibo",
@@ -24,6 +47,40 @@ export const metadata: Metadata = {
     "nota promissoria",
     "ferramentas corretor",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
+  },
+  openGraph: {
+    images: [
+      {
+        url: "https://recibonahora.com.br/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "ReciboNaHora - Gerador gratuito de recibos e documentos",
+      },
+    ],
+    type: "website",
+    locale: "pt_BR",
+    siteName: "ReciboNaHora",
+    url: "https://recibonahora.com.br",
+    title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
+    description:
+      "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
+    description:
+      "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
+    images: ["https://recibonahora.com.br/opengraph-image"],
+  },
   other: {
     "google-adsense-account": "ca-pub-4754892182690500",
   },
@@ -43,7 +100,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="pt-BR" className={`scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YYX0MSP75Y"
@@ -65,17 +122,19 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           rel="stylesheet"
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
+
       </head>
 
-      <body className="bg-stone-50 text-stone-800 flex flex-col min-h-screen">
+      <body className={`${inter.className} bg-stone-50 text-stone-800 flex flex-col min-h-screen`}>
         <AiProvider>
           <Header />
 
@@ -141,6 +200,14 @@ export default function RootLayout({
                         Gerador de Orçamento
                       </a>
                     </li>
+                    <li>
+                      <a
+                        href="/recursos"
+                        className="hover:text-amber-600"
+                      >
+                        Recursos Recomendados
+                      </a>
+                    </li>
                   </ul>
                 </div>
 
@@ -194,6 +261,11 @@ export default function RootLayout({
                         className="hover:text-amber-600"
                       >
                         Fale Conosco
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/blog" className="hover:text-amber-600">
+                        Blog
                       </a>
                     </li>
                     <li>

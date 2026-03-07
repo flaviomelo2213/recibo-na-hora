@@ -83,6 +83,22 @@ export default function Header() {
             <a href="/requerimentos" className="hover:text-amber-600 transition">
               Requerimentos
             </a>
+            <div className="relative group">
+              <button className="hover:text-amber-600 transition flex items-center gap-1 py-2">
+                Blog <i className="fa-solid fa-chevron-down text-xs"></i>
+              </button>
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-stone-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  <a href="/blog" className="block px-4 py-2 hover:bg-amber-50 transition">Ver Todos os Posts</a>
+                  <a href="/blog/como-fazer-recibo" className="block px-4 py-2 hover:bg-amber-50 transition">Como fazer um recibo</a>
+                  <a href="/blog/recibo-tem-validade-legal" className="block px-4 py-2 hover:bg-amber-50 transition">Recibo tem validade legal?</a>
+                  <a href="/blog/diferenca-recibo-nota-fiscal" className="block px-4 py-2 hover:bg-amber-50 transition">Recibo vs Nota Fiscal</a>
+                </div>
+              </div>
+            </div>
+            <a href="/recursos" className="hover:text-amber-600 transition">
+              Recursos
+            </a>
             <a
               href="/educacao-financeira"
               className="text-blue-700 font-bold hover:text-blue-800 transition flex items-center gap-2 bg-blue-100 px-3 py-1.5 rounded-full"

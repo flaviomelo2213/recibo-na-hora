@@ -52,6 +52,20 @@ const websiteJsonLd = {
     "query-input": "required name=search_term_string"
   }
 };
+const softwareJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ReciboNaHora",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://recibonahora.com.br",
+  "description": "Gerador gratuito de recibos, contratos e documentos online no Brasil.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL"
+  }
+};
 
 export const metadata: Metadata = {
   title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
@@ -74,6 +88,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
     <main className="bg-white">
       <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white overflow-hidden">
