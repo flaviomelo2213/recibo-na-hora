@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { FileText, Home, Briefcase, FileSignature, Users, CheckCircle, AlertTriangle, BookOpen, HelpCircle } from "lucide-react";
 import LeadModal from "../../components/LeadModal";
+import Breadcrumb from "../../components/Breadcrumb";
+import EditorialTrustBox from "../../components/EditorialTrustBox";
+import RelatedDocuments from "../../components/RelatedDocuments";
 
 const faqItems = [
   {
@@ -46,6 +49,10 @@ export default function ContratosClient() {
   return (
     <main className="bg-white min-h-screen">
       <div className="container mx-auto px-4 py-12 md:py-16 max-w-6xl">
+        <Breadcrumb
+          className="mb-6"
+          items={[{ label: "Início", href: "/" }, { label: "Contratos" }]}
+        />
         <header className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-white mb-4">
             <FileSignature className="w-8 h-8" />
@@ -243,6 +250,26 @@ export default function ContratosClient() {
           </p>
         </section>
 
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <section>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">Como Preencher um Contrato</h2>
+            <p className="text-slate-700 leading-relaxed">
+              Substitua os campos de exemplo (como [NOME_COMPLETO]) pelos dados reais das
+              partes, revise valores e prazos com atenção, e confirme se as cláusulas
+              refletem o que foi combinado antes de colher as assinaturas.
+            </p>
+          </section>
+          <section>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">Erros Comuns</h2>
+            <ul className="space-y-1.5 text-slate-700 list-disc pl-5">
+              <li>Deixar campos de exemplo sem substituir pelos dados reais;</li>
+              <li>Não incluir testemunhas quando isso reforça a força executiva do contrato;</li>
+              <li>Usar um modelo genérico para uma operação de alto valor ou complexa;</li>
+              <li>Não guardar cópia assinada por todas as partes.</li>
+            </ul>
+          </section>
+        </div>
+
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-center text-slate-900 mb-8 flex items-center justify-center gap-3">
             <HelpCircle className="w-8 h-8 text-blue-900" />
@@ -279,6 +306,9 @@ export default function ContratosClient() {
             Solicitar Indicação de Advogados
           </button>
         </div>
+
+        <RelatedDocuments />
+        <EditorialTrustBox />
       </div>
 
       {showLeadModal && (

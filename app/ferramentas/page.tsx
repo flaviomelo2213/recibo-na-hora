@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Ferramentas para Gerar Documentos Online Grátis | Recibos, Contratos e Mais — ReciboNaHora',
   description: 'Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos, procurações e requerimentos em PDF. Para autônomos, MEI e pequenos negócios.',
   alternates: {
-    canonical: 'https://recibonahora.com.br/ferramentas',
+    canonical: 'https://www.recibonahora.com.br/ferramentas',
   },
   openGraph: {
     title: 'Ferramentas para Gerar Documentos Online Grátis | Recibos, Contratos e Mais — ReciboNaHora',

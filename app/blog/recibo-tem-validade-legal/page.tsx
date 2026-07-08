@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     'validade recibo',
     'recibo legal',
   ],
-  alternates: { canonical: 'https://recibonahora.com.br/blog/recibo-tem-validade-legal' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/blog/recibo-tem-validade-legal' },
   openGraph: {
     title: 'Recibo Tem Validade Jurídica? | ReciboNaHora',
     description: 'Quando o recibo é válido como prova de pagamento? O que a lei diz. Guia prático.',
-    url: 'https://recibonahora.com.br/blog/recibo-tem-validade-legal',
+    url: 'https://www.recibonahora.com.br/blog/recibo-tem-validade-legal',
   },
 };
 
@@ -66,9 +66,9 @@ const articleJsonLd = {
   headline: 'Recibo Tem Validade Jurídica? Tudo que Você Precisa Saber',
   datePublished: '2026-02-25',
   dateModified: '2026-03-06',
-  author: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://recibonahora.com.br' },
-  publisher: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://recibonahora.com.br' },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://recibonahora.com.br/blog/recibo-tem-validade-legal' },
+  author: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://www.recibonahora.com.br' },
+  publisher: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://www.recibonahora.com.br' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://www.recibonahora.com.br/blog/recibo-tem-validade-legal' },
 };
 
 export default function ReciboValidadeLegalPage() {

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Modelo de Requerimento de ITBI | ReciboNaHora',
     description: 'Modelo gratuito de requerimento de ITBI para protocolar na prefeitura.',
-    url: 'https://recibonahora.com.br/requerimentos/itbi-modelo',
+    url: 'https://www.recibonahora.com.br/requerimentos/itbi-modelo',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

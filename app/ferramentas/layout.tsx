@@ -9,7 +9,7 @@ const howToJsonLd = buildHowTo(
     { name: 'Descrever o motivo do pagamento', text: 'Descreva o serviço, produto ou motivo do pagamento.' },
     { name: 'Gerar e baixar o recibo', text: 'Clique em gerar recibo e faça o download do PDF pronto para assinar.' },
   ],
-  'https://recibonahora.com.br/ferramentas',
+  'https://www.recibonahora.com.br/ferramentas',
 )
 
 export default function FeramentasLayout({ children }: { children: React.ReactNode }) {

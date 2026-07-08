@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     'cursos online hotmart',
   ],
   alternates: {
-    canonical: 'https://recibonahora.com.br/recursos',
+    canonical: 'https://www.recibonahora.com.br/recursos',
   },
   openGraph: {
     title: 'Recursos para Autônomos e MEI | ReciboNaHora',
     description:
       'Curadoria de cursos, contratos e ferramentas para quem trabalha por conta própria. Gratuito para explorar.',
-    url: 'https://recibonahora.com.br/recursos',
+    url: 'https://www.recibonahora.com.br/recursos',
   },
 };
 
@@ -30,23 +30,23 @@ const jsonLd = {
   name: 'Recursos para Autônomos e MEI',
   description:
     'Curadoria de cursos, modelos de contratos, planilhas e ferramentas digitais para autônomos, MEIs e freelancers.',
-  url: 'https://recibonahora.com.br/recursos',
+  url: 'https://www.recibonahora.com.br/recursos',
   publisher: {
     '@type': 'Organization',
     name: 'ReciboNaHora',
-    url: 'https://recibonahora.com.br',
+    url: 'https://www.recibonahora.com.br',
   },
   mainEntity: {
     '@type': 'ItemList',
     name: 'Lista de Recursos Recomendados',
     numberOfItems: 65,
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Documentos & Contratos', url: 'https://recibonahora.com.br/recursos#documentos' },
-      { '@type': 'ListItem', position: 2, name: 'MEI & Financeiro', url: 'https://recibonahora.com.br/recursos#mei-financeiro' },
-      { '@type': 'ListItem', position: 3, name: 'Imóveis & Locação', url: 'https://recibonahora.com.br/recursos#imoveis' },
-      { '@type': 'ListItem', position: 4, name: 'Carreira & Renda', url: 'https://recibonahora.com.br/recursos#carreira' },
-      { '@type': 'ListItem', position: 5, name: 'Tecnologia & Digital', url: 'https://recibonahora.com.br/recursos#tecnologia' },
-      { '@type': 'ListItem', position: 6, name: 'Comunidade', url: 'https://recibonahora.com.br/recursos#comunidade' },
+      { '@type': 'ListItem', position: 1, name: 'Documentos & Contratos', url: 'https://www.recibonahora.com.br/recursos#documentos' },
+      { '@type': 'ListItem', position: 2, name: 'MEI & Financeiro', url: 'https://www.recibonahora.com.br/recursos#mei-financeiro' },
+      { '@type': 'ListItem', position: 3, name: 'Imóveis & Locação', url: 'https://www.recibonahora.com.br/recursos#imoveis' },
+      { '@type': 'ListItem', position: 4, name: 'Carreira & Renda', url: 'https://www.recibonahora.com.br/recursos#carreira' },
+      { '@type': 'ListItem', position: 5, name: 'Tecnologia & Digital', url: 'https://www.recibonahora.com.br/recursos#tecnologia' },
+      { '@type': 'ListItem', position: 6, name: 'Comunidade', url: 'https://www.recibonahora.com.br/recursos#comunidade' },
     ],
   },
 };

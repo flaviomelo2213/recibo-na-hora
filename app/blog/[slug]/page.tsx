@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { BLOG_POSTS, ALL_BLOG_SLUGS, type BlogSection } from '@/_data/blogPosts'
 import { buildArticle, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
 
-const BASE = 'https://recibonahora.com.br'
+const BASE = 'https://www.recibonahora.com.br'
 
 interface Props {
   params: { slug: string }

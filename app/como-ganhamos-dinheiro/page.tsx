@@ -1,13 +1,18 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Como Ganhamos Dinheiro | ReciboNaHora";
+const description = "Entenda como o ReciboNaHora se mantém gratuito. Nosso modelo de negócio é baseado em publicidade (Google AdSense) e parcerias, sem custos para você.";
 
 export const metadata: Metadata = {
-  title: "Como Ganhamos Dinheiro | ReciboNaHora",
-  description: "Entenda como o ReciboNaHora se mantém gratuito. Nosso modelo de negócio é baseado em publicidade (Google AdSense) e parcerias, sem custos para você.",
+  title,
+  description,
   alternates: {
     canonical: "/como-ganhamos-dinheiro"
-  }
+  },
+  openGraph: buildOpenGraph({ title, description, path: '/como-ganhamos-dinheiro' }),
 };
 
 export default function ComoGanhamosDinheiroPage() {

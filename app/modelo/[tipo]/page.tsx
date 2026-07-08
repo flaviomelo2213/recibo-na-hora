@@ -5,7 +5,7 @@ import { MODELOS, ALL_SLUGS } from './data';
 import { FORMATOS, FORMATO_DATA, parseFormatoFromSlug } from '@/_data/modeloFormats';
 import { buildBreadcrumb, buildFAQPage, buildHowTo } from '@/lib/schema';
 
-const BASE = 'https://recibonahora.com.br';
+const BASE = 'https://www.recibonahora.com.br';
 
 interface Props {
   params: { tipo: string };

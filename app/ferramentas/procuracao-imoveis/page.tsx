@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 import ProcuracaoImoveisGenerator from "./_components/ProcuracaoImoveisGenerator";
 import SeoContentBlock from "@/components/SeoContentBlock";
 import LegalDisclaimer from "@/components/LegalDisclaimer";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Procuração Imóveis e Inventário | Modelo para Compra e Venda";
+const description = "Procuração para imóveis e inventário grátis. Modelo para compra, venda, escritura, registro e partilha de bens. Documento com firma reconhecida em PDF.";
 
 export const metadata: Metadata = {
-  title: "Procuração Imóveis e Inventário | Modelo para Compra e Venda",
-  description: "Procuração para imóveis e inventário grátis. Modelo para compra, venda, escritura, registro e partilha de bens. Documento com firma reconhecida em PDF.",
+  title,
+  description,
+  alternates: { canonical: '/ferramentas/procuracao-imoveis' },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/procuracao-imoveis' }),
 };
 
 export default function ProcuracaoImoveisPage() {

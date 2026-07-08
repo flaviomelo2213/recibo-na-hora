@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Calculator, Shield, TrendingUp, DollarSign, CheckCircle2, XCircle, AlertCircle, Building2, Target, Edit3, PieChart, BookOpen, FileText, Users } from "lucide-react";
 import Link from "next/link";
 import LeadModal from "../../components/LeadModal";
+import Breadcrumb from "../../components/Breadcrumb";
+import EditorialTrustBox from "../../components/EditorialTrustBox";
+import RelatedDocuments from "../../components/RelatedDocuments";
 
 export default function EducacaoFinanceiraClient() {
   const [creditValue, setCreditValue] = useState("100000");
@@ -55,6 +58,10 @@ export default function EducacaoFinanceiraClient() {
   return (
     <main className="bg-white min-h-screen">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
+        <Breadcrumb
+          className="mb-6"
+          items={[{ label: "Início", href: "/" }, { label: "Educação Financeira" }]}
+        />
         <div className="bg-red-50 border-2 border-red-500 rounded-xl p-5 mb-8 sticky top-4 z-10 shadow-lg">
           <div className="flex items-start gap-3">
             <Shield className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
@@ -532,6 +539,9 @@ export default function EducacaoFinanceiraClient() {
             Solicitar Indicações de Profissionais
           </button>
         </div>
+
+        <RelatedDocuments />
+        <EditorialTrustBox />
       </div>
 
       {showLeadModal && (

@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 import ProcuracaoPlenosGenerator from "./_components/ProcuracaoPlenosGenerator";
 import SeoContentBlock from "@/components/SeoContentBlock";
 import LegalDisclaimer from "@/components/LegalDisclaimer";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Procuração de Plenos Poderes Grátis Online | Modelo em PDF";
+const description = "Gere procuração de plenos poderes online grátis. Modelo completo com todos os poderes legais necessários. Preencha, visualize e baixe em PDF profissional.";
 
 export const metadata: Metadata = {
-  title: "Procuração de Plenos Poderes Grátis Online | Modelo em PDF",
-  description: "Gere procuração de plenos poderes online grátis. Modelo completo com todos os poderes legais necessários. Preencha, visualize e baixe em PDF profissional.",
+  title,
+  description,
+  alternates: { canonical: '/ferramentas/procuracao-plenos-poderes' },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/procuracao-plenos-poderes' }),
 };
 
 export default function ProcuracaoPlenosPoderesPage() {

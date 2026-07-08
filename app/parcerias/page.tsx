@@ -1,13 +1,18 @@
 
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Parcerias e Ferramentas Recomendadas para MEI e Autônomos";
+const description = "Conheça as ferramentas que recomendamos para otimizar seu negócio: assinatura eletrônica, contabilidade, emissão de NF-e, certificados e pagamentos.";
 
 export const metadata: Metadata = {
-  title: "Parcerias e Ferramentas Recomendadas para MEI e Autônomos",
-  description: "Conheça as ferramentas que recomendamos para otimizar seu negócio: assinatura eletrônica, contabilidade, emissão de NF-e, certificados e pagamentos.",
+  title,
+  description,
   alternates: {
     canonical: "/parcerias",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/parcerias' }),
 };
 
 const faqItems = [

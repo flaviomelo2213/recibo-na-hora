@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft, TrendingUp, DollarSign, Clock } from "lucide-react";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Educação Financeira: Estratégia de Crédito para Capital de Giro | ReciboNaHora";
+const description =
+  "Análise educativa sobre estratégias de crédito planejado para empresas. Entenda como substituir empréstimos caros por alternativas com custos administrativos previsíveis.";
 
 export const metadata: Metadata = {
-  title: "Educação Financeira: Estratégia de Crédito para Capital de Giro | ReciboNaHora",
-  description:
-    "Análise educativa sobre estratégias de crédito planejado para empresas. Entenda como substituir empréstimos caros por alternativas com custos administrativos previsíveis.",
+  title,
+  description,
   alternates: {
     canonical: "/blog/estrategia-vencedora-consorcio",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/blog/estrategia-vencedora-consorcio', type: 'article' }),
 };
 
 export default function EstrategiaVencedoraConsorcioPage() {

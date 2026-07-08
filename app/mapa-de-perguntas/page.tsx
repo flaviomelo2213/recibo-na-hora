@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PERGUNTAS } from '@/_data/perguntas'
+import { buildOpenGraph } from '@/lib/metadata'
+
+const title = 'Mapa de Perguntas sobre Recibos | ReciboNaHora'
+const description = 'Lista completa de perguntas e respostas sobre recibos, validade jurídica, modelos e uso correto.'
 
 export const metadata: Metadata = {
-  title: 'Mapa de Perguntas sobre Recibos | ReciboNaHora',
-  description: 'Lista completa de perguntas e respostas sobre recibos, validade jurídica, modelos e uso correto.',
-  alternates: { canonical: 'https://recibonahora.com.br/mapa-de-perguntas' },
+  title,
+  description,
+  alternates: { canonical: 'https://www.recibonahora.com.br/mapa-de-perguntas' },
   robots: { index: true, follow: true },
+  openGraph: buildOpenGraph({ title, description, path: '/mapa-de-perguntas' }),
 }
 
 export default function MapaDePerguntas() {

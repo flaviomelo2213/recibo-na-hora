@@ -5,7 +5,7 @@ import { PROFISSOES, ALL_PROFISSAO_SLUGS } from '@/_data/profissoes'
 import { SEO_CITIES, getCityBySlug } from '@/_data/seoCities'
 import { buildHowTo, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
 
-const BASE = 'https://recibonahora.com.br'
+const BASE = 'https://www.recibonahora.com.br'
 
 interface Props {
   params: { profissao: string; cidade: string }

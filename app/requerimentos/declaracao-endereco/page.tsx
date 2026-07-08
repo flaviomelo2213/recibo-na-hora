@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import DeclaracaoEnderecoGenerator from './_components/DeclaracaoEnderecoGenerator';
 import FaqAccordion from '../../components/FaqAccordion';
+import { buildOpenGraph } from '../../lib/metadata';
 
 const faqItems = [
   { question: "Para que serve uma Declaração de Residência?", answer: "Serve para comprovar seu endereço em situações onde não se possui um comprovante tradicional (conta de água, luz, etc.) em seu nome. É comum para quem mora com parentes."},
@@ -11,9 +12,14 @@ const faqItems = [
   { question: "O que significa assinar \"sob as penas da lei\"?", answer: "Significa que, se for provado que você mentiu na declaração, você pode ser processado por crime de falsidade ideológica, conforme o Art. 299 do Código Penal Brasileiro."}
 ];
 
+const title = 'Gerador de Declaração de Residência - Modelo para Imprimir';
+const description = 'Crie uma Declaração de Residência (ou Domicílio) para comprovar seu endereço. Gere o documento em PDF, pronto para assinar e reconhecer firma.';
+
 export const metadata: Metadata = {
-  title: 'Gerador de Declaração de Residência - Modelo para Imprimir',
-  description: 'Crie uma Declaração de Residência (ou Domicílio) para comprovar seu endereço. Gere o documento em PDF, pronto para assinar e reconhecer firma.',
+  title,
+  description,
+  alternates: { canonical: '/requerimentos/declaracao-endereco' },
+  openGraph: buildOpenGraph({ title, description, path: '/requerimentos/declaracao-endereco' }),
 };
 
 export default function DeclaracaoEnderecoPage() {

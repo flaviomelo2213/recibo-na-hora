@@ -1,14 +1,22 @@
 
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildOpenGraph } from '@/lib/metadata';
+import Breadcrumb from '@/components/Breadcrumb';
+import EditorialTrustBox from '@/components/EditorialTrustBox';
+import RelatedDocuments from '@/components/RelatedDocuments';
+
+const title = "Ferramentas para MEI e Autônomos | Recibos, Contratos e Organização — ReciboNaHora";
+const description =
+  "Ferramentas gratuitas para MEI e autônomos: gere recibos, contratos e orçamentos online. Guia de organização financeira, relatório mensal e dicas para manter o CNPJ regularizado.";
 
 export const metadata: Metadata = {
-  title: "Ferramentas para MEI e Autônomos | Recibos, Contratos e Organização — ReciboNaHora",
-  description:
-    "Ferramentas gratuitas para MEI e autônomos: gere recibos, contratos e orçamentos online. Guia de organização financeira, relatório mensal e dicas para manter o CNPJ regularizado.",
+  title,
+  description,
   alternates: {
-    canonical: "https://recibonahora.com.br/mei",
+    canonical: "https://www.recibonahora.com.br/mei",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/mei' }),
 };
 
 const faqItems = [
@@ -75,6 +83,10 @@ export default function MeiPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <main className="container mx-auto px-4 py-12 md:py-20">
+        <Breadcrumb
+          className="mb-6"
+          items={[{ label: "Início", href: "/" }, { label: "MEI" }]}
+        />
         {/* Cabeçalho */}
         <header className="text-center max-w-4xl mx-auto mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 mb-4 tracking-tight">
@@ -201,6 +213,8 @@ export default function MeiPage() {
             </div>
         </section>
 
+        <RelatedDocuments />
+        <EditorialTrustBox />
       </main>
     </>
   );

@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     'recibo ou nf',
     'mei nota fiscal',
   ],
-  alternates: { canonical: 'https://recibonahora.com.br/blog/diferenca-recibo-nota-fiscal' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/blog/diferenca-recibo-nota-fiscal' },
   openGraph: {
     title: 'Diferença entre Recibo e Nota Fiscal | ReciboNaHora',
     description: 'Quando usar recibo e quando emitir nota fiscal? Guia prático para MEI e autônomos.',
-    url: 'https://recibonahora.com.br/blog/diferenca-recibo-nota-fiscal',
+    url: 'https://www.recibonahora.com.br/blog/diferenca-recibo-nota-fiscal',
   },
 };
 
@@ -58,9 +58,9 @@ const articleJsonLd = {
   headline: 'Diferença entre Recibo e Nota Fiscal: Quando Usar Cada Um',
   datePublished: '2026-03-01',
   dateModified: '2026-03-06',
-  author: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://recibonahora.com.br' },
-  publisher: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://recibonahora.com.br' },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://recibonahora.com.br/blog/diferenca-recibo-nota-fiscal' },
+  author: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://www.recibonahora.com.br' },
+  publisher: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://www.recibonahora.com.br' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://www.recibonahora.com.br/blog/diferenca-recibo-nota-fiscal' },
 };
 
 export default function DiferencaReciboNotaFiscalPage() {

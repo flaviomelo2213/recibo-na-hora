@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     'autonomo financas',
   ],
   alternates: {
-    canonical: 'https://recibonahora.com.br/educacao-financeira',
+    canonical: 'https://www.recibonahora.com.br/educacao-financeira',
   },
   openGraph: {
     title: 'Educação Financeira para Autônomos e MEI | ReciboNaHora',
     description: 'Simuladores e guias financeiros gratuitos para quem trabalha por conta própria.',
-    url: 'https://recibonahora.com.br/educacao-financeira',
+    url: 'https://www.recibonahora.com.br/educacao-financeira',
   },
 };
 

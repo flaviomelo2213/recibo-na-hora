@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pedido de Acesso à Informação (LAI) | ReciboNaHora',
     description: 'Modelo de pedido LAI conforme Lei 12.527/2011. Grátis e sem cadastro.',
-    url: 'https://recibonahora.com.br/requerimentos/lai-pedido',
+    url: 'https://www.recibonahora.com.br/requerimentos/lai-pedido',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

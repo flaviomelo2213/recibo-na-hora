@@ -41,13 +41,13 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "ReciboNaHora",
-  "url": "https://recibonahora.com.br",
+  "url": "https://www.recibonahora.com.br",
   "description": "Plataforma gratuita de geração de documentos online: recibos, contratos, orçamentos e mais.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://recibonahora.com.br/ferramentas?q={search_term_string}"
+      "urlTemplate": "https://www.recibonahora.com.br/ferramentas?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -58,7 +58,7 @@ const softwareJsonLd = {
   "name": "ReciboNaHora",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
-  "url": "https://recibonahora.com.br",
+  "url": "https://www.recibonahora.com.br",
   "description": "Gerador gratuito de recibos, contratos e documentos online no Brasil.",
   "offers": {
     "@type": "Offer",
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   description:
     "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro, instantaneamente. Para autônomos, MEI e pequenos negócios.",
   alternates: {
-    canonical: "https://recibonahora.com.br",
+    canonical: "https://www.recibonahora.com.br",
   },
   openGraph: {
     title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",

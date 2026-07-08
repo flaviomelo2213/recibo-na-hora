@@ -19,8 +19,8 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "ReciboNaHora",
-  "url": "https://recibonahora.com.br",
-  "logo": "https://recibonahora.com.br/logo.png",
+  "url": "https://www.recibonahora.com.br",
+  "logo": "https://www.recibonahora.com.br/logo.png",
   "contactPoint": {
     "@type": "ContactPoint",
     "email": "contato@recibonahora.com.br",
@@ -35,11 +35,11 @@ const personJsonLd = {
   "@type": "Person",
   "name": "Flavio Melo",
   "jobTitle": "Especialista em documentos e recibos",
-  "url": "https://recibonahora.com.br",
+  "url": "https://www.recibonahora.com.br",
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://recibonahora.com.br"),
+  metadataBase: new URL("https://www.recibonahora.com.br"),
   title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
   description:
     "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro. Para autônomos, MEI e pequenos negócios.",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://recibonahora.com.br/opengraph-image",
+        url: "https://www.recibonahora.com.br/opengraph-image",
         width: 1200,
         height: 630,
         alt: "ReciboNaHora - Gerador gratuito de recibos e documentos",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "ReciboNaHora",
-    url: "https://recibonahora.com.br",
+    url: "https://www.recibonahora.com.br",
     title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
     description:
       "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
     description:
       "Plataforma gratuita com mais de 20 ferramentas para gerar recibos, contratos, orçamentos e procurações em PDF. Sem cadastro.",
-    images: ["https://recibonahora.com.br/opengraph-image"],
+    images: ["https://www.recibonahora.com.br/opengraph-image"],
   },
   other: {
     "google-adsense-account": "ca-pub-4754892182690500",
@@ -276,6 +276,16 @@ export default function RootLayout({
                       </a>
                     </li>
                     <li>
+                      <a href="/contato" className="hover:text-amber-600">
+                        Formulário de Contato
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/sobre" className="hover:text-amber-600">
+                        Sobre Nós
+                      </a>
+                    </li>
+                    <li>
                       <a href="/blog" className="hover:text-amber-600">
                         Blog
                       </a>
@@ -309,6 +319,14 @@ export default function RootLayout({
                     <li>
                       <a href="/termos-uso" className="hover:text-amber-600">
                         Termos de Uso
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/politica-editorial"
+                        className="hover:text-amber-600"
+                      >
+                        Política Editorial
                       </a>
                     </li>
                   </ul>

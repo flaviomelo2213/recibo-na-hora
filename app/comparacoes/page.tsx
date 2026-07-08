@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: 'Comparações de Documentos Fiscais | ReciboNaHora',
   description: 'Recibo vs Nota Fiscal, RPA vs NFS-e, Nota Promissória vs Recibo — comparações claras para saber exatamente qual documento usar em cada situação.',
   keywords: ['comparacao documentos fiscais', 'recibo vs nota fiscal', 'rpa vs nota fiscal', 'nota promissoria vs recibo'],
-  alternates: { canonical: 'https://recibonahora.com.br/comparacoes' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/comparacoes' },
   openGraph: {
     title: 'Comparações de Documentos | ReciboNaHora',
     description: 'Tabelas comparativas para saber qual documento usar. Grátis.',
-    url: 'https://recibonahora.com.br/comparacoes',
+    url: 'https://www.recibonahora.com.br/comparacoes',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

@@ -6,14 +6,23 @@ import {
   ToolShellHeader,
   ToolShellMain,
 } from '@/components/layout/ToolShell';
+import { buildOpenGraph } from '@/lib/metadata';
+import AdSlot from '@/components/ads/AdSlot';
+import Breadcrumb from '@/components/Breadcrumb';
+import EditorialTrustBox from '@/components/EditorialTrustBox';
+import RelatedDocuments from '@/components/RelatedDocuments';
+
+const title = 'Calculadora de Rescisão CLT Online | Simule seu Acerto';
+const description =
+  'Calcule uma estimativa do seu acerto trabalhista (rescisão de contrato) em uma demissão sem justa causa. Informe salário, meses trabalhados e veja o resultado na hora.';
 
 export const metadata: Metadata = {
-  title: 'Calculadora de Rescisão CLT Online | Simule seu Acerto',
-  description:
-    'Calcule uma estimativa do seu acerto trabalhista (rescisão de contrato) em uma demissão sem justa causa. Informe salário, meses trabalhados e veja o resultado na hora.',
+  title,
+  description,
   alternates: {
     canonical: '/ferramentas/calculadora-rescisao',
   },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/calculadora-rescisao' }),
 };
 
 const faqItems = [
@@ -65,6 +74,14 @@ export default function CalculadoraRescisaoPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ()) }}
+      />
+      <Breadcrumb
+        className="mb-4"
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Ferramentas", href: "/ferramentas" },
+          { label: "Calculadora de Rescisão" },
+        ]}
       />
       <ToolShellHeader
         title="Calculadora de Rescisão Trabalhista"
@@ -164,7 +181,32 @@ export default function CalculadoraRescisaoPage() {
               e convenções coletivas. Use este resultado como um ponto de partida.
             </p>
           </div>
+
+          <h2 className="text-3xl font-bold text-slate-900 mt-12">
+            Quando Não Usar
+          </h2>
+          <p>
+            Esta calculadora não deve ser usada como base para uma decisão jurídica
+            ou financeira definitiva, nem substitui o cálculo oficial feito pelo RH
+            da empresa ou por um contador. Ela também não cobre casos específicos
+            como acordos trabalhistas, estabilidades (gestante, acidente de
+            trabalho) ou convenções coletivas com regras próprias.
+          </p>
+
+          <h2 className="text-3xl font-bold text-slate-900 mt-12">
+            Erros Comuns ao Interpretar a Rescisão
+          </h2>
+          <ul>
+            <li>Confundir o tipo de demissão e aplicar o cálculo errado para o seu caso;</li>
+            <li>Esquecer que o resultado é bruto — ainda faltam os descontos de INSS e, se aplicável, IRRF;</li>
+            <li>Não considerar o FGTS e a multa de 40% (não incluídos nesta estimativa) na conta final;</li>
+            <li>Assinar o termo de rescisão sem antes conferir os valores com calma.</li>
+          </ul>
         </article>
+
+        <div className="max-w-3xl mx-auto">
+          <AdSlot slot="0000000001" />
+        </div>
 
         <section className="max-w-3xl mx-auto mt-16">
           <h2 className="text-3xl font-bold text-center text-slate-900 mb-8">
@@ -172,6 +214,11 @@ export default function CalculadoraRescisaoPage() {
           </h2>
           <FaqAccordion items={faqItems} />
         </section>
+
+        <div className="max-w-3xl mx-auto">
+          <RelatedDocuments />
+          <EditorialTrustBox />
+        </div>
       </ToolShellMain>
     </ToolShell>
   );

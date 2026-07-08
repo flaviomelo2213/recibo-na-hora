@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: 'Perguntas sobre Recibos — Dúvidas Respondidas | ReciboNaHora',
   description: 'Respostas diretas e completas para as principais dúvidas sobre recibos no Brasil: validade, assinatura, prazo, formato e mais. Grátis.',
   keywords: ['perguntas sobre recibo', 'duvidas recibo', 'recibo validade juridica duvida', 'como fazer recibo duvida'],
-  alternates: { canonical: 'https://recibonahora.com.br/perguntas' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/perguntas' },
   openGraph: {
     title: 'Perguntas sobre Recibos | ReciboNaHora',
     description: 'Respostas para todas as dúvidas sobre recibos. Grátis.',
-    url: 'https://recibonahora.com.br/perguntas',
+    url: 'https://www.recibonahora.com.br/perguntas',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

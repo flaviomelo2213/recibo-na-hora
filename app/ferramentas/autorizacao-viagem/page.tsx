@@ -7,13 +7,13 @@ export const metadata: Metadata = {
     "Gere autorização de viagem nacional para menores conforme a Resolução 131/2011 do CNJ. Preencha os dados e baixe o PDF para reconhecimento de firma. Gratuito.",
   keywords: ["autorização viagem menor", "autorização viagem cnj", "autorização viagem nacional", "menor viagem acompanhado", "modelo autorização viagem"],
   alternates: {
-    canonical: "https://recibonahora.com.br/ferramentas/autorizacao-viagem",
+    canonical: "https://www.recibonahora.com.br/ferramentas/autorizacao-viagem",
   },
   openGraph: {
     title: "Autorização de Viagem para Menor Online Grátis | CNJ | ReciboNaHora",
     description:
       "Gere autorização de viagem nacional para menores conforme Resolução 131/2011 do CNJ. Baixe o PDF para reconhecimento de firma.",
-    url: "https://recibonahora.com.br/ferramentas/autorizacao-viagem",
+    url: "https://www.recibonahora.com.br/ferramentas/autorizacao-viagem",
   },
 };
 

@@ -5,7 +5,7 @@ import { MODELOS, ALL_SLUGS } from '../data'
 import { SEO_CITIES, CITY_SLUGS, getCityBySlug } from '@/_data/seoCities'
 import { buildHowTo, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
 
-const BASE = 'https://recibonahora.com.br'
+const BASE = 'https://www.recibonahora.com.br'
 
 interface Props {
   params: { tipo: string; cidade: string }
@@ -40,6 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modelo.slug.replace(/-/g, ' '),
     ],
     alternates: { canonical: url },
+    // noindex temporário: variante de cidade tem ~92-96% de similaridade textual com
+    // as demais cidades do mesmo tipo e nenhum link interno aponta para ela (ver
+    // docs/fase2-relatorio.md, item 6). Reavaliar após enriquecimento real de conteúdo.
+    robots: { index: false, follow: true },
     openGraph: {
       title,
       description,
