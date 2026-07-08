@@ -42,6 +42,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${p.slug} autonomo ${city.name.toLowerCase()}`,
     ],
     alternates: { canonical: url },
+    // noindex temporário: variante de cidade tem altíssima similaridade textual com
+    // as demais cidades da mesma profissão e nenhum link interno de navegação aponta
+    // para ela (mesmo padrão de app/modelo/[tipo]/[cidade]/page.tsx). Reavaliar após
+    // enriquecimento real de conteúdo por cidade.
+    robots: { index: false, follow: true },
     openGraph: {
       title,
       description,

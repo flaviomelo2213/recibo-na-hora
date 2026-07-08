@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 import { ALL_SLUGS } from './modelo/[tipo]/data'
-import { SEO_CITIES } from './_data/seoCities'
 import { ALL_BLOG_SLUGS } from './_data/blogPosts'
 import { ALL_PROFISSAO_SLUGS } from './_data/profissoes'
 import { ALL_GUIA_SLUGS } from './_data/guias'
@@ -117,16 +116,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]
 
-  // Profissoes geo pages (30 profissoes × 27 capitais = 810)
-  const capitals = SEO_CITIES.slice(0, 27)
-  const profissoesGeoPages: MetadataRoute.Sitemap = ALL_PROFISSAO_SLUGS.flatMap((profissao) =>
-    capitals.map((city) => ({
-      url: `${BASE}/profissoes/${profissao}/${city.slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    })),
-  )
+  // Profissoes geo pages (profissoes/[profissao]/[cidade]) removidas do sitemap:
+  // noindex temporário aplicado (ver app/profissoes/[profissao]/[cidade]/page.tsx)
+  // por serem quase-duplicatas sem link interno de navegação. Reintroduzir aqui
+  // somente após enriquecimento real de conteúdo por cidade.
 
   // Guias pages (8)
   const guiasPages: MetadataRoute.Sitemap = [
@@ -182,7 +175,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogStaticPages,
     ...blogDynamicPages,
     ...profissoesBasePages,
-    ...profissoesGeoPages,
     ...guiasPages,
     ...perguntasPages,
     ...comparacoesPages,
