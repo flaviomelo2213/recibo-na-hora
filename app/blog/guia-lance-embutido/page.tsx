@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft } from "lucide-react";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Guia Educativo: Lance Embutido de 44 Parcelas - Como Funciona | ReciboNaHora";
+const description =
+  "Entenda como funciona a estratégia de lance fixo de 44 parcelas em consórcios. Guia educativo com cálculos, vantagens e como essa estratégia pode acelerar sua contemplação.";
 
 export const metadata: Metadata = {
-  title: "Guia Educativo: Lance Embutido de 44 Parcelas - Como Funciona | ReciboNaHora",
-  description:
-    "Entenda como funciona a estratégia de lance fixo de 44 parcelas em consórcios. Guia educativo com cálculos, vantagens e como essa estratégia pode acelerar sua contemplação.",
+  title,
+  description,
   alternates: {
     canonical: "/blog/guia-lance-embutido",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/blog/guia-lance-embutido', type: 'article' }),
 };
 
 export default function GuiaLanceEmbutidoPage() {

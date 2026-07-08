@@ -1,14 +1,22 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildOpenGraph } from '@/lib/metadata';
+import Breadcrumb from '@/components/Breadcrumb';
+import EditorialTrustBox from '@/components/EditorialTrustBox';
+import RelatedDocuments from '@/components/RelatedDocuments';
+
+const title = "Gerador de Orçamento Online Grátis em PDF | ReciboNaHora";
+const description =
+  "Crie orçamentos profissionais em PDF gratuitamente. Detalhe seus serviços e preços, envie para seus clientes e feche mais negócios. Simples e rápido.";
 
 // 1. Metadata for SEO
 export const metadata: Metadata = {
-  title: "Gerador de Orçamento Online Grátis em PDF | ReciboNaHora",
-  description:
-    "Crie orçamentos profissionais em PDF gratuitamente. Detalhe seus serviços e preços, envie para seus clientes e feche mais negócios. Simples e rápido.",
+  title,
+  description,
   alternates: {
-    canonical: "https://recibonahora.com.br/orcamentos",
+    canonical: "https://www.recibonahora.com.br/orcamentos",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/orcamentos' }),
 };
 
 // 2. FAQ content array
@@ -43,7 +51,7 @@ const faqItems = [
   },
   {
     question: "É seguro usar um gerador de orçamentos online?",
-    answer: "Sim. Os dados que você preenche no formulário não são enviados nem armazenados em nossos servidores; o documento é gerado localmente no seu navegador. Usamos serviços de terceiros para análise de tráfego e anúncios, conforme nossa <a href='/politica-de-privacidade' class='text-indigo-600 font-semibold hover:underline'>Política de Privacidade</a>."
+    answer: "Sim. Os dados que você preenche no formulário não são enviados nem armazenados em nossos servidores; o documento é gerado localmente no seu navegador. Usamos serviços de terceiros para análise de tráfego e anúncios, conforme nossa <a href='/politica-privacidade' class='text-indigo-600 font-semibold hover:underline'>Política de Privacidade</a>."
   }
 ];
 
@@ -73,7 +81,11 @@ export default function OrcamentosPage() {
       {/* Main content */}
       <main className="bg-slate-50 text-slate-800">
         <div className="container mx-auto max-w-5xl px-4 py-12 md:py-20">
-          
+          <Breadcrumb
+            className="mb-6"
+            items={[{ label: "Início", href: "/" }, { label: "Orçamentos" }]}
+          />
+
           {/* Header */}
           <header className="text-center max-w-4xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
@@ -198,6 +210,8 @@ export default function OrcamentosPage() {
               </div>
           </section>
 
+          <RelatedDocuments />
+          <EditorialTrustBox />
         </div>
       </main>
     </>

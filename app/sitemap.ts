@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 import { ALL_SLUGS } from './modelo/[tipo]/data'
-import { CITY_SLUGS, SEO_CITIES } from './_data/seoCities'
 import { ALL_BLOG_SLUGS } from './_data/blogPosts'
 import { ALL_PROFISSAO_SLUGS } from './_data/profissoes'
 import { ALL_GUIA_SLUGS } from './_data/guias'
@@ -8,7 +7,7 @@ import { ALL_PERGUNTA_SLUGS } from './_data/perguntas'
 import { ALL_COMPARACAO_SLUGS } from './_data/comparacoes'
 import { FORMATOS } from './_data/modeloFormats'
 
-const BASE = 'https://recibonahora.com.br'
+const BASE = 'https://www.recibonahora.com.br'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -31,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/como-ganhamos-dinheiro`,  lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/politica-privacidade`,    lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/termos-uso`,              lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/politica-editorial`,      lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/mapa-de-perguntas`,       lastModified: now, changeFrequency: 'weekly',  priority: 0.6 },
   ]
 
@@ -78,15 +78,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]
 
-  // Geo modelo pages (15 tipos × 60 cidades = 900 páginas)
-  const modeloGeoPages: MetadataRoute.Sitemap = ALL_SLUGS.flatMap((tipo) =>
-    CITY_SLUGS.map((cidade) => ({
-      url: `${BASE}/modelo/${tipo}/${cidade}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    })),
-  )
+  // Geo modelo pages (modelo/[tipo]/[cidade]) removidas do sitemap: noindex temporário
+  // aplicado (ver app/modelo/[tipo]/[cidade]/page.tsx) por serem quase-duplicatas sem
+  // link interno. Reintroduzir aqui somente após enriquecimento real de conteúdo.
+  const modeloGeoPages: MetadataRoute.Sitemap = []
 
   // Static blog posts (directories)
   const blogStaticPages: MetadataRoute.Sitemap = [
@@ -121,16 +116,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]
 
-  // Profissoes geo pages (30 profissoes × 27 capitais = 810)
-  const capitals = SEO_CITIES.slice(0, 27)
-  const profissoesGeoPages: MetadataRoute.Sitemap = ALL_PROFISSAO_SLUGS.flatMap((profissao) =>
-    capitals.map((city) => ({
-      url: `${BASE}/profissoes/${profissao}/${city.slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    })),
-  )
+  // Profissoes geo pages (profissoes/[profissao]/[cidade]) removidas do sitemap:
+  // noindex temporário aplicado (ver app/profissoes/[profissao]/[cidade]/page.tsx)
+  // por serem quase-duplicatas sem link interno de navegação. Reintroduzir aqui
+  // somente após enriquecimento real de conteúdo por cidade.
 
   // Guias pages (8)
   const guiasPages: MetadataRoute.Sitemap = [
@@ -186,7 +175,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogStaticPages,
     ...blogDynamicPages,
     ...profissoesBasePages,
-    ...profissoesGeoPages,
     ...guiasPages,
     ...perguntasPages,
     ...comparacoesPages,

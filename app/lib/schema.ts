@@ -1,4 +1,4 @@
-const BASE = 'https://recibonahora.com.br'
+const BASE = 'https://www.recibonahora.com.br'
 
 export interface HowToStep {
   name: string

@@ -357,7 +357,7 @@ export default function ApoioCorretorClient() {
                 <span className="text-slate-400 group-open:rotate-180 transition-transform">&#9660;</span>
               </summary>
               <p className="mt-3 text-sm text-slate-600">
-                Sim. Corretores registrados como pessoa física podem emitir <strong>RPA (Recibo de Pagamento de Autônomo)</strong>. O tomador retém ISS, INSS e IR na fonte. <Link href="/ferramentas/rpa" className="text-blue-700 hover:underline">Gere seu RPA gratuitamente →</Link>
+                Sim. Corretores registrados como pessoa física podem emitir <strong>RPA (Recibo de Pagamento de Autônomo)</strong>. O tomador retém ISS, INSS e IR na fonte. <Link href="/ferramentas/recibo-rpa" className="text-blue-700 hover:underline">Gere seu RPA gratuitamente →</Link>
               </p>
             </details>
           </div>

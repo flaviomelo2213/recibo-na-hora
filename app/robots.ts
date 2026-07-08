@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/'],
       },
     ],
-    sitemap: 'https://recibonahora.com.br/sitemap.xml',
+    sitemap: 'https://www.recibonahora.com.br/sitemap.xml',
   }
 }

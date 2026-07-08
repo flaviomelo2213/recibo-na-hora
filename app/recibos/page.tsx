@@ -1,19 +1,22 @@
 
 import Link from "next/link";
 import type { Metadata } from "next";
+import Breadcrumb from "../components/Breadcrumb";
+import EditorialTrustBox from "../components/EditorialTrustBox";
+import RelatedDocuments from "../components/RelatedDocuments";
 
 export const metadata: Metadata = {
   title: "Gerador de Recibo Online Grátis | PDF com Validade Jurídica — ReciboNaHora",
   description:
     "Crie recibos de pagamento online em PDF com validade jurídica: recibo simples, PIX, aluguel e RPA. Gratuito, sem cadastro, gerado no navegador.",
   alternates: {
-    canonical: "https://recibonahora.com.br/recibos",
+    canonical: "https://www.recibonahora.com.br/recibos",
   },
   openGraph: {
     title: "Gerador de Recibo Online Grátis | PDF com Validade Jurídica — ReciboNaHora",
     description:
       "Gere recibos profissionais em PDF (recibo simples, recibo PIX e modelos). Rápido, gratuito e com foco em validade e clareza.",
-    url: "https://recibonahora.com.br/recibos",
+    url: "https://www.recibonahora.com.br/recibos",
     siteName: "ReciboNaHora",
     type: "website",
   },
@@ -101,6 +104,11 @@ export default function RecibosPillarPage() {
       />
 
       <div className="container mx-auto max-w-5xl px-4 py-12 md:py-20">
+        <Breadcrumb
+          className="mb-6"
+          items={[{ label: "Início", href: "/" }, { label: "Recibos" }]}
+        />
+
         {/* Cabeçalho e Introdução */}
         <header className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
@@ -431,6 +439,9 @@ export default function RecibosPillarPage() {
             </Link>
           </div>
         </section>
+
+        <RelatedDocuments />
+        <EditorialTrustBox />
       </div>
     </main>
   );

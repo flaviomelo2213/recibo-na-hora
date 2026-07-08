@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Shield, Lock, AlertCircle, CheckCircle } from "lucide-react";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Política de Privacidade | ReciboNaHora - LGPD";
+const description =
+  "Política de Privacidade completa em conformidade com a LGPD. O ReciboNaHora NÃO retém, não armazena e não compartilha dados pessoais preenchidos nos formulários.";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade | ReciboNaHora - LGPD",
-  description:
-    "Política de Privacidade completa em conformidade com a LGPD. O ReciboNaHora NÃO retém, não armazena e não compartilha dados pessoais preenchidos nos formulários.",
+  title,
+  description,
   alternates: {
     canonical: "/politica-privacidade",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/politica-privacidade' }),
 };
 
 const LAST_UPDATED = '06/02/2026';

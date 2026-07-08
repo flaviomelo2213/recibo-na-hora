@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     'recibo pagamento',
     'recibo simples',
   ],
-  alternates: { canonical: 'https://recibonahora.com.br/blog/como-fazer-recibo' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/blog/como-fazer-recibo' },
   openGraph: {
     title: 'Como Fazer um Recibo: Guia Completo | ReciboNaHora',
     description: 'Guia completo: campos obrigatórios, modelos prontos e como gerar recibo em PDF grátis.',
-    url: 'https://recibonahora.com.br/blog/como-fazer-recibo',
+    url: 'https://www.recibonahora.com.br/blog/como-fazer-recibo',
   },
 };
 
@@ -67,9 +67,9 @@ const articleJsonLd = {
   description: 'Guia completo sobre como fazer um recibo corretamente, com campos obrigatórios e modelos prontos.',
   datePublished: '2026-02-20',
   dateModified: '2026-03-06',
-  author: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://recibonahora.com.br' },
-  publisher: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://recibonahora.com.br' },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://recibonahora.com.br/blog/como-fazer-recibo' },
+  author: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://www.recibonahora.com.br' },
+  publisher: { '@type': 'Organization', name: 'ReciboNaHora', url: 'https://www.recibonahora.com.br' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://www.recibonahora.com.br/blog/como-fazer-recibo' },
 };
 
 export default function ComoFazerReciboPage() {

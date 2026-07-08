@@ -3,13 +3,18 @@ import type { Metadata } from 'next';
 import ContratoLocacaoGenerator from './_components/ContratoLocacaoGenerator';
 import SeoContentBlock from '@/components/SeoContentBlock';
 import LegalDisclaimer from '@/components/LegalDisclaimer';
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = 'Contrato de Aluguel Grátis | Modelo Residencial em PDF';
+const description = 'Gere contrato de aluguel residencial online grátis. Modelo completo com todas as cláusulas legais. Preencha dados do locador, locatário e imóvel. Download em PDF.';
 
 export const metadata: Metadata = {
-  title: 'Contrato de Aluguel Grátis | Modelo Residencial em PDF',
-  description: 'Gere contrato de aluguel residencial online grátis. Modelo completo com todas as cláusulas legais. Preencha dados do locador, locatário e imóvel. Download em PDF.',
+  title,
+  description,
   alternates: {
     canonical: '/contrato-locacao'
-  }
+  },
+  openGraph: buildOpenGraph({ title, description, path: '/contrato-locacao' }),
 };
 
 export default function ContratoAluguelPage() {

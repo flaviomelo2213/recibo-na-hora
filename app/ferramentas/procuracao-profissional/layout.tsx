@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Procuração Profissional Completa | ReciboNaHora',
     description: 'Gere uma procuração profissional completa em PDF. Grátis e sem cadastro.',
-    url: 'https://recibonahora.com.br/ferramentas/procuracao-profissional',
+    url: 'https://www.recibonahora.com.br/ferramentas/procuracao-profissional',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

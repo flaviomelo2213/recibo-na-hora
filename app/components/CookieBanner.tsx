@@ -40,7 +40,7 @@ export default function CookieBanner() {
         <p className="text-sm text-slate-700">
           Usamos cookies para melhorar sua experiência, medir desempenho e exibir anúncios.
           Ao continuar, você concorda com nossa{" "}
-          <a href="/politica-de-privacidade" className="font-semibold underline">
+          <a href="/politica-privacidade" className="font-semibold underline">
             Política de Privacidade
           </a>
           .

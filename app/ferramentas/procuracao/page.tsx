@@ -11,13 +11,13 @@ export const metadata: Metadata = {
     "Crie uma procuração particular (ad negotia) em PDF para representar alguém em atos da vida civil. Gratuito, sem cadastro, com orientações jurídicas.",
   keywords: ["procuração simples", "gerar procuração", "procuração online", "procuração pdf", "modelo procuração"],
   alternates: {
-    canonical: "https://recibonahora.com.br/ferramentas/procuracao",
+    canonical: "https://www.recibonahora.com.br/ferramentas/procuracao",
   },
   openGraph: {
     title: "Gerador de Procuração Simples Online Grátis | ReciboNaHora",
     description:
       "Crie uma procuração particular (ad negotia) em PDF para representar alguém em atos da vida civil. Gratuito, sem cadastro.",
-    url: "https://recibonahora.com.br/ferramentas/procuracao",
+    url: "https://www.recibonahora.com.br/ferramentas/procuracao",
   },
 };
 
@@ -135,7 +135,7 @@ export default function ProcuracaoPage() {
                   </a>
                 </li>
                 <li>
-                  <a href="/ferramentas/contrato-locacao" className="text-blue-700 hover:text-blue-900 hover:underline flex justify-between">
+                  <a href="/contrato-locacao" className="text-blue-700 hover:text-blue-900 hover:underline flex justify-between">
                     <span>Contrato de Aluguel</span>
                     <i className="fa-solid fa-chevron-right text-xs mt-1"></i>
                   </a>

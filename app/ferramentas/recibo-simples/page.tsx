@@ -9,6 +9,11 @@ import {
   ToolShellMain,
   ToolShellHeader,
 } from '../../../app/components/layout/ToolShell';
+import { buildOpenGraph } from '../../../app/lib/metadata';
+import AdSlot from '../../../app/components/ads/AdSlot';
+import Breadcrumb from '../../../app/components/Breadcrumb';
+import EditorialTrustBox from '../../../app/components/EditorialTrustBox';
+import RelatedDocuments from '../../../app/components/RelatedDocuments';
 
 const faqItems = [
   {
@@ -41,11 +46,15 @@ const jsonLdFAQ = {
     })),
   };
 
+const title = "Gerador de Recibo de Pagamento Simples Online | ReciboNaHora";
+const description =
+  "Crie, preencha e baixe um recibo de pagamento simples e válido em segundos. Ferramenta gratuita, segura e que funciona no seu navegador. Exporte em PDF.";
+
 export const metadata: Metadata = {
-  title: "Gerador de Recibo de Pagamento Simples Online | ReciboNaHora",
-  description:
-    "Crie, preencha e baixe um recibo de pagamento simples e válido em segundos. Ferramenta gratuita, segura e que funciona no seu navegador. Exporte em PDF.",
-  alternates: { canonical: "https://recibonahora.com.br/ferramentas/recibo-simples" },
+  title,
+  description,
+  alternates: { canonical: "https://www.recibonahora.com.br/ferramentas/recibo-simples" },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/recibo-simples' }),
 };
 
 export default function ReciboSimplesPage() {
@@ -54,6 +63,14 @@ export default function ReciboSimplesPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ) }}
+      />
+      <Breadcrumb
+        className="mb-4"
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Ferramentas", href: "/ferramentas" },
+          { label: "Recibo Simples" },
+        ]}
       />
       <ToolShellHeader
         title="Gerador de Recibo de Pagamento"
@@ -134,7 +151,41 @@ export default function ReciboSimplesPage() {
               ou enviado digitalmente.
             </li>
           </ol>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Quando Usar
+          </h2>
+          <p>
+            Use o recibo simples sempre que precisar comprovar um pagamento entre
+            pessoas físicas ou em transações sem emissão de nota fiscal: serviços
+            de autônomos, vendas informais, acertos entre particulares, pagamentos
+            de pequenos trabalhos e afins.
+          </p>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Quando Não Usar
+          </h2>
+          <p>
+            Ele não substitui a Nota Fiscal em operações comerciais entre empresas
+            (CNPJ) que exigem recolhimento de impostos, nem tem força de contrato
+            para obrigações mais complexas — nesses casos, considere também um{' '}
+            <a href="/contratos" className="text-indigo-700 hover:underline">contrato</a>.
+          </p>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Erros Comuns
+          </h2>
+          <ul>
+            <li>Deixar de descrever com clareza o motivo do pagamento;</li>
+            <li>Não conferir se o valor numérico bate com o valor por extenso;</li>
+            <li>Esquecer de coletar a assinatura de quem recebeu o pagamento;</li>
+            <li>Usar o recibo no lugar de nota fiscal quando ela é obrigatória.</li>
+          </ul>
         </section>
+
+        <div className="max-w-3xl mx-auto">
+          <AdSlot slot="0000000003" />
+        </div>
 
         <section className="mt-16 mb-12 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-800 mb-6">
@@ -145,6 +196,11 @@ export default function ReciboSimplesPage() {
 
         <div className="mt-16 text-center">
           <LegalDisclaimer />
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+          <RelatedDocuments />
+          <EditorialTrustBox />
         </div>
       </ToolShellMain>
     </ToolShell>

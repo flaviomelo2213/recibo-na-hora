@@ -7,13 +7,13 @@ export const metadata: Metadata = {
     "Gere o relatório mensal de receitas brutas do MEI em PDF, obrigatório pela Receita Federal. Preencha comércio e serviços mês a mês e baixe para guardar. Gratuito.",
   keywords: ["relatório mensal mei", "dasn-simei", "receitas brutas mei", "controle faturamento mei", "relatorio mei pdf"],
   alternates: {
-    canonical: "https://recibonahora.com.br/ferramentas/mei-relatorio",
+    canonical: "https://www.recibonahora.com.br/ferramentas/mei-relatorio",
   },
   openGraph: {
     title: "Relatório Mensal de Receitas MEI Grátis | DASN-SIMEI | ReciboNaHora",
     description:
       "Gere o relatório mensal de receitas brutas do MEI em PDF, obrigatório pela Receita Federal.",
-    url: "https://recibonahora.com.br/ferramentas/mei-relatorio",
+    url: "https://www.recibonahora.com.br/ferramentas/mei-relatorio",
   },
 };
 

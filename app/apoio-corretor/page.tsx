@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { buildOpenGraph } from '@/lib/metadata';
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -40,13 +41,17 @@ const faqJsonLd = {
 };
 import ApoioCorretorClient from './_components/ApoioCorretorClient';
 
+const title = 'Apoio ao Corretor de Imóveis | Ferramentas e Guias Gratuitos — ReciboNaHora';
+const description =
+  'Hub gratuito para corretores de imóveis: contratos, recibos, simulador de consórcio, documentação necessária e critérios de aprovação de crédito.';
+
 export const metadata: Metadata = {
-  title: 'Apoio ao Corretor de Imóveis | Ferramentas e Guias Gratuitos — ReciboNaHora',
-  description:
-    'Hub gratuito para corretores de imóveis: contratos, recibos, simulador de consórcio, documentação necessária e critérios de aprovação de crédito.',
+  title,
+  description,
   alternates: {
-    canonical: 'https://recibonahora.com.br/apoio-corretor',
+    canonical: 'https://www.recibonahora.com.br/apoio-corretor',
   },
+  openGraph: buildOpenGraph({ title, description, path: '/apoio-corretor' }),
 };
 
 export default function ApoioCorretorPage() {

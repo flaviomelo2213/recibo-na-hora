@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 import ProcuracaoInssGenerator from "./_components/ProcuracaoInssGenerator";
 import SeoContentBlock from "@/components/SeoContentBlock";
 import LegalDisclaimer from "@/components/LegalDisclaimer";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Procuração INSS Grátis | Modelo para Aposentadoria e Benefícios";
+const description = "Procuração para INSS online grátis. Modelo específico para solicitar aposentadoria, auxílio-doença, perícia médica e outros benefícios previdenciários. Download em PDF.";
 
 export const metadata: Metadata = {
-  title: "Procuração INSS Grátis | Modelo para Aposentadoria e Benefícios",
-  description: "Procuração para INSS online grátis. Modelo específico para solicitar aposentadoria, auxílio-doença, perícia médica e outros benefícios previdenciários. Download em PDF.",
+  title,
+  description,
+  alternates: { canonical: '/ferramentas/procuracao-inss' },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/procuracao-inss' }),
 };
 
 export default function ProcuracaoInssPage() {

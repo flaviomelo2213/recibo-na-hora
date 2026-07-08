@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ContratosClient from './_components/ContratosClient';
+import { buildOpenGraph } from '@/lib/metadata';
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -72,13 +73,17 @@ const faqJsonLd = {
   ]
 };
 
+const title = 'Modelos de Contratos Editáveis Grátis | PDF com Validade Jurídica — ReciboNaHora';
+const description =
+  'Gere contratos de aluguel, prestão de serviços, procuração e compra e venda online. Modelos editáveis e gratuitos com validade jurídica. Para MEI, autônomos e pequenos negócios.';
+
 export const metadata: Metadata = {
-  title: 'Modelos de Contratos Editáveis Grátis | PDF com Validade Jurídica — ReciboNaHora',
-  description:
-    'Gere contratos de aluguel, prestão de serviços, procuração e compra e venda online. Modelos editáveis e gratuitos com validade jurídica. Para MEI, autônomos e pequenos negócios.',
+  title,
+  description,
   alternates: {
-    canonical: 'https://recibonahora.com.br/contratos',
+    canonical: 'https://www.recibonahora.com.br/contratos',
   },
+  openGraph: buildOpenGraph({ title, description, path: '/contratos' }),
 };
 
 export default function ContratosPage() {

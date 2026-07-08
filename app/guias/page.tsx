@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: 'Guias e Dúvidas Legais sobre Recibos | ReciboNaHora',
   description: 'Respostas claras para as principais dúvidas legais sobre recibos, contratos e documentos fiscais no Brasil. Guias completos, grátis.',
   keywords: ['guia recibo', 'duvidas legais recibo', 'recibo tem valor legal', 'diferenca recibo nota fiscal'],
-  alternates: { canonical: 'https://recibonahora.com.br/guias' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/guias' },
   openGraph: {
     title: 'Guias e Dúvidas Legais sobre Recibos | ReciboNaHora',
     description: 'Respostas claras para dúvidas legais sobre recibos. Grátis.',
-    url: 'https://recibonahora.com.br/guias',
+    url: 'https://www.recibonahora.com.br/guias',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

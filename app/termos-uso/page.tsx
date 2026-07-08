@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText, AlertTriangle, Shield } from "lucide-react";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Termos de Uso | ReciboNaHora";
+const description =
+  "Termos de Uso do ReciboNaHora. Uso educativo de simuladores, isenção de responsabilidade sobre aprovação de crédito, propriedade intelectual e regras de utilização.";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso | ReciboNaHora",
-  description:
-    "Termos de Uso do ReciboNaHora. Uso educativo de simuladores, isenção de responsabilidade sobre aprovação de crédito, propriedade intelectual e regras de utilização.",
+  title,
+  description,
   alternates: {
     canonical: "/termos-uso",
   },
+  openGraph: buildOpenGraph({ title, description, path: '/termos-uso' }),
 };
 
 const LAST_UPDATED = '06/02/2026';

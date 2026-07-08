@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: 'Modelos de Recibo por Profissão | ReciboNaHora',
   description: 'Encontre o modelo de recibo certo para a sua profissão. Pedreiro, diarista, autônomo, freelancer, médico, advogado e mais. Grátis, sem cadastro.',
   keywords: ['recibo por profissao', 'modelo recibo autonomo', 'recibo para diarista', 'recibo para pedreiro', 'recibo prestacao servico'],
-  alternates: { canonical: 'https://recibonahora.com.br/profissoes' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/profissoes' },
   openGraph: {
     title: 'Modelos de Recibo por Profissão | ReciboNaHora',
     description: 'Modelo de recibo para cada profissão. Grátis e sem cadastro.',
-    url: 'https://recibonahora.com.br/profissoes',
+    url: 'https://www.recibonahora.com.br/profissoes',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

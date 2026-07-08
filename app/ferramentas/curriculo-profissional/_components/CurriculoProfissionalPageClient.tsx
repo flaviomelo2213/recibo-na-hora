@@ -9,6 +9,7 @@ import type { CurriculumData } from './types';
 import { ToolTwoColumn } from '@/components/ToolTwoColumn';
 import PreviewPaper from '@/components/PreviewPaper';
 import FaqAccordion from '@/components/FaqAccordion';
+import AdSlot from '@/components/ads/AdSlot';
 import {
   ToolShell,
   ToolShellHeader,
@@ -149,6 +150,10 @@ export default function CurriculoProfissionalPageClient() {
             </p>
           </div>
         </article>
+
+        <div className="max-w-3xl mx-auto">
+          <AdSlot slot="0000000004" />
+        </div>
 
         <section className="max-w-3xl mx-auto mt-16">
           <h2 className="text-3xl font-bold text-center text-slate-900 mb-8">

@@ -5,7 +5,7 @@ import { PROFISSOES, ALL_PROFISSAO_SLUGS } from '@/_data/profissoes'
 import { SEO_CITIES, getCityBySlug } from '@/_data/seoCities'
 import { buildHowTo, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
 
-const BASE = 'https://recibonahora.com.br'
+const BASE = 'https://www.recibonahora.com.br'
 
 interface Props {
   params: { profissao: string; cidade: string }
@@ -42,6 +42,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${p.slug} autonomo ${city.name.toLowerCase()}`,
     ],
     alternates: { canonical: url },
+    // noindex temporário: variante de cidade tem altíssima similaridade textual com
+    // as demais cidades da mesma profissão e nenhum link interno de navegação aponta
+    // para ela (mesmo padrão de app/modelo/[tipo]/[cidade]/page.tsx). Reavaliar após
+    // enriquecimento real de conteúdo por cidade.
+    robots: { index: false, follow: true },
     openGraph: {
       title,
       description,

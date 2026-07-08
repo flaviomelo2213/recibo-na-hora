@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description:
     'Artigos práticos sobre recibos, contratos, MEI e educação financeira. Saiba como fazer documentos, entender validade jurídica e organizar seu negócio.',
   alternates: {
-    canonical: 'https://recibonahora.com.br/blog',
+    canonical: 'https://www.recibonahora.com.br/blog',
   },
   openGraph: {
     title: 'Blog | ReciboNaHora',
     description: 'Artigos sobre recibos, contratos, MEI e finanças para autônomos e pequenos negócios.',
-    url: 'https://recibonahora.com.br/blog',
+    url: 'https://www.recibonahora.com.br/blog',
   },
 };
 
@@ -62,12 +62,12 @@ const blogJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   name: 'Blog ReciboNaHora',
-  url: 'https://recibonahora.com.br/blog',
+  url: 'https://www.recibonahora.com.br/blog',
   description: 'Artigos sobre recibos, contratos, MEI e educação financeira para autônomos e pequenos negócios.',
   publisher: {
     '@type': 'Organization',
     name: 'ReciboNaHora',
-    url: 'https://recibonahora.com.br',
+    url: 'https://www.recibonahora.com.br',
   },
 };
 

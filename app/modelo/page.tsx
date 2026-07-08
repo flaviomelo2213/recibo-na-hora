@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: 'Modelos de Documentos Gratuitos | ReciboNaHora',
   description: 'Baixe modelos prontos de recibos, contratos, procurações e outros documentos. Grátis, em PDF, sem cadastro. Válidos juridicamente no Brasil.',
   keywords: ['modelos documentos', 'modelo recibo gratis', 'modelo contrato gratis', 'modelo procuracao gratis'],
-  alternates: { canonical: 'https://recibonahora.com.br/modelo' },
+  alternates: { canonical: 'https://www.recibonahora.com.br/modelo' },
   openGraph: {
     title: 'Modelos de Documentos Gratuitos | ReciboNaHora',
     description: 'Modelos prontos de recibos, contratos e documentos em PDF. Grátis.',
-    url: 'https://recibonahora.com.br/modelo',
+    url: 'https://www.recibonahora.com.br/modelo',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'ReciboNaHora',

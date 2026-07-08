@@ -8,6 +8,11 @@ import {
   ToolShellMain,
   ToolShellHeader,
 } from '../../../app/components/layout/ToolShell';
+import { buildOpenGraph } from '../../../app/lib/metadata';
+import AdSlot from '../../../app/components/ads/AdSlot';
+import Breadcrumb from '../../../app/components/Breadcrumb';
+import EditorialTrustBox from '../../../app/components/EditorialTrustBox';
+import RelatedDocuments from '../../../app/components/RelatedDocuments';
 
 const faqItems = [
   {
@@ -32,11 +37,15 @@ const faqItems = [
   },
 ];
 
+const title = 'Gerador de Recibo de Aluguel para Imprimir | ReciboNaHora';
+const description =
+  'Crie um recibo de aluguel completo e válido em PDF. Preencha os dados do locador, locatário e imóvel. Ferramenta gratuita para proprietários e imobiliárias.';
+
 export const metadata: Metadata = {
-  title: 'Gerador de Recibo de Aluguel para Imprimir | ReciboNaHora',
-  description:
-    'Crie um recibo de aluguel completo e válido em PDF. Preencha os dados do locador, locatário e imóvel. Ferramenta gratuita para proprietários e imobiliárias.',
-  alternates: { canonical: 'https://recibonahora.com.br/ferramentas/imobiliario' },
+  title,
+  description,
+  alternates: { canonical: 'https://www.recibonahora.com.br/ferramentas/imobiliario' },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/imobiliario' }),
 };
 
 const softwareAppJsonLd = {
@@ -50,7 +59,7 @@ const softwareAppJsonLd = {
     price: '0',
     priceCurrency: 'BRL',
   },
-  url: 'https://recibonahora.com.br/ferramentas/imobiliario',
+  url: 'https://www.recibonahora.com.br/ferramentas/imobiliario',
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.9',
@@ -66,6 +75,14 @@ export default function ReciboAluguelPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
       />
       <ToolShell>
+      <Breadcrumb
+        className="mb-4"
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Ferramentas", href: "/ferramentas" },
+          { label: "Recibo de Aluguel" },
+        ]}
+      />
       <ToolShellHeader
         title="Gerador de Recibo de Aluguel"
         description="Crie, preencha e baixe um recibo de aluguel válido em segundos. Ideal para proprietários, inquilinos e imobiliárias."
@@ -162,7 +179,40 @@ export default function ReciboAluguelPage() {
               documento pronto para ser assinado, impresso ou enviado.
             </li>
           </ol>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Quando Usar
+          </h2>
+          <p>
+            Emita um recibo a cada mensalidade de aluguel paga — residencial ou
+            comercial — para formalizar o pagamento entre locador e locatário,
+            mesmo quando já existe um contrato de locação em vigor.
+          </p>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Quando Não Usar
+          </h2>
+          <p>
+            O recibo de aluguel comprova o pagamento mensal, mas não substitui o{' '}
+            <a href="/contrato-locacao" className="text-indigo-700 hover:underline">contrato de locação</a>,
+            que estabelece prazo, reajuste, garantias e demais condições do
+            aluguel. Use os dois documentos em conjunto.
+          </p>
+
+          <h2 className="text-3xl font-bold text-slate-800 mt-12 mb-6">
+            Erros Comuns
+          </h2>
+          <ul>
+            <li>Não indicar o mês de referência do pagamento, gerando confusão sobre qual mensalidade foi quitada;</li>
+            <li>Deixar de colher a assinatura do locador, que confirma o recebimento;</li>
+            <li>Divergência entre o valor em números e por extenso;</li>
+            <li>Perder o histórico de recibos ao longo do contrato, dificultando comprovações futuras.</li>
+          </ul>
         </section>
+
+        <div className="max-w-3xl mx-auto">
+          <AdSlot slot="0000000002" />
+        </div>
 
         <section className="mt-16 mb-12 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-800 mb-6">
@@ -173,6 +223,11 @@ export default function ReciboAluguelPage() {
 
         <div className="mt-16 text-center">
           <LegalDisclaimer />
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+          <RelatedDocuments />
+          <EditorialTrustBox />
         </div>
       </ToolShellMain>
     </ToolShell>

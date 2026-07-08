@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 import ProcuracaoBancariaGenerator from "./_components/ProcuracaoBancariaGenerator";
 import SeoContentBlock from "@/components/SeoContentBlock";
 import LegalDisclaimer from "@/components/LegalDisclaimer";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Procuração Bancária Grátis | Modelo para Movimentação de Conta";
+const description = "Procuração bancária online grátis. Autorize movimentação de conta corrente, saques, depósitos e transações financeiras. Modelo com firma reconhecida em PDF.";
 
 export const metadata: Metadata = {
-  title: "Procuração Bancária Grátis | Modelo para Movimentação de Conta",
-  description: "Procuração bancária online grátis. Autorize movimentação de conta corrente, saques, depósitos e transações financeiras. Modelo com firma reconhecida em PDF.",
+  title,
+  description,
+  alternates: { canonical: '/ferramentas/procuracao-bancaria' },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/procuracao-bancaria' }),
 };
 
 export default function ProcuracaoBancariaPage() {

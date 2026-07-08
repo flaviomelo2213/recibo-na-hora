@@ -3,6 +3,10 @@ import React from 'react';
 import FerramentaReciboPix from "./_components/FerramentaReciboPix";
 import LegalDisclaimer from "../../components/LegalDisclaimer";
 import FaqAccordion from "../../components/FaqAccordion";
+import AdSlot from "../../components/ads/AdSlot";
+import Breadcrumb from "../../components/Breadcrumb";
+import EditorialTrustBox from "../../components/EditorialTrustBox";
+import RelatedDocuments from "../../components/RelatedDocuments";
 
 export const metadata: Metadata = {
   title: "Gerador de Recibo PIX Online Grátis | ReciboNaHora",
@@ -10,13 +14,13 @@ export const metadata: Metadata = {
     "Crie um recibo de pagamento PIX completo em PDF com QR Code de validação. Gratuito, sem cadastro, gerado localmente no navegador. Comprove transferências PIX com profissionalismo.",
   keywords: ["recibo pix", "recibo pagamento pix", "comprovante pix", "recibo pix pdf", "gerador recibo pix"],
   alternates: {
-    canonical: "https://recibonahora.com.br/ferramentas/recibo-pix",
+    canonical: "https://www.recibonahora.com.br/ferramentas/recibo-pix",
   },
   openGraph: {
     title: "Gerador de Recibo PIX Online Grátis | ReciboNaHora",
     description:
       "Crie um recibo de pagamento PIX completo em PDF com QR Code de validação. Gratuito, sem cadastro.",
-    url: "https://recibonahora.com.br/ferramentas/recibo-pix",
+    url: "https://www.recibonahora.com.br/ferramentas/recibo-pix",
   },
 };
 
@@ -44,6 +48,15 @@ export default function ReciboPixPage() {
     <main className="bg-slate-50 py-12">
       <div className="container mx-auto px-4 max-w-7xl">
 
+      <Breadcrumb
+        className="mb-6"
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Ferramentas", href: "/ferramentas" },
+          { label: "Recibo PIX" },
+        ]}
+      />
+
       <div className="text-center mb-12">
         <span className="bg-blue-100 text-blue-800 text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
           Ferramenta Popular
@@ -61,6 +74,55 @@ export default function ReciboPixPage() {
         <FerramentaReciboPix />
       </div>
 
+      <div className="max-w-3xl mx-auto mb-16 space-y-8 text-slate-700">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">O que é o Recibo PIX?</h2>
+          <p className="leading-relaxed">
+            É um documento que complementa o comprovante bancário de uma transferência PIX,
+            descrevendo o motivo do pagamento (o que foi pago, entre quem e por quê). O
+            comprovante do banco confirma que o dinheiro mudou de mãos; o recibo explica o
+            porquê — algo que muitas vezes é necessário para organização financeira, cobrança
+            de serviços ou prestação de contas.
+          </p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Quando Usar</h2>
+          <ul className="list-disc pl-6 space-y-1.5">
+            <li>Pagamento de serviços prestados por autônomos (diaristas, freelancers, prestadores);</li>
+            <li>Aluguel ou parcelas pagas via PIX entre pessoas físicas;</li>
+            <li>Vendas informais (itens usados, produtos artesanais);</li>
+            <li>Qualquer situação em que você queira registrar por escrito o motivo de uma transferência PIX.</li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Quando Não Usar</h2>
+          <p className="leading-relaxed">
+            O recibo PIX não substitui uma Nota Fiscal em operações comerciais entre empresas
+            (CNPJ) que exigem recolhimento de impostos, nem é um comprovante bancário oficial —
+            esse só o seu banco emite. Para operações de maior valor ou complexidade jurídica,
+            considere também um contrato formal.
+          </p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Como Preencher</h2>
+          <ol className="list-decimal pl-6 space-y-1.5">
+            <li>Informe nome e chave PIX (ou CPF/CNPJ) de quem pagou e de quem recebeu;</li>
+            <li>Descreva o motivo do pagamento de forma específica (ex.: "referente à manutenção elétrica de 10/03");</li>
+            <li>Confira o valor em números e por extenso antes de gerar o PDF;</li>
+            <li>Baixe, e se possível, peça a confirmação/assinatura de quem recebeu.</li>
+          </ol>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Erros Comuns</h2>
+          <ul className="list-disc pl-6 space-y-1.5">
+            <li>Descrever o motivo do pagamento de forma vaga demais (ex.: "serviço"), dificultando a comprovação depois;</li>
+            <li>Não conferir se o valor em números bate com o valor por extenso;</li>
+            <li>Achar que o QR Code do recibo é um QR Code de pagamento — ele serve só para conferência dos dados;</li>
+            <li>Tratar o recibo como substituto de Nota Fiscal em operações que exigem emissão fiscal.</li>
+          </ul>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-slate-200 pt-12">
 
         <div className="lg:col-span-2">
@@ -68,6 +130,8 @@ export default function ReciboPixPage() {
           <div className="mt-8 p-4 bg-white rounded-lg shadow-md border border-slate-200/80">
              <LegalDisclaimer />
           </div>
+          <RelatedDocuments />
+          <EditorialTrustBox />
         </div>
 
         <aside className="space-y-8 lg:sticky lg:top-8 self-start">
@@ -101,9 +165,7 @@ export default function ReciboPixPage() {
             </ul>
           </div>
 
-          <div className="bg-white h-96 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-200 text-slate-400 text-sm shadow-inner-sm">
-            Anúncio Google Ads (Vertical)
-          </div>
+          <AdSlot slot="0000000005" className="bg-white rounded-xl border border-slate-200 shadow-inner-sm p-4" />
         </aside>
 
       </div>

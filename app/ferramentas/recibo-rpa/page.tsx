@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 import ReciboRpaGenerator from "./_components/ReciboRpaGenerator";
 import SeoContentBlock from "@/components/SeoContentBlock";
 import LegalDisclaimer from "@/components/LegalDisclaimer";
+import { buildOpenGraph } from '@/lib/metadata';
+
+const title = "Recibo RPA Grátis | Recibo de Pagamento a Autônomo em PDF";
+const description = "Gere Recibo RPA (Recibo de Pagamento a Autônomo) online grátis. Modelo oficial brasileiro com cálculo automático de INSS, IRRF e ISS. Download em PDF.";
 
 export const metadata: Metadata = {
-  title: "Recibo RPA Grátis | Recibo de Pagamento a Autônomo em PDF",
-  description: "Gere Recibo RPA (Recibo de Pagamento a Autônomo) online grátis. Modelo oficial brasileiro com cálculo automático de INSS, IRRF e ISS. Download em PDF.",
+  title,
+  description,
+  alternates: { canonical: '/ferramentas/recibo-rpa' },
+  openGraph: buildOpenGraph({ title, description, path: '/ferramentas/recibo-rpa' }),
 };
 
 export default function ReciboRpaPage() {
