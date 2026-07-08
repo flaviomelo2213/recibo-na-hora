@@ -39,6 +39,14 @@ const requerimentosDisponiveis = [
     category: 'Imóveis/Cartório',
     popular: false,
   },
+  {
+    href: '/ferramentas/prefeitura',
+    title: 'Central do Cidadão (Prefeitura)',
+    description: 'Requerimento geral, recurso de multa de trânsito e zeladoria urbana em PDF.',
+    icon: <Building className="w-8 h-8 text-red-600" />,
+    category: 'Prefeitura',
+    popular: true,
+  },
   // Futuros requerimentos podem ser adicionados aqui
 ];
 

@@ -23,31 +23,37 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const parsed = parseFormatoFromSlug(params.tipo);
+  // Um slug completo em MODELOS é sempre a página base, mesmo que também
+  // "pareça" terminar em um sufixo de formato (ex: contrato-simples vs.
+  // formato "simples"). Só tentamos interpretar como variante de formato
+  // quando o slug completo não é, ele mesmo, um modelo conhecido.
+  const modelo = MODELOS[params.tipo];
 
-  if (parsed) {
-    const modelo = MODELOS[parsed.base];
-    if (!modelo) return {};
-    const fmt = FORMATO_DATA[parsed.formato];
-    const url = `${BASE}/modelo/${params.tipo}`;
-    const title = `${modelo.title.replace(' | ReciboNaHora', '')} ${fmt.metaSuffix} | ReciboNaHora`;
-    return {
-      title,
-      description: fmt.description,
-      keywords: [
-        `${modelo.slug.replace(/-/g, ' ')} ${fmt.shortLabel.toLowerCase()}`,
-        `modelo ${modelo.slug.replace(/-/g, ' ')} ${fmt.shortLabel.toLowerCase()}`,
-        `${modelo.slug.replace(/-/g, ' ')} ${fmt.extension}`,
-        `baixar ${modelo.slug.replace(/-/g, ' ')} ${fmt.shortLabel.toLowerCase()}`,
-      ],
-      alternates: { canonical: url },
-      openGraph: { title, description: fmt.description, url, type: 'article', locale: 'pt_BR', siteName: 'ReciboNaHora' },
-      twitter: { card: 'summary', title, description: fmt.description },
-    };
+  if (!modelo) {
+    const parsed = parseFormatoFromSlug(params.tipo);
+    if (parsed) {
+      const baseModelo = MODELOS[parsed.base];
+      if (!baseModelo) return {};
+      const fmt = FORMATO_DATA[parsed.formato];
+      const url = `${BASE}/modelo/${params.tipo}`;
+      const title = `${baseModelo.title.replace(' | ReciboNaHora', '')} ${fmt.metaSuffix} | ReciboNaHora`;
+      return {
+        title,
+        description: fmt.description,
+        keywords: [
+          `${baseModelo.slug.replace(/-/g, ' ')} ${fmt.shortLabel.toLowerCase()}`,
+          `modelo ${baseModelo.slug.replace(/-/g, ' ')} ${fmt.shortLabel.toLowerCase()}`,
+          `${baseModelo.slug.replace(/-/g, ' ')} ${fmt.extension}`,
+          `baixar ${baseModelo.slug.replace(/-/g, ' ')} ${fmt.shortLabel.toLowerCase()}`,
+        ],
+        alternates: { canonical: url },
+        openGraph: { title, description: fmt.description, url, type: 'article', locale: 'pt_BR', siteName: 'ReciboNaHora' },
+        twitter: { card: 'summary', title, description: fmt.description },
+      };
+    }
+    return {};
   }
 
-  const modelo = MODELOS[params.tipo];
-  if (!modelo) return {};
   const url = `${BASE}/modelo/${modelo.slug}`;
   return {
     title: modelo.title,
@@ -255,13 +261,16 @@ function FormatoPage({ tipo }: { tipo: string }) {
 // ─── Base modelo page ─────────────────────────────────────────────────────────
 
 export default function ModeloPage({ params }: Props) {
-  // If tipo has a format suffix, delegate to FormatoPage
-  if (parseFormatoFromSlug(params.tipo)) {
-    return <FormatoPage tipo={params.tipo} />;
-  }
-
+  // Slug completo em MODELOS sempre vence (ver mesmo racional em generateMetadata).
+  // Só delega para FormatoPage quando o slug completo não é um modelo conhecido.
   const modelo = MODELOS[params.tipo];
-  if (!modelo) notFound();
+
+  if (!modelo) {
+    if (parseFormatoFromSlug(params.tipo)) {
+      return <FormatoPage tipo={params.tipo} />;
+    }
+    notFound();
+  }
 
   const url = `${BASE}/modelo/${modelo.slug}`;
 

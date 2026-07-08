@@ -118,6 +118,15 @@ export const TOOLS: ToolItem[] = [
     iconKey: "scale",
   },
   {
+    id: "prefeitura",
+    name: "Central do Cidadão (Requerimentos à Prefeitura)",
+    description: "Requerimento geral, recurso de multa de trânsito e zeladoria urbana em PDF.",
+    categoryId: "requerimentos",
+    href: "/ferramentas/prefeitura",
+    badges: ["Grátis"],
+    iconKey: "fileText",
+  },
+  {
     id: "recibo-pix",
     name: "Recibo com PIX",
     description: "Recibo moderno com QR Code PIX para facilitar a quitação.",
@@ -233,5 +242,14 @@ export const TOOLS: ToolItem[] = [
     href: "/ferramentas/calculadora-rescisao",
     badges: ["Popular"],
     iconKey: "calculator",
+  },
+  {
+    id: "autorizacao-viagem",
+    name: "Autorização de Viagem para Menor",
+    description: "Autorização de viagem nacional para menores, conforme a Resolução 131/2011 do CNJ.",
+    categoryId: "outros",
+    href: "/ferramentas/autorizacao-viagem",
+    badges: ["Grátis"],
+    iconKey: "fileSignature",
   },
 ];
