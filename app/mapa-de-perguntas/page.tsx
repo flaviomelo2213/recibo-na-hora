@@ -10,7 +10,13 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: 'https://www.recibonahora.com.br/mapa-de-perguntas' },
-  robots: { index: true, follow: true },
+  // noindex, follow (Fase 4B): esta página lista exatamente as mesmas 19
+  // perguntas de /perguntas, porém sem as categorias e sem o resumo de cada
+  // resposta — ou seja, é um subconjunto estrito do índice, sem conteúdo
+  // editorial próprio além do H1 e de uma linha de introdução. Segue publicada
+  // e linkada no rodapé porque tem utilidade de navegação; apenas deixa de
+  // competir no índice com /perguntas. Nenhum redirect foi criado.
+  robots: { index: false, follow: true },
   openGraph: buildOpenGraph({ title, description, path: '/mapa-de-perguntas' }),
 }
 

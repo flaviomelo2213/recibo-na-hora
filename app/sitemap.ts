@@ -5,7 +5,6 @@ import { ALL_PROFISSAO_SLUGS } from './_data/profissoes'
 import { ALL_GUIA_SLUGS } from './_data/guias'
 import { ALL_PERGUNTA_SLUGS } from './_data/perguntas'
 import { ALL_COMPARACAO_SLUGS } from './_data/comparacoes'
-import { FORMATOS } from './_data/modeloFormats'
 
 const BASE = 'https://www.recibonahora.com.br'
 
@@ -19,7 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/contratos`,               lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/orcamentos`,              lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/mei`,                     lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${BASE}/recursos`,               lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
+    // /recursos removida do sitemap na Fase 4A: diretório de links de afiliado,
+    // agora `noindex, follow` (ver app/recursos/page.tsx). Continua acessível.
     { url: `${BASE}/blog`,                   lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/educacao-financeira`,     lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/apoio-corretor`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
@@ -31,7 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/politica-privacidade`,    lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/termos-uso`,              lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/politica-editorial`,      lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
-    { url: `${BASE}/mapa-de-perguntas`,       lastModified: now, changeFrequency: 'weekly',  priority: 0.6 },
+    // /mapa-de-perguntas removida do sitemap na Fase 4B: subconjunto estrito de
+    // /perguntas (mesmas 19 perguntas, sem categorias nem resumos), agora
+    // `noindex, follow`. Continua publicada e linkada no rodapé.
   ]
 
   const toolPages: MetadataRoute.Sitemap = [
@@ -154,17 +156,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]
 
-  // Modelo format variant pages (15 tipos × 5 formatos, minus redundant combos)
-  const modeloFormatPages: MetadataRoute.Sitemap = ALL_SLUGS.flatMap((tipo) =>
-    FORMATOS
-      .filter((fmt) => !tipo.endsWith(`-${fmt}`))
-      .map((fmt) => ({
-        url: `${BASE}/modelo/${tipo}-${fmt}`,
-        lastModified: now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-      })),
-  )
+  // Modelo format variant pages (/modelo/{tipo}-{formato}) removidas do sitemap:
+  // ~73% do texto era idêntico entre as páginas de um mesmo formato e o conteúdo
+  // herdado era genérico de recibo, aplicado também a contrato, procuração,
+  // declaração e nota promissória. As variantes seguem acessíveis por
+  // compatibilidade, mas com `noindex, follow` e canonical para /modelo/{tipo}
+  // (ver app/modelo/[tipo]/page.tsx). Não reintroduzir aqui.
+  const modeloFormatPages: MetadataRoute.Sitemap = []
 
   return [
     ...staticPages,

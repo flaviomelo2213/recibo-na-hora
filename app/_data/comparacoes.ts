@@ -180,7 +180,7 @@ const comparacoes: Comparacao[] = [
     tableRows: [
       { aspecto: 'Quem emite', docA: 'Pessoa física autônoma (sem CNPJ)', docB: 'Pessoa jurídica (MEI, ME, LTDA, etc.)' },
       { aspecto: 'Quem preenche', docA: 'A empresa tomadora do serviço', docB: 'O próprio prestador pelo portal da prefeitura' },
-      { aspecto: 'Retenção de INSS', docA: '11% retido pela empresa', docB: 'Não há retenção (MEI recolhe INSS fixo mensal)' },
+      { aspecto: 'Retenção de INSS', docA: 'A empresa retém a contribuição previdenciária na alíquota vigente', docB: 'Não há retenção sobre o faturamento (o MEI recolhe a contribuição mensal no DAS)' },
       { aspecto: 'Retenção de IR', docA: 'Conforme tabela progressiva', docB: 'Geralmente não (MEI é isento de IR PJ no limite)' },
       { aspecto: 'ISS', docA: 'Retido pela empresa conforme município', docB: 'Recolhido pelo MEI (incluído no DAS mensal)' },
       { aspecto: 'Dedução para empresa', docA: 'Sim — como despesa com pessoal', docB: 'Sim — como despesa operacional' },
@@ -229,7 +229,7 @@ const comparacoes: Comparacao[] = [
       { aspecto: 'Quem usa', docA: 'Qualquer pessoa em qualquer situação', docB: 'Empresa que contrata autônomo pessoa física' },
       { aspecto: 'Contratante', docA: 'Pessoa física ou jurídica', docB: 'Obrigatoriamente pessoa jurídica (CNPJ)' },
       { aspecto: 'Prestador', docA: 'Pessoa física', docB: 'Pessoa física sem CNPJ (autônomo)' },
-      { aspecto: 'INSS', docA: 'Nenhuma retenção', docB: '11% retido (contribuição previdenciária)' },
+      { aspecto: 'INSS', docA: 'Nenhuma retenção', docB: 'A empresa retém a contribuição previdenciária na alíquota vigente' },
       { aspecto: 'IR', docA: 'Nenhuma retenção', docB: 'Retido conforme tabela progressiva' },
       { aspecto: 'ISS', docA: 'Nenhuma retenção', docB: 'Retido pela empresa (varia por município)' },
       { aspecto: 'Preenchimento', docA: 'Pelo credor (quem recebeu)', docB: 'Pela empresa (tomadora do serviço)' },

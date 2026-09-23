@@ -293,6 +293,14 @@ export default function ReciboRpaGenerator() {
                 />
               </div>
             </div>
+            <p className="text-xs text-slate-500 mt-3 leading-relaxed">
+              Os valores acima são apenas um ponto de partida editável, não as alíquotas do seu
+              caso. A contribuição previdenciária depende do enquadramento do prestador e do teto
+              do salário de contribuição; o IRRF segue a tabela progressiva vigente; e o ISS varia
+              conforme o município e o tipo de serviço, podendo até não ser retido. Confirme os
+              percentuais aplicáveis na data do pagamento com a contabilidade da empresa
+              contratante ou nas fontes oficiais.
+            </p>
           </div>
 
           <div className="border-t border-slate-200 pt-6">

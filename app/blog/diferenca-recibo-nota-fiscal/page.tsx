@@ -160,7 +160,7 @@ export default function DiferencaReciboNotaFiscalPage() {
               <p className="text-stone-700 leading-relaxed">
                 O <strong>RPA (Recibo de Pagamento de Autônomo)</strong> é um recibo especial usado quando
                 uma <strong>empresa contrata um autônomo pessoa física</strong>. Nele, a empresa desconta
-                e recolhe os impostos devidos pelo autônomo: INSS (11% ou 20%), IR e ISS municipal.
+                e recolhe os tributos devidos pelo autônomo: a contribuição previdenciária (INSS), o IRRF pela tabela progressiva e o ISS municipal, nas alíquotas vigentes para o caso.
               </p>
               <p className="text-stone-700 leading-relaxed mt-3">
                 O RPA não substitui a nota fiscal para fins fiscais da empresa, mas é a forma correta

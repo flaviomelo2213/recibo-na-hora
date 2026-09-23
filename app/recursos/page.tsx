@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.recibonahora.com.br/recursos',
   },
+  // noindex, follow: a auditoria da Fase 4A confirmou que a página é um
+  // diretório de 65 links de afiliado (Hotmart/Kiwify/Monetizze) com descrição
+  // de uma linha por item, sem avaliação ou teste independente. Segue acessível
+  // aos usuários e removida do sitemap; nenhum conteúdo foi apagado.
+  robots: { index: false, follow: true },
   openGraph: {
     title: 'Recursos para Autônomos e MEI | ReciboNaHora',
     description:

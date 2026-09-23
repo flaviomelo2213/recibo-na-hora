@@ -30,7 +30,7 @@ export default function AutorizacaoViagemClient() {
     addTexto("AUTORIZAÇÃO DE VIAGEM NACIONAL", true, "center");
     y += 5;
     doc.setFontSize(10);
-    addTexto("(Conforme Resolução nº 131/2011 do CNJ)", false, "center");
+    addTexto("(Art. 83 do ECA - Lei 8.069/90 - e Resolucao CNJ no 295/2019)", false, "center");
     y += 15;
 
     addTexto(`Eu, ${dados.resp1Nome.toUpperCase()}, portador(a) do RG nº ${dados.resp1RG} e CPF nº ${dados.resp1CPF}, residente em ${dados.resp1Endereco}, na qualidade de responsável legal, AUTORIZO:`);
@@ -48,7 +48,7 @@ export default function AutorizacaoViagemClient() {
     y += 30;
     addTexto("________________________________________________", false, "center");
     addTexto(dados.resp1Nome.toUpperCase(), false, "center");
-    addTexto("(Reconhecer Firma em Cartório por Autenticidade ou Semelhança)", false, "center");
+    addTexto("(Reconhecer firma em cartorio, por autenticidade ou semelhanca, quando exigido)", false, "center");
     
     y += 10;
     addTexto(`Data: ${new Date().toLocaleDateString('pt-BR')}`, false, "center");
@@ -60,8 +60,8 @@ export default function AutorizacaoViagemClient() {
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 mb-12">
         <div className="text-center mb-8 bg-pink-600 text-white p-6 rounded-xl">
-             <h1 className="text-2xl font-bold"><i className="fa-solid fa-child-reaching"></i> Autorização de Viagem (CNJ)</h1>
-             <p className="text-pink-100 text-sm">Modelo oficial para menores em território nacional.</p>
+             <h1 className="text-2xl font-bold"><i className="fa-solid fa-child-reaching"></i> Autorização de Viagem Nacional</h1>
+             <p className="text-pink-100 text-sm">Modelo para menores em viagem dentro do território nacional.</p>
         </div>
 
         <div className="space-y-6">
@@ -110,17 +110,46 @@ export default function AutorizacaoViagemClient() {
 
       {/* --- TEXTO SEO + AVISO LEGAL --- */}
       <section className="max-w-3xl mx-auto prose prose-slate">
-        <h2 className="text-2xl font-bold text-slate-900">Como funciona a Autorização de Viagem para Menores?</h2>
+        <h2 className="text-2xl font-bold text-slate-900">Quando a autorização de viagem nacional é exigida</h2>
         <p className="text-slate-600">
-            Segundo a Resolução nº 131 do CNJ, nenhuma criança ou adolescente menor de 16 anos pode viajar para fora da comarca onde reside desacompanhado dos pais ou responsáveis sem expressa autorização judicial ou extrajudicial (escrita).
+            A regra está no <strong>art. 83 do Estatuto da Criança e do Adolescente</strong> (Lei 8.069/90):
+            nenhuma <strong>criança ou adolescente menor de 16 anos</strong> pode viajar para fora da
+            comarca onde reside, desacompanhado dos pais ou dos responsáveis, sem autorização. O
+            próprio art. 83, § 1º, traz as situações em que a autorização não é exigida: quando o
+            destino é comarca contígua à da residência, na mesma unidade da Federação ou na mesma
+            região metropolitana; e quando o menor viaja acompanhado de ascendente ou colateral
+            maior até o terceiro grau, com o parentesco comprovado por documento, ou de pessoa
+            maior expressamente autorizada pelo pai, mãe ou responsável. A forma da autorização é
+            regulamentada pela <strong>Resolução CNJ nº 295/2019</strong>.
+        </p>
+        <p className="text-slate-600">
+            Ou seja, o corte é aos <strong>16 anos</strong>, não na fronteira entre criança e
+            adolescente: <strong>menores de 16 anos</strong> estão sujeitos a esse regime,
+            observadas as exceções acima. <strong>A partir dos 16 anos</strong>, a exigência do
+            art. 83 não se aplica da mesma forma — o que não dispensa o documento de identificação
+            do menor nem as regras próprias da empresa de transporte, que podem exigir autorização
+            ou outros comprovantes mesmo assim.
         </p>
 
-        <h3 className="font-bold text-slate-800 mt-4">Passo a Passo Obrigatório:</h3>
+        <h3 className="font-bold text-slate-800 mt-4">Esta ferramenta não serve para viagem internacional</h3>
+        <p className="text-slate-600">
+            O modelo gerado aqui é para <strong>viagem nacional</strong>. A viagem ao exterior segue
+            outro regime: os <strong>arts. 84 e 85 do ECA</strong> e a <strong>Resolução CNJ
+            nº 131/2011</strong>, que trata especificamente da concessão de autorização de viagem
+            ao exterior de crianças e adolescentes brasileiros. Entre outros pontos, o art. 84
+            dispensa a autorização quando o menor viaja acompanhado de ambos os pais ou do
+            responsável, ou quando viaja com um dos pais mediante autorização expressa do outro em
+            documento com firma reconhecida. Para viagem internacional, não use este modelo:
+            consulte as exigências vigentes e a companhia aérea antes de viajar.
+        </p>
+
+        <h3 className="font-bold text-slate-800 mt-4">Passo a passo:</h3>
         <ol className="list-decimal pl-5 text-slate-600 space-y-2">
+            <li>Confirme antes se a autorização é exigida no seu caso e em que formato — com a companhia de transporte e na regra vigente.</li>
             <li>Preencha o formulário acima com os dados exatos dos documentos (RG/Certidão).</li>
-            <li>Gere e <strong>imprima 2 vias</strong> do documento.</li>
-            <li>O responsável (pai ou mãe) deve ir ao cartório e <strong>Reconhecer Firma</strong> da assinatura.</li>
-            <li>Uma via ficará retida na empresa de transporte (ônibus/avião) e a outra fica com o acompanhante.</li>
+            <li>Gere e <strong>imprima ao menos 2 vias</strong> do documento.</li>
+            <li>Quando o reconhecimento de firma for exigido, o responsável leva a via ao cartório para reconhecer a assinatura.</li>
+            <li>Em geral uma via fica retida na empresa de transporte e a outra segue com o acompanhante — confirme o procedimento da companhia.</li>
         </ol>
 
         {/* AVISO LEGAL PADRÃO */}
@@ -129,9 +158,13 @@ export default function AutorizacaoViagemClient() {
                 <i className="fa-solid fa-scale-balanced"></i> Aviso Legal Importante
             </h4>
             <p className="text-sm text-red-900 leading-relaxed text-justify">
-                Este modelo segue os padrões do CNJ, mas as regras de embarque podem variar conforme a empresa de transporte (aéreo/terrestre). 
-                <strong>Verifique sempre com a companhia aérea ou rodoviária</strong> quais são as exigências específicas antes da viagem. 
-                O ReciboNaHora não se responsabiliza por impedimentos de embarque decorrentes de preenchimento incorreto ou falta de reconhecimento de firma.
+                Este é um modelo de documento particular, não um formulário oficial, e não substitui
+                orientação jurídica. As hipóteses de exigência, o formato aceito e a necessidade de
+                reconhecimento de firma variam conforme o tipo de viagem, a idade do menor, quem o
+                acompanha, a situação dos responsáveis e as regras da empresa de transporte.
+                <strong> Verifique sempre a regra vigente e as exigências da companhia aérea ou
+                rodoviária antes da viagem.</strong> O ReciboNaHora não se responsabiliza por
+                impedimentos de embarque.
             </p>
         </div>
       </section>

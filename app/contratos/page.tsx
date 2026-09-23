@@ -73,9 +73,9 @@ const faqJsonLd = {
   ]
 };
 
-const title = 'Modelos de Contratos Editáveis Grátis | PDF com Validade Jurídica — ReciboNaHora';
+const title = 'Modelos de Contratos Editáveis Grátis | Gere o PDF Online — ReciboNaHora';
 const description =
-  'Gere contratos de aluguel, prestão de serviços, procuração e compra e venda online. Modelos editáveis e gratuitos com validade jurídica. Para MEI, autônomos e pequenos negócios.';
+  'Gere contratos de aluguel, prestação de serviços, procuração e compra e venda online. Modelos editáveis e gratuitos, com as cláusulas essenciais de cada tipo. Para MEI, autônomos e pequenos negócios.';
 
 export const metadata: Metadata = {
   title,

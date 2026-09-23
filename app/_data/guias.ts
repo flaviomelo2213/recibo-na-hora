@@ -155,7 +155,7 @@ const guias: Guia[] = [
       {
         h2: 'Quando usar RPA',
         content: [
-          'O RPA é obrigatório quando uma pessoa jurídica (empresa) paga por serviços prestados por pessoa física autônoma. A empresa deve reter: INSS (11% ou 20% dependendo do caso), IR conforme tabela progressiva, e ISS conforme alíquota municipal.',
+          'O RPA é usado quando uma pessoa jurídica paga por serviços prestados por pessoa física autônoma. Cabe à empresa reter, na fonte, a contribuição previdenciária (INSS), o IRRF pela tabela progressiva e o ISS quando o município exigir. As alíquotas variam conforme o enquadramento do prestador, a atividade e o município, e são reajustadas periodicamente — confirme as vigentes na data do pagamento.',
           'O autônomo recebe o valor líquido e fica com o RPA como comprovante. Os valores retidos são repassados pela empresa ao governo.',
         ],
       },
@@ -255,9 +255,9 @@ const guias: Guia[] = [
       {
         h2: 'Quais impostos são retidos no RPA',
         content: [
-          'INSS: alíquota de 11% sobre o valor bruto, limitado ao teto do INSS (atualizado anualmente). A empresa também paga a parte patronal (20%) por fora.',
+          'INSS: a contribuição do prestador é retida sobre o valor bruto e limitada ao teto do salário de contribuição, reajustado periodicamente. Além dessa retenção, a empresa recolhe a parte patronal por fora. Consulte as alíquotas e o teto vigentes na data do pagamento.',
           'IRRF: conforme a tabela progressiva do IR, descontado sobre o valor bruto menos o INSS.',
-          'ISS: varia de 2% a 5% dependendo do município e tipo de serviço. Algumas cidades isentam autônomos do ISS.',
+          'ISS: a alíquota é definida por lei municipal, dentro dos limites da Lei Complementar 116/2003, e varia conforme o município e o tipo de serviço. Algumas cidades isentam autônomos, e nem sempre há retenção na fonte. Consulte a legislação da sua prefeitura.',
           'O autônomo recebe o valor líquido (bruto - INSS - IR - ISS) e usa o RPA como comprovante.',
         ],
       },
@@ -349,7 +349,7 @@ const guias: Guia[] = [
         h2: 'Passo 1: Identifique o tipo de contratante',
         content: [
           'Pessoa física (CPF): use recibo simples. Você recebe o valor combinado integralmente.',
-          'Empresa (CNPJ): use RPA. A empresa descontará INSS (11%), IR (tabela progressiva) e ISS antes de pagar o valor líquido.',
+          'Empresa (CNPJ): use RPA. A empresa descontará a contribuição previdenciária, o IRRF pela tabela progressiva e o ISS, quando devido, antes de pagar o valor líquido — nas alíquotas vigentes para o seu caso.',
           'MEI contratando: tecnicamente MEI é pessoa jurídica, mas na prática pode pagar com recibo simples para autônomos de baixo valor. Para segurança, use RPA.',
         ],
       },

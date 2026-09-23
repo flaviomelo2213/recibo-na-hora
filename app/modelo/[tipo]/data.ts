@@ -19,7 +19,7 @@ export const MODELOS: Record<string, ModeloData> = {
     title: 'Modelo de Recibo de Aluguel | ReciboNaHora',
     h1: 'Modelo de Recibo de Aluguel Gratuito',
     metaDescription:
-      'Baixe gratuitamente um modelo de recibo de aluguel completo. Pronto para preencher e imprimir, válido juridicamente. Gerado em PDF online.',
+      'Modelo de recibo de aluguel com os campos discriminados que a Lei do Inquilinato exige. Pronto para preencher, gerar em PDF e imprimir.',
     description:
       'O recibo de aluguel comprova que o inquilino pagou o aluguel e que o proprietário recebeu. ' +
       'É indispensável para proteger ambas as partes na relação de locação.',
@@ -79,15 +79,15 @@ export const MODELOS: Record<string, ModeloData> = {
       'Nome e CNPJ da empresa contratante',
       'Descrição do serviço prestado',
       'Valor bruto (antes dos descontos)',
-      'INSS retido (11% ou aliq. do INSS)',
-      'IR retido (conforme tabela)',
-      'ISS retido (conforme município)',
+      'INSS retido (alíquota e teto conforme as regras vigentes)',
+      'IRRF retido (conforme a tabela progressiva vigente)',
+      'ISS retido (conforme a legislação do município)',
       'Valor líquido a receber',
       'Data do pagamento',
     ],
     faqs: [
       { q: 'O que é o RPA?', a: 'RPA significa Recibo de Pagamento de Autônomo. É o documento que formaliza o pagamento de um profissional autônomo (sem CNPJ) por uma empresa, com os impostos calculados e retidos.' },
-      { q: 'Quais impostos são descontados no RPA?', a: 'No RPA típico: INSS (11% sobre o valor bruto, até o teto), IRRF (tabela progressiva), e ISS (varia de 2% a 5% conforme o município).' },
+      { q: 'Quais impostos são descontados no RPA?', a: 'Em regra, três: a contribuição previdenciária (INSS), retida sobre o valor bruto e limitada ao teto do salário de contribuição; o IRRF, calculado pela tabela progressiva; e o ISS, quando o município exige a retenção. As alíquotas, o teto e as faixas dependem do enquadramento do prestador e mudam com o tempo — o ISS ainda varia de município para município. Confirme os percentuais aplicáveis ao seu caso na data da emissão, com a contabilidade da empresa contratante ou nas fontes oficiais (Receita Federal e prefeitura).' },
       { q: 'Preciso de RPA se sou MEI?', a: 'Não. Se você é MEI, você emite Nota Fiscal de Serviços Eletrônica (NFS-e) para empresas, não RPA.' },
     ],
     relatedLinks: [
@@ -104,7 +104,7 @@ export const MODELOS: Record<string, ModeloData> = {
       'Modelo gratuito de recibo de prestação de serviço. Ideal para freelancers, autônomos e MEI. Gere em PDF online sem cadastro.',
     description:
       'O recibo de prestação de serviço é usado por freelancers e autônomos para comprovar ' +
-      'o recebimento de pagamento por serviços prestados. É simples, rápido e tem validade jurídica.',
+      'o recebimento de pagamento por serviços prestados. Serve como prova de quitação quando traz os campos essenciais e a assinatura de quem recebeu.',
     toolHref: '/ferramentas/recibo-simples',
     toolLabel: 'Gerar Recibo de Serviço Grátis',
     whatIs:
@@ -128,7 +128,7 @@ export const MODELOS: Record<string, ModeloData> = {
     ],
     faqs: [
       { q: 'Freelancer pode emitir recibo?', a: 'Sim. Qualquer pessoa física pode emitir recibo de prestação de serviço para comprovar o recebimento. Se o cliente for empresa, o correto é usar o RPA (Recibo de Pagamento de Autônomo).' },
-      { q: 'Qual a validade de um recibo de serviço?', a: 'O recibo de serviço tem validade jurídica e pode ser usado como prova de pagamento. Guarde por pelo menos 5 anos (prazo prescricional para cobranças de serviços).' },
+      { q: 'Qual a validade de um recibo de serviço?', a: 'Preenchido com os campos essenciais e assinado, o recibo serve como prova de pagamento. Guarde por pelo menos 5 anos, prazo usual de prescrição para cobranças de serviços.' },
       { q: 'Recibo de serviço substitui a nota fiscal?', a: 'Para clientes pessoas físicas, sim. Para empresas (CNPJ), não — é necessário emitir nota fiscal ou RPA.' },
     ],
     relatedLinks: [
@@ -142,7 +142,7 @@ export const MODELOS: Record<string, ModeloData> = {
     title: 'Modelo de Recibo de Pagamento | ReciboNaHora',
     h1: 'Modelo de Recibo de Pagamento Gratuito em PDF',
     metaDescription:
-      'Modelo gratuito de recibo de pagamento para qualquer finalidade. Gere em PDF online, sem cadastro. Válido juridicamente no Brasil.',
+      'Modelo gratuito de recibo de pagamento com os campos de quitação previstos no Código Civil. Gere em PDF online, sem cadastro.',
     description:
       'O recibo de pagamento é o documento genérico para comprovar qualquer tipo de pagamento: ' +
       'quitação de dívida, compra de produto, serviço prestado ou qualquer outra transação financeira.',
@@ -208,7 +208,7 @@ export const MODELOS: Record<string, ModeloData> = {
       'Assinaturas de duas testemunhas (para força de título executivo)',
     ],
     faqs: [
-      { q: 'Contrato simples tem validade jurídica?', a: 'Sim. Um contrato simples, assinado pelas partes, tem plena validade jurídica. Com duas testemunhas, ele adquire força de título executivo extrajudicial, o que agiliza cobranças judiciais.' },
+      { q: 'Contrato simples tem validade jurídica?', a: 'Assinado pelas partes, o contrato particular obriga quem o assinou. Com duas testemunhas, torna-se título executivo extrajudicial, o que abrevia uma eventual cobrança judicial. Cláusula contrária a norma imperativa não se valida por estar escrita.' },
       { q: 'Preciso de advogado para fazer um contrato?', a: 'Não é obrigatório para a maioria dos contratos do dia a dia. Para contratos complexos, de alto valor ou com cláusulas específicas, é recomendável consultar um advogado.' },
       { q: 'Contrato precisa de reconhecimento de firma?', a: 'Não obrigatoriamente para contratos de prestação de serviços comuns. O reconhecimento de firma adiciona segurança e é recomendado para contratos de alto valor.' },
     ],
@@ -231,7 +231,7 @@ export const MODELOS: Record<string, ModeloData> = {
     requiredFields: ['Nome e CPF de quem recebeu', 'Nome e CPF de quem pagou', 'Valor recebido (número e por extenso)', 'Chave PIX utilizada', 'ID ou código da transação PIX', 'Data e horário do recebimento', 'Descrição do que foi pago'],
     faqs: [
       { q: 'Preciso de recibo se tenho comprovante do PIX?', a: 'O comprovante do PIX prova a transferência, mas não especifica o motivo. O recibo formaliza a quitação específica (serviço X, aluguel de mês Y, etc.) e tem mais força probatória.' },
-      { q: 'Recibo PIX tem validade jurídica?', a: 'Sim. O recibo com os dados completos — incluindo o ID da transação — tem plena validade jurídica como documento comprobatório de pagamento.' },
+      { q: 'Recibo PIX tem validade jurídica?', a: 'Com os dados completos — incluindo o ID da transação — o recibo serve como prova da quitação e complementa o comprovante bancário, que sozinho não mostra a que o pagamento se refere. Guarde os dois.' },
       { q: 'E se o PIX cair na conta errada?', a: 'O recibo não resolve erros de transferência. Em caso de PIX enviado para conta errada, contate imediatamente seu banco para solicitar devolução via MED (Mecanismo Especial de Devolução).' },
     ],
     relatedLinks: [{ href: '/ferramentas/recibo-pix', label: 'Recibo com PIX' }, { href: '/ferramentas/recibo-simples', label: 'Recibo Simples' }, { href: '/blog/como-fazer-recibo', label: 'Como Fazer um Recibo' }],
@@ -258,7 +258,7 @@ export const MODELOS: Record<string, ModeloData> = {
     slug: 'contrato-locacao',
     title: 'Modelo de Contrato de Locação Residencial | ReciboNaHora',
     h1: 'Modelo de Contrato de Locação Residencial Gratuito',
-    metaDescription: 'Modelo completo e gratuito de contrato de locação residencial conforme a Lei do Inquilinato. Gere em PDF online, sem cadastro. Válido em todo o Brasil.',
+    metaDescription: 'Modelo de contrato de locação residencial com as cláusulas previstas na Lei do Inquilinato: prazo, reajuste, garantia e encargos. Gere em PDF, sem cadastro.',
     description: 'O contrato de locação regula a relação entre proprietário e inquilino: prazo, valor, reajuste, garantias e obrigações de cada parte.',
     toolHref: '/contrato-locacao',
     toolLabel: 'Gerar Contrato de Locação Grátis',
@@ -268,7 +268,7 @@ export const MODELOS: Record<string, ModeloData> = {
     faqs: [
       { q: 'Contrato verbal de aluguel tem validade?', a: 'Sim, mas é muito arriscado. Sem contrato escrito, fica difícil provar valor do aluguel, prazo e demais condições acordadas.' },
       { q: 'Qual o prazo mínimo de contrato de aluguel?', a: 'Não há prazo mínimo legal. Contratos com prazo menor que 30 meses podem ser rescindidos pelo proprietário após o vencimento sem necessidade de justificativa.' },
-      { q: 'Posso fazer contrato de locação sem imobiliária?', a: 'Sim. O contrato entre particulares tem plena validade. Faça uma vistoria documentada e considere registrar o contrato em cartório.' },
+      { q: 'Posso fazer contrato de locação sem imobiliária?', a: 'Sim. O contrato entre particulares obriga locador e locatário mesmo sem imobiliária. Faça uma vistoria documentada e considere registrar o contrato em Cartório de Títulos e Documentos, o que serve para dar efeito perante terceiros.' },
     ],
     relatedLinks: [{ href: '/contrato-locacao', label: 'Gerar Contrato de Locação' }, { href: '/ferramentas/imobiliario', label: 'Recibo de Aluguel' }, { href: '/modelo/recibo-aluguel', label: 'Modelo Recibo de Aluguel' }],
   },
@@ -294,7 +294,7 @@ export const MODELOS: Record<string, ModeloData> = {
     slug: 'nota-promissoria',
     title: 'Modelo de Nota Promissória Gratuita | ReciboNaHora',
     h1: 'Modelo de Nota Promissória Gratuito',
-    metaDescription: 'Modelo gratuito de nota promissória. Preencha, gere em PDF e imprima. Título executivo extrajudicial válido em todo o Brasil. Sem cadastro.',
+    metaDescription: 'Modelo gratuito de nota promissória com os requisitos formais do título. Preencha, gere em PDF e imprima, sem cadastro.',
     description: 'A nota promissória é um título de crédito com força de título executivo extrajudicial. Representa uma promessa incondicional de pagamento.',
     toolHref: '/ferramentas/nota-promissoria',
     toolLabel: 'Gerar Nota Promissória Grátis',
@@ -312,7 +312,7 @@ export const MODELOS: Record<string, ModeloData> = {
     slug: 'declaracao-endereco',
     title: 'Modelo de Declaração de Endereço | Comprovante de Residência | ReciboNaHora',
     h1: 'Modelo de Declaração de Endereço Residencial',
-    metaDescription: 'Modelo gratuito de declaração de endereço para usar como comprovante de residência. Aceito em bancos, órgãos públicos e financeiras. Gere em PDF.',
+    metaDescription: 'Modelo gratuito de declaração de endereço para quem não tem conta de consumo no próprio nome. Documento autodeclaratório: a aceitação depende da instituição. Gere em PDF.',
     description: 'A declaração de endereço é aceita como comprovante de residência quando não há conta de água, luz ou gás no seu nome.',
     toolHref: '/requerimentos/declaracao-endereco',
     toolLabel: 'Gerar Declaração de Endereço Grátis',
@@ -356,7 +356,7 @@ export const MODELOS: Record<string, ModeloData> = {
     whenToUse: ['Advogados ao receber honorários de clientes', 'Médicos e profissionais de saúde pessoa física', 'Contadores e consultores em geral', 'Arquitetos e engenheiros por laudos ou consultorias'],
     requiredFields: ['Nome, CPF e número de registro profissional', 'Nome/empresa e CPF/CNPJ do cliente', 'Descrição do serviço', 'Valor total recebido em número e por extenso', 'Data do recebimento', 'Assinatura do profissional'],
     faqs: [
-      { q: 'Advogado pessoa física precisa emitir nota fiscal?', a: 'Depende do município e do tipo de serviço. Para serviços para empresas (CNPJ), o ideal é emitir NFS-e. Para pessoas físicas, o recibo de honorários é amplamente aceito.' },
+      { q: 'Advogado pessoa física precisa emitir nota fiscal?', a: 'Depende do município e do tipo de serviço. Para serviços para empresas (CNPJ), o ideal é emitir NFS-e. Para pessoas físicas, o recibo de honorários costuma ser aceito — confirme a exigência com o cliente e com a sua contabilidade.' },
       { q: 'Recibo de honorários médicos serve para reembolso do plano?', a: 'Pode ser exigido recibo ou nota fiscal dependendo do plano. Consulte seu plano de saúde — muitos aceitam recibos de médicos credenciados como pessoa física.' },
       { q: 'Profissional liberal com MEI pode emitir recibo?', a: 'MEI deve emitir nota fiscal para serviços a empresas. Para clientes pessoa física, pode usar recibo. Atenção: algumas categorias são vedadas para MEI (advogados, médicos).' },
     ],
@@ -384,17 +384,17 @@ export const MODELOS: Record<string, ModeloData> = {
     slug: 'autorizacao-viagem',
     title: 'Modelo de Autorização de Viagem para Menor | ReciboNaHora',
     h1: 'Modelo de Autorização de Viagem para Menor de Idade',
-    metaDescription: 'Modelo gratuito de autorização de viagem para menor de 18 anos. Válido para viagens nacionais e internacionais. Gere em PDF sem cadastro.',
-    description: 'A autorização de viagem é obrigatória quando a criança ou adolescente viaja desacompanhado dos pais ou com apenas um dos responsáveis.',
+    metaDescription: 'Modelo gratuito de autorização de viagem para menor de 18 anos, com os campos que o documento deve conter. As exigências de forma variam conforme a viagem — confira antes de embarcar. Gere em PDF, sem cadastro.',
+    description: 'A autorização de viagem é exigida em diversas situações em que a criança ou o adolescente viaja sem a companhia de ambos os responsáveis. As hipóteses e a forma exigida variam conforme o tipo de viagem.',
     toolHref: '/ferramentas/autorizacao-viagem',
     toolLabel: 'Gerar Autorização de Viagem Grátis',
-    whatIs: 'A autorização de viagem é um documento assinado pelos responsáveis legais que permite que o menor viaje desacompanhado ou com terceiros. É exigida em aeroportos, rodoviárias e postos de fronteira.',
+    whatIs: 'A autorização de viagem é um documento assinado pelos responsáveis legais que permite que o menor viaje desacompanhado ou com terceiros. Pode ser solicitada no embarque, em aeroportos, rodoviárias e postos de fronteira.',
     whenToUse: ['Viagem com apenas um dos pais (o outro deve autorizar)', 'Viagem com avós, tios ou outros responsáveis', 'Viagem escolar ou de intercâmbio', 'Viagem internacional sem ambos os pais'],
-    requiredFields: ['Nome completo do menor e data de nascimento', 'Nome, CPF e RG do responsável que autoriza', 'Nome, CPF e RG de quem vai acompanhar (se houver)', 'Destino da viagem', 'Período: data de saída e retorno', 'Finalidade da viagem', 'Assinatura do(s) responsável(is) com firma reconhecida'],
+    requiredFields: ['Nome completo do menor e data de nascimento', 'Nome, CPF e RG do responsável que autoriza', 'Nome, CPF e RG de quem vai acompanhar (se houver)', 'Destino da viagem', 'Período: data de saída e retorno', 'Finalidade da viagem', 'Assinatura do(s) responsável(is) — com firma reconhecida, quando exigida'],
     faqs: [
-      { q: 'A autorização precisa de reconhecimento de firma?', a: 'Para viagens aéreas nacionais e internacionais, o reconhecimento de firma é obrigatório ou fortemente recomendado para evitar problemas na embarque.' },
-      { q: 'Um dos pais pode autorizar sozinho?', a: 'Sim, quando o menor viaja com o outro pai, basta a autorização do pai que não vai junto. Para viagem sozinho ou com terceiro, ambos os responsáveis devem assinar.' },
-      { q: 'Qual prazo mínimo para providenciar a autorização?', a: 'Providencie com pelo menos 3 dias de antecedência para ter tempo do reconhecimento de firma. Em urgência, alguns cartórios aceitam hora marcada no mesmo dia.' },
+      { q: 'A autorização precisa de reconhecimento de firma?', a: 'Depende do caso. Em muitas situações exige-se o reconhecimento de firma do responsável que assina, por autenticidade ou por semelhança; em outras, não. O critério varia conforme a viagem ser nacional ou internacional, a idade do menor, quem o acompanha e as regras da companhia de transporte. Confirme a exigência na regra oficial vigente e com a companhia antes de providenciar o documento.' },
+      { q: 'Um dos pais pode autorizar sozinho?', a: 'Depende do arranjo da viagem. Quando o menor viaja acompanhado de um dos pais, costuma bastar a autorização do outro. Quando viaja sozinho ou com terceiro, em regra os dois responsáveis precisam autorizar. Guarda unilateral, falecimento ou ausência de um dos responsáveis seguem regras próprias e podem exigir documento adicional ou autorização judicial.' },
+      { q: 'Qual prazo mínimo para providenciar a autorização?', a: 'Providencie com alguns dias de antecedência: se for necessário reconhecer firma, você depende do horário de atendimento do cartório. Em urgência, alguns cartórios atendem com hora marcada no mesmo dia.' },
     ],
     relatedLinks: [{ href: '/ferramentas/autorizacao-viagem', label: 'Gerar Autorização de Viagem' }, { href: '/ferramentas/procuracao', label: 'Procuração Simples' }, { href: '/requerimentos', label: 'Todos os Requerimentos' }],
   },

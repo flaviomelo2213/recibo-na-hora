@@ -6,14 +6,14 @@ import EditorialTrustBox from "../components/EditorialTrustBox";
 import RelatedDocuments from "../components/RelatedDocuments";
 
 export const metadata: Metadata = {
-  title: "Gerador de Recibo Online Grátis | PDF com Validade Jurídica — ReciboNaHora",
+  title: "Gerador de Recibo Online Grátis | Recibo em PDF na Hora — ReciboNaHora",
   description:
-    "Crie recibos de pagamento online em PDF com validade jurídica: recibo simples, PIX, aluguel e RPA. Gratuito, sem cadastro, gerado no navegador.",
+    "Crie recibos de pagamento online em PDF com os campos de quitação exigidos: recibo simples, PIX, aluguel e RPA. Gratuito, sem cadastro, gerado no navegador.",
   alternates: {
     canonical: "https://www.recibonahora.com.br/recibos",
   },
   openGraph: {
-    title: "Gerador de Recibo Online Grátis | PDF com Validade Jurídica — ReciboNaHora",
+    title: "Gerador de Recibo Online Grátis | Recibo em PDF na Hora — ReciboNaHora",
     description:
       "Gere recibos profissionais em PDF (recibo simples, recibo PIX e modelos). Rápido, gratuito e com foco em validade e clareza.",
     url: "https://www.recibonahora.com.br/recibos",

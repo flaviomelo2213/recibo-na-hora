@@ -5,7 +5,7 @@ import LegalDisclaimer from "@/components/LegalDisclaimer";
 import { buildOpenGraph } from '@/lib/metadata';
 
 const title = "Recibo RPA Grátis | Recibo de Pagamento a Autônomo em PDF";
-const description = "Gere Recibo RPA (Recibo de Pagamento a Autônomo) online grátis. Modelo oficial brasileiro com cálculo automático de INSS, IRRF e ISS. Download em PDF.";
+const description = "Gere Recibo RPA (Recibo de Pagamento a Autônomo) online grátis. Informe as alíquotas aplicáveis ao seu caso e o gerador calcula INSS, IRRF e ISS. Download em PDF.";
 
 export const metadata: Metadata = {
   title,
@@ -23,8 +23,8 @@ export default function ReciboRpaPage() {
             Recibo RPA - Pagamento a Autônomo
           </h1>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Gere Recibo de Pagamento a Autônomo (RPA) com cálculo automático de impostos (INSS, IRRF e ISS).
-            Modelo oficial conforme legislação brasileira.
+            Gere o Recibo de Pagamento a Autônomo (RPA) informando as alíquotas aplicáveis ao seu
+            caso — o gerador calcula as retenções de INSS, IRRF e ISS e monta o PDF.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export default function ReciboRpaPage() {
 
         <SeoContentBlock
           title="O que é Recibo RPA e Quando Usar?"
-          content="O Recibo de Pagamento a Autônomo (RPA) é o documento obrigatório utilizado para formalizar o pagamento de serviços prestados por profissionais autônomos que não possuem CNPJ. O RPA é essencial para empresas que contratam profissionais liberais como designers, consultores, palestrantes, médicos, advogados e outros prestadores de serviços eventuais. O recibo RPA serve como comprovante de pagamento e permite que a empresa dedutora os impostos devidos na fonte, incluindo INSS (11% sobre o valor bruto), IRRF (Imposto de Renda Retido na Fonte, variando conforme a tabela progressiva) e ISS (Imposto Sobre Serviços, que varia de 2% a 5% conforme o município). Para preencher o RPA corretamente, informe os dados completos do tomador de serviços (empresa contratante), do prestador de serviços (autônomo), descrição detalhada do serviço prestado, valor bruto e as retenções aplicáveis. O RPA é diferente da nota fiscal e deve ser usado especificamente para pagamentos a pessoas físicas que prestam serviços sem vínculo empregatício. Este gerador online gratuito calcula automaticamente os impostos devidos e cria um documento profissional em PDF pronto para assinatura e uso contábil, garantindo conformidade com a legislação trabalhista e fiscal brasileira."
+          content="O Recibo de Pagamento a Autônomo (RPA) é o documento usado para formalizar o pagamento de serviços prestados por profissional autônomo pessoa física, sem CNPJ, a uma empresa. É comum na contratação de designers, consultores, palestrantes e outros prestadores eventuais. O RPA registra o pagamento e discrimina as retenções feitas na fonte: a contribuição previdenciária (INSS), retida sobre o valor bruto e limitada ao teto do salário de contribuição; o IRRF, calculado pela tabela progressiva; e o ISS, quando o município exige a retenção. As alíquotas, as faixas e o teto dependem do enquadramento do prestador e mudam ao longo do tempo, e o ISS ainda varia de município para município e por tipo de serviço — por isso o gerador pede que você informe os percentuais em vez de assumi-los. Confirme quais se aplicam ao seu caso na data do pagamento, com a contabilidade da empresa contratante ou nas fontes oficiais. Para preencher, informe os dados do tomador do serviço, os do prestador, a descrição do serviço, o valor bruto e as retenções aplicáveis. O RPA não é nota fiscal e não substitui a emissão quando o município a exige. Quem responde pelo recolhimento das retenções é a empresa contratante. Este gerador é gratuito, calcula os valores a partir das alíquotas que você informar e monta o PDF pronto para assinatura; a conferência dos percentuais e do enquadramento continua sendo responsabilidade de quem emite o documento."
         />
 
         <LegalDisclaimer showProcuracaoWarning={false} />

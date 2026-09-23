@@ -368,7 +368,7 @@ const perguntas: Pergunta[] = [
       {
         h2: 'Carnê-Leão: o imposto mensal do autônomo',
         paragraphs: [
-          'Autônomos que recebem de pessoas físicas são obrigados a recolher o IRPF mensalmente via Carnê-Leão, mesmo antes da declaração anual. A alíquota segue a tabela progressiva (0% a 27,5%) sobre os rendimentos do mês.',
+          'Autônomos que recebem de pessoas físicas são obrigados a recolher o IRPF mensalmente via Carnê-Leão, mesmo antes da declaração anual. O cálculo segue a tabela progressiva mensal do IRPF, cujas faixas, alíquotas e parcelas a deduzir são atualizadas por norma — consulte a tabela em vigor no site da Receita Federal na data do recolhimento.',
           'O cálculo é feito no aplicativo "Carnê-Leão Web" da Receita Federal. Guarde todos os recibos como comprovação dos valores lançados, pois podem ser solicitados em caso de malha fina.',
         ],
       },

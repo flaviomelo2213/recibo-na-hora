@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PROFISSOES, ALL_PROFISSAO_SLUGS } from '@/_data/profissoes'
-import { SEO_CITIES } from '@/_data/seoCities'
 import { buildHowTo, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
 
 const BASE = 'https://www.recibonahora.com.br'
@@ -131,14 +130,19 @@ export default function ProfissaoPage({ params }: Props) {
               </ol>
             </section>
 
-            {/* Validade */}
-            <section className="bg-blue-50 border border-blue-200 rounded-xl p-5">
-              <h2 className="text-lg font-bold text-blue-900 mb-2">
-                <i className="fa-solid fa-circle-check mr-2" />
-                Validade jurídica em todo o Brasil
+            {/* Validade e limites */}
+            <section className="bg-stone-50 border border-stone-200 rounded-xl p-5">
+              <h2 className="text-lg font-bold text-stone-900 mb-2">
+                O que o recibo comprova — e o que não comprova
               </h2>
               <p className="text-stone-700 text-sm leading-relaxed">
-                O recibo simples tem validade jurídica em todo o território nacional. Basta preencher corretamente com os dados de ambas as partes, descrever o serviço e assinar. Não precisa de firma reconhecida para serviços de menor valor.
+                Preenchido com os dados das duas partes, a descrição do serviço, o valor, a data e a
+                assinatura de quem recebeu, o recibo serve como prova de que aquele pagamento foi
+                feito. O que ele não faz: não comprova a qualidade ou a entrega do serviço, não
+                substitui contrato e não substitui nota fiscal quando a emissão é exigida. Recibo é
+                documento particular, sem fé pública — bancos, financeiras e órgãos públicos definem
+                os próprios critérios e podem pedir firma reconhecida ou outro documento. Confirme a
+                exigência com quem vai receber o recibo.
               </p>
             </section>
 
@@ -177,23 +181,10 @@ export default function ProfissaoPage({ params }: Props) {
               </section>
             )}
 
-            {/* Por cidade */}
-            <section>
-              <h2 className="text-xl font-bold text-stone-900 mb-4">
-                {h1} por cidade
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {SEO_CITIES.slice(0, 20).map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/profissoes/${p.slug}/${c.slug}`}
-                    className="inline-flex items-center gap-1 border border-stone-200 bg-stone-50 text-stone-600 px-3 py-1.5 rounded-lg text-sm hover:border-amber-400 hover:bg-amber-50 transition"
-                  >
-                    {c.name} — {c.stateCode}
-                  </Link>
-                ))}
-              </div>
-            </section>
+            {/* Bloco "por cidade" removido na Fase 4A: eram 20 links por página
+                (620 no total) apontando para páginas geo `noindex`, sem função
+                real de navegação. As páginas geo seguem existindo como
+                noindex, follow — apenas deixaram de ser linkadas em massa. */}
           </div>
         </div>
       </main>

@@ -133,7 +133,7 @@ export default function ModeloCidadePage({ params }: Props) {
               <h2 className="text-2xl font-bold text-stone-900 mb-4">O que é?</h2>
               <p className="text-stone-700 leading-relaxed">{modelo.whatIs}</p>
               <p className="text-stone-700 leading-relaxed mt-3">
-                Em {city.name}, {city.state}, este documento é amplamente utilizado e tem plena validade jurídica em todo o território nacional, incluindo cartórios, bancos e órgãos públicos locais.
+                Este documento segue a legislação federal, que é a mesma em {city.name} e no restante do país. A aceitação, porém, é definida por quem recebe o documento: cartórios, bancos e órgãos públicos podem exigir firma reconhecida ou formulário próprio. Confirme antes de apresentar.
               </p>
             </section>
 
@@ -172,7 +172,7 @@ export default function ModeloCidadePage({ params }: Props) {
                 Validade em {city.name} e no Brasil todo
               </h2>
               <p className="text-stone-700 text-sm leading-relaxed">
-                Este modelo foi desenvolvido em conformidade com a legislação brasileira e tem validade jurídica em <strong>{city.name} ({city.stateCode})</strong> e em todo o território nacional. Basta preencher corretamente e assinar.
+                Este modelo reúne os campos exigidos pela legislação brasileira, que se aplica igualmente em <strong>{city.name} ({city.stateCode})</strong> e no restante do país. Preencha todos os campos e colha a assinatura de quem deve assinar.
               </p>
             </section>
 

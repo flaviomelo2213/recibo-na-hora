@@ -142,7 +142,7 @@ export default function ProfissaoCidadePage({ params }: Props) {
                 ))}
               </ul>
               <p className="text-stone-700 leading-relaxed mt-3">
-                Em {city.name}, {city.state}, o recibo tem plena validade jurídica e é aceito em bancos, cartórios e órgãos públicos de todo o território nacional.
+                As regras do recibo são federais e valem igualmente em {city.name}, {city.state}. A aceitação em bancos, cartórios e órgãos públicos depende do critério de cada instituição — confirme o que é exigido antes de apresentar o documento.
               </p>
             </section>
 
@@ -168,7 +168,7 @@ export default function ProfissaoCidadePage({ params }: Props) {
                 Validade em {city.name} e no Brasil todo
               </h2>
               <p className="text-stone-700 text-sm leading-relaxed">
-                Este modelo foi desenvolvido em conformidade com a legislação brasileira e tem validade jurídica em <strong>{city.name} ({city.stateCode})</strong> e em todo o território nacional. Basta preencher corretamente e assinar.
+                Este modelo reúne os campos exigidos pela legislação brasileira, que se aplica igualmente em <strong>{city.name} ({city.stateCode})</strong> e no restante do país. Preencha todos os campos e colha a assinatura de quem recebeu.
               </p>
             </section>
 

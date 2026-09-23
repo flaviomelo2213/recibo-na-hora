@@ -48,7 +48,7 @@ const profissoes: Profissao[] = [
     toolHref: '/ferramentas/recibo-simples',
     toolLabel: 'Gerar Recibo para Diarista',
     keyword: 'recibo para diarista',
-    metaDescription: 'Modelo gratuito de recibo para diarista. Comprove o pagamento por dia de serviço. Gere em PDF sem cadastro. Válido juridicamente.',
+    metaDescription: 'Modelo gratuito de recibo para diarista. Registre o pagamento por diária ou por período trabalhado. Gere em PDF, sem cadastro.',
     intro: 'A diarista que trabalha por conta própria (sem registro em carteira) deve emitir recibo a cada pagamento. O documento protege a diarista e o contratante e pode ser usado como comprovante de renda.',
     quando: ['A cada diária trabalhada', 'Ao receber pagamento mensal por diarista frequente', 'Para comprovar renda em financiamentos e aluguéis', 'Quando o contratante solicitar comprovante'],
     campos: ['Nome completo e CPF da diarista', 'Nome e CPF do contratante', 'Número de diárias ou período trabalhado', 'Valor por diária e total recebido', 'Endereço do local de trabalho (opcional)', 'Data do recebimento', 'Assinatura da diarista'],
@@ -270,7 +270,7 @@ const profissoes: Profissao[] = [
     campos: ['Nome, CRM e CPF do médico', 'Nome e CPF do paciente', 'Descrição: tipo de consulta ou procedimento', 'Data do atendimento', 'Valor recebido', 'Assinatura do médico'],
     faqs: [
       { q: 'Recibo médico serve para reembolso do plano de saúde?', a: 'Depende do plano. Muitos planos aceitam recibos de médicos credenciados ou com CRM. Outros exigem nota fiscal. Consulte as regras do seu plano.' },
-      { q: 'Médico pessoa física precisa emitir nota fiscal?', a: 'Para consultas particulares a pacientes pessoa física, o recibo com CRM é amplamente aceito. Para serviços a empresas, emita nota fiscal de serviços.' },
+      { q: 'Médico pessoa física precisa emitir nota fiscal?', a: 'Para consultas particulares a pacientes pessoa física, o recibo com CRM costuma ser aceito, mas planos de saúde e a Receita Federal têm exigências próprias para reembolso e dedução — confirme antes de emitir. Para serviços a empresas, emita nota fiscal de serviços.' },
       { q: 'Recibo médico pode ser deduzido no imposto de renda?', a: 'Sim. Despesas médicas com recibo podem ser deduzidas integralmente no IRPF, sem limite. O recibo deve conter nome do paciente, CRM do médico e valor pago.' },
     ],
     related: ['autonomo', 'consultor', 'fisioterapeuta'],
@@ -287,7 +287,7 @@ const profissoes: Profissao[] = [
     quando: ['Ao receber honorários iniciais ou de êxito', 'Por consultas e pareceres jurídicos', 'Para contratos de assessoria mensal', 'Por audiências ou diligências avulsas'],
     campos: ['Nome, CPF e OAB do advogado', 'Nome e CPF/CNPJ do cliente', 'Descrição: natureza do serviço jurídico ou processo', 'Honorários recebidos', 'Data do recebimento', 'Assinatura do advogado'],
     faqs: [
-      { q: 'Recibo de honorários substitui nota fiscal?', a: 'Para serviços a pessoas físicas, o recibo com OAB é amplamente aceito. Para empresas, consulte a OAB do seu estado e a legislação municipal — muitos municípios exigem NFS-e mesmo de advogados autônomos.' },
+      { q: 'Recibo de honorários substitui nota fiscal?', a: 'Para serviços a pessoas físicas, o recibo com OAB costuma ser aceito. Para empresas, consulte a OAB do seu estado e a legislação municipal — muitos municípios exigem NFS-e mesmo de advogados autônomos.' },
       { q: 'Honorários advocatícios são dedutíveis do IR?', a: 'Sim, em alguns casos. Honorários pagos em ações judiciais trabalhistas e algumas outras ações podem ser deduzidos no IRPF do cliente. Informe seu cliente sobre isso.' },
       { q: 'Como tratar honorários de êxito no recibo?', a: 'Emita um recibo específico para honorários de êxito, descrevendo: processo, instância, resultado obtido e o percentual ou valor acordado no contrato.' },
     ],
