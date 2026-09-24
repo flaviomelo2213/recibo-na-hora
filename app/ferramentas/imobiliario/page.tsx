@@ -9,7 +9,6 @@ import {
   ToolShellHeader,
 } from '../../../app/components/layout/ToolShell';
 import { buildOpenGraph } from '../../../app/lib/metadata';
-import AdSlot from '../../../app/components/ads/AdSlot';
 import Breadcrumb from '../../../app/components/Breadcrumb';
 import EditorialTrustBox from '../../../app/components/EditorialTrustBox';
 import RelatedDocuments from '../../../app/components/RelatedDocuments';
@@ -209,10 +208,6 @@ export default function ReciboAluguelPage() {
             <li>Perder o histórico de recibos ao longo do contrato, dificultando comprovações futuras.</li>
           </ul>
         </section>
-
-        <div className="max-w-3xl mx-auto">
-          <AdSlot slot="0000000002" />
-        </div>
 
         <section className="mt-16 mb-12 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-800 mb-6">
