@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
+import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 
 export default function ReciboVeiculo() {
   const [dados, setDados] = useState({
@@ -99,6 +100,8 @@ export default function ReciboVeiculo() {
                 <button onClick={gerarPDF} className="w-full mt-4 bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700 transition">
                     GERAR RECIBO
                 </button>
+
+                <AdsKeeperWidget />
              </div>
         </div>
       </div>
