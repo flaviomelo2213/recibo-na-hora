@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
+import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 
 const ReciboDeAluguelGenerator: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -121,6 +122,7 @@ const ReciboDeAluguelGenerator: React.FC = () => {
         >
           Gerar PDF do Recibo
         </button>
+        <AdsKeeperWidget />
       </div>
     </div>
   );
