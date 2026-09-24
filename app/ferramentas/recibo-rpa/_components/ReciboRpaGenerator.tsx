@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import jsPDF from "jspdf";
+import AdsKeeperWidget from "../../../components/ads/AdsKeeperWidget";
 
 interface RpaData {
   numeroRecibo: string;
@@ -331,6 +332,8 @@ export default function ReciboRpaGenerator() {
             <i className="fa-solid fa-file-pdf"></i>
             Gerar PDF
           </button>
+
+          <AdsKeeperWidget />
         </div>
       </div>
 
