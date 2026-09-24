@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { jsPDF } from 'jspdf';
+import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 
 export default function GeradorReciboPro() {
   // Estado Completo (Campos que os concorrentes têm)
@@ -170,6 +171,8 @@ export default function GeradorReciboPro() {
       <button onClick={gerarPDF} className="w-full mt-8 bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02]">
         <i className="fa-solid fa-file-invoice-dollar text-2xl"></i> BAIXAR RECIBO PROFISSIONAL
       </button>
+
+      <AdsKeeperWidget />
     </div>
   );
 }
