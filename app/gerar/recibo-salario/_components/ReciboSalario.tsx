@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { jsPDF } from "jspdf";
+import AdsKeeperWidget from "../../../components/ads/AdsKeeperWidget";
 
 type DadosRecibo = {
   empresaNome: string;
@@ -259,6 +260,7 @@ export default function ReciboSalario() {
             >
               <i className="fa-solid fa-print"></i> IMPRIMIR RECIBO (2 VIAS)
             </button>
+            <AdsKeeperWidget />
           </div>
         </div>
       </div>
