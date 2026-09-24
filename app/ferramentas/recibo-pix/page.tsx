@@ -3,7 +3,6 @@ import React from 'react';
 import FerramentaReciboPix from "./_components/FerramentaReciboPix";
 import LegalDisclaimer from "../../components/LegalDisclaimer";
 import FaqAccordion from "../../components/FaqAccordion";
-import AdSlot from "../../components/ads/AdSlot";
 import Breadcrumb from "../../components/Breadcrumb";
 import EditorialTrustBox from "../../components/EditorialTrustBox";
 import RelatedDocuments from "../../components/RelatedDocuments";
@@ -164,8 +163,6 @@ export default function ReciboPixPage() {
               </li>
             </ul>
           </div>
-
-          <AdSlot slot="0000000005" className="bg-white rounded-xl border border-slate-200 shadow-inner-sm p-4" />
         </aside>
 
       </div>
