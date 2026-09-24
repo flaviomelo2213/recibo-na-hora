@@ -5,6 +5,7 @@ import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import PreviewReciboPix from './PreviewReciboPix';
+import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 
 // Componente principal que une o formulário e a pré-visualização
 export default function FerramentaReciboPix() {
@@ -139,6 +140,7 @@ export default function FerramentaReciboPix() {
           <i className="fa-solid fa-file-arrow-down"></i>
           {isGenerating ? 'Gerando PDF...' : 'Baixar Recibo em PDF'}
         </button>
+        <AdsKeeperWidget />
       </div>
 
     </div>
