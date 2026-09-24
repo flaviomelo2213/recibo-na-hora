@@ -10,7 +10,6 @@ import {
   ToolShellHeader,
 } from '../../../app/components/layout/ToolShell';
 import { buildOpenGraph } from '../../../app/lib/metadata';
-import AdSlot from '../../../app/components/ads/AdSlot';
 import Breadcrumb from '../../../app/components/Breadcrumb';
 import EditorialTrustBox from '../../../app/components/EditorialTrustBox';
 import RelatedDocuments from '../../../app/components/RelatedDocuments';
@@ -182,10 +181,6 @@ export default function ReciboSimplesPage() {
             <li>Usar o recibo no lugar de nota fiscal quando ela é obrigatória.</li>
           </ul>
         </section>
-
-        <div className="max-w-3xl mx-auto">
-          <AdSlot slot="0000000003" />
-        </div>
 
         <section className="mt-16 mb-12 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-800 mb-6">
