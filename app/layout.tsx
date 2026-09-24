@@ -130,6 +130,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        {/* AdsKeeper loader — once per page */}
+        <script src="https://jsc.adskeeper.com/site/1112891.js" async></script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
