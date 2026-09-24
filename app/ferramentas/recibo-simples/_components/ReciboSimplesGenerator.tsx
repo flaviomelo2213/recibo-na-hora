@@ -10,6 +10,7 @@ import { Card } from '../../../components/ui/Card';
 import { Input } from '../../../components/ui/Input';
 import { Textarea } from '../../../components/ui/Textarea';
 import { Button } from '../../../components/ui/Button';
+import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 
 interface ReciboData {
   pagadorNome: string;
@@ -380,6 +381,8 @@ export default function ReciboSimplesGenerator() {
               WhatsApp
             </Button>
           </div>
+
+          <AdsKeeperWidget />
 
           <Card className="p-4">
             <div className="flex items-center">
