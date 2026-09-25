@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import GeradorReciboPro from './_components/GeradorReciboPro';
 import { buildOpenGraph } from '@/lib/metadata';
+import PartnerSpotlight from '@/components/partners/PartnerSpotlight';
 
 /**
  * Slugs realmente suportados por esta rota dinâmica.
@@ -44,6 +45,9 @@ export default function GeradorReciboProPage({ params }: { params: { tipo: strin
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <GeradorReciboPro />
+      <div className="mx-auto mt-10 max-w-3xl">
+        <PartnerSpotlight categories={['conta-pj', 'pagamentos', 'assinatura']} />
+      </div>
     </div>
   );
 }
