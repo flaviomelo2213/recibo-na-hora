@@ -12,6 +12,7 @@ import { buildOpenGraph } from '../../../app/lib/metadata';
 import Breadcrumb from '../../../app/components/Breadcrumb';
 import EditorialTrustBox from '../../../app/components/EditorialTrustBox';
 import RelatedDocuments from '../../../app/components/RelatedDocuments';
+import PartnerSpotlight from '../../../app/components/partners/PartnerSpotlight';
 
 const faqItems = [
   {
@@ -208,6 +209,10 @@ export default function ReciboAluguelPage() {
             <li>Perder o histórico de recibos ao longo do contrato, dificultando comprovações futuras.</li>
           </ul>
         </section>
+
+        <div className="max-w-3xl mx-auto mb-12">
+          <PartnerSpotlight categories={['assinatura', 'conta-pj']} />
+        </div>
 
         <section className="mt-16 mb-12 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-800 mb-6">
