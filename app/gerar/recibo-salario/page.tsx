@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ReciboSalario from './_components/ReciboSalario';
 import { buildOpenGraph } from '@/lib/metadata';
+import PartnerSpotlight from '@/components/partners/PartnerSpotlight';
 
 const title = 'Recibo de Salário e Diarista Grátis | 2 Vias em PDF — ReciboNaHora';
 const description =
@@ -16,5 +17,12 @@ export const metadata: Metadata = {
 };
 
 export default function ReciboSalarioPage() {
-  return <ReciboSalario />;
+  return (
+    <>
+      <ReciboSalario />
+      <div className="mx-auto mt-10 max-w-3xl px-4 pb-12">
+        <PartnerSpotlight categories={['conta-pj', 'pagamentos']} />
+      </div>
+    </>
+  );
 }
