@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ReciboVeiculo from '../venda_veiculo/_components/ReciboVeiculo';
 import { buildOpenGraph } from '@/lib/metadata';
+import PartnerSpotlight from '@/components/partners/PartnerSpotlight';
 
 const title = 'Recibo de Compra e Venda de Veículo Grátis | PDF com RENAVAM — ReciboNaHora';
 const description =
@@ -16,5 +17,12 @@ export const metadata: Metadata = {
 };
 
 export default function VendaVeiculoPage() {
-  return <ReciboVeiculo />;
+  return (
+    <>
+      <ReciboVeiculo />
+      <div className="mx-auto mt-10 max-w-3xl px-4 pb-12">
+        <PartnerSpotlight categories={['pagamentos', 'assinatura']} />
+      </div>
+    </>
+  );
 }
