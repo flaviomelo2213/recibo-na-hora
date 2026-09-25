@@ -6,6 +6,7 @@ import FaqAccordion from "../../components/FaqAccordion";
 import Breadcrumb from "../../components/Breadcrumb";
 import EditorialTrustBox from "../../components/EditorialTrustBox";
 import RelatedDocuments from "../../components/RelatedDocuments";
+import PartnerSpotlight from "../../components/partners/PartnerSpotlight";
 
 export const metadata: Metadata = {
   title: "Gerador de Recibo PIX Online Grátis | ReciboNaHora",
@@ -120,6 +121,10 @@ export default function ReciboPixPage() {
             <li>Tratar o recibo como substituto de Nota Fiscal em operações que exigem emissão fiscal.</li>
           </ul>
         </div>
+      </div>
+
+      <div className="max-w-3xl mx-auto mb-12">
+        <PartnerSpotlight categories={['conta-pj', 'pagamentos']} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-slate-200 pt-12">
