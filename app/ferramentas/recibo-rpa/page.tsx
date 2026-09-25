@@ -3,6 +3,7 @@ import ReciboRpaGenerator from "./_components/ReciboRpaGenerator";
 import SeoContentBlock from "@/components/SeoContentBlock";
 import LegalDisclaimer from "@/components/LegalDisclaimer";
 import { buildOpenGraph } from '@/lib/metadata';
+import PartnerSpotlight from '@/components/partners/PartnerSpotlight';
 
 const title = "Recibo RPA Grátis | Recibo de Pagamento a Autônomo em PDF";
 const description = "Gere Recibo RPA (Recibo de Pagamento a Autônomo) online grátis. Informe as alíquotas aplicáveis ao seu caso e o gerador calcula INSS, IRRF e ISS. Download em PDF.";
@@ -29,6 +30,10 @@ export default function ReciboRpaPage() {
         </div>
 
         <ReciboRpaGenerator />
+
+        <div className="mx-auto mb-12 max-w-3xl">
+          <PartnerSpotlight categories={['conta-pj', 'pagamentos', 'contabilidade']} />
+        </div>
 
         <SeoContentBlock
           title="O que é Recibo RPA e Quando Usar?"
