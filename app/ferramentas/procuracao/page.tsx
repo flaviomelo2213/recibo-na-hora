@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     description:
       "Crie uma procuração particular (ad negotia) em PDF para representar alguém em atos da vida civil. Gratuito, sem cadastro.",
     url: "https://www.recibonahora.com.br/ferramentas/procuracao",
+    images: [{ url: "https://www.recibonahora.com.br/opengraph-image", width: 1200, height: 630, alt: "ReciboNaHora - Gerador gratuito de recibos e documentos" }],
   },
 };
 
