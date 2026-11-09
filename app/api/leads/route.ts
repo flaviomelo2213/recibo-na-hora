@@ -3,11 +3,18 @@ import { createClient } from "@supabase/supabase-js";
 
 const CONTACT_EMAIL = "contato@recibonahora.com.br";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export async function POST(request: NextRequest) {
   try {
+    if (!supabaseUrl || !supabaseKey) {
+      console.error("Configuração ausente para captura de leads no Supabase.");
+      return NextResponse.json(
+        { error: "Serviço de contato temporariamente indisponível." },
+        { status: 503 }
+      );
+    }
     const body = await request.json();
     const { name, phone, email, value, source = "educacao-financeira" } = body;
 

@@ -22,13 +22,12 @@ export default async function OgImage() {
           overflow: 'hidden',
         }}
       >
-        {/* Background grid pattern */}
+        {/* Decorative overlay kept compatible with Satori / next/og. */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage:
-              'repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 32px), repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 32px)',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 55%)',
             display: 'flex',
           }}
         />
@@ -141,7 +140,7 @@ export default async function OgImage() {
                   fontSize: '20px',
                 }}
               >
-                <span style={{ color: '#4ade80' }}>✓</span>
+                <span style={{ color: '#4ade80', fontWeight: 800 }}>•</span>
                 <span>{item}</span>
               </div>
             ))}
