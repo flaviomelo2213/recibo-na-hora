@@ -9,28 +9,27 @@ import { ALL_COMPARACAO_SLUGS } from './_data/comparacoes'
 const BASE = 'https://www.recibonahora.com.br'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date()
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE,                              lastModified: now, changeFrequency: 'daily',   priority: 1.0 },
-    { url: `${BASE}/ferramentas`,             lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${BASE}/recibos`,                 lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${BASE}/contratos`,               lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${BASE}/orcamentos`,              lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${BASE}/mei`,                     lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: BASE, changeFrequency: 'daily',   priority: 1.0 },
+    { url: `${BASE}/ferramentas`, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/recibos`, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/contratos`, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/orcamentos`, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/mei`, changeFrequency: 'weekly',  priority: 0.9 },
     // /recursos removida do sitemap na Fase 4A: diretório de links de afiliado,
     // agora `noindex, follow` (ver app/recursos/page.tsx). Continua acessível.
-    { url: `${BASE}/blog`,                   lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
-    { url: `${BASE}/educacao-financeira`,     lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
-    { url: `${BASE}/apoio-corretor`,          lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
-    { url: `${BASE}/requerimentos`,           lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/contato`,                 lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/sobre`,                   lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE}/parcerias`,               lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE}/como-ganhamos-dinheiro`,  lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE}/politica-privacidade`,    lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
-    { url: `${BASE}/termos-uso`,              lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
-    { url: `${BASE}/politica-editorial`,      lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/blog`, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/educacao-financeira`, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/apoio-corretor`, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/requerimentos`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/contato`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/sobre`, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/parcerias`, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/como-ganhamos-dinheiro`, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/politica-privacidade`, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/termos-uso`, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/politica-editorial`, changeFrequency: 'yearly',  priority: 0.3 },
     // /mapa-de-perguntas removida do sitemap na Fase 4B: subconjunto estrito de
     // /perguntas (mesmas 19 perguntas, sem categorias nem resumos), agora
     // `noindex, follow`. Continua publicada e linkada no rodapé.
@@ -64,17 +63,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/requerimentos/lai-pedido',
   ].map((path) => ({
     url: `${BASE}${path}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
   // Base modelo pages (index + 15 tipos)
   const modeloBasePages: MetadataRoute.Sitemap = [
-    { url: `${BASE}/modelo`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${BASE}/modelo`, changeFrequency: 'weekly' as const, priority: 0.8 },
     ...ALL_SLUGS.map((slug) => ({
       url: `${BASE}/modelo/${slug}`,
-      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
@@ -94,7 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/guia-lance-embutido',
   ].map((path) => ({
     url: `${BASE}${path}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
@@ -102,17 +98,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic blog posts (from blogPosts.ts)
   const blogDynamicPages: MetadataRoute.Sitemap = ALL_BLOG_SLUGS.map((slug) => ({
     url: `${BASE}/blog/${slug}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
   // Profissoes base pages (30)
   const profissoesBasePages: MetadataRoute.Sitemap = [
-    { url: `${BASE}/profissoes`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${BASE}/profissoes`, changeFrequency: 'weekly' as const, priority: 0.8 },
     ...ALL_PROFISSAO_SLUGS.map((slug) => ({
       url: `${BASE}/profissoes/${slug}`,
-      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
@@ -125,10 +119,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Guias pages (8)
   const guiasPages: MetadataRoute.Sitemap = [
-    { url: `${BASE}/guias`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${BASE}/guias`, changeFrequency: 'weekly' as const, priority: 0.8 },
     ...ALL_GUIA_SLUGS.map((slug) => ({
       url: `${BASE}/guias/${slug}`,
-      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
@@ -136,10 +129,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Perguntas pages (20 Q&A + index)
   const perguntasPages: MetadataRoute.Sitemap = [
-    { url: `${BASE}/perguntas`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${BASE}/perguntas`, changeFrequency: 'weekly' as const, priority: 0.8 },
     ...ALL_PERGUNTA_SLUGS.map((slug) => ({
       url: `${BASE}/perguntas/${slug}`,
-      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
@@ -147,10 +139,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Comparacoes pages (5 + index)
   const comparacoesPages: MetadataRoute.Sitemap = [
-    { url: `${BASE}/comparacoes`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    { url: `${BASE}/comparacoes`, changeFrequency: 'weekly' as const, priority: 0.8 },
     ...ALL_COMPARACAO_SLUGS.map((slug) => ({
       url: `${BASE}/comparacoes/${slug}`,
-      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
