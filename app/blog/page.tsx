@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     title: 'Blog | ReciboNaHora',
     description: 'Artigos sobre recibos, contratos, MEI e finanças para autônomos e pequenos negócios.',
     url: 'https://www.recibonahora.com.br/blog',
+    images: [{ url: "https://www.recibonahora.com.br/opengraph-image", width: 1200, height: 630, alt: "ReciboNaHora - Gerador gratuito de recibos e documentos" }],
   },
 };
 
