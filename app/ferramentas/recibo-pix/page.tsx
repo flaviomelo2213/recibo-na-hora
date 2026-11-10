@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description:
       "Crie um recibo de pagamento PIX completo em PDF com QR Code de validação. Gratuito, sem cadastro.",
     url: "https://www.recibonahora.com.br/ferramentas/recibo-pix",
+    images: [{ url: "https://www.recibonahora.com.br/opengraph-image", width: 1200, height: 630, alt: "ReciboNaHora - Gerador gratuito de recibos e documentos" }],
   },
 };
 
