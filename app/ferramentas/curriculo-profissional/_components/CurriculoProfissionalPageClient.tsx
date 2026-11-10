@@ -10,6 +10,7 @@ import { ToolTwoColumn } from '@/components/ToolTwoColumn';
 import PreviewPaper from '@/components/PreviewPaper';
 import FaqAccordion from '@/components/FaqAccordion';
 import AdSlot from '@/components/ads/AdSlot';
+import { ADSENSE_SLOTS } from '@/_config/adsense';
 import {
   ToolShell,
   ToolShellHeader,
@@ -152,7 +153,7 @@ export default function CurriculoProfissionalPageClient() {
         </article>
 
         <div className="max-w-3xl mx-auto">
-          <AdSlot slot="0000000004" />
+          <AdSlot slot={ADSENSE_SLOTS.toolAfterContent} />
         </div>
 
         <section className="max-w-3xl mx-auto mt-16">
