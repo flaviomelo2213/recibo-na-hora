@@ -1,8 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
-import CookieBanner from "./components/CookieBanner";
+import { ConsentProvider, ConsentScripts } from "./components/CookieBanner";
 import ClientOnly from "./components/ClientOnly";
 import { AiProvider } from "./components/ai/AiProvider";
 import AiFab from "./components/ai/AiFab";
@@ -110,29 +109,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-YYX0MSP75Y"
-          strategy="afterInteractive"
-        />
-        <Script id="ga-gtag" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-YYX0MSP75Y', { anonymize_ip: true });
-          `}
-        </Script>
-
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182690500"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-
-        {/* AdsKeeper loader — once per page */}
-        <script src="https://jsc.adskeeper.com/site/1112891.js" async></script>
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -150,6 +126,8 @@ export default function RootLayout({
       </head>
 
       <body className={`${inter.className} bg-stone-50 text-stone-800 flex flex-col min-h-screen`}>
+        <ConsentProvider>
+        <ConsentScripts />
         <AiProvider>
           <Header />
 
@@ -373,15 +351,11 @@ export default function RootLayout({
             </div>
           </footer>
 
-          {/* Cookie consent apenas no client */}
-          <ClientOnly>
-            <CookieBanner />
-          </ClientOnly>
-
           {/* GLOBAL AI */}
           <AiFab />
           <AiDrawer />
         </AiProvider>
+        </ConsentProvider>
       </body>
     </html>
   );

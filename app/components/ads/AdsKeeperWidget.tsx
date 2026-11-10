@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useOptionalConsent } from '../CookieBanner';
 
 declare global {
   interface Window {
@@ -9,10 +10,14 @@ declare global {
 }
 
 export default function AdsKeeperWidget() {
+  const allowed = useOptionalConsent();
   useEffect(() => {
+    if (!allowed) return;
     window._mgq = window._mgq || [];
     window._mgq.push(['_mgc.load']);
-  }, []);
+  }, [allowed]);
+
+  if (!allowed) return null;
 
   return (
     <aside
