@@ -36,11 +36,12 @@ export default function AdSlot({
   className = '',
   label = 'Publicidade',
 }: AdSlotProps) {
-  const isPlaceholder = PLACEHOLDER_SLOT_PATTERN.test(slot);
+  const normalizedSlot = slot.trim();
+  const isDisabled = normalizedSlot === "" || PLACEHOLDER_SLOT_PATTERN.test(normalizedSlot);
   const pushed = useRef(false);
 
   useEffect(() => {
-    if (isPlaceholder) return;
+    if (isDisabled) return;
     if (pushed.current) return;
     pushed.current = true;
     try {
@@ -49,9 +50,9 @@ export default function AdSlot({
     } catch {
       // AdSense pode ainda não ter carregado (bloqueador de anúncios, script lento, etc.)
     }
-  }, [isPlaceholder]);
+  }, [isDisabled]);
 
-  if (isPlaceholder) {
+  if (isDisabled) {
     // Nenhum <ins class="adsbygoogle"> e nenhuma chamada push() acontece aqui —
     // não há solicitação de anúncio nenhuma até o slot real ser configurado.
     return null;
@@ -64,7 +65,7 @@ export default function AdSlot({
         className="adsbygoogle block w-full"
         style={{ display: 'block', minHeight: 100 }}
         data-ad-client={AD_CLIENT}
-        data-ad-slot={slot}
+        data-ad-slot={normalizedSlot}
         data-ad-format={format}
         data-full-width-responsive="true"
       />

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { BLOG_POSTS, ALL_BLOG_SLUGS, type BlogSection } from '@/_data/blogPosts'
 import { buildArticle, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
+import AdSlot from '@/components/ads/AdSlot'
+import { ADSENSE_SLOTS } from '@/_config/adsense'
 
 const BASE = 'https://www.recibonahora.com.br'
 
@@ -210,6 +212,10 @@ export default function BlogSlugPage({ params }: Props) {
             ))}
           </article>
 
+          <div className="mt-10">
+            <AdSlot slot={ADSENSE_SLOTS.articleMiddle} />
+          </div>
+
           {/* Tools CTA */}
           {post.relatedTools.length > 0 && (
             <section className="mt-12 bg-amber-50 border border-amber-200 rounded-2xl p-6">
@@ -265,6 +271,10 @@ export default function BlogSlugPage({ params }: Props) {
               </div>
             </section>
           )}
+
+          <div className="mt-10">
+            <AdSlot slot={ADSENSE_SLOTS.articleBottom} />
+          </div>
 
           {/* Back to blog */}
           <div className="mt-10 pt-8 border-t border-stone-200">

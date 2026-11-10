@@ -8,6 +8,7 @@ import {
 } from '@/components/layout/ToolShell';
 import { buildOpenGraph } from '@/lib/metadata';
 import AdSlot from '@/components/ads/AdSlot';
+import { ADSENSE_SLOTS } from '@/_config/adsense';
 import Breadcrumb from '@/components/Breadcrumb';
 import EditorialTrustBox from '@/components/EditorialTrustBox';
 import RelatedDocuments from '@/components/RelatedDocuments';
@@ -205,7 +206,7 @@ export default function CalculadoraRescisaoPage() {
         </article>
 
         <div className="max-w-3xl mx-auto">
-          <AdSlot slot="0000000001" />
+          <AdSlot slot={ADSENSE_SLOTS.toolAfterContent} />
         </div>
 
         <section className="max-w-3xl mx-auto mt-16">

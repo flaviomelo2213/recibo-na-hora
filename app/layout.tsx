@@ -153,7 +153,9 @@ export default function RootLayout({
         <AiProvider>
           <Header />
 
-          {children}
+          <div {...({ "google-side-rail-overlap": "false" } as Record<string, string>)}>
+            {children}
+          </div>
 
           {/* --- RODAPÉ --- */}
           <footer
