@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { jsPDF } from 'jspdf';
 import { Download, Share2, Info } from 'lucide-react';
 import Link from 'next/link';
+import { validateReceipt, type ReceiptFields } from '@/lib/receipt-validation';
 
 import PreviewPaper from '../../../components/PreviewPaper';
 import { Card } from '../../../components/ui/Card';
@@ -49,10 +50,28 @@ export default function ReciboSimplesGenerator() {
     recebedorCpfCnpj: '',
     valor: '',
     valorExtenso: '',
-    descricao: 'Referente a... ',
+    descricao: '',
     cidade: '',
     data: '',
   });
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const errorPrefix = useId();
+  const [errors, setErrors] = useState<Partial<Record<keyof ReceiptFields, string>>>({});
+  const errorProps = (name: keyof ReceiptFields) => ({
+    'aria-invalid': !!errors[name],
+    'aria-describedby': errors[name] ? `${errorPrefix}-${name}` : undefined,
+  });
+  const fieldError = (name: keyof ReceiptFields) => errors[name] ? (
+    <p id={`${errorPrefix}-${name}`} className="mt-1 text-sm text-red-700">{errors[name]}</p>
+  ) : null;
+  const validate = () => {
+    const next = validateReceipt(data);
+    setErrors(next);
+    const first = Object.keys(next)[0];
+    if (first) formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+    return !first;
+  };
 
   // =========================
   // IA (BYOK Gemini) — Descrição
@@ -164,6 +183,7 @@ export default function ReciboSimplesGenerator() {
   };
 
   const getReciboText = () => {
+    const valorFormatado = Number(data.valor || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const dataObj = data.data ? new Date(data.data + 'T00:00:00') : new Date();
     const dataFormatada = dataObj.toLocaleDateString('pt-BR', {
       day: '2-digit',
@@ -176,13 +196,13 @@ export default function ReciboSimplesGenerator() {
       (data.recebedorCpfCnpj ? `inscrito(a) no CPF/CNPJ sob o nº ${data.recebedorCpfCnpj}, ` : '') +
       `declaro que recebi de ${data.pagadorNome || '[Nome do Pagador]'}` +
       (data.pagadorCpfCnpj ? `, inscrito(a) no CPF/CNPJ sob o nº ${data.pagadorCpfCnpj}, ` : ', ') +
-      `a importância de R$ ${data.valor || '0,00'} (${data.valorExtenso || '[Valor por Extenso]'}), referente a ${
+      `a importância de R$ ${valorFormatado} (${data.valorExtenso || '[Valor por Extenso]'}), referente a ${
         data.descricao || '[Descrição do pagamento]'
       }.`;
 
     return (
       `----------- RECIBO DE PAGAMENTO -----------\n\n` +
-      `Valor: R$ ${data.valor || '0,00'}\n\n` +
+      `Valor: R$ ${valorFormatado}\n\n` +
       `${textoRecibo}\n\n` +
       `Por ser verdade, firmo o presente recibo, para que produza seus devidos e legais efeitos.\n\n` +
       `${data.cidade || '[Cidade]'}, ${dataFormatada}.\n\n\n` +
@@ -192,17 +212,24 @@ export default function ReciboSimplesGenerator() {
   };
 
   const handleDownloadPdf = () => {
+    if (!validate()) return;
     const doc = new jsPDF('p', 'mm', 'a4');
     const text = getReciboText();
 
-    doc.setFont('Helvetica', 'normal');
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
     const splitText = doc.splitTextToSize(text, 180);
-    doc.text(splitText, 15, 20);
+    let y = 20;
+    for (const line of splitText) {
+      if (y > 277) { doc.addPage(); y = 20; }
+      doc.text(line, 15, y);
+      y += 6;
+    }
     doc.save('recibo-de-pagamento.pdf');
   };
 
   const handleShareWhatsApp = () => {
+    if (!validate()) return;
     const valor = data.valor ? `R$ ${data.valor}` : '';
     const recebedor = data.recebedorNome || '';
     const texto = `Gerado no ReciboNaHora: Recibo de ${valor} para ${recebedor}.`;
@@ -211,18 +238,23 @@ export default function ReciboSimplesGenerator() {
   };
 
   const FormFields = (
+    <form ref={formRef} noValidate onSubmit={(event) => { event.preventDefault(); handleDownloadPdf(); }}>
     <Card className="p-6 md:p-8">
       <div className="space-y-6">
+        {Object.keys(errors).length > 0 && <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">Preencha os campos indicados antes de gerar ou compartilhar o recibo.</p>}
         <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Para quem você pagou?</legend>
-          <Input
+          <div><Input
             label="Nome do Recebedor"
             name="recebedorNome"
             value={data.recebedorNome}
             onChange={handleInputChange}
             placeholder="Ex: João da Silva"
+            {...errorProps("recebedorNome")}
             required
           />
+            {fieldError("recebedorNome")}
+          </div>
           <Input
             label="CPF/CNPJ do Recebedor"
             name="recebedorCpfCnpj"
@@ -234,14 +266,17 @@ export default function ReciboSimplesGenerator() {
 
         <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Quem realizou o pagamento?</legend>
-          <Input
+          <div><Input
             label="Nome do Pagador"
             name="pagadorNome"
             value={data.pagadorNome}
             onChange={handleInputChange}
             placeholder="Ex: Maria Souza"
+            {...errorProps("pagadorNome")}
             required
           />
+            {fieldError("pagadorNome")}
+          </div>
           <Input
             label="CPF/CNPJ do Pagador"
             name="pagadorCpfCnpj"
@@ -320,7 +355,7 @@ export default function ReciboSimplesGenerator() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <Input
+            <div><Input
               label="Valor (R$)"
               name="valor"
               value={data.valor}
@@ -328,55 +363,71 @@ export default function ReciboSimplesGenerator() {
               placeholder="150,00"
               type="number"
               step="0.01"
-              required
+              min="0.01"
+              {...errorProps("valor")}
+            required
             />
-            <Input
+            {fieldError("valor")}
+          </div>
+            <div><Input
               label="Valor por Extenso"
               name="valorExtenso"
               value={data.valorExtenso}
               onChange={handleInputChange}
               placeholder="Cento e cinquenta reais"
-              required
+              {...errorProps("valorExtenso")}
+            required
             />
+            {fieldError("valorExtenso")}
+          </div>
           </div>
 
-          <Textarea
+          <div><Textarea
             rows={3}
             label="Descrição do Pagamento"
             name="descricao"
             value={data.descricao}
             onChange={handleInputChange}
+            {...errorProps("descricao")}
             required
           />
+            {fieldError("descricao")}
+          </div>
         </fieldset>
 
         <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <legend className="text-lg font-semibold text-slate-800 mb-4 col-span-full">Local e Data</legend>
-          <Input
+          <div><Input
             label="Cidade de Emissão"
             name="cidade"
             value={data.cidade}
             onChange={handleInputChange}
             placeholder="Ex: São Paulo"
+            {...errorProps("cidade")}
             required
           />
-          <Input
+            {fieldError("cidade")}
+          </div>
+          <div><Input
             label="Data do Pagamento"
             name="data"
             value={data.data}
             onChange={handleInputChange}
             type="date"
+            {...errorProps("data")}
             required
           />
+            {fieldError("data")}
+          </div>
         </fieldset>
 
         <div className="space-y-4 pt-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Button onClick={handleDownloadPdf} size="lg">
+            <Button type="submit" size="lg">
               <Download className="w-4 h-4 mr-2" />
               Baixar PDF
             </Button>
-            <Button onClick={handleShareWhatsApp} variant="success" size="lg">
+            <Button type="button" onClick={handleShareWhatsApp} variant="success" size="lg">
               <Share2 className="w-4 h-4 mr-2" />
               WhatsApp
             </Button>
@@ -404,6 +455,7 @@ export default function ReciboSimplesGenerator() {
         </div>
       </div>
     </Card>
+    </form>
   );
 
   const Preview = (

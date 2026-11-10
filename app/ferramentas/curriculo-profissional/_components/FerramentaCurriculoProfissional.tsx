@@ -3,8 +3,7 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import type { CurriculumData } from './types';
 import SignaturePad from './SignaturePad';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
+import { buildCurriculumPdf } from '@/lib/curriculum-pdf';
 
 interface FerramentaCurriculoProfissionalProps {
   data: CurriculumData;
@@ -13,6 +12,8 @@ interface FerramentaCurriculoProfissionalProps {
 
 export default function FerramentaCurriculoProfissional({ data, onDataChange }: FerramentaCurriculoProfissionalProps) {
   const [showSignaturePad, setShowSignaturePad] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   const handlePersonalInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
     onDataChange({ ...data, dadosPessoais: { ...data.dadosPessoais, [e.target.name]: e.target.value } });
@@ -55,17 +56,20 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
     onDataChange({ ...data, [list]: updatedList as any });
   };
 
-  const generatePDF = () => {
-    const previewElement = document.getElementById('preview-content');
-    if (previewElement) {
-      html2canvas(previewElement, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('curriculo.pdf');
-      });
+  const generatePDF = async () => {
+    setPdfError(null);
+    if (!data.dadosPessoais.nome.trim()) {
+      setPdfError('Informe seu nome antes de baixar o currículo.');
+      return;
+    }
+    setPdfLoading(true);
+    try {
+      const pdf = await buildCurriculumPdf(data);
+      pdf.save('curriculo.pdf');
+    } catch {
+      setPdfError('Não foi possível gerar o PDF. Confira se a foto e a assinatura são imagens PNG ou JPEG válidas e tente novamente.');
+    } finally {
+      setPdfLoading(false);
     }
   };
 
@@ -315,10 +319,10 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
           {data.experiencia.map((item) => (
             <div key={item.id} className="border p-3 rounded-md mb-3 space-y-2">
               <input name="cargo" placeholder="Cargo" value={item.cargo} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md w-full" />
-              <div className="flex gap-2">
-                <input name="empresa" placeholder="Empresa" value={item.empresa} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md flex-1" />
-                <input name="inicio" placeholder="Início" value={item.inicio} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md w-28" />
-                <input name="fim" placeholder="Fim" value={item.fim} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md w-28" />
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                <input name="empresa" placeholder="Empresa" value={item.empresa} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md min-w-0 w-full" />
+                <input name="inicio" placeholder="Início" value={item.inicio} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md min-w-0 w-full" />
+                <input name="fim" placeholder="Fim" value={item.fim} onChange={(e) => handleItemChange('experiencia', item.id, e)} className="p-2 border rounded-md min-w-0 w-full" />
               </div>
 
               <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -358,9 +362,9 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
           {data.educacao.map((item) => (
             <div key={item.id} className="border p-3 rounded-md mb-3 space-y-2">
               <input name="curso" placeholder="Curso" value={item.curso} onChange={(e) => handleItemChange('educacao', item.id, e)} className="p-2 border rounded-md w-full" />
-              <div className="flex gap-2">
-                <input name="instituicao" placeholder="Instituição" value={item.instituicao} onChange={(e) => handleItemChange('educacao', item.id, e)} className="p-2 border rounded-md flex-1" />
-                <input name="ano" placeholder="Ano de Conclusão" value={item.ano} onChange={(e) => handleItemChange('educacao', item.id, e)} className="p-2 border rounded-md w-40" />
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <input name="instituicao" placeholder="Instituição" value={item.instituicao} onChange={(e) => handleItemChange('educacao', item.id, e)} className="p-2 border rounded-md min-w-0 w-full" />
+                <input name="ano" placeholder="Ano de Conclusão" value={item.ano} onChange={(e) => handleItemChange('educacao', item.id, e)} className="p-2 border rounded-md min-w-0 w-full" />
               </div>
               <button onClick={() => handleRemoveItem('educacao', item.id)} className="text-red-500 text-sm" type="button">
                 Remover
@@ -404,10 +408,11 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
           />
         </div>
 
+        {pdfError && <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{pdfError}</p>}
         {/* Ações */}
         <div className="flex gap-3">
-          <button onClick={generatePDF} className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition" type="button">
-            Baixar PDF
+          <button onClick={generatePDF} disabled={pdfLoading} className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition" type="button">
+            {pdfLoading ? 'Gerando PDF…' : 'Baixar PDF'}
           </button>
         </div>
       </div>

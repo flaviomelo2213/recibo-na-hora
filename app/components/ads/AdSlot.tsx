@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useOptionalConsent } from '../CookieBanner';
 
 declare global {
   interface Window {
@@ -36,8 +37,9 @@ export default function AdSlot({
   className = '',
   label = 'Publicidade',
 }: AdSlotProps) {
+  const allowed = useOptionalConsent();
   const normalizedSlot = slot.trim();
-  const isDisabled = normalizedSlot === "" || PLACEHOLDER_SLOT_PATTERN.test(normalizedSlot);
+  const isDisabled = !allowed || normalizedSlot === "" || PLACEHOLDER_SLOT_PATTERN.test(normalizedSlot);
   const pushed = useRef(false);
 
   useEffect(() => {

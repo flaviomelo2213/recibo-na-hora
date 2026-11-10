@@ -13,9 +13,9 @@ export default function PreviewCurriculoProfissional({ data }: PreviewCurriculoP
       {/* Cabeçalho */}
       <header className="flex items-start justify-between gap-8 mb-8">
         <div className="flex-grow">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <p className="text-3xl font-bold tracking-tight text-slate-900">
             {data.dadosPessoais.nome || 'Nome Completo'}
-          </h1>
+          </p>
           <h2 className="text-lg font-semibold text-blue-700 mt-1">
             {data.dadosPessoais.cargo || 'Cargo Desejado'}
           </h2>
@@ -37,7 +37,7 @@ export default function PreviewCurriculoProfissional({ data }: PreviewCurriculoP
       </header>
 
       {/* Corpo */}
-      <main>
+      <div>
         {data.resumo && (
           <section className="mb-6">
             <h3 className="text-base font-bold text-slate-800 border-b-2 border-slate-200 pb-1 mb-2">Resumo Profissional</h3>
@@ -98,7 +98,7 @@ export default function PreviewCurriculoProfissional({ data }: PreviewCurriculoP
           </section>
         )}
 
-      </main>
+      </div>
 
       {/* Rodapé com Assinatura */}
       {data.assinaturaDataUrl && (
