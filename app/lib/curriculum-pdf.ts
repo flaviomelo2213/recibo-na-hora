@@ -25,7 +25,7 @@ export async function buildCurriculumPdf(data: CurriculumData) {
     }
   };
   const heading = (value: string) => {
-    space(20);
+    space(40);
     y += 5;
     text(value, 13, true);
     pdf.setDrawColor(190, 200, 215);
