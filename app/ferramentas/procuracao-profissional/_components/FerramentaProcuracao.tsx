@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import jsPDF from "jspdf";
+import { yieldToMain } from "../../../lib/yield-to-main";
 
 export interface ProcuracaoData {
   outorganteNome: string;
@@ -125,9 +125,16 @@ export default function FerramentaProcuracao({ data, setData }: FerramentaProcur
   // =========================
   // PDF
   // =========================
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const text = `
+  const [gerandoPdf, setGerandoPdf] = useState(false);
+
+  const generatePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const text = `
 PROCURAÇÃO
 
 OUTORGANTE: ${data.outorganteNome}, CPF nº ${data.outorganteCPF}, RG nº ${data.outorganteRG}, residente e domiciliado(a) em ${data.outorganteEndereco}.
@@ -141,8 +148,11 @@ ${data.cidade}, ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "U
 _________________________________________
 ${data.outorganteNome}
     `;
-    doc.text(text, 10, 10);
-    doc.save("procuracao.pdf");
+      doc.text(text, 10, 10);
+      doc.save("procuracao.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -257,10 +267,12 @@ ${data.outorganteNome}
       </div>
 
       <button
-        onClick={generatePDF}
-        className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        onClick={generatePDF} disabled={gerandoPdf} aria-busy={gerandoPdf}
+        className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Gerar PDF
+        {gerandoPdf ? 'Gerando PDF...' : (
+          <>Gerar PDF</>
+        )}
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function ReciboVeiculo() {
   const [dados, setDados] = useState({
@@ -13,48 +13,58 @@ export default function ReciboVeiculo() {
 
   const handleChange = (e: any) => setDados({ ...dados, [e.target.name]: e.target.value });
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.setFont("helvetica", "bold");
-    doc.text("RECIBO DE COMPRA E VENDA DE VEÍCULO", 105, 20, { align: "center" });
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.setFont("helvetica", "bold");
+      doc.text("RECIBO DE COMPRA E VENDA DE VEÍCULO", 105, 20, { align: "center" });
 
-    // Texto legal
-    const texto = `Pelo presente instrumento, eu, ${dados.vendedor.toUpperCase()}, inscrito no CPF nº ${dados.vendedorCPF}, residente em ${dados.vendedorEndereco}, VENDO E TRANSFIRO para ${dados.comprador.toUpperCase()}, CPF nº ${dados.compradorCPF}, residente em ${dados.compradorEndereco}, o veículo abaixo descrito, livre e desembaraçado de quaisquer ônus.`;
-    const linhas = doc.splitTextToSize(texto, 170);
-    doc.text(linhas, 20, 40);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "normal");
 
-    // Dados do Veículo (Caixa)
-    doc.setDrawColor(200);
-    doc.rect(20, 70, 170, 50);
-    doc.setFont("helvetica", "bold");
-    doc.text("DADOS DO VEÍCULO", 105, 80, { align: "center" });
-    doc.setFont("helvetica", "normal");
-    doc.text(`Modelo: ${dados.veiculoModelo.toUpperCase()}`, 25, 90);
-    doc.text(`Placa: ${dados.placa.toUpperCase()}`, 120, 90);
-    doc.text(`Renavam: ${dados.renavam}`, 25, 100);
-    doc.text(`Ano/Mod: ${dados.ano}`, 120, 100);
-    doc.text(`Cor: ${dados.cor.toUpperCase()}`, 25, 110);
+      // Texto legal
+      const texto = `Pelo presente instrumento, eu, ${dados.vendedor.toUpperCase()}, inscrito no CPF nº ${dados.vendedorCPF}, residente em ${dados.vendedorEndereco}, VENDO E TRANSFIRO para ${dados.comprador.toUpperCase()}, CPF nº ${dados.compradorCPF}, residente em ${dados.compradorEndereco}, o veículo abaixo descrito, livre e desembaraçado de quaisquer ônus.`;
+      const linhas = doc.splitTextToSize(texto, 170);
+      doc.text(linhas, 20, 40);
 
-    // Valor e Quitação
-    doc.text(`Declaro ter recebido a importância de R$ ${dados.valor} em moeda corrente, dando plena e geral quitação.`, 20, 135);
+      // Dados do Veículo (Caixa)
+      doc.setDrawColor(200);
+      doc.rect(20, 70, 170, 50);
+      doc.setFont("helvetica", "bold");
+      doc.text("DADOS DO VEÍCULO", 105, 80, { align: "center" });
+      doc.setFont("helvetica", "normal");
+      doc.text(`Modelo: ${dados.veiculoModelo.toUpperCase()}`, 25, 90);
+      doc.text(`Placa: ${dados.placa.toUpperCase()}`, 120, 90);
+      doc.text(`Renavam: ${dados.renavam}`, 25, 100);
+      doc.text(`Ano/Mod: ${dados.ano}`, 120, 100);
+      doc.text(`Cor: ${dados.cor.toUpperCase()}`, 25, 110);
 
-    // Assinaturas
-    doc.text(`Local: ${dados.cidade}, Data: ${dados.data.split('-').reverse().join('/')}`, 20, 150);
+      // Valor e Quitação
+      doc.text(`Declaro ter recebido a importância de R$ ${dados.valor} em moeda corrente, dando plena e geral quitação.`, 20, 135);
 
-    doc.line(30, 180, 90, 180);
-    doc.text("Vendedor", 60, 185, { align: "center" });
+      // Assinaturas
+      doc.text(`Local: ${dados.cidade}, Data: ${dados.data.split('-').reverse().join('/')}`, 20, 150);
 
-    doc.line(120, 180, 180, 180);
-    doc.text("Comprador", 150, 185, { align: "center" });
+      doc.line(30, 180, 90, 180);
+      doc.text("Vendedor", 60, 185, { align: "center" });
 
-    doc.setFontSize(10);
-    doc.text("Obs: Reconhecer firma das assinaturas em cartório para transferência.", 105, 200, { align: "center" });
+      doc.line(120, 180, 180, 180);
+      doc.text("Comprador", 150, 185, { align: "center" });
 
-    doc.save("recibo_veiculo.pdf");
+      doc.setFontSize(10);
+      doc.text("Obs: Reconhecer firma das assinaturas em cartório para transferência.", 105, 200, { align: "center" });
+
+      doc.save("recibo_veiculo.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -97,8 +107,10 @@ export default function ReciboVeiculo() {
                      <input name="data" type="date" value={dados.data} onChange={handleChange} className="p-2 border rounded" />
                 </div>
 
-                <button onClick={gerarPDF} className="w-full mt-4 bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700 transition">
-                    GERAR RECIBO
+                <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full mt-4 bg-red-600 text-white py-3 rounded-lg font-bold hover:bg-red-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+                    {gerandoPdf ? 'Gerando PDF...' : (
+                      <>GERAR RECIBO</>
+                    )}
                 </button>
 
                 <AdsKeeperWidget />

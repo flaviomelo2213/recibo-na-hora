@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import { Card } from '../../../components/ui/Card';
 import { Input } from '../../../components/ui/Input';
 import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
 import { Terminal } from 'lucide-react';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function DeclaracaoEnderecoGenerator() {
   const [nome, setNome] = useState('');
@@ -37,81 +37,91 @@ export default function DeclaracaoEnderecoGenerator() {
     `${cidade || '[Cidade]'}, ${formatDateLongPtBR(data)}.\n\n` +
     `_________________________\n${nome || '[Nome Completo]'}`;
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF('p', 'mm', 'a4');
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    const marginX = 20;
-    const marginTop = 20;
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const usableWidth = pageWidth - marginX * 2;
-    const bottomLimit = pageHeight - 20;
+  const handleGeneratePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF('p', 'mm', 'a4');
 
-    let y = marginTop;
+      const marginX = 20;
+      const marginTop = 20;
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const usableWidth = pageWidth - marginX * 2;
+      const bottomLimit = pageHeight - 20;
 
-    const addLine = (text: string, font: 'normal' | 'bold' = 'normal', size = 12, gap = 6) => {
-      doc.setFont('times', font);
-      doc.setFontSize(size);
+      let y = marginTop;
 
-      const lines = doc.splitTextToSize(text, usableWidth);
-      const blockHeight = lines.length * gap;
+      const addLine = (text: string, font: 'normal' | 'bold' = 'normal', size = 12, gap = 6) => {
+        doc.setFont('times', font);
+        doc.setFontSize(size);
 
-      // quebra de página simples
-      if (y + blockHeight > bottomLimit) {
-        doc.addPage();
-        y = marginTop;
-      }
+        const lines = doc.splitTextToSize(text, usableWidth);
+        const blockHeight = lines.length * gap;
 
-      doc.text(lines, marginX, y);
-      y += blockHeight + 2;
-    };
+        // quebra de página simples
+        if (y + blockHeight > bottomLimit) {
+          doc.addPage();
+          y = marginTop;
+        }
 
-    // Título
-    doc.setFont('times', 'bold');
-    doc.setFontSize(14);
-    doc.text('DECLARAÇÃO DE RESIDÊNCIA', pageWidth / 2, y, { align: 'center' });
-    y += 12;
+        doc.text(lines, marginX, y);
+        y += blockHeight + 2;
+      };
 
-    // Corpo
-    addLine(
-      `Eu, ${nome || '[NOME COMPLETO]'}, ${nacionalidade || '[NACIONALIDADE]'}, portador(a) do RG nº ${
-        rg || '[RG]'
-      } e do CPF nº ${cpf || '[CPF]'}, declaro para os devidos fins que resido e sou domiciliado(a) no endereço: ${
-        endereco || '[ENDEREÇO COMPLETO]'
-      }.`,
-      'normal',
-      12,
-      6
-    );
+      // Título
+      doc.setFont('times', 'bold');
+      doc.setFontSize(14);
+      doc.text('DECLARAÇÃO DE RESIDÊNCIA', pageWidth / 2, y, { align: 'center' });
+      y += 12;
 
-    addLine(
-      `Declaro ainda estar ciente de que a falsidade desta declaração pode implicar sanções civis, administrativas e criminais, nos termos da legislação vigente.`,
-      'normal',
-      12,
-      6
-    );
+      // Corpo
+      addLine(
+        `Eu, ${nome || '[NOME COMPLETO]'}, ${nacionalidade || '[NACIONALIDADE]'}, portador(a) do RG nº ${
+          rg || '[RG]'
+        } e do CPF nº ${cpf || '[CPF]'}, declaro para os devidos fins que resido e sou domiciliado(a) no endereço: ${
+          endereco || '[ENDEREÇO COMPLETO]'
+        }.`,
+        'normal',
+        12,
+        6
+      );
 
-    y += 6;
+      addLine(
+        `Declaro ainda estar ciente de que a falsidade desta declaração pode implicar sanções civis, administrativas e criminais, nos termos da legislação vigente.`,
+        'normal',
+        12,
+        6
+      );
 
-    // Local/Data
-    const cidadeFinal = cidade || '[CIDADE]';
-    const dataFinal = formatDateLongPtBR(data);
-    doc.setFont('times', 'normal');
-    doc.setFontSize(12);
-    doc.text(`${cidadeFinal}, ${dataFinal}.`, pageWidth / 2, y, { align: 'center' });
-    y += 18;
+      y += 6;
 
-    // Assinatura
-    doc.text('________________________________________', pageWidth / 2, y, { align: 'center' });
-    y += 6;
-    doc.text(nome || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
+      // Local/Data
+      const cidadeFinal = cidade || '[CIDADE]';
+      const dataFinal = formatDateLongPtBR(data);
+      doc.setFont('times', 'normal');
+      doc.setFontSize(12);
+      doc.text(`${cidadeFinal}, ${dataFinal}.`, pageWidth / 2, y, { align: 'center' });
+      y += 18;
 
-    // Rodapé simples
-    doc.setFontSize(8);
-    doc.setTextColor(120);
-    doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
+      // Assinatura
+      doc.text('________________________________________', pageWidth / 2, y, { align: 'center' });
+      y += 6;
+      doc.text(nome || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
 
-    doc.save('declaracao-de-residencia.pdf');
+      // Rodapé simples
+      doc.setFontSize(8);
+      doc.setTextColor(120);
+      doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+      doc.save('declaracao-de-residencia.pdf');
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -135,8 +145,10 @@ export default function DeclaracaoEnderecoGenerator() {
           <Input label="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} />
           <Input type="date" label="Data" value={data} onChange={(e) => setData(e.target.value)} />
 
-          <Button size="lg" onClick={handleGeneratePDF} className="w-full">
-            Gerar PDF
+          <Button size="lg" onClick={handleGeneratePDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full">
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <>Gerar PDF</>
+            )}
           </Button>
         </section>
 

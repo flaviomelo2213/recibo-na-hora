@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import { ToolShell, ToolShellHeader, ToolShellMain } from '@/components/layout/ToolShell';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function NotaPromissoriaClient() {
   const [dados, setDados] = useState({
@@ -15,31 +15,41 @@ export default function NotaPromissoriaClient() {
 
   const handleChange = (e: any) => setDados({ ...dados, [e.target.name]: e.target.value });
 
-  const gerarPDF = () => {
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [210, 100] });
-    doc.rect(5, 5, 200, 90);
-    doc.rect(7, 7, 196, 86);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.text("NOTA PROMISSÓRIA", 105, 20, { align: "center" });
-    doc.setFontSize(12);
-    doc.text(`Nº: ${dados.numero}`, 15, 35);
-    doc.text(`Vencimento: ${dados.vencimento.split('-').reverse().join('/')}`, 150, 35);
-    doc.setFontSize(16);
-    doc.text(`R$ ${dados.valor}`, 150, 45);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
-    const texto = `Ao dia ${dados.vencimento.split('-').reverse().join('/')}, pagarei por esta via de NOTA PROMISSÓRIA a ${dados.credorNome.toUpperCase()} ou à sua ordem, a quantia de R$ ${dados.valor} em moeda corrente deste país.`;
-    const linhas = doc.splitTextToSize(texto, 180);
-    doc.text(linhas, 15, 55);
-    doc.text(`Pagável em: ${dados.cidade.toUpperCase()}`, 15, 75);
-    doc.setFontSize(9);
-    doc.text("EMITENTE (Devedor):", 15, 82);
-    doc.text(`${dados.devedorNome.toUpperCase()}`, 15, 86);
-    doc.text(`CPF/CNPJ: ${dados.devedorCPF} - ${dados.devedorEndereco}`, 15, 90);
-    doc.line(120, 85, 190, 85);
-    doc.text("Assinatura do Emitente", 155, 89, { align: "center" });
-    doc.save("nota_promissoria.pdf");
+  const [gerandoPdf, setGerandoPdf] = useState(false);
+
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [210, 100] });
+      doc.rect(5, 5, 200, 90);
+      doc.rect(7, 7, 196, 86);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.text("NOTA PROMISSÓRIA", 105, 20, { align: "center" });
+      doc.setFontSize(12);
+      doc.text(`Nº: ${dados.numero}`, 15, 35);
+      doc.text(`Vencimento: ${dados.vencimento.split('-').reverse().join('/')}`, 150, 35);
+      doc.setFontSize(16);
+      doc.text(`R$ ${dados.valor}`, 150, 45);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+      const texto = `Ao dia ${dados.vencimento.split('-').reverse().join('/')}, pagarei por esta via de NOTA PROMISSÓRIA a ${dados.credorNome.toUpperCase()} ou à sua ordem, a quantia de R$ ${dados.valor} em moeda corrente deste país.`;
+      const linhas = doc.splitTextToSize(texto, 180);
+      doc.text(linhas, 15, 55);
+      doc.text(`Pagável em: ${dados.cidade.toUpperCase()}`, 15, 75);
+      doc.setFontSize(9);
+      doc.text("EMITENTE (Devedor):", 15, 82);
+      doc.text(`${dados.devedorNome.toUpperCase()}`, 15, 86);
+      doc.text(`CPF/CNPJ: ${dados.devedorCPF} - ${dados.devedorEndereco}`, 15, 90);
+      doc.line(120, 85, 190, 85);
+      doc.text("Assinatura do Emitente", 155, 89, { align: "center" });
+      doc.save("nota_promissoria.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -76,8 +86,10 @@ export default function NotaPromissoriaClient() {
                 <input name="dataEmissao" type="date" value={dados.dataEmissao} onChange={handleChange} className="p-3 border rounded" />
               </div>
 
-              <button onClick={gerarPDF} className="w-full mt-6 bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition shadow-lg hover:-translate-y-1">
-                <i className="fa-solid fa-print"></i> BAIXAR NOTA PROMISSÓRIA
+              <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full mt-6 bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition shadow-lg hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed">
+                {gerandoPdf ? 'Gerando PDF...' : (
+                  <><i className="fa-solid fa-print"></i> BAIXAR NOTA PROMISSÓRIA</>
+                )}
               </button>
             </div>
           </div>

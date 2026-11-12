@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 const ReciboDeAluguelGenerator: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -22,21 +22,31 @@ const ReciboDeAluguelGenerator: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const gerarPdf = () => {
-    const doc = new jsPDF();
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.text("Recibo de Aluguel", 20, 20);
-    doc.text(`Locador: ${formData.locadorNome}`, 20, 30);
-    doc.text(`CPF/CNPJ do Locador: ${formData.locadorCpfCnpj}`, 20, 40);
-    doc.text(`Locatário: ${formData.locatarioNome}`, 20, 50);
-    doc.text(`CPF do Locatário: ${formData.locatarioCpf}`, 20, 60);
-    doc.text(`Valor: R$ ${formData.valor}`, 20, 70);
-    doc.text(`Endereço do Imóvel: ${formData.imovelEndereco}`, 20, 80);
-    doc.text(`Mês de Referência: ${formData.mesReferencia}`, 20, 90);
-    doc.text(`Cidade: ${formData.cidade}`, 20, 100);
-    doc.text(`Data de Recebimento: ${formData.dataRecebimento}`, 20, 110);
+  const gerarPdf = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
 
-    doc.save("recibo_de_aluguel.pdf");
+      doc.text("Recibo de Aluguel", 20, 20);
+      doc.text(`Locador: ${formData.locadorNome}`, 20, 30);
+      doc.text(`CPF/CNPJ do Locador: ${formData.locadorCpfCnpj}`, 20, 40);
+      doc.text(`Locatário: ${formData.locatarioNome}`, 20, 50);
+      doc.text(`CPF do Locatário: ${formData.locatarioCpf}`, 20, 60);
+      doc.text(`Valor: R$ ${formData.valor}`, 20, 70);
+      doc.text(`Endereço do Imóvel: ${formData.imovelEndereco}`, 20, 80);
+      doc.text(`Mês de Referência: ${formData.mesReferencia}`, 20, 90);
+      doc.text(`Cidade: ${formData.cidade}`, 20, 100);
+      doc.text(`Data de Recebimento: ${formData.dataRecebimento}`, 20, 110);
+
+      doc.save("recibo_de_aluguel.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -117,10 +127,12 @@ const ReciboDeAluguelGenerator: React.FC = () => {
       </div>
       <div className="mt-6">
         <button
-          onClick={gerarPdf}
-          className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold hover:bg-blue-600"
+          onClick={gerarPdf} disabled={gerandoPdf} aria-busy={gerandoPdf}
+          className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Gerar PDF do Recibo
+          {gerandoPdf ? 'Gerando PDF...' : (
+            <>Gerar PDF do Recibo</>
+          )}
         </button>
         <AdsKeeperWidget />
       </div>

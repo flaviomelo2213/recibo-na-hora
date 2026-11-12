@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { jsPDF } from 'jspdf';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function PrefeituraClient() {
   const [servico, setServico] = useState('geral');
@@ -118,65 +118,75 @@ export default function PrefeituraClient() {
   // =========================
   // PDF
   // =========================
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    const margem = 20;
-    let y = 30;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFont("times", "bold");
-    doc.setFontSize(14);
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const margem = 20;
+      let y = 30;
 
-    if (servico === 'multa') {
-      doc.text("ILMO. SR. DIRETOR DA JARI / AUTORIDADE DE TRÂNSITO", margem, y);
-    } else {
-      doc.text(dados.destinatario.toUpperCase(), margem, y);
+      doc.setFont("times", "bold");
+      doc.setFontSize(14);
+
+      if (servico === 'multa') {
+        doc.text("ILMO. SR. DIRETOR DA JARI / AUTORIDADE DE TRÂNSITO", margem, y);
+      } else {
+        doc.text(dados.destinatario.toUpperCase(), margem, y);
+      }
+
+      y += 20;
+      doc.setFontSize(12);
+      doc.setFont("times", "normal");
+
+      const qualificacao = `Eu, ${dados.nome.toUpperCase()}, inscrito(a) no CPF nº ${dados.cpf}, residente e domiciliado(a) em ${dados.endereco}, venho respeitosamente à presença de Vossa Senhoria requerer:`;
+      const linhasQualificacao = doc.splitTextToSize(qualificacao, 170);
+      doc.text(linhasQualificacao, margem, y);
+      y += (linhasQualificacao.length * 7) + 10;
+
+      doc.setFont("times", "bold");
+      if (servico === 'multa') doc.text(`DEFESA PRÉVIA - AUTO DE INFRAÇÃO Nº ${dados.autoInfracao}`, margem, y);
+      else if (servico === 'zeladoria') doc.text(`SOLICITAÇÃO DE SERVIÇO PÚBLICO: ${dados.tipoProblema.toUpperCase()}`, margem, y);
+      else doc.text(`ASSUNTO: ${dados.assunto.toUpperCase()}`, margem, y);
+
+      y += 10;
+      doc.setFont("times", "normal");
+
+      let textoPrincipal = "";
+
+      if (servico === 'multa') {
+        textoPrincipal = `Venho apresentar defesa contra a autuação do veículo ${dados.modeloCarro}, Placa ${dados.placa}. \n\nALEGAÇÕES DE DEFESA:\n${dados.texto}\n\nDiante do exposto, requer o arquivamento do auto de infração por ser medida de justiça.`;
+      } else if (servico === 'zeladoria') {
+        textoPrincipal = `Solicito a execução de serviço de ${dados.tipoProblema} no seguinte local: ${dados.localProblema}.\n\nDetalhes da solicitação:\n${dados.texto}\n\nO pedido baseia-se no direito do cidadão à zeladoria urbana e segurança pública.`;
+      } else {
+        textoPrincipal = `${dados.texto}\n\nTermos em que,\nPede deferimento.`;
+      }
+
+      const linhasTexto = doc.splitTextToSize(textoPrincipal, 170);
+      doc.text(linhasTexto, margem, y);
+
+      y = 240;
+      const dataHoje = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+      doc.text(`${dados.cidade || 'Local'}, ${dataHoje}.`, margem, y);
+
+      y += 25;
+      doc.line(margem, y, 120, y);
+      doc.text(dados.nome.toUpperCase(), margem, y + 5);
+      doc.setFontSize(10);
+      doc.text(`CPF: ${dados.cpf}`, margem, y + 10);
+
+      doc.setFontSize(8);
+      doc.setTextColor(100);
+      doc.text("Gerado gratuitamente via ReciboNaHora.com.br - Ferramenta de Cidadania", 105, 285, { align: "center" });
+
+      doc.save(`requerimento-${servico}.pdf`);
+    } finally {
+      setGerandoPdf(false);
     }
-
-    y += 20;
-    doc.setFontSize(12);
-    doc.setFont("times", "normal");
-
-    const qualificacao = `Eu, ${dados.nome.toUpperCase()}, inscrito(a) no CPF nº ${dados.cpf}, residente e domiciliado(a) em ${dados.endereco}, venho respeitosamente à presença de Vossa Senhoria requerer:`;
-    const linhasQualificacao = doc.splitTextToSize(qualificacao, 170);
-    doc.text(linhasQualificacao, margem, y);
-    y += (linhasQualificacao.length * 7) + 10;
-
-    doc.setFont("times", "bold");
-    if (servico === 'multa') doc.text(`DEFESA PRÉVIA - AUTO DE INFRAÇÃO Nº ${dados.autoInfracao}`, margem, y);
-    else if (servico === 'zeladoria') doc.text(`SOLICITAÇÃO DE SERVIÇO PÚBLICO: ${dados.tipoProblema.toUpperCase()}`, margem, y);
-    else doc.text(`ASSUNTO: ${dados.assunto.toUpperCase()}`, margem, y);
-
-    y += 10;
-    doc.setFont("times", "normal");
-
-    let textoPrincipal = "";
-
-    if (servico === 'multa') {
-      textoPrincipal = `Venho apresentar defesa contra a autuação do veículo ${dados.modeloCarro}, Placa ${dados.placa}. \n\nALEGAÇÕES DE DEFESA:\n${dados.texto}\n\nDiante do exposto, requer o arquivamento do auto de infração por ser medida de justiça.`;
-    } else if (servico === 'zeladoria') {
-      textoPrincipal = `Solicito a execução de serviço de ${dados.tipoProblema} no seguinte local: ${dados.localProblema}.\n\nDetalhes da solicitação:\n${dados.texto}\n\nO pedido baseia-se no direito do cidadão à zeladoria urbana e segurança pública.`;
-    } else {
-      textoPrincipal = `${dados.texto}\n\nTermos em que,\nPede deferimento.`;
-    }
-
-    const linhasTexto = doc.splitTextToSize(textoPrincipal, 170);
-    doc.text(linhasTexto, margem, y);
-
-    y = 240;
-    const dataHoje = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
-    doc.text(`${dados.cidade || 'Local'}, ${dataHoje}.`, margem, y);
-
-    y += 25;
-    doc.line(margem, y, 120, y);
-    doc.text(dados.nome.toUpperCase(), margem, y + 5);
-    doc.setFontSize(10);
-    doc.text(`CPF: ${dados.cpf}`, margem, y + 10);
-
-    doc.setFontSize(8);
-    doc.setTextColor(100);
-    doc.text("Gerado gratuitamente via ReciboNaHora.com.br - Ferramenta de Cidadania", 105, 285, { align: "center" });
-
-    doc.save(`requerimento-${servico}.pdf`);
   };
 
   return (
@@ -319,8 +329,10 @@ export default function PrefeituraClient() {
             </div>
           )}
 
-          <button onClick={gerarPDF} className="w-full mt-8 bg-[#003399] hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3">
-            <i className="fa-solid fa-print"></i> Gerar Requerimento Oficial
+          <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full mt-8 bg-[#003399] hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <><i className="fa-solid fa-print"></i> Gerar Requerimento Oficial</>
+            )}
           </button>
         </div>
       </div>

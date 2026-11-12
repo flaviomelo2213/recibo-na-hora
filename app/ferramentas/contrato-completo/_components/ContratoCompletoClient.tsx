@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function ContratoCompletoClient() {
   const [passo, setPasso] = useState(1);
@@ -25,125 +25,135 @@ export default function ContratoCompletoClient() {
     setDados({ ...dados, [e.target.name]: e.target.value });
   };
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    const margem = 20;
-    const larguraTexto = 170;
-    const alturaPagina = 280; // Margem de segurança inferior
-    let y = 20;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    // --- FUNÇÃO INTELIGENTE DE QUEBRA DE PÁGINA ---
-    const verificarPagina = (alturaNecessaria: number) => {
-      if (y + alturaNecessaria > alturaPagina) {
-        doc.addPage();
-        y = 20; // Reseta o Y para o topo da nova página
-      }
-    };
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const margem = 20;
+      const larguraTexto = 170;
+      const alturaPagina = 280; // Margem de segurança inferior
+      let y = 20;
 
-    const addTitulo = (texto: string) => {
-      verificarPagina(15);
+      // --- FUNÇÃO INTELIGENTE DE QUEBRA DE PÁGINA ---
+      const verificarPagina = (alturaNecessaria: number) => {
+        if (y + alturaNecessaria > alturaPagina) {
+          doc.addPage();
+          y = 20; // Reseta o Y para o topo da nova página
+        }
+      };
+
+      const addTitulo = (texto: string) => {
+        verificarPagina(15);
+        doc.setFont("times", "bold");
+        doc.setFontSize(11);
+        doc.text(texto.toUpperCase(), margem, y);
+        y += 8;
+      };
+
+      const addParagrafo = (texto: string) => {
+        doc.setFont("times", "normal");
+        doc.setFontSize(11);
+        const linhas = doc.splitTextToSize(texto, larguraTexto);
+        const alturaBloco = (linhas.length * 5) + 5;
+      
+        verificarPagina(alturaBloco);
+      
+        doc.text(linhas, margem, y);
+        y += alturaBloco;
+      };
+
+      // --- INÍCIO DO DOCUMENTO ---
+    
+      // Título Principal
       doc.setFont("times", "bold");
-      doc.setFontSize(11);
-      doc.text(texto.toUpperCase(), margem, y);
-      y += 8;
-    };
+      doc.setFontSize(14);
+      doc.text("CONTRATO DE LOCAÇÃO DE IMÓVEL URBANO", 105, y, { align: "center" });
+      y += 15;
 
-    const addParagrafo = (texto: string) => {
+      // 1. Identificação
+      addTitulo("1. DAS PARTES CONTRATANTES");
+      addParagrafo(`LOCADOR(A): ${dados.locadorNome.toUpperCase()}, nacionalidade ${dados.locadorNacionalidade}, estado civil ${dados.locadorCivil}, profissão ${dados.locadorProfissao}, portador(a) do RG nº ${dados.locadorRG} e CPF nº ${dados.locadorCPF}, residente e domiciliado(a) em ${dados.locadorEndereco}.`);
+      addParagrafo(`LOCATÁRIO(A): ${dados.locatarioNome.toUpperCase()}, nacionalidade ${dados.locatarioNacionalidade}, estado civil ${dados.locatarioCivil}, profissão ${dados.locatarioProfissao}, portador(a) do RG nº ${dados.locatarioRG} e CPF nº ${dados.locatarioCPF}.`);
+
+      // 2. Objeto
+      addTitulo("2. DO IMÓVEL OBJETO DA LOCAÇÃO");
+      addParagrafo(`O presente contrato tem como objeto a locação do imóvel situado à: ${dados.enderecoImovel.toUpperCase()} - ${dados.cidadeImovel.toUpperCase()}. O imóvel destina-se exclusivamente para fins ${dados.finalidade.toUpperCase()}, sendo proibida a sublocação, cessão ou empréstimo, total ou parcial, sem prévia autorização por escrito do LOCADOR.`);
+
+      // 3. Prazo
+      addTitulo("3. DO PRAZO");
+      const dataInicio = dados.inicioContrato ? dados.inicioContrato.split('-').reverse().join('/') : "___/___/___";
+      addParagrafo(`O prazo de locação é de ${dados.prazoMeses} meses, iniciando-se em ${dataInicio} e terminando automaticamente ao fim do prazo, independentemente de notificação.`);
+
+      // 4. Valor e Pagamento
+      addTitulo("4. DO VALOR E PAGAMENTO");
+      addParagrafo(`O aluguel mensal ajustado é de R$ ${dados.valorAluguel}. O pagamento deverá ser efetuado até o dia ${dados.diaPagamento} de cada mês subsequente ao vencido.`);
+      addParagrafo(`PARÁGRAFO ÚNICO: O atraso no pagamento implicará em multa moratória de 10% (dez por cento) sobre o valor do débito, juros de 1% (um por cento) ao mês e correção monetária.`);
+
+      // 5. Reajuste
+      addTitulo("5. DO REAJUSTE");
+      addParagrafo(`O valor do aluguel será reajustado anualmente com base na variação acumulada do índice ${dados.indiceReajuste} (ou outro oficial que venha a substituí-lo), visando preservar o valor real da moeda.`);
+
+      // 6. Deveres
+      addTitulo("6. DOS DEVERES E MANUTENÇÃO");
+      addParagrafo(`O LOCATÁRIO declara receber o imóvel em perfeito estado de conservação e limpeza, obrigando-se a devolvê-lo nas mesmas condições, conforme Termo de Vistoria anexo. São de responsabilidade do LOCATÁRIO as despesas com água, luz, gás, condomínio e manutenção ordinária.`);
+
+      // 7. Benfeitorias
+      addTitulo("7. DAS BENFEITORIAS");
+      addParagrafo(`Não poderão ser realizadas obras ou modificações no imóvel sem autorização prévia e por escrito do LOCADOR. As benfeitorias úteis ou necessárias, mesmo que autorizadas, serão incorporadas ao imóvel, não gerando direito de retenção ou indenização.`);
+
+      // 8. Garantia
+      addTitulo("8. DA GARANTIA LOCATÍCIA");
+      addParagrafo(`Para garantir as obrigações deste contrato, optam as partes por: ${dados.tipoGarantia.toUpperCase()}.`);
+      addParagrafo(`Detalhes da Garantia: ${dados.garantiaDetalhe}.`);
+
+      // 9. Cláusulas Especiais (SEU DIFERENCIAL)
+      if (dados.clausulasEspeciais) {
+          addTitulo("9. CLÁUSULAS ESPECIAIS");
+          addParagrafo(dados.clausulasEspeciais);
+      }
+
+      // 10. Rescisão
+      addTitulo(dados.clausulasEspeciais ? "10. DA RESCISÃO E MULTA" : "9. DA RESCISÃO E MULTA");
+      addParagrafo(`Fica estipulada a multa equivalente a 3 (três) meses de aluguel vigente na época da infração, na qual incorrerá a parte que infringir qualquer cláusula deste contrato, com a faculdade para a parte inocente de considerar rescindida a locação. A multa será paga proporcionalmente ao tempo restante do contrato (Art. 4º da Lei 8.245/91).`);
+
+      // 11. Foro
+      addTitulo(dados.clausulasEspeciais ? "11. DO FORO" : "10. DO FORO");
+      addParagrafo(`As partes elegem o foro da comarca de ${dados.cidadeImovel || 'LOCAL DO IMÓVEL'} para dirimir quaisquer dúvidas oriundas deste contrato, renunciando a qualquer outro.`);
+
+      // Assinaturas
+      verificarPagina(60);
+      y += 10;
+      doc.text(`E, por estarem justos e contratados, assinam o presente em 2 (duas) vias.`, margem, y);
+      y += 10;
+      doc.text(`${dados.cidadeImovel || 'Local'}, ${new Date().toLocaleDateString('pt-BR')}.`, margem, y);
+    
+      y += 25;
+      doc.line(margem, y, 120, y);
       doc.setFont("times", "normal");
-      doc.setFontSize(11);
-      const linhas = doc.splitTextToSize(texto, larguraTexto);
-      const alturaBloco = (linhas.length * 5) + 5;
-      
-      verificarPagina(alturaBloco);
-      
-      doc.text(linhas, margem, y);
-      y += alturaBloco;
-    };
-
-    // --- INÍCIO DO DOCUMENTO ---
+      doc.text("LOCADOR(A)", margem, y + 5);
     
-    // Título Principal
-    doc.setFont("times", "bold");
-    doc.setFontSize(14);
-    doc.text("CONTRATO DE LOCAÇÃO DE IMÓVEL URBANO", 105, y, { align: "center" });
-    y += 15;
+      y += 25;
+      doc.line(margem, y, 120, y);
+      doc.text("LOCATÁRIO(A)", margem, y + 5);
 
-    // 1. Identificação
-    addTitulo("1. DAS PARTES CONTRATANTES");
-    addParagrafo(`LOCADOR(A): ${dados.locadorNome.toUpperCase()}, nacionalidade ${dados.locadorNacionalidade}, estado civil ${dados.locadorCivil}, profissão ${dados.locadorProfissao}, portador(a) do RG nº ${dados.locadorRG} e CPF nº ${dados.locadorCPF}, residente e domiciliado(a) em ${dados.locadorEndereco}.`);
-    addParagrafo(`LOCATÁRIO(A): ${dados.locatarioNome.toUpperCase()}, nacionalidade ${dados.locatarioNacionalidade}, estado civil ${dados.locatarioCivil}, profissão ${dados.locatarioProfissao}, portador(a) do RG nº ${dados.locatarioRG} e CPF nº ${dados.locatarioCPF}.`);
+      // Rodapé Branding
+      const totalPaginas = doc.internal.pages.length - 1;
+      for (let i = 1; i <= totalPaginas; i++) {
+          doc.setPage(i);
+          doc.setFontSize(8);
+          doc.setTextColor(150);
+          doc.text(`Página ${i} de ${totalPaginas} - Gerado por ReciboNaHora.com.br`, 105, 290, { align: "center" });
+      }
 
-    // 2. Objeto
-    addTitulo("2. DO IMÓVEL OBJETO DA LOCAÇÃO");
-    addParagrafo(`O presente contrato tem como objeto a locação do imóvel situado à: ${dados.enderecoImovel.toUpperCase()} - ${dados.cidadeImovel.toUpperCase()}. O imóvel destina-se exclusivamente para fins ${dados.finalidade.toUpperCase()}, sendo proibida a sublocação, cessão ou empréstimo, total ou parcial, sem prévia autorização por escrito do LOCADOR.`);
-
-    // 3. Prazo
-    addTitulo("3. DO PRAZO");
-    const dataInicio = dados.inicioContrato ? dados.inicioContrato.split('-').reverse().join('/') : "___/___/___";
-    addParagrafo(`O prazo de locação é de ${dados.prazoMeses} meses, iniciando-se em ${dataInicio} e terminando automaticamente ao fim do prazo, independentemente de notificação.`);
-
-    // 4. Valor e Pagamento
-    addTitulo("4. DO VALOR E PAGAMENTO");
-    addParagrafo(`O aluguel mensal ajustado é de R$ ${dados.valorAluguel}. O pagamento deverá ser efetuado até o dia ${dados.diaPagamento} de cada mês subsequente ao vencido.`);
-    addParagrafo(`PARÁGRAFO ÚNICO: O atraso no pagamento implicará em multa moratória de 10% (dez por cento) sobre o valor do débito, juros de 1% (um por cento) ao mês e correção monetária.`);
-
-    // 5. Reajuste
-    addTitulo("5. DO REAJUSTE");
-    addParagrafo(`O valor do aluguel será reajustado anualmente com base na variação acumulada do índice ${dados.indiceReajuste} (ou outro oficial que venha a substituí-lo), visando preservar o valor real da moeda.`);
-
-    // 6. Deveres
-    addTitulo("6. DOS DEVERES E MANUTENÇÃO");
-    addParagrafo(`O LOCATÁRIO declara receber o imóvel em perfeito estado de conservação e limpeza, obrigando-se a devolvê-lo nas mesmas condições, conforme Termo de Vistoria anexo. São de responsabilidade do LOCATÁRIO as despesas com água, luz, gás, condomínio e manutenção ordinária.`);
-
-    // 7. Benfeitorias
-    addTitulo("7. DAS BENFEITORIAS");
-    addParagrafo(`Não poderão ser realizadas obras ou modificações no imóvel sem autorização prévia e por escrito do LOCADOR. As benfeitorias úteis ou necessárias, mesmo que autorizadas, serão incorporadas ao imóvel, não gerando direito de retenção ou indenização.`);
-
-    // 8. Garantia
-    addTitulo("8. DA GARANTIA LOCATÍCIA");
-    addParagrafo(`Para garantir as obrigações deste contrato, optam as partes por: ${dados.tipoGarantia.toUpperCase()}.`);
-    addParagrafo(`Detalhes da Garantia: ${dados.garantiaDetalhe}.`);
-
-    // 9. Cláusulas Especiais (SEU DIFERENCIAL)
-    if (dados.clausulasEspeciais) {
-        addTitulo("9. CLÁUSULAS ESPECIAIS");
-        addParagrafo(dados.clausulasEspeciais);
+      doc.save("contrato-locacao-completo.pdf");
+    } finally {
+      setGerandoPdf(false);
     }
-
-    // 10. Rescisão
-    addTitulo(dados.clausulasEspeciais ? "10. DA RESCISÃO E MULTA" : "9. DA RESCISÃO E MULTA");
-    addParagrafo(`Fica estipulada a multa equivalente a 3 (três) meses de aluguel vigente na época da infração, na qual incorrerá a parte que infringir qualquer cláusula deste contrato, com a faculdade para a parte inocente de considerar rescindida a locação. A multa será paga proporcionalmente ao tempo restante do contrato (Art. 4º da Lei 8.245/91).`);
-
-    // 11. Foro
-    addTitulo(dados.clausulasEspeciais ? "11. DO FORO" : "10. DO FORO");
-    addParagrafo(`As partes elegem o foro da comarca de ${dados.cidadeImovel || 'LOCAL DO IMÓVEL'} para dirimir quaisquer dúvidas oriundas deste contrato, renunciando a qualquer outro.`);
-
-    // Assinaturas
-    verificarPagina(60);
-    y += 10;
-    doc.text(`E, por estarem justos e contratados, assinam o presente em 2 (duas) vias.`, margem, y);
-    y += 10;
-    doc.text(`${dados.cidadeImovel || 'Local'}, ${new Date().toLocaleDateString('pt-BR')}.`, margem, y);
-    
-    y += 25;
-    doc.line(margem, y, 120, y);
-    doc.setFont("times", "normal");
-    doc.text("LOCADOR(A)", margem, y + 5);
-    
-    y += 25;
-    doc.line(margem, y, 120, y);
-    doc.text("LOCATÁRIO(A)", margem, y + 5);
-
-    // Rodapé Branding
-    const totalPaginas = doc.internal.pages.length - 1;
-    for (let i = 1; i <= totalPaginas; i++) {
-        doc.setPage(i);
-        doc.setFontSize(8);
-        doc.setTextColor(150);
-        doc.text(`Página ${i} de ${totalPaginas} - Gerado por ReciboNaHora.com.br`, 105, 290, { align: "center" });
-    }
-
-    doc.save("contrato-locacao-completo.pdf");
   };
 
   return (
@@ -262,8 +272,10 @@ export default function ContratoCompletoClient() {
 
               <div className="flex gap-4 mt-8">
                 <button onClick={() => setPasso(2)} className="flex-1 bg-gray-200 text-gray-700 py-3 rounded font-bold">Voltar</button>
-                <button onClick={gerarPDF} className="flex-1 bg-green-600 text-white py-4 rounded-lg font-bold hover:bg-green-700 shadow-lg flex justify-center items-center gap-3 transform hover:scale-[1.02] transition-all">
-                  <i className="fa-solid fa-file-contract text-2xl"></i> BAIXAR CONTRATO EM PDF
+                <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="flex-1 bg-green-600 text-white py-4 rounded-lg font-bold hover:bg-green-700 shadow-lg flex justify-center items-center gap-3 transform hover:scale-[1.02] transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+                  {gerandoPdf ? 'Gerando PDF...' : (
+                    <><i className="fa-solid fa-file-contract text-2xl"></i> BAIXAR CONTRATO EM PDF</>
+                  )}
                 </button>
               </div>
             </div>

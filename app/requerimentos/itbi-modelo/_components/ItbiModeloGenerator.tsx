@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import { Card } from '../../../components/ui/Card';
 import { Input } from '../../../components/ui/Input';
 import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
 import { Terminal, HelpCircle, Info } from 'lucide-react';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function ItbiModeloGenerator() {
   const [requerente, setRequerente] = useState('');
@@ -48,103 +48,113 @@ export default function ItbiModeloGenerator() {
     `${cidade || '[Cidade]'}, ${formatDateLongPtBR(data)}.\n\n` +
     `_________________________\n${requerente || '[Nome Completo]'}\nCPF: ${cpf || '[CPF]'}`;
 
-  const handleGeneratePDF = () => {
-    const doc = new jsPDF('p', 'mm', 'a4');
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    const marginX = 20;
-    const marginTop = 20;
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const usableWidth = pageWidth - marginX * 2;
-    const bottomLimit = pageHeight - 20;
+  const handleGeneratePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF('p', 'mm', 'a4');
 
-    let y = marginTop;
+      const marginX = 20;
+      const marginTop = 20;
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const usableWidth = pageWidth - marginX * 2;
+      const bottomLimit = pageHeight - 20;
 
-    const addBlock = (text: string, font: 'normal' | 'bold' = 'normal', size = 12, gap = 6) => {
-      doc.setFont('times', font);
-      doc.setFontSize(size);
+      let y = marginTop;
 
-      const lines = doc.splitTextToSize(text, usableWidth);
-      const blockHeight = lines.length * gap;
+      const addBlock = (text: string, font: 'normal' | 'bold' = 'normal', size = 12, gap = 6) => {
+        doc.setFont('times', font);
+        doc.setFontSize(size);
 
-      if (y + blockHeight > bottomLimit) {
-        doc.addPage();
-        y = marginTop;
-      }
+        const lines = doc.splitTextToSize(text, usableWidth);
+        const blockHeight = lines.length * gap;
 
-      doc.text(lines, marginX, y);
-      y += blockHeight + 2;
-    };
+        if (y + blockHeight > bottomLimit) {
+          doc.addPage();
+          y = marginTop;
+        }
 
-    doc.setFont('times', 'bold');
-    doc.setFontSize(13);
-    doc.text('REQUERIMENTO DE ISENÇÃO/REDUÇÃO DE ITBI', pageWidth / 2, y, { align: 'center' });
-    y += 14;
+        doc.text(lines, marginX, y);
+        y += blockHeight + 2;
+      };
 
-    addBlock(`À`, 'bold', 12, 6);
-    addBlock(`Secretaria de Finanças/Fazenda de ${cidade || '[CIDADE]'}`, 'bold', 12, 6);
-    y += 6;
+      doc.setFont('times', 'bold');
+      doc.setFontSize(13);
+      doc.text('REQUERIMENTO DE ISENÇÃO/REDUÇÃO DE ITBI', pageWidth / 2, y, { align: 'center' });
+      y += 14;
 
-    addBlock(`Requerente: ${requerente || '[NOME COMPLETO]'}`, 'normal', 11, 6);
-    addBlock(`CPF: ${cpf || '[CPF]'}`, 'normal', 11, 6);
-    addBlock(`Endereço: ${endereco || '[SEU ENDEREÇO]'}`, 'normal', 11, 6);
-    addBlock(`Telefone: ${telefone || '[TELEFONE]'}`, 'normal', 11, 6);
-    addBlock(`E-mail: ${emailContato || '[E-MAIL]'}`, 'normal', 11, 6);
-    y += 6;
+      addBlock(`À`, 'bold', 12, 6);
+      addBlock(`Secretaria de Finanças/Fazenda de ${cidade || '[CIDADE]'}`, 'bold', 12, 6);
+      y += 6;
 
-    addBlock('OBJETO DA SOLICITAÇÃO:', 'bold', 12, 6);
-    y += 2;
+      addBlock(`Requerente: ${requerente || '[NOME COMPLETO]'}`, 'normal', 11, 6);
+      addBlock(`CPF: ${cpf || '[CPF]'}`, 'normal', 11, 6);
+      addBlock(`Endereço: ${endereco || '[SEU ENDEREÇO]'}`, 'normal', 11, 6);
+      addBlock(`Telefone: ${telefone || '[TELEFONE]'}`, 'normal', 11, 6);
+      addBlock(`E-mail: ${emailContato || '[E-MAIL]'}`, 'normal', 11, 6);
+      y += 6;
 
-    addBlock(
-      `Venho, respeitosamente, requerer a isenção/redução do ITBI referente à aquisição do imóvel localizado em:`,
-      'normal',
-      12,
-      6
-    );
-    y += 2;
+      addBlock('OBJETO DA SOLICITAÇÃO:', 'bold', 12, 6);
+      y += 2;
 
-    addBlock(`Endereço do Imóvel: ${enderecoImovel || '[ENDEREÇO COMPLETO DO IMÓVEL]'}`, 'normal', 11, 6);
-    addBlock(`Matrícula: ${numeroMatricula || '[NÚMERO DA MATRÍCULA]'}`, 'normal', 11, 6);
-    addBlock(`Valor de Avaliação: R$ ${valorImovel || '[VALOR]'}`, 'normal', 11, 6);
-    y += 4;
+      addBlock(
+        `Venho, respeitosamente, requerer a isenção/redução do ITBI referente à aquisição do imóvel localizado em:`,
+        'normal',
+        12,
+        6
+      );
+      y += 2;
 
-    addBlock(
-      `Trata-se da aquisição do meu primeiro imóvel, conforme previsto na legislação municipal e nas regras do Sistema Financeiro da Habitação (SFH), quando aplicável.`,
-      'normal',
-      12,
-      6
-    );
+      addBlock(`Endereço do Imóvel: ${enderecoImovel || '[ENDEREÇO COMPLETO DO IMÓVEL]'}`, 'normal', 11, 6);
+      addBlock(`Matrícula: ${numeroMatricula || '[NÚMERO DA MATRÍCULA]'}`, 'normal', 11, 6);
+      addBlock(`Valor de Avaliação: R$ ${valorImovel || '[VALOR]'}`, 'normal', 11, 6);
+      y += 4;
 
-    addBlock(
-      `Solicito, ainda, a indicação de eventuais documentos complementares necessários para instrução do processo, caso aplicável.`,
-      'normal',
-      12,
-      6
-    );
+      addBlock(
+        `Trata-se da aquisição do meu primeiro imóvel, conforme previsto na legislação municipal e nas regras do Sistema Financeiro da Habitação (SFH), quando aplicável.`,
+        'normal',
+        12,
+        6
+      );
 
-    y += 8;
+      addBlock(
+        `Solicito, ainda, a indicação de eventuais documentos complementares necessários para instrução do processo, caso aplicável.`,
+        'normal',
+        12,
+        6
+      );
 
-    addBlock(`Termos em que, pede deferimento.`, 'normal', 12, 6);
-    y += 10;
+      y += 8;
 
-    doc.setFont('times', 'normal');
-    doc.setFontSize(12);
-    doc.text(`${cidade || '[CIDADE]'}, ${formatDateLongPtBR(data)}.`, pageWidth / 2, y, { align: 'center' });
-    y += 18;
+      addBlock(`Termos em que, pede deferimento.`, 'normal', 12, 6);
+      y += 10;
 
-    doc.text('________________________________________', pageWidth / 2, y, { align: 'center' });
-    y += 6;
-    doc.text(requerente || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
-    y += 5;
-    doc.setFontSize(10);
-    doc.setTextColor(120);
-    doc.text(`CPF: ${cpf || '[CPF]'}`, pageWidth / 2, y, { align: 'center' });
+      doc.setFont('times', 'normal');
+      doc.setFontSize(12);
+      doc.text(`${cidade || '[CIDADE]'}, ${formatDateLongPtBR(data)}.`, pageWidth / 2, y, { align: 'center' });
+      y += 18;
 
-    doc.setFontSize(8);
-    doc.setTextColor(120);
-    doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
+      doc.text('________________________________________', pageWidth / 2, y, { align: 'center' });
+      y += 6;
+      doc.text(requerente || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
+      y += 5;
+      doc.setFontSize(10);
+      doc.setTextColor(120);
+      doc.text(`CPF: ${cpf || '[CPF]'}`, pageWidth / 2, y, { align: 'center' });
 
-    doc.save('requerimento-itbi.pdf');
+      doc.setFontSize(8);
+      doc.setTextColor(120);
+      doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+      doc.save('requerimento-itbi.pdf');
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -308,8 +318,10 @@ export default function ItbiModeloGenerator() {
             </div>
           </div>
 
-          <Button size="lg" onClick={handleGeneratePDF} className="w-full">
-            Gerar PDF do Requerimento
+          <Button size="lg" onClick={handleGeneratePDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full">
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <>Gerar PDF do Requerimento</>
+            )}
           </Button>
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">

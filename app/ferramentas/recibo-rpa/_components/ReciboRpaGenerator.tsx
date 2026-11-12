@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import jsPDF from "jspdf";
 import AdsKeeperWidget from "../../../components/ads/AdsKeeperWidget";
+import { yieldToMain } from "../../../lib/yield-to-main";
 
 interface RpaData {
   numeroRecibo: string;
@@ -55,103 +55,113 @@ export default function ReciboRpaGenerator() {
     return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   };
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const margin = 15;
-    const lineHeight = 7;
-    let yPos = 20;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.text("RECIBO DE PAGAMENTO A AUTÔNOMO (RPA)", pageWidth / 2, yPos, { align: "center" });
+  const generatePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 15;
+      const lineHeight = 7;
+      let yPos = 20;
 
-    yPos += lineHeight * 2;
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text(`RPA Nº: ${data.numeroRecibo || "001"}`, margin, yPos);
-    doc.text(`Data: ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`, pageWidth - margin - 40, yPos);
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("RECIBO DE PAGAMENTO A AUTÔNOMO (RPA)", pageWidth / 2, yPos, { align: "center" });
 
-    yPos += lineHeight * 2;
-    doc.setFont("helvetica", "bold");
-    doc.text("TOMADOR DE SERVIÇOS (Contratante):", margin, yPos);
-    doc.setFont("helvetica", "normal");
-    yPos += lineHeight;
-    const tomadorLines = doc.splitTextToSize(
-      `${data.tomadorNome || "[NOME DA EMPRESA]"}\nCNPJ: ${data.tomadorCNPJ || "[00.000.000/0000-00]"}\n${data.tomadorEndereco || "[ENDEREÇO COMPLETO]"}`,
-      pageWidth - 2 * margin
-    );
-    doc.text(tomadorLines, margin, yPos);
-    yPos += tomadorLines.length * lineHeight + lineHeight;
+      yPos += lineHeight * 2;
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text(`RPA Nº: ${data.numeroRecibo || "001"}`, margin, yPos);
+      doc.text(`Data: ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`, pageWidth - margin - 40, yPos);
 
-    doc.setFont("helvetica", "bold");
-    doc.text("PRESTADOR DE SERVIÇOS (Autônomo):", margin, yPos);
-    doc.setFont("helvetica", "normal");
-    yPos += lineHeight;
-    const prestadorLines = doc.splitTextToSize(
-      `${data.prestadorNome || "[NOME COMPLETO]"}\nCPF: ${data.prestadorCPF || "[000.000.000-00]"}\n${data.prestadorEndereco || "[ENDEREÇO COMPLETO]"}`,
-      pageWidth - 2 * margin
-    );
-    doc.text(prestadorLines, margin, yPos);
-    yPos += prestadorLines.length * lineHeight + lineHeight;
+      yPos += lineHeight * 2;
+      doc.setFont("helvetica", "bold");
+      doc.text("TOMADOR DE SERVIÇOS (Contratante):", margin, yPos);
+      doc.setFont("helvetica", "normal");
+      yPos += lineHeight;
+      const tomadorLines = doc.splitTextToSize(
+        `${data.tomadorNome || "[NOME DA EMPRESA]"}\nCNPJ: ${data.tomadorCNPJ || "[00.000.000/0000-00]"}\n${data.tomadorEndereco || "[ENDEREÇO COMPLETO]"}`,
+        pageWidth - 2 * margin
+      );
+      doc.text(tomadorLines, margin, yPos);
+      yPos += tomadorLines.length * lineHeight + lineHeight;
 
-    doc.setFont("helvetica", "bold");
-    doc.text("DESCRIÇÃO DOS SERVIÇOS:", margin, yPos);
-    doc.setFont("helvetica", "normal");
-    yPos += lineHeight;
-    const servicoLines = doc.splitTextToSize(
-      data.servicoDescricao || "[DESCRIÇÃO DETALHADA DOS SERVIÇOS PRESTADOS]",
-      pageWidth - 2 * margin
-    );
-    doc.text(servicoLines, margin, yPos);
-    yPos += servicoLines.length * lineHeight + lineHeight;
+      doc.setFont("helvetica", "bold");
+      doc.text("PRESTADOR DE SERVIÇOS (Autônomo):", margin, yPos);
+      doc.setFont("helvetica", "normal");
+      yPos += lineHeight;
+      const prestadorLines = doc.splitTextToSize(
+        `${data.prestadorNome || "[NOME COMPLETO]"}\nCPF: ${data.prestadorCPF || "[000.000.000-00]"}\n${data.prestadorEndereco || "[ENDEREÇO COMPLETO]"}`,
+        pageWidth - 2 * margin
+      );
+      doc.text(prestadorLines, margin, yPos);
+      yPos += prestadorLines.length * lineHeight + lineHeight;
 
-    doc.setFont("helvetica", "bold");
-    doc.text("VALORES:", margin, yPos);
-    yPos += lineHeight;
-    doc.setFont("helvetica", "normal");
-    doc.text(`Valor Bruto:`, margin, yPos);
-    doc.text(formatCurrency(valorBrutoNum), pageWidth - margin - 40, yPos, { align: "right" });
-    yPos += lineHeight;
+      doc.setFont("helvetica", "bold");
+      doc.text("DESCRIÇÃO DOS SERVIÇOS:", margin, yPos);
+      doc.setFont("helvetica", "normal");
+      yPos += lineHeight;
+      const servicoLines = doc.splitTextToSize(
+        data.servicoDescricao || "[DESCRIÇÃO DETALHADA DOS SERVIÇOS PRESTADOS]",
+        pageWidth - 2 * margin
+      );
+      doc.text(servicoLines, margin, yPos);
+      yPos += servicoLines.length * lineHeight + lineHeight;
 
-    doc.setFont("helvetica", "bold");
-    doc.text("(-) RETENÇÕES:", margin, yPos);
-    yPos += lineHeight;
-    doc.setFont("helvetica", "normal");
-    doc.text(`INSS (${data.aliquotaINSS}%):`, margin + 5, yPos);
-    doc.text(formatCurrency(inss), pageWidth - margin - 40, yPos, { align: "right" });
-    yPos += lineHeight;
-    doc.text(`IRRF (${data.aliquotaIRRF}%):`, margin + 5, yPos);
-    doc.text(formatCurrency(irrf), pageWidth - margin - 40, yPos, { align: "right" });
-    yPos += lineHeight;
-    doc.text(`ISS (${data.aliquotaISS}%):`, margin + 5, yPos);
-    doc.text(formatCurrency(iss), pageWidth - margin - 40, yPos, { align: "right" });
-    yPos += lineHeight * 1.5;
+      doc.setFont("helvetica", "bold");
+      doc.text("VALORES:", margin, yPos);
+      yPos += lineHeight;
+      doc.setFont("helvetica", "normal");
+      doc.text(`Valor Bruto:`, margin, yPos);
+      doc.text(formatCurrency(valorBrutoNum), pageWidth - margin - 40, yPos, { align: "right" });
+      yPos += lineHeight;
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.text("VALOR LÍQUIDO A RECEBER:", margin, yPos);
-    doc.text(formatCurrency(valorLiquido), pageWidth - margin - 40, yPos, { align: "right" });
+      doc.setFont("helvetica", "bold");
+      doc.text("(-) RETENÇÕES:", margin, yPos);
+      yPos += lineHeight;
+      doc.setFont("helvetica", "normal");
+      doc.text(`INSS (${data.aliquotaINSS}%):`, margin + 5, yPos);
+      doc.text(formatCurrency(inss), pageWidth - margin - 40, yPos, { align: "right" });
+      yPos += lineHeight;
+      doc.text(`IRRF (${data.aliquotaIRRF}%):`, margin + 5, yPos);
+      doc.text(formatCurrency(irrf), pageWidth - margin - 40, yPos, { align: "right" });
+      yPos += lineHeight;
+      doc.text(`ISS (${data.aliquotaISS}%):`, margin + 5, yPos);
+      doc.text(formatCurrency(iss), pageWidth - margin - 40, yPos, { align: "right" });
+      yPos += lineHeight * 1.5;
 
-    yPos += lineHeight * 3;
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    const declaracaoText = `Declaro que recebi da empresa ${data.tomadorNome || "[TOMADOR]"} o valor líquido acima discriminado, referente aos serviços prestados conforme descrito neste recibo.`;
-    const declaracaoLines = doc.splitTextToSize(declaracaoText, pageWidth - 2 * margin);
-    doc.text(declaracaoLines, margin, yPos);
-    yPos += declaracaoLines.length * lineHeight + lineHeight * 2;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.text("VALOR LÍQUIDO A RECEBER:", margin, yPos);
+      doc.text(formatCurrency(valorLiquido), pageWidth - margin - 40, yPos, { align: "right" });
 
-    doc.text(`${data.cidade || "[CIDADE]"}, ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}.`, margin, yPos);
-    yPos += lineHeight * 3;
+      yPos += lineHeight * 3;
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      const declaracaoText = `Declaro que recebi da empresa ${data.tomadorNome || "[TOMADOR]"} o valor líquido acima discriminado, referente aos serviços prestados conforme descrito neste recibo.`;
+      const declaracaoLines = doc.splitTextToSize(declaracaoText, pageWidth - 2 * margin);
+      doc.text(declaracaoLines, margin, yPos);
+      yPos += declaracaoLines.length * lineHeight + lineHeight * 2;
 
-    doc.line(margin + 20, yPos, pageWidth - margin - 20, yPos);
-    yPos += lineHeight;
-    doc.text(data.prestadorNome || "[NOME DO PRESTADOR]", pageWidth / 2, yPos, { align: "center" });
-    yPos += lineHeight * 0.8;
-    doc.setFontSize(9);
-    doc.text(`CPF: ${data.prestadorCPF || "[000.000.000-00]"}`, pageWidth / 2, yPos, { align: "center" });
+      doc.text(`${data.cidade || "[CIDADE]"}, ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}.`, margin, yPos);
+      yPos += lineHeight * 3;
 
-    doc.save(`recibo-rpa-${data.numeroRecibo}.pdf`);
+      doc.line(margin + 20, yPos, pageWidth - margin - 20, yPos);
+      yPos += lineHeight;
+      doc.text(data.prestadorNome || "[NOME DO PRESTADOR]", pageWidth / 2, yPos, { align: "center" });
+      yPos += lineHeight * 0.8;
+      doc.setFontSize(9);
+      doc.text(`CPF: ${data.prestadorCPF || "[000.000.000-00]"}`, pageWidth / 2, yPos, { align: "center" });
+
+      doc.save(`recibo-rpa-${data.numeroRecibo}.pdf`);
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -326,11 +336,13 @@ export default function ReciboRpaGenerator() {
           </div>
 
           <button
-            onClick={generatePDF}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+            onClick={generatePDF} disabled={gerandoPdf} aria-busy={gerandoPdf}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <i className="fa-solid fa-file-pdf"></i>
-            Gerar PDF
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <><i className="fa-solid fa-file-pdf"></i>
+            Gerar PDF</>
+            )}
           </button>
 
           <AdsKeeperWidget />
