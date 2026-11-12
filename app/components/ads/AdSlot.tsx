@@ -65,7 +65,7 @@ export default function AdSlot({
       <span className="text-[11px] uppercase tracking-wider text-slate-400">{label}</span>
       <ins
         className="adsbygoogle block w-full"
-        style={{ display: 'block', minHeight: 100 }}
+        style={{ display: 'block', minHeight: 250 }}
         data-ad-client={AD_CLIENT}
         data-ad-slot={normalizedSlot}
         data-ad-format={format}
