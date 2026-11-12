@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function AutorizacaoViagemClient() {
   const [dados, setDados] = useState({
@@ -13,47 +13,57 @@ export default function AutorizacaoViagemClient() {
 
   const handleChange = (e: any) => setDados({ ...dados, [e.target.name]: e.target.value });
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    const margem = 20;
-    let y = 20;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    const addTexto = (texto: string, negrito = false, alinhamento: 'left' | 'center' | 'justify' = 'justify') => {
-        doc.setFont("times", negrito ? "bold" : "normal");
-        doc.setFontSize(12);
-        const linhas = doc.splitTextToSize(texto, 170);
-        doc.text(linhas, (alinhamento === 'center' ? 105 : margem), y, { align: alinhamento === 'justify' ? 'left' : alinhamento });
-        y += (linhas.length * 6) + 4;
-    };
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const margem = 20;
+      let y = 20;
 
-    doc.setFontSize(14);
-    addTexto("AUTORIZAÇÃO DE VIAGEM NACIONAL", true, "center");
-    y += 5;
-    doc.setFontSize(10);
-    addTexto("(Art. 83 do ECA - Lei 8.069/90 - e Resolucao CNJ no 295/2019)", false, "center");
-    y += 15;
+      const addTexto = (texto: string, negrito = false, alinhamento: 'left' | 'center' | 'justify' = 'justify') => {
+          doc.setFont("times", negrito ? "bold" : "normal");
+          doc.setFontSize(12);
+          const linhas = doc.splitTextToSize(texto, 170);
+          doc.text(linhas, (alinhamento === 'center' ? 105 : margem), y, { align: alinhamento === 'justify' ? 'left' : alinhamento });
+          y += (linhas.length * 6) + 4;
+      };
 
-    addTexto(`Eu, ${dados.resp1Nome.toUpperCase()}, portador(a) do RG nº ${dados.resp1RG} e CPF nº ${dados.resp1CPF}, residente em ${dados.resp1Endereco}, na qualidade de responsável legal, AUTORIZO:`);
+      doc.setFontSize(14);
+      addTexto("AUTORIZAÇÃO DE VIAGEM NACIONAL", true, "center");
+      y += 5;
+      doc.setFontSize(10);
+      addTexto("(Art. 83 do ECA - Lei 8.069/90 - e Resolucao CNJ no 295/2019)", false, "center");
+      y += 15;
+
+      addTexto(`Eu, ${dados.resp1Nome.toUpperCase()}, portador(a) do RG nº ${dados.resp1RG} e CPF nº ${dados.resp1CPF}, residente em ${dados.resp1Endereco}, na qualidade de responsável legal, AUTORIZO:`);
     
-    addTexto(`O(a) menor ${dados.menorNome.toUpperCase()}, nascido(a) em ${dados.menorNasc.split('-').reverse().join('/')}, RG nº ${dados.menorRG}.`);
+      addTexto(`O(a) menor ${dados.menorNome.toUpperCase()}, nascido(a) em ${dados.menorNasc.split('-').reverse().join('/')}, RG nº ${dados.menorRG}.`);
 
-    if (dados.tipoViagem === 'Acompanhado(a)') {
-        addTexto(`A viajar em território nacional ACOMPANHADO(A) de ${dados.acompanhanteNome.toUpperCase()}, RG nº ${dados.acompanhanteRG}, CPF nº ${dados.acompanhanteCPF}.`);
-    } else {
-        addTexto(`A viajar em território nacional DESACOMPANHADO(A).`);
+      if (dados.tipoViagem === 'Acompanhado(a)') {
+          addTexto(`A viajar em território nacional ACOMPANHADO(A) de ${dados.acompanhanteNome.toUpperCase()}, RG nº ${dados.acompanhanteRG}, CPF nº ${dados.acompanhanteCPF}.`);
+      } else {
+          addTexto(`A viajar em território nacional DESACOMPANHADO(A).`);
+      }
+
+      addTexto(`Destino: ${dados.destino.toUpperCase()}. Validade: Até ${dados.validadeAte.split('-').reverse().join('/')}.`);
+    
+      y += 30;
+      addTexto("________________________________________________", false, "center");
+      addTexto(dados.resp1Nome.toUpperCase(), false, "center");
+      addTexto("(Reconhecer firma em cartorio, por autenticidade ou semelhanca, quando exigido)", false, "center");
+    
+      y += 10;
+      addTexto(`Data: ${new Date().toLocaleDateString('pt-BR')}`, false, "center");
+
+      doc.save("autorizacao_viagem.pdf");
+    } finally {
+      setGerandoPdf(false);
     }
-
-    addTexto(`Destino: ${dados.destino.toUpperCase()}. Validade: Até ${dados.validadeAte.split('-').reverse().join('/')}.`);
-    
-    y += 30;
-    addTexto("________________________________________________", false, "center");
-    addTexto(dados.resp1Nome.toUpperCase(), false, "center");
-    addTexto("(Reconhecer firma em cartorio, por autenticidade ou semelhanca, quando exigido)", false, "center");
-    
-    y += 10;
-    addTexto(`Data: ${new Date().toLocaleDateString('pt-BR')}`, false, "center");
-
-    doc.save("autorizacao_viagem.pdf");
   };
 
   return (
@@ -102,8 +112,10 @@ export default function AutorizacaoViagemClient() {
                 <input type="date" name="validadeAte" onChange={handleChange} className="p-3 border rounded" />
             </div>
 
-            <button onClick={gerarPDF} className="w-full bg-pink-600 text-white py-4 rounded-xl font-bold hover:bg-pink-700 transition">
-                <i className="fa-solid fa-file-pdf"></i> GERAR AUTORIZAÇÃO PDF
+            <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full bg-pink-600 text-white py-4 rounded-xl font-bold hover:bg-pink-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+                {gerandoPdf ? 'Gerando PDF...' : (
+                  <><i className="fa-solid fa-file-pdf"></i> GERAR AUTORIZAÇÃO PDF</>
+                )}
             </button>
         </div>
       </div>

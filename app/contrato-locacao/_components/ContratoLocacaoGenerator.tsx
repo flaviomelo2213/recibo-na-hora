@@ -1,7 +1,7 @@
 
 'use client';
 import React, { useState } from 'react';
-import jsPDF from 'jspdf';
+import { yieldToMain } from '../../lib/yield-to-main';
 
 interface ContratoData {
   locadorNome: string;
@@ -39,76 +39,86 @@ export default function ContratoLocacaoGenerator() {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const margin = 15;
-    const lineHeight = 6;
-    let yPos = 20;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text('CONTRATO DE LOCAÇÃO RESIDENCIAL', pageWidth / 2, yPos, { align: 'center' });
+  const generatePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 15;
+      const lineHeight = 6;
+      let yPos = 20;
 
-    yPos += lineHeight * 2;
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.text('LOCADOR:', margin, yPos);
-    doc.setFont('helvetica', 'normal');
-    yPos += lineHeight;
-    const locadorText = `${data.locadorNome || '[NOME COMPLETO]'}, CPF ${data.locadorCPF || '[000.000.000-00]'}, residente em ${data.locadorEndereco || '[ENDEREÇO COMPLETO]'}.`;
-    const locadorLines = doc.splitTextToSize(locadorText, pageWidth - 2 * margin);
-    doc.text(locadorLines, margin, yPos);
-    yPos += locadorLines.length * lineHeight + lineHeight;
+      doc.setFontSize(16);
+      doc.setFont('helvetica', 'bold');
+      doc.text('CONTRATO DE LOCAÇÃO RESIDENCIAL', pageWidth / 2, yPos, { align: 'center' });
 
-    doc.setFont('helvetica', 'bold');
-    doc.text('LOCATÁRIO:', margin, yPos);
-    doc.setFont('helvetica', 'normal');
-    yPos += lineHeight;
-    const locatarioText = `${data.locatarioNome || '[NOME COMPLETO]'}, CPF ${data.locatarioCPF || '[000.000.000-00]'}, residente em ${data.locatarioEndereco || '[ENDEREÇO COMPLETO]'}.`;
-    const locatarioLines = doc.splitTextToSize(locatarioText, pageWidth - 2 * margin);
-    doc.text(locatarioLines, margin, yPos);
-    yPos += locatarioLines.length * lineHeight + lineHeight;
+      yPos += lineHeight * 2;
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('LOCADOR:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      yPos += lineHeight;
+      const locadorText = `${data.locadorNome || '[NOME COMPLETO]'}, CPF ${data.locadorCPF || '[000.000.000-00]'}, residente em ${data.locadorEndereco || '[ENDEREÇO COMPLETO]'}.`;
+      const locadorLines = doc.splitTextToSize(locadorText, pageWidth - 2 * margin);
+      doc.text(locadorLines, margin, yPos);
+      yPos += locadorLines.length * lineHeight + lineHeight;
 
-    doc.setFont('helvetica', 'bold');
-    doc.text('DO OBJETO:', margin, yPos);
-    doc.setFont('helvetica', 'normal');
-    yPos += lineHeight;
-    const objetoText = `Imóvel residencial localizado em ${data.imovelEndereco || '[ENDEREÇO COMPLETO DO IMÓVEL]'}.`;
-    const objetoLines = doc.splitTextToSize(objetoText, pageWidth - 2 * margin);
-    doc.text(objetoLines, margin, yPos);
-    yPos += objetoLines.length * lineHeight + lineHeight;
+      doc.setFont('helvetica', 'bold');
+      doc.text('LOCATÁRIO:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      yPos += lineHeight;
+      const locatarioText = `${data.locatarioNome || '[NOME COMPLETO]'}, CPF ${data.locatarioCPF || '[000.000.000-00]'}, residente em ${data.locatarioEndereco || '[ENDEREÇO COMPLETO]'}.`;
+      const locatarioLines = doc.splitTextToSize(locatarioText, pageWidth - 2 * margin);
+      doc.text(locatarioLines, margin, yPos);
+      yPos += locatarioLines.length * lineHeight + lineHeight;
 
-    doc.setFont('helvetica', 'bold');
-    doc.text('DO VALOR E PAGAMENTO:', margin, yPos);
-    doc.setFont('helvetica', 'normal');
-    yPos += lineHeight;
-    const valorText = `Valor mensal do aluguel: R$ ${data.valor || '[0.000,00]'}, vencimento todo dia ${data.diaVencimento} de cada mês.`;
-    const valorLines = doc.splitTextToSize(valorText, pageWidth - 2 * margin);
-    doc.text(valorLines, margin, yPos);
-    yPos += valorLines.length * lineHeight + lineHeight;
+      doc.setFont('helvetica', 'bold');
+      doc.text('DO OBJETO:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      yPos += lineHeight;
+      const objetoText = `Imóvel residencial localizado em ${data.imovelEndereco || '[ENDEREÇO COMPLETO DO IMÓVEL]'}.`;
+      const objetoLines = doc.splitTextToSize(objetoText, pageWidth - 2 * margin);
+      doc.text(objetoLines, margin, yPos);
+      yPos += objetoLines.length * lineHeight + lineHeight;
 
-    doc.setFont('helvetica', 'bold');
-    doc.text('DO PRAZO:', margin, yPos);
-    doc.setFont('helvetica', 'normal');
-    yPos += lineHeight;
-    const prazoText = `O presente contrato terá duração de ${data.prazoMeses || '12'} meses, iniciando em ${new Date(data.dataInicio).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}.`;
-    const prazoLines = doc.splitTextToSize(prazoText, pageWidth - 2 * margin);
-    doc.text(prazoLines, margin, yPos);
-    yPos += prazoLines.length * lineHeight + lineHeight * 2;
+      doc.setFont('helvetica', 'bold');
+      doc.text('DO VALOR E PAGAMENTO:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      yPos += lineHeight;
+      const valorText = `Valor mensal do aluguel: R$ ${data.valor || '[0.000,00]'}, vencimento todo dia ${data.diaVencimento} de cada mês.`;
+      const valorLines = doc.splitTextToSize(valorText, pageWidth - 2 * margin);
+      doc.text(valorLines, margin, yPos);
+      yPos += valorLines.length * lineHeight + lineHeight;
 
-    const dataAssinatura = `${data.cidade || '[CIDADE]'}, ${new Date().toLocaleDateString('pt-BR')}.`;
-    doc.text(dataAssinatura, margin, yPos);
-    yPos += lineHeight * 3;
+      doc.setFont('helvetica', 'bold');
+      doc.text('DO PRAZO:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      yPos += lineHeight;
+      const prazoText = `O presente contrato terá duração de ${data.prazoMeses || '12'} meses, iniciando em ${new Date(data.dataInicio).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}.`;
+      const prazoLines = doc.splitTextToSize(prazoText, pageWidth - 2 * margin);
+      doc.text(prazoLines, margin, yPos);
+      yPos += prazoLines.length * lineHeight + lineHeight * 2;
 
-    doc.line(margin + 10, yPos, (pageWidth / 2) - 10, yPos);
-    doc.line((pageWidth / 2) + 10, yPos, pageWidth - margin - 10, yPos);
-    yPos += lineHeight;
-    doc.setFontSize(9);
-    doc.text(data.locadorNome || '[LOCADOR]', pageWidth / 4, yPos, { align: 'center' });
-    doc.text(data.locatarioNome || '[LOCATÁRIO]', (pageWidth * 3) / 4, yPos, { align: 'center' });
+      const dataAssinatura = `${data.cidade || '[CIDADE]'}, ${new Date().toLocaleDateString('pt-BR')}.`;
+      doc.text(dataAssinatura, margin, yPos);
+      yPos += lineHeight * 3;
 
-    doc.save('contrato-locacao-residencial.pdf');
+      doc.line(margin + 10, yPos, (pageWidth / 2) - 10, yPos);
+      doc.line((pageWidth / 2) + 10, yPos, pageWidth - margin - 10, yPos);
+      yPos += lineHeight;
+      doc.setFontSize(9);
+      doc.text(data.locadorNome || '[LOCADOR]', pageWidth / 4, yPos, { align: 'center' });
+      doc.text(data.locatarioNome || '[LOCATÁRIO]', (pageWidth * 3) / 4, yPos, { align: 'center' });
+
+      doc.save('contrato-locacao-residencial.pdf');
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -150,9 +160,11 @@ export default function ContratoLocacaoGenerator() {
             </div>
           </div>
 
-          <button onClick={generatePDF} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors">
-            <i className="fa-solid fa-file-pdf mr-2"></i>
-            Gerar PDF
+          <button onClick={generatePDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <><i className="fa-solid fa-file-pdf mr-2"></i>
+            Gerar PDF</>
+            )}
           </button>
         </div>
       </div>

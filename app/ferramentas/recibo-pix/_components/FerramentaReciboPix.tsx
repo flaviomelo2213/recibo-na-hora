@@ -2,10 +2,9 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import PreviewReciboPix from './PreviewReciboPix';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 // Componente principal que une o formulário e a pré-visualização
 export default function FerramentaReciboPix() {
@@ -32,25 +31,34 @@ export default function FerramentaReciboPix() {
 
   // Função para gerar o PDF
   const handleDownloadPdf = async () => {
-    if (!previewRef.current) return;
+    if (!previewRef.current || isGenerating) return;
     setIsGenerating(true);
 
-    const canvas = await html2canvas(previewRef.current, {
-      scale: 2, // Aumenta a resolução da captura
-      useCORS: true,
-      backgroundColor: '#ffffff',
-    });
+    try {
+      await yieldToMain();
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+        import('html2canvas'),
+        import('jspdf'),
+      ]);
 
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: [canvas.width, canvas.height]
-    });
+      const canvas = await html2canvas(previewRef.current, {
+        scale: 2, // Aumenta a resolução da captura
+        useCORS: true,
+        backgroundColor: '#ffffff',
+      });
 
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-    pdf.save(`recibo-pix-${formData.id || 'doc'}.pdf`);
-    setIsGenerating(false);
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      });
+
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.save(`recibo-pix-${formData.id || 'doc'}.pdf`);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (

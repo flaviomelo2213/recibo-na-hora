@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { jsPDF } from 'jspdf';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function GeradorReciboPro() {
   // Estado Completo (Campos que os concorrentes têm)
@@ -34,67 +34,77 @@ export default function GeradorReciboPro() {
     setDados({ ...dados, [e.target.name]: e.target.value });
   };
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    // --- CABEÇALHO COM LOGO ---
-    if (logo) {
-        doc.addImage(logo, 'PNG', 20, 10, 30, 30); // Logo à esquerda
-        doc.setFontSize(22);
-        doc.setFont("helvetica", "bold");
-        doc.text("RECIBO DE PAGAMENTO", 190, 25, { align: "right" });
-        doc.setFontSize(10);
-        doc.text(`Nº Controle: ${Date.now().toString().slice(-6)}`, 190, 32, { align: "right" });
-    } else {
-        doc.setFontSize(22);
-        doc.setFont("helvetica", "bold");
-        doc.text("RECIBO DE PAGAMENTO", 105, 25, { align: "center" });
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+
+      // --- CABEÇALHO COM LOGO ---
+      if (logo) {
+          doc.addImage(logo, 'PNG', 20, 10, 30, 30); // Logo à esquerda
+          doc.setFontSize(22);
+          doc.setFont("helvetica", "bold");
+          doc.text("RECIBO DE PAGAMENTO", 190, 25, { align: "right" });
+          doc.setFontSize(10);
+          doc.text(`Nº Controle: ${Date.now().toString().slice(-6)}`, 190, 32, { align: "right" });
+      } else {
+          doc.setFontSize(22);
+          doc.setFont("helvetica", "bold");
+          doc.text("RECIBO DE PAGAMENTO", 105, 25, { align: "center" });
+      }
+
+      // --- CAIXA DE VALOR ---
+      doc.setFillColor(240, 240, 240);
+      doc.rect(20, 45, 170, 15, 'F');
+      doc.setFontSize(16);
+      doc.setTextColor(0, 0, 0);
+      doc.text(`VALOR: R$ ${dados.valor}`, 105, 55, { align: "center" });
+
+      // --- CORPO DO RECIBO ---
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "normal");
+      let y = 80;
+
+      const texto = `Recebi(emos) de ${dados.pagadorNome.toUpperCase()}, inscrito(a) no CPF/CNPJ ${dados.pagadorCPF}, a importância supra de R$ ${dados.valor}, referente a: ${dados.referente}.`;
+      const linhas = doc.splitTextToSize(texto, 170);
+      doc.text(linhas, 20, y);
+      y += (linhas.length * 8) + 10;
+
+      doc.text(`Forma de Pagamento: ${dados.formaPagamento}`, 20, y);
+      doc.text(`Parcela: ${dados.parcela}`, 120, y);
+      y += 20;
+
+      doc.text(`Para maior clareza, firmo(amos) o presente recibo.`, 20, y);
+      y += 15;
+
+      doc.text(`${dados.cidade || 'Local'}, ${new Date(dados.data).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'})}.`, 20, y);
+
+      // --- ASSINATURA ---
+      y += 30;
+      if (assinatura) {
+          doc.addImage(assinatura, 'PNG', 75, y - 25, 60, 20); // Imagem da assinatura
+      }
+      doc.line(60, y, 150, y); // Linha
+      doc.setFontSize(10);
+      doc.text(dados.recebedorNome.toUpperCase(), 105, y + 5, { align: "center" });
+      doc.text(`CPF/CNPJ: ${dados.recebedorCPF}`, 105, y + 10, { align: "center" });
+      if(dados.recebedorTel) doc.text(`Tel: ${dados.recebedorTel}`, 105, y + 15, { align: "center" });
+      if(dados.recebedorEndereco) doc.text(dados.recebedorEndereco, 105, y + 20, { align: "center" });
+
+      // --- RODAPÉ MARCA D'ÁGUA ---
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text("Gerado por ReciboNaHora.com.br - Ferramentas para MEI e Profissionais", 105, 290, { align: "center" });
+
+      doc.save("recibo-profissional.pdf");
+    } finally {
+      setGerandoPdf(false);
     }
-
-    // --- CAIXA DE VALOR ---
-    doc.setFillColor(240, 240, 240);
-    doc.rect(20, 45, 170, 15, 'F');
-    doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`VALOR: R$ ${dados.valor}`, 105, 55, { align: "center" });
-
-    // --- CORPO DO RECIBO ---
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    let y = 80;
-
-    const texto = `Recebi(emos) de ${dados.pagadorNome.toUpperCase()}, inscrito(a) no CPF/CNPJ ${dados.pagadorCPF}, a importância supra de R$ ${dados.valor}, referente a: ${dados.referente}.`;
-    const linhas = doc.splitTextToSize(texto, 170);
-    doc.text(linhas, 20, y);
-    y += (linhas.length * 8) + 10;
-
-    doc.text(`Forma de Pagamento: ${dados.formaPagamento}`, 20, y);
-    doc.text(`Parcela: ${dados.parcela}`, 120, y);
-    y += 20;
-
-    doc.text(`Para maior clareza, firmo(amos) o presente recibo.`, 20, y);
-    y += 15;
-
-    doc.text(`${dados.cidade || 'Local'}, ${new Date(dados.data).toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'})}.`, 20, y);
-
-    // --- ASSINATURA ---
-    y += 30;
-    if (assinatura) {
-        doc.addImage(assinatura, 'PNG', 75, y - 25, 60, 20); // Imagem da assinatura
-    }
-    doc.line(60, y, 150, y); // Linha
-    doc.setFontSize(10);
-    doc.text(dados.recebedorNome.toUpperCase(), 105, y + 5, { align: "center" });
-    doc.text(`CPF/CNPJ: ${dados.recebedorCPF}`, 105, y + 10, { align: "center" });
-    if(dados.recebedorTel) doc.text(`Tel: ${dados.recebedorTel}`, 105, y + 15, { align: "center" });
-    if(dados.recebedorEndereco) doc.text(dados.recebedorEndereco, 105, y + 20, { align: "center" });
-
-    // --- RODAPÉ MARCA D'ÁGUA ---
-    doc.setFontSize(8);
-    doc.setTextColor(150);
-    doc.text("Gerado por ReciboNaHora.com.br - Ferramentas para MEI e Profissionais", 105, 290, { align: "center" });
-
-    doc.save("recibo-profissional.pdf");
   };
 
   return (
@@ -168,8 +178,10 @@ export default function GeradorReciboPro() {
         </div>
       </div>
 
-      <button onClick={gerarPDF} className="w-full mt-8 bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02]">
-        <i className="fa-solid fa-file-invoice-dollar text-2xl"></i> BAIXAR RECIBO PROFISSIONAL
+      <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full mt-8 bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed">
+        {gerandoPdf ? 'Gerando PDF...' : (
+          <><i className="fa-solid fa-file-invoice-dollar text-2xl"></i> BAIXAR RECIBO PROFISSIONAL</>
+        )}
       </button>
 
       <AdsKeeperWidget />

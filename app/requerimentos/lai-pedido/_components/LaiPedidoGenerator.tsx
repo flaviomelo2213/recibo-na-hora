@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import { Card } from '../../../components/ui/Card';
 import { Input } from '../../../components/ui/Input';
 import { Textarea } from '../../../components/ui/Textarea';
 import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
 import { Terminal, Wand2, KeyRound } from 'lucide-react';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 interface LaiPedidoData {
   destinatarioNome: string;
@@ -23,7 +23,8 @@ interface LaiPedidoData {
   data: string;
 }
 
-const generateLaiPDF = (data: LaiPedidoData) => {
+const generateLaiPDF = async (data: LaiPedidoData) => {
+  const { jsPDF } = await import('jspdf');
   const doc = new jsPDF('p', 'mm', 'a4');
   doc.setFont('Helvetica', 'normal');
   doc.setFontSize(12);
@@ -122,8 +123,17 @@ export default function LaiPedidoGenerator() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleGeneratePDF = () => {
-    generateLaiPDF(data);
+  const [gerandoPdf, setGerandoPdf] = useState(false);
+
+  const handleGeneratePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      await generateLaiPDF(data);
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   async function handleImproveWithAI() {
@@ -294,8 +304,8 @@ export default function LaiPedidoGenerator() {
           </div>
 
           <div className="text-center pt-2 sm:pt-4">
-            <Button size="lg" onClick={handleGeneratePDF}>
-              Gerar PDF do Requerimento
+            <Button size="lg" onClick={handleGeneratePDF} disabled={gerandoPdf} aria-busy={gerandoPdf}>
+              {gerandoPdf ? 'Gerando PDF...' : 'Gerar PDF do Requerimento'}
             </Button>
           </div>
         </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import jsPDF from "jspdf";
+import { yieldToMain } from "../../../lib/yield-to-main";
 
 interface ProcuracaoData {
   outorganteNome: string;
@@ -39,65 +39,75 @@ export default function ProcuracaoImoveisGenerator() {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const margin = 15;
-    const lineHeight = 7;
-    let yPos = 20;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.text("PROCURAÇÃO PARA IMÓVEIS E INVENTÁRIO", pageWidth / 2, yPos, { align: "center" });
+  const generatePDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 15;
+      const lineHeight = 7;
+      let yPos = 20;
 
-    yPos += lineHeight * 2;
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "normal");
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("PROCURAÇÃO PARA IMÓVEIS E INVENTÁRIO", pageWidth / 2, yPos, { align: "center" });
 
-    const outorganteText = `OUTORGANTE: ${data.outorganteNome || "[NOME COMPLETO]"}, ${data.outorganteCPF ? `portador do CPF nº ${data.outorganteCPF}` : "CPF [000.000.000-00]"}, ${data.outorganteRG ? `RG nº ${data.outorganteRG}` : "RG [00.000.000-0]"}, residente e domiciliado em ${data.outorganteEndereco || "[ENDEREÇO COMPLETO]"}.`;
+      yPos += lineHeight * 2;
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "normal");
 
-    const outorganteLines = doc.splitTextToSize(outorganteText, pageWidth - 2 * margin);
-    doc.text(outorganteLines, margin, yPos);
-    yPos += outorganteLines.length * lineHeight + lineHeight;
+      const outorganteText = `OUTORGANTE: ${data.outorganteNome || "[NOME COMPLETO]"}, ${data.outorganteCPF ? `portador do CPF nº ${data.outorganteCPF}` : "CPF [000.000.000-00]"}, ${data.outorganteRG ? `RG nº ${data.outorganteRG}` : "RG [00.000.000-0]"}, residente e domiciliado em ${data.outorganteEndereco || "[ENDEREÇO COMPLETO]"}.`;
 
-    const outorgadoText = `OUTORGADO: ${data.outorgadoNome || "[NOME COMPLETO]"}, ${data.outorgadoCPF ? `portador do CPF nº ${data.outorgadoCPF}` : "CPF [000.000.000-00]"}, ${data.outorgadoRG ? `RG nº ${data.outorgadoRG}` : "RG [00.000.000-0]"}, com endereço em ${data.outorgadoEndereco || "[ENDEREÇO COMPLETO]"}.`;
+      const outorganteLines = doc.splitTextToSize(outorganteText, pageWidth - 2 * margin);
+      doc.text(outorganteLines, margin, yPos);
+      yPos += outorganteLines.length * lineHeight + lineHeight;
 
-    const outorgadoLines = doc.splitTextToSize(outorgadoText, pageWidth - 2 * margin);
-    doc.text(outorgadoLines, margin, yPos);
-    yPos += outorgadoLines.length * lineHeight + lineHeight;
+      const outorgadoText = `OUTORGADO: ${data.outorgadoNome || "[NOME COMPLETO]"}, ${data.outorgadoCPF ? `portador do CPF nº ${data.outorgadoCPF}` : "CPF [000.000.000-00]"}, ${data.outorgadoRG ? `RG nº ${data.outorgadoRG}` : "RG [00.000.000-0]"}, com endereço em ${data.outorgadoEndereco || "[ENDEREÇO COMPLETO]"}.`;
 
-    if (data.imovelEndereco) {
-      const imovelText = `IMÓVEL: ${data.imovelEndereco}${data.matricula ? `, matrícula nº ${data.matricula}` : ""}.`;
-      const imovelLines = doc.splitTextToSize(imovelText, pageWidth - 2 * margin);
-      doc.text(imovelLines, margin, yPos);
-      yPos += imovelLines.length * lineHeight + lineHeight;
+      const outorgadoLines = doc.splitTextToSize(outorgadoText, pageWidth - 2 * margin);
+      doc.text(outorgadoLines, margin, yPos);
+      yPos += outorgadoLines.length * lineHeight + lineHeight;
+
+      if (data.imovelEndereco) {
+        const imovelText = `IMÓVEL: ${data.imovelEndereco}${data.matricula ? `, matrícula nº ${data.matricula}` : ""}.`;
+        const imovelLines = doc.splitTextToSize(imovelText, pageWidth - 2 * margin);
+        doc.text(imovelLines, margin, yPos);
+        yPos += imovelLines.length * lineHeight + lineHeight;
+      }
+
+      const poderesText = `PODERES: Pelo presente instrumento particular de procuração, o OUTORGANTE, acima qualificado, nomeia e constitui seu bastante procurador o OUTORGADO, com poderes específicos para representá-lo em todos os atos relacionados a bens imóveis, incluindo mas não se limitando a: comprar, vender, permutar, dar ou tomar de aluguel, administrar, receber e dar quitação de aluguéis e encargos, assinar contratos de locação, rescindi-los, renovar, ajustar prazos e valores, representá-lo perante órgãos públicos municipais, estaduais e federais, cartórios de registro de imóveis, tabelionatos, juntas comerciais, Receita Federal, fazendas estaduais e municipais, podendo assinar escrituras públicas de compra e venda, promessas de compra e venda, contratos de gaveta, contratos de financiamento imobiliário, dar e receber imóveis em pagamento, hipotecá-los, receber e dar quitações, requerer e assinar certidões, declarações e documentos, pagar e receber impostos e taxas, representar o outorgante em processos de inventário e partilha de bens, habilitação de herdeiros, arrolamento, podendo requerer, assinar, transigir, concordar, desistir, receber valores e bens, prestar declarações, bem como praticar todos os demais atos necessários ao bom e fiel cumprimento do presente mandato.`;
+
+      const poderesLines = doc.splitTextToSize(poderesText, pageWidth - 2 * margin);
+      doc.text(poderesLines, margin, yPos);
+      yPos += poderesLines.length * lineHeight + lineHeight * 2;
+
+      const localData = `${data.cidade || "[CIDADE]"}, ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}.`;
+      doc.text(localData, margin, yPos);
+      yPos += lineHeight * 3;
+
+      doc.line(margin + 40, yPos, pageWidth - margin - 40, yPos);
+      yPos += lineHeight;
+      doc.setFontSize(10);
+      doc.text(data.outorganteNome || "[NOME DO OUTORGANTE]", pageWidth / 2, yPos, { align: "center" });
+      yPos += lineHeight * 0.8;
+      doc.text("Outorgante", pageWidth / 2, yPos, { align: "center" });
+
+      yPos += lineHeight * 2;
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "bold");
+      const avisoText = "OBRIGATÓRIO: Esta procuração DEVE ser reconhecida em cartório com firma reconhecida e, para transações imobiliárias, pode requerer reconhecimento com substabelecimento.";
+      const avisoLines = doc.splitTextToSize(avisoText, pageWidth - 2 * margin);
+      doc.text(avisoLines, margin, yPos);
+
+      doc.save("procuracao-imoveis-inventario.pdf");
+    } finally {
+      setGerandoPdf(false);
     }
-
-    const poderesText = `PODERES: Pelo presente instrumento particular de procuração, o OUTORGANTE, acima qualificado, nomeia e constitui seu bastante procurador o OUTORGADO, com poderes específicos para representá-lo em todos os atos relacionados a bens imóveis, incluindo mas não se limitando a: comprar, vender, permutar, dar ou tomar de aluguel, administrar, receber e dar quitação de aluguéis e encargos, assinar contratos de locação, rescindi-los, renovar, ajustar prazos e valores, representá-lo perante órgãos públicos municipais, estaduais e federais, cartórios de registro de imóveis, tabelionatos, juntas comerciais, Receita Federal, fazendas estaduais e municipais, podendo assinar escrituras públicas de compra e venda, promessas de compra e venda, contratos de gaveta, contratos de financiamento imobiliário, dar e receber imóveis em pagamento, hipotecá-los, receber e dar quitações, requerer e assinar certidões, declarações e documentos, pagar e receber impostos e taxas, representar o outorgante em processos de inventário e partilha de bens, habilitação de herdeiros, arrolamento, podendo requerer, assinar, transigir, concordar, desistir, receber valores e bens, prestar declarações, bem como praticar todos os demais atos necessários ao bom e fiel cumprimento do presente mandato.`;
-
-    const poderesLines = doc.splitTextToSize(poderesText, pageWidth - 2 * margin);
-    doc.text(poderesLines, margin, yPos);
-    yPos += poderesLines.length * lineHeight + lineHeight * 2;
-
-    const localData = `${data.cidade || "[CIDADE]"}, ${new Date(data.data).toLocaleDateString("pt-BR", { timeZone: "UTC" })}.`;
-    doc.text(localData, margin, yPos);
-    yPos += lineHeight * 3;
-
-    doc.line(margin + 40, yPos, pageWidth - margin - 40, yPos);
-    yPos += lineHeight;
-    doc.setFontSize(10);
-    doc.text(data.outorganteNome || "[NOME DO OUTORGANTE]", pageWidth / 2, yPos, { align: "center" });
-    yPos += lineHeight * 0.8;
-    doc.text("Outorgante", pageWidth / 2, yPos, { align: "center" });
-
-    yPos += lineHeight * 2;
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "bold");
-    const avisoText = "OBRIGATÓRIO: Esta procuração DEVE ser reconhecida em cartório com firma reconhecida e, para transações imobiliárias, pode requerer reconhecimento com substabelecimento.";
-    const avisoLines = doc.splitTextToSize(avisoText, pageWidth - 2 * margin);
-    doc.text(avisoLines, margin, yPos);
-
-    doc.save("procuracao-imoveis-inventario.pdf");
   };
 
   return (
@@ -237,11 +247,13 @@ export default function ProcuracaoImoveisGenerator() {
           </div>
 
           <button
-            onClick={generatePDF}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+            onClick={generatePDF} disabled={gerandoPdf} aria-busy={gerandoPdf}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <i className="fa-solid fa-file-pdf"></i>
-            Gerar PDF
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <><i className="fa-solid fa-file-pdf"></i>
+            Gerar PDF</>
+            )}
           </button>
         </div>
       </div>

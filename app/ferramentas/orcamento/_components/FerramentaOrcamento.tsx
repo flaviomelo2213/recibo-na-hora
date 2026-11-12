@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from "react";
-import { jsPDF } from "jspdf";
+import type { jsPDF } from "jspdf";
 import DecisionScreen from "../../../components/DecisionScreen";
+import { yieldToMain } from "../../../lib/yield-to-main";
 
 interface ItemOrcamento {
   descricao: string;
@@ -42,70 +43,80 @@ export default function FerramentaOrcamento() {
 
   const totalGeral = itens.reduce((acc, item) => acc + (item.qtd * item.valorUnitario), 0);
 
-  const generatePdfAndShowDecision = () => {
-    const doc = new jsPDF();
-    const fileName = `orcamento-${cliente.toLowerCase().replace(/[^a-z0-9]/g, '-')}.pdf`;
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFillColor(40, 38, 36);
-    doc.rect(0, 0, 210, 40, "F");
-    doc.setTextColor(252, 251, 250);
-    doc.setFontSize(26);
-    doc.setFont("helvetica", "bold");
-    doc.text("ORÇAMENTO COMERCIAL", 105, 25, { align: "center" });
-    doc.setTextColor(28, 25, 23);
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("DADOS DO CLIENTE:", 14, 55);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Nome: ${cliente}`, 14, 62);
-    doc.text(`CPF/CNPJ: ${documento}`, 14, 69);
-    doc.text(`Telefone: ${telefone}`, 14, 76);
-    doc.setFont("helvetica", "bold");
-    doc.text("DETALHES DO ORÇAMENTO:", 120, 55);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Data de Emissão: ${new Date().toLocaleDateString('pt-BR')}`, 120, 62);
-    doc.text(`Validade da Proposta: ${validade}`, 120, 69);
-    doc.text(`Nº Controle: ${Math.floor(Math.random() * 10000)}`, 120, 76);
-    let yPos = 90;
-    doc.setFillColor(245, 245, 244);
-    doc.rect(14, yPos - 5, 182, 8, "F");
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(87, 83, 78);
-    doc.text("DESCRIÇÃO DO ITEM/SERVIÇO", 16, yPos);
-    doc.text("QTD", 130, yPos);
-    doc.text("UNIT (R$)", 150, yPos);
-    doc.text("TOTAL (R$)", 175, yPos);
-    yPos += 8;
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(28, 25, 23);
-    itens.forEach((item) => {
-      const totalItem = item.qtd * item.valorUnitario;
-      const descricaoLimpa = item.descricao.substring(0, 50);
-      doc.text(descricaoLimpa, 16, yPos);
-      doc.text(item.qtd.toString(), 133, yPos, {align: "center"});
-      doc.text(item.valorUnitario.toFixed(2), 160, yPos, {align: "right"});
-      doc.text(totalItem.toFixed(2), 190, yPos, {align: "right"});
-      doc.setDrawColor(231, 229, 228);
-      doc.line(14, yPos + 3, 196, yPos + 3);
+  const generatePdfAndShowDecision = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      const fileName = `orcamento-${cliente.toLowerCase().replace(/[^a-z0-9]/g, '-')}.pdf`;
+
+      doc.setFillColor(40, 38, 36);
+      doc.rect(0, 0, 210, 40, "F");
+      doc.setTextColor(252, 251, 250);
+      doc.setFontSize(26);
+      doc.setFont("helvetica", "bold");
+      doc.text("ORÇAMENTO COMERCIAL", 105, 25, { align: "center" });
+      doc.setTextColor(28, 25, 23);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text("DADOS DO CLIENTE:", 14, 55);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Nome: ${cliente}`, 14, 62);
+      doc.text(`CPF/CNPJ: ${documento}`, 14, 69);
+      doc.text(`Telefone: ${telefone}`, 14, 76);
+      doc.setFont("helvetica", "bold");
+      doc.text("DETALHES DO ORÇAMENTO:", 120, 55);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Data de Emissão: ${new Date().toLocaleDateString('pt-BR')}`, 120, 62);
+      doc.text(`Validade da Proposta: ${validade}`, 120, 69);
+      doc.text(`Nº Controle: ${Math.floor(Math.random() * 10000)}`, 120, 76);
+      let yPos = 90;
+      doc.setFillColor(245, 245, 244);
+      doc.rect(14, yPos - 5, 182, 8, "F");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(87, 83, 78);
+      doc.text("DESCRIÇÃO DO ITEM/SERVIÇO", 16, yPos);
+      doc.text("QTD", 130, yPos);
+      doc.text("UNIT (R$)", 150, yPos);
+      doc.text("TOTAL (R$)", 175, yPos);
       yPos += 8;
-    });
-    yPos += 5;
-    doc.setFillColor(40, 38, 36);
-    doc.rect(130, yPos, 66, 12, "F");
-    doc.setTextColor(250, 250, 249);
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text(`TOTAL: R$ ${totalGeral.toFixed(2)}`, 163, yPos + 8, { align: "center" });
-    doc.setTextColor(120, 113, 108);
-    doc.setFontSize(8);
-    doc.setFont("helvetica", "italic");
-    doc.text("Orçamento sujeito a alteração de valores após a data de validade.", 105, 280, { align: "center" });
-    doc.text("Gerado gratuitamente em CartorioPremium.com.br", 105, 285, { align: "center" });
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(28, 25, 23);
+      itens.forEach((item) => {
+        const totalItem = item.qtd * item.valorUnitario;
+        const descricaoLimpa = item.descricao.substring(0, 50);
+        doc.text(descricaoLimpa, 16, yPos);
+        doc.text(item.qtd.toString(), 133, yPos, {align: "center"});
+        doc.text(item.valorUnitario.toFixed(2), 160, yPos, {align: "right"});
+        doc.text(totalItem.toFixed(2), 190, yPos, {align: "right"});
+        doc.setDrawColor(231, 229, 228);
+        doc.line(14, yPos + 3, 196, yPos + 3);
+        yPos += 8;
+      });
+      yPos += 5;
+      doc.setFillColor(40, 38, 36);
+      doc.rect(130, yPos, 66, 12, "F");
+      doc.setTextColor(250, 250, 249);
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.text(`TOTAL: R$ ${totalGeral.toFixed(2)}`, 163, yPos + 8, { align: "center" });
+      doc.setTextColor(120, 113, 108);
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "italic");
+      doc.text("Orçamento sujeito a alteração de valores após a data de validade.", 105, 280, { align: "center" });
+      doc.text("Gerado gratuitamente em CartorioPremium.com.br", 105, 285, { align: "center" });
 
-    setPdfInstance(doc);
-    setPdfFileName(fileName);
-    setShowDecision(true);
+      setPdfInstance(doc);
+      setPdfFileName(fileName);
+      setShowDecision(true);
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   const handleDownloadPdf = () => {
@@ -224,10 +235,12 @@ export default function FerramentaOrcamento() {
         </div>
         
         <button 
-            onClick={generatePdfAndShowDecision}
-            className="mt-4 md:mt-0 bg-amber-500 text-stone-900 hover:bg-amber-600 font-bold py-3 px-8 rounded-lg shadow-md transition-all flex items-center gap-2"
+            onClick={generatePdfAndShowDecision} disabled={gerandoPdf} aria-busy={gerandoPdf}
+            className="mt-4 md:mt-0 bg-amber-500 text-stone-900 hover:bg-amber-600 font-bold py-3 px-8 rounded-lg shadow-md transition-all flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-            <i className="fa-solid fa-check"></i> Finalizar e Gerar Documento
+            {gerandoPdf ? 'Gerando PDF...' : (
+              <><i className="fa-solid fa-check"></i> Finalizar e Gerar Documento</>
+            )}
         </button>
       </div>
     </div>

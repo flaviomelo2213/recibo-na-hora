@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { jsPDF } from "jspdf";
 import AdsKeeperWidget from "../../../components/ads/AdsKeeperWidget";
+import { yieldToMain } from "../../../lib/yield-to-main";
 
 type DadosRecibo = {
   empresaNome: string;
@@ -71,73 +71,83 @@ export default function ReciboSalario() {
 
   const dataPagamentoBR = useMemo(() => formatBrFromISO(dados.dataPagamento), [dados.dataPagamento]);
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    // fallback seguro se usuário apagar data
-    const dataBR = dataPagamentoBR || "__/__/____";
-    const cidade = (dados.cidade || "____________").trim();
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
 
-    const desenharRecibo = (yStart: number, via: string) => {
-      // Borda
-      doc.setLineWidth(0.5);
-      doc.rect(10, yStart, 190, 120);
+      // fallback seguro se usuário apagar data
+      const dataBR = dataPagamentoBR || "__/__/____";
+      const cidade = (dados.cidade || "____________").trim();
 
-      // Cabeçalho
-      doc.setFontSize(16);
-      doc.setFont("helvetica", "bold");
-      doc.text("RECIBO DE PAGAMENTO", 105, yStart + 15, { align: "center" });
-      doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
-      doc.text(`(${via})`, 105, yStart + 20, { align: "center" });
+      const desenharRecibo = (yStart: number, via: string) => {
+        // Borda
+        doc.setLineWidth(0.5);
+        doc.rect(10, yStart, 190, 120);
 
-      // Dados Empresa
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "bold");
-      doc.text((dados.empresaNome || "________________________").toUpperCase(), 15, yStart + 35);
-      doc.setFont("helvetica", "normal");
-      doc.text(`CNPJ/CPF: ${dados.empresaCNPJ || "____________"}`, 150, yStart + 35);
+        // Cabeçalho
+        doc.setFontSize(16);
+        doc.setFont("helvetica", "bold");
+        doc.text("RECIBO DE PAGAMENTO", 105, yStart + 15, { align: "center" });
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        doc.text(`(${via})`, 105, yStart + 20, { align: "center" });
 
-      // Linha Divisória
-      doc.line(10, yStart + 40, 200, yStart + 40);
+        // Dados Empresa
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text((dados.empresaNome || "________________________").toUpperCase(), 15, yStart + 35);
+        doc.setFont("helvetica", "normal");
+        doc.text(`CNPJ/CPF: ${dados.empresaCNPJ || "____________"}`, 150, yStart + 35);
 
-      // Dados Funcionário e Valor
-      doc.text(`Funcionário: ${(dados.funcNome || "________________________").toUpperCase()}`, 15, yStart + 50);
-      doc.text(`CPF: ${dados.funcCPF || "____________"}`, 150, yStart + 50);
-      doc.text(`Cargo/Função: ${dados.funcCargo || "____________"}`, 15, yStart + 58);
+        // Linha Divisória
+        doc.line(10, yStart + 40, 200, yStart + 40);
 
-      // Caixa de Valor
-      doc.setFillColor(240, 240, 240);
-      doc.rect(140, yStart + 65, 50, 10, "F");
-      doc.setFont("helvetica", "bold");
-      doc.text(`Valor Líquido: R$ ${dados.valor || "0,00"}`, 145, yStart + 71);
+        // Dados Funcionário e Valor
+        doc.text(`Funcionário: ${(dados.funcNome || "________________________").toUpperCase()}`, 15, yStart + 50);
+        doc.text(`CPF: ${dados.funcCPF || "____________"}`, 150, yStart + 50);
+        doc.text(`Cargo/Função: ${dados.funcCargo || "____________"}`, 15, yStart + 58);
 
-      // Corpo do Texto
-      doc.setFont("helvetica", "normal");
-      const texto = `Recebi a importância supramencionada de R$ ${dados.valor || "0,00"} (${dados.valorExtenso || "________________"}), referente ao pagamento de ${String(
-        dados.tipoPagamento || ""
-      ).toUpperCase()} do mês de ${dados.referencia || "__/____"}.`;
-      const linhas = doc.splitTextToSize(texto, 180);
-      doc.text(linhas, 15, yStart + 85);
+        // Caixa de Valor
+        doc.setFillColor(240, 240, 240);
+        doc.rect(140, yStart + 65, 50, 10, "F");
+        doc.setFont("helvetica", "bold");
+        doc.text(`Valor Líquido: R$ ${dados.valor || "0,00"}`, 145, yStart + 71);
 
-      // Assinatura
-      doc.text(`Local e Data: ${cidade}, ${dataBR}`, 15, yStart + 105);
+        // Corpo do Texto
+        doc.setFont("helvetica", "normal");
+        const texto = `Recebi a importância supramencionada de R$ ${dados.valor || "0,00"} (${dados.valorExtenso || "________________"}), referente ao pagamento de ${String(
+          dados.tipoPagamento || ""
+        ).toUpperCase()} do mês de ${dados.referencia || "__/____"}.`;
+        const linhas = doc.splitTextToSize(texto, 180);
+        doc.text(linhas, 15, yStart + 85);
 
-      doc.line(100, yStart + 115, 190, yStart + 115);
-      doc.setFontSize(8);
-      doc.text("Assinatura do Recebedor (Funcionário)", 145, yStart + 119, { align: "center" });
-    };
+        // Assinatura
+        doc.text(`Local e Data: ${cidade}, ${dataBR}`, 15, yStart + 105);
 
-    desenharRecibo(10, "Via do Empregador");
+        doc.line(100, yStart + 115, 190, yStart + 115);
+        doc.setFontSize(8);
+        doc.text("Assinatura do Recebedor (Funcionário)", 145, yStart + 119, { align: "center" });
+      };
 
-    // Linha de corte pontilhada
-    doc.setLineDashPattern([3, 3], 0);
-    doc.line(0, 140, 210, 140);
-    doc.setLineDashPattern([], 0);
+      desenharRecibo(10, "Via do Empregador");
 
-    desenharRecibo(150, "Via do Funcionário");
+      // Linha de corte pontilhada
+      doc.setLineDashPattern([3, 3], 0);
+      doc.line(0, 140, 210, 140);
+      doc.setLineDashPattern([], 0);
 
-    doc.save("recibo_salario.pdf");
+      desenharRecibo(150, "Via do Funcionário");
+
+      doc.save("recibo_salario.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -255,10 +265,12 @@ export default function ReciboSalario() {
             </div>
 
             <button
-              onClick={gerarPDF}
-              className="w-full mt-8 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2"
+              onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf}
+              className="w-full mt-8 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <i className="fa-solid fa-print"></i> IMPRIMIR RECIBO (2 VIAS)
+              {gerandoPdf ? 'Gerando PDF...' : (
+                <><i className="fa-solid fa-print"></i> IMPRIMIR RECIBO (2 VIAS)</>
+              )}
             </button>
             <AdsKeeperWidget />
           </div>

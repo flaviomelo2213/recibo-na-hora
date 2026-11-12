@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { jsPDF } from "jspdf";
+import { yieldToMain } from "../../../lib/yield-to-main";
 
 export default function FerramentaProcuracao() {
   const [formData, setFormData] = useState({
@@ -14,24 +14,34 @@ export default function FerramentaProcuracao() {
     cidade: "",
   });
 
-  const handlePrint = () => {
-    const doc = new jsPDF();
+  const [gerandoPdf, setGerandoPdf] = useState(false);
+
+  const handlePrint = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
     
-    doc.setFontSize(18);
-    doc.text("PROCURAÇÃO", 105, 20, { align: "center" });
+      doc.setFontSize(18);
+      doc.text("PROCURAÇÃO", 105, 20, { align: "center" });
 
-    doc.setFontSize(12);
-    const texto = `PELO PRESENTE INSTRUMENTO PARTICULAR, eu, ${formData.outorganteNome}, inscrito no CPF ${formData.outorganteCpf}, nomeio e constituo meu bastante procurador(a) o Sr(a). ${formData.outorgadoNome}, CPF ${formData.outorgadoCpf}, a quem confiro poderes para ${formData.finalidade}.`;
+      doc.setFontSize(12);
+      const texto = `PELO PRESENTE INSTRUMENTO PARTICULAR, eu, ${formData.outorganteNome}, inscrito no CPF ${formData.outorganteCpf}, nomeio e constituo meu bastante procurador(a) o Sr(a). ${formData.outorgadoNome}, CPF ${formData.outorgadoCpf}, a quem confiro poderes para ${formData.finalidade}.`;
     
-    // Quebra de linha automática
-    const splitText = doc.splitTextToSize(texto, 170);
-    doc.text(splitText, 20, 40);
+      // Quebra de linha automática
+      const splitText = doc.splitTextToSize(texto, 170);
+      doc.text(splitText, 20, 40);
 
-    doc.text(`Local e Data: ${formData.cidade}, ${new Date().toLocaleDateString()}`, 20, 100);
-    doc.text("___________________________________________", 105, 120, { align: "center" });
-    doc.text("Assinatura do Outorgante", 105, 125, { align: "center" });
+      doc.text(`Local e Data: ${formData.cidade}, ${new Date().toLocaleDateString()}`, 20, 100);
+      doc.text("___________________________________________", 105, 120, { align: "center" });
+      doc.text("Assinatura do Outorgante", 105, 125, { align: "center" });
 
-    doc.save("procuracao.pdf");
+      doc.save("procuracao.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -65,10 +75,12 @@ export default function FerramentaProcuracao() {
       </div>
 
       <button 
-        onClick={handlePrint}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg shadow transition-all mt-4 flex items-center justify-center gap-2"
+        onClick={handlePrint} disabled={gerandoPdf} aria-busy={gerandoPdf}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg shadow transition-all mt-4 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        <i className="fa-solid fa-file-pdf"></i> Baixar Procuração em PDF
+        {gerandoPdf ? 'Gerando PDF...' : (
+          <><i className="fa-solid fa-file-pdf"></i> Baixar Procuração em PDF</>
+        )}
       </button>
     </div>
   );

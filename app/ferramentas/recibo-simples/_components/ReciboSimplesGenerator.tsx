@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useId } from 'react';
-import { jsPDF } from 'jspdf';
 import { Download, Share2, Info } from 'lucide-react';
 import Link from 'next/link';
 import { validateReceipt, type ReceiptFields } from '@/lib/receipt-validation';
@@ -12,6 +11,7 @@ import { Input } from '../../../components/ui/Input';
 import { Textarea } from '../../../components/ui/Textarea';
 import { Button } from '../../../components/ui/Button';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 interface ReciboData {
   pagadorNome: string;
@@ -211,21 +211,31 @@ export default function ReciboSimplesGenerator() {
     );
   };
 
-  const handleDownloadPdf = () => {
-    if (!validate()) return;
-    const doc = new jsPDF('p', 'mm', 'a4');
-    const text = getReciboText();
+  const [gerandoPdf, setGerandoPdf] = useState(false);
 
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-    const splitText = doc.splitTextToSize(text, 180);
-    let y = 20;
-    for (const line of splitText) {
-      if (y > 277) { doc.addPage(); y = 20; }
-      doc.text(line, 15, y);
-      y += 6;
+  const handleDownloadPdf = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      if (!validate()) return;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const text = getReciboText();
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(12);
+      const splitText = doc.splitTextToSize(text, 180);
+      let y = 20;
+      for (const line of splitText) {
+        if (y > 277) { doc.addPage(); y = 20; }
+        doc.text(line, 15, y);
+        y += 6;
+      }
+      doc.save('recibo-de-pagamento.pdf');
+    } finally {
+      setGerandoPdf(false);
     }
-    doc.save('recibo-de-pagamento.pdf');
   };
 
   const handleShareWhatsApp = () => {
@@ -423,9 +433,13 @@ export default function ReciboSimplesGenerator() {
 
         <div className="space-y-4 pt-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Button type="submit" size="lg">
-              <Download className="w-4 h-4 mr-2" />
-              Baixar PDF
+            <Button type="submit" size="lg" disabled={gerandoPdf} aria-busy={gerandoPdf}>
+              {gerandoPdf ? 'Gerando PDF...' : (
+                <>
+                  <Download className="w-4 h-4 mr-2" />
+                  Baixar PDF
+                </>
+              )}
             </Button>
             <Button type="button" onClick={handleShareWhatsApp} variant="success" size="lg">
               <Share2 className="w-4 h-4 mr-2" />

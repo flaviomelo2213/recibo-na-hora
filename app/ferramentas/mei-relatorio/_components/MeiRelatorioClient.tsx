@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import { yieldToMain } from '../../../lib/yield-to-main';
 
 export default function MeiRelatorioClient() {
   const [dados, setDados] = useState({
@@ -16,33 +15,44 @@ export default function MeiRelatorioClient() {
     setDados({ ...dados, [tipo]: novosValores });
   };
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.text("RELATÓRIO MENSAL DAS RECEITAS BRUTAS - MEI", 105, 20, { align: "center" });
+  const [gerandoPdf, setGerandoPdf] = useState(false);
+
+  const gerarPDF = async () => {
+    if (gerandoPdf) return;
+    setGerandoPdf(true);
+    try {
+      await yieldToMain();
+      const { jsPDF } = await import('jspdf');
+      const { default: autoTable } = await import('jspdf-autotable');
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("RELATÓRIO MENSAL DAS RECEITAS BRUTAS - MEI", 105, 20, { align: "center" });
     
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text(`CNPJ: ${dados.cnpj}`, 20, 40);
-    doc.text(`Empreendedor: ${dados.nome}`, 20, 45);
-    doc.text(`Ano Calendário: ${dados.ano}`, 150, 40);
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text(`CNPJ: ${dados.cnpj}`, 20, 40);
+      doc.text(`Empreendedor: ${dados.nome}`, 20, 45);
+      doc.text(`Ano Calendário: ${dados.ano}`, 150, 40);
 
-    (doc as any).autoTable({
-        startY: 55,
-        head: [['Mês', 'Revenda de Mercadorias (R$)', 'Prestação de Serviços (R$)']],
-        body: dados.receitaComercio.map((val, i) => [
-            ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'][i],
-            val,
-            dados.receitaServico[i]
-        ]),
-    });
+      autoTable(doc, {
+          startY: 55,
+          head: [['Mês', 'Revenda de Mercadorias (R$)', 'Prestação de Serviços (R$)']],
+          body: dados.receitaComercio.map((val, i) => [
+              ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'][i],
+              val,
+              dados.receitaServico[i]
+          ]),
+      });
 
-    doc.text("Declaro que as informações acima são verdadeiras.", 105, 250, { align: "center" });
-    doc.line(60, 270, 150, 270);
-    doc.text("Assinatura do Empresário", 105, 275, { align: "center" });
+      doc.text("Declaro que as informações acima são verdadeiras.", 105, 250, { align: "center" });
+      doc.line(60, 270, 150, 270);
+      doc.text("Assinatura do Empresário", 105, 275, { align: "center" });
 
-    doc.save("relatorio_mensal_mei.pdf");
+      doc.save("relatorio_mensal_mei.pdf");
+    } finally {
+      setGerandoPdf(false);
+    }
   };
 
   return (
@@ -74,8 +84,10 @@ export default function MeiRelatorioClient() {
                 </div>
             ))}
 
-            <button onClick={gerarPDF} className="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2">
-                <i className="fa-solid fa-file-pdf"></i> BAIXAR RELATÓRIO PDF
+            <button onClick={gerarPDF} disabled={gerandoPdf} aria-busy={gerandoPdf} className="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                {gerandoPdf ? 'Gerando PDF...' : (
+                  <><i className="fa-solid fa-file-pdf"></i> BAIXAR RELATÓRIO PDF</>
+                )}
             </button>
         </div>
       </div>
