@@ -346,7 +346,9 @@ export default function RootLayout({
                     </span>
                   </p>
                 </div>
-
+                <a href="/apoie" className="text-xs text-stone-400 hover:text-stone-600 underline-offset-2 hover:underline">
+                  Apoie o projeto
+                </a>
               </div>
             </div>
           </footer>

@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { ToolShell, ToolShellHeader, ToolShellMain } from '@/components/layout/ToolShell';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function NotaPromissoriaClient() {
   const [dados, setDados] = useState({
@@ -47,6 +49,7 @@ export default function NotaPromissoriaClient() {
       doc.line(120, 85, 190, 85);
       doc.text("Assinatura do Emitente", 155, 89, { align: "center" });
       doc.save("nota_promissoria.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -91,6 +94,7 @@ export default function NotaPromissoriaClient() {
                   <><i className="fa-solid fa-print"></i> BAIXAR NOTA PROMISSÓRIA</>
                 )}
               </button>
+              <ApoioPosDownload />
             </div>
           </div>
         </div>

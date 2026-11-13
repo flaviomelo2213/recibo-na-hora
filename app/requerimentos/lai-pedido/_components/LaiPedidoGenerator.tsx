@@ -8,6 +8,8 @@ import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
 import { Terminal, Wand2, KeyRound } from 'lucide-react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 interface LaiPedidoData {
   destinatarioNome: string;
@@ -97,6 +99,7 @@ const generateLaiPDF = async (data: LaiPedidoData) => {
   doc.text(data.requerenteNome || '[NOME COMPLETO]', pageWidth / 2, y, { align: 'center' });
 
   doc.save('requerimento-lai.pdf');
+  avisarDocumentoPronto();
 };
 
 export default function LaiPedidoGenerator() {
@@ -307,6 +310,7 @@ export default function LaiPedidoGenerator() {
             <Button size="lg" onClick={handleGeneratePDF} disabled={gerandoPdf} aria-busy={gerandoPdf}>
               {gerandoPdf ? 'Gerando PDF...' : 'Gerar PDF do Requerimento'}
             </Button>
+            <ApoioPosDownload />
           </div>
         </section>
 

@@ -4,6 +4,8 @@ import React, { useEffect, useState, ChangeEvent } from 'react';
 import type { CurriculumData } from './types';
 import SignaturePad from './SignaturePad';
 import { buildCurriculumPdf } from '@/lib/curriculum-pdf';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 interface FerramentaCurriculoProfissionalProps {
   data: CurriculumData;
@@ -66,6 +68,7 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
     try {
       const pdf = await buildCurriculumPdf(data);
       pdf.save('curriculo.pdf');
+      avisarDocumentoPronto();
     } catch {
       setPdfError('Não foi possível gerar o PDF. Confira se a foto e a assinatura são imagens PNG ou JPEG válidas e tente novamente.');
     } finally {
@@ -415,6 +418,7 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
             {pdfLoading ? 'Gerando PDF…' : 'Baixar PDF'}
           </button>
         </div>
+        <ApoioPosDownload />
       </div>
     </div>
   );

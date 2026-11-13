@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { yieldToMain } from "../../../lib/yield-to-main";
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 interface ProcuracaoData {
   outorganteNome: string;
@@ -106,6 +108,7 @@ export default function ProcuracaoBancariaGenerator() {
       doc.text(avisoLines, margin, yPos);
 
       doc.save("procuracao-bancaria.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -266,6 +269,7 @@ export default function ProcuracaoBancariaGenerator() {
             Gerar PDF</>
             )}
           </button>
+          <ApoioPosDownload />
         </div>
       </div>
 

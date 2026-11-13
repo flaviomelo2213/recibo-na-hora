@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { yieldToMain } from "../../../lib/yield-to-main";
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export interface ProcuracaoData {
   outorganteNome: string;
@@ -150,6 +152,7 @@ ${data.outorganteNome}
     `;
       doc.text(text, 10, 10);
       doc.save("procuracao.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -274,6 +277,7 @@ ${data.outorganteNome}
           <>Gerar PDF</>
         )}
       </button>
+      <ApoioPosDownload />
     </div>
   );
 }

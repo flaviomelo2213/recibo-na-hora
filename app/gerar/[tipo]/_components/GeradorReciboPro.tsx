@@ -3,6 +3,8 @@
 import React, { useState, useRef } from 'react';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function GeradorReciboPro() {
   // Estado Completo (Campos que os concorrentes têm)
@@ -102,6 +104,7 @@ export default function GeradorReciboPro() {
       doc.text("Gerado por ReciboNaHora.com.br - Ferramentas para MEI e Profissionais", 105, 290, { align: "center" });
 
       doc.save("recibo-profissional.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -183,6 +186,7 @@ export default function GeradorReciboPro() {
           <><i className="fa-solid fa-file-invoice-dollar text-2xl"></i> BAIXAR RECIBO PROFISSIONAL</>
         )}
       </button>
+      <ApoioPosDownload />
 
       <AdsKeeperWidget />
     </div>

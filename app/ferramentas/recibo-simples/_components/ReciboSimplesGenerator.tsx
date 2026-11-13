@@ -12,6 +12,8 @@ import { Textarea } from '../../../components/ui/Textarea';
 import { Button } from '../../../components/ui/Button';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 interface ReciboData {
   pagadorNome: string;
@@ -233,6 +235,7 @@ export default function ReciboSimplesGenerator() {
         y += 6;
       }
       doc.save('recibo-de-pagamento.pdf');
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -446,6 +449,7 @@ export default function ReciboSimplesGenerator() {
               WhatsApp
             </Button>
           </div>
+          <ApoioPosDownload />
 
           <AdsKeeperWidget />
 

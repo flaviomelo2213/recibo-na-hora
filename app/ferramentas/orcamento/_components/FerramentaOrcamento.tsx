@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { jsPDF } from "jspdf";
 import DecisionScreen from "../../../components/DecisionScreen";
+import { avisarDocumentoPronto } from "@/lib/documento-pronto";
 import { yieldToMain } from "../../../lib/yield-to-main";
 
 interface ItemOrcamento {
@@ -122,6 +123,7 @@ export default function FerramentaOrcamento() {
   const handleDownloadPdf = () => {
     if (pdfInstance) {
       pdfInstance.save(pdfFileName);
+      avisarDocumentoPronto();
     }
   };
 

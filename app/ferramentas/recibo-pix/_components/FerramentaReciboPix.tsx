@@ -6,6 +6,8 @@ import PreviewReciboPix, { type DadosReciboPix } from './PreviewReciboPix';
 import { verificarCpfCnpj } from '../../../lib/documento-br';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 // Componente principal que une o formulário e a pré-visualização
 export default function FerramentaReciboPix() {
@@ -67,6 +69,7 @@ export default function FerramentaReciboPix() {
 
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
       pdf.save(`recibo-pix-${formData.id || 'doc'}.pdf`);
+      avisarDocumentoPronto();
     } finally {
       setIsGenerating(false);
     }
@@ -172,6 +175,7 @@ export default function FerramentaReciboPix() {
           <i className="fa-solid fa-file-arrow-down"></i>
           {isGenerating ? 'Gerando PDF...' : 'Baixar Recibo em PDF'}
         </button>
+        <ApoioPosDownload />
         <p className="mt-3 text-xs text-gray-500 text-center">
           Este recibo é uma declaração de quem recebeu o valor e não substitui o comprovante do banco. Usá-lo para enganar outra pessoa é proibido pelos{' '}
           <a href="/termos-uso" className="underline font-medium">Termos de Uso</a>.

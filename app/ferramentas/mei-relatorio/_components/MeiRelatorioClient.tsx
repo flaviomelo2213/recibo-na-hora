@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function MeiRelatorioClient() {
   const [dados, setDados] = useState({
@@ -50,6 +52,7 @@ export default function MeiRelatorioClient() {
       doc.text("Assinatura do Empresário", 105, 275, { align: "center" });
 
       doc.save("relatorio_mensal_mei.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -89,6 +92,7 @@ export default function MeiRelatorioClient() {
                   <><i className="fa-solid fa-file-pdf"></i> BAIXAR RELATÓRIO PDF</>
                 )}
             </button>
+            <ApoioPosDownload />
         </div>
       </div>
 

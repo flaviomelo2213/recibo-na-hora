@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { yieldToMain } from "../../../lib/yield-to-main";
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function FerramentaProcuracao() {
   const [formData, setFormData] = useState({
@@ -39,6 +41,7 @@ export default function FerramentaProcuracao() {
       doc.text("Assinatura do Outorgante", 105, 125, { align: "center" });
 
       doc.save("procuracao.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -82,6 +85,7 @@ export default function FerramentaProcuracao() {
           <><i className="fa-solid fa-file-pdf"></i> Baixar Procuração em PDF</>
         )}
       </button>
+      <ApoioPosDownload />
     </div>
   );
 }

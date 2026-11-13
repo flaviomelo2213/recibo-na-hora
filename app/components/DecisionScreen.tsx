@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { ApoioPosDownload } from './apoio/ApoioPix';
 
 interface DecisionScreenProps {
   onDownloadPdf: () => void;
@@ -55,6 +56,7 @@ export default function DecisionScreen({ onDownloadPdf, digitalSignUrl }: Decisi
         </div>
 
       </div>
+      <ApoioPosDownload />
         <p className="text-center mt-8 text-xs text-stone-500">
             Ao continuar, você concorda com nossos <a href="/termos-uso" target="_blank" className="underline hover:text-stone-700">Termos de Uso</a>.
         </p>

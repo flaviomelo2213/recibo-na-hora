@@ -2,6 +2,8 @@
 'use client';
 import React, { useState } from 'react';
 import { yieldToMain } from '../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 interface ContratoData {
   locadorNome: string;
@@ -116,6 +118,7 @@ export default function ContratoLocacaoGenerator() {
       doc.text(data.locatarioNome || '[LOCATÁRIO]', (pageWidth * 3) / 4, yPos, { align: 'center' });
 
       doc.save('contrato-locacao-residencial.pdf');
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -166,6 +169,7 @@ export default function ContratoLocacaoGenerator() {
             Gerar PDF</>
             )}
           </button>
+          <ApoioPosDownload />
         </div>
       </div>
 
