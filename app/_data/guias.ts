@@ -17,6 +17,8 @@ export interface Guia {
   sections: GuiaSection[]
   faqs: FAQ[]
   relatedLinks: { href: string; label: string }[]
+  /** Título só para o <title> (absoluto, sem sufixo). O H1 continua usando o campo principal. */
+  seoTitle?: string
 }
 
 const guias: Guia[] = [
@@ -81,7 +83,8 @@ const guias: Guia[] = [
   {
     slug: 'recibo-precisa-de-cpf',
     title: 'Recibo precisa de CPF? O que é obrigatório',
-    description: 'Descubra se é obrigatório informar CPF no recibo, quando o CNPJ substitui o CPF e quais dados são realmente necessários para o documento ter validade.',
+    seoTitle: 'Recibo precisa de CPF? O que é obrigatório e por quê',
+    description: 'Recibo precisa de CPF? Não é exigido por lei em recibos simples, mas é muito recomendado. Veja quando usar CNPJ e quais dados não podem faltar.',
     keywords: ['recibo precisa de cpf', 'cpf no recibo obrigatorio', 'dados obrigatorios recibo', 'recibo sem cpf vale'],
     datePublished: '2025-01-15',
     category: 'Dúvidas Legais',
@@ -432,6 +435,82 @@ const guias: Guia[] = [
     relatedLinks: [
       { href: '/ferramentas/contrato-completo', label: 'Gerar Contrato de Prestação de Serviço' },
       { href: '/guias/recibo-tem-valor-legal', label: 'Recibo tem valor legal?' },
+    ],
+  },
+  {
+    slug: 'como-saber-se-comprovante-pix-e-falso',
+    title: 'Como saber se um comprovante Pix é falso',
+    description: 'Como saber se um comprovante Pix é falso: confira no extrato, peça o ID da transação, veja os sinais de fraude e o que fazer se você caiu no golpe.',
+    keywords: ['comprovante pix falso', 'como saber se comprovante pix é verdadeiro', 'golpe comprovante pix', 'id da transação pix', 'med pix devolução'],
+    datePublished: '2026-11-12',
+    category: 'Dúvidas Legais',
+    readTime: '8 min',
+    intro: 'Um comprovante de Pix é só uma imagem ou um PDF, e imagens podem ser editadas ou montadas em poucos minutos. A única forma segura de saber se um Pix foi recebido é conferir a entrada do dinheiro no extrato da sua própria conta. Este guia mostra como fazer essa conferência, quais sinais indicam um comprovante falso e o que fazer, passo a passo, se você já entregou um produto ou serviço e o dinheiro não caiu.',
+    sections: [
+      {
+        h2: 'A regra de ouro: confira no extrato, não na imagem',
+        content: [
+          'Quem recebe um Pix não precisa de nenhum documento enviado por quem pagou para saber se o dinheiro chegou. O valor aparece no extrato e, na maioria dos aplicativos, também gera uma notificação. Por isso, antes de liberar uma mercadoria, entregar uma chave ou concluir um serviço, abra o aplicativo do seu banco e procure a entrada pelo valor, pelo nome de quem pagou e pelo horário.',
+          'Desconfie de qualquer pressa para que você "libere logo" com base em um print. Golpistas contam justamente com a correria do dia a dia: o cliente diz que está atrasado, que o motorista já chegou ou que o banco "está demorando para atualizar". O Pix funciona 24 horas, todos os dias, e em situações normais o crédito costuma aparecer em poucos segundos. Se o valor não está no extrato, para você o pagamento ainda não aconteceu.',
+          'Também não confie em e-mails, SMS ou mensagens que dizem que "o Pix está retido" ou que você precisa clicar em um link para liberar o valor. Bancos não pedem esse tipo de ação por mensagem. Entre sempre pelo aplicativo oficial, digitando a senha você mesmo.',
+        ],
+      },
+      {
+        h2: 'O que é o ID da transação e como usá-lo',
+        content: [
+          'Todo Pix tem um identificador único, chamado de ID da transação (ou E2E ID). Ele aparece no comprovante emitido pelo aplicativo do banco, segue o padrão definido pelo Banco Central, tem 32 caracteres e começa com a letra E.',
+          'Peça esse código a quem diz ter pagado e compare com o que aparece no detalhe da entrada no seu extrato. Se o código não existe no seu extrato, se tem um formato diferente (menos caracteres, começa com outra letra) ou se a pessoa se recusa a informar, trate o pagamento como não confirmado.',
+          'Atenção: um ID bem formatado em uma imagem não prova nada sozinho, porque também pode ser copiado de outro comprovante. O ID serve para você localizar e conferir a transação no seu banco, e não para substituir essa conferência.',
+        ],
+      },
+      {
+        h2: 'Sinais de que o comprovante pode ser falso',
+        content: [
+          'Nenhum destes sinais, isoladamente, prova uma fraude, mas cada um deles é motivo para conferir o extrato com ainda mais cuidado antes de entregar qualquer coisa:',
+          'Pressa e pressão: a pessoa insiste para você liberar o produto imediatamente, fica irritada com a conferência ou diz que "já está tudo pago, é só olhar o print".',
+          'Comprovante de agendamento: alguns golpistas enviam o comprovante de um Pix agendado para outra data e cancelam o agendamento depois. Leia o documento com atenção: se aparecer "agendado", "agendamento" ou uma data futura, o dinheiro ainda não saiu da conta de quem pagou.',
+          'Dados que não batem: o nome do recebedor está diferente do seu, a chave Pix não é a que você passou, o banco de destino não é o seu, o valor tem centavos diferentes ou o horário não corresponde ao momento da conversa.',
+          'Detalhes visuais estranhos: letras desalinhadas, fontes diferentes no mesmo documento, números com espaçamento irregular, logotipo borrado ou cores que não correspondem ao aplicativo daquele banco. Imagens recortadas, que escondem justamente o rodapé ou o ID, também merecem desconfiança.',
+          'Comprovante enviado por terceiros: o print vem de um número diferente do comprador, de um "funcionário" ou de alguém que diz estar pagando em nome de outra pessoa.',
+          'Pagamento a mais com pedido de devolução: a pessoa diz que transferiu um valor maior por engano e pede que você devolva a diferença para outra chave. Antes de devolver qualquer quantia, confirme no extrato se o valor realmente entrou. Se entrou, prefira usar a opção de devolução do próprio aplicativo, que devolve para a conta de origem.',
+        ],
+      },
+      {
+        h2: 'Recibo, comprovante e extrato: cada um prova uma coisa',
+        content: [
+          'O comprovante do Pix é emitido pelo banco de quem pagou e mostra que uma transferência foi solicitada e concluída por aquela instituição. O extrato da sua conta é o registro do seu banco de que o dinheiro entrou. O recibo é uma declaração de quem recebeu, que informa de quem recebeu, quanto e por qual motivo.',
+          'Por isso, um recibo nunca substitui o comprovante ou o extrato. Ele é emitido por quem já conferiu o recebimento e serve para formalizar a quitação, por exemplo de um serviço ou de um aluguel. Se alguém lhe apresentar um "recibo" no lugar do comprovante do banco para provar que pagou, desconfie: quem paga não emite recibo para si mesmo.',
+        ],
+      },
+      {
+        h2: 'Caí no golpe: o que fazer agora',
+        content: [
+          'Se você entregou um produto ou serviço e o dinheiro não entrou na sua conta, você não tem um Pix para contestar, porque nenhuma transferência foi feita para você. Nesse caso, o caminho é registrar o caso e tentar identificar o golpista: guarde as conversas, o número de telefone, os perfis usados, o comprovante falso recebido e qualquer dado de entrega, como endereço ou placa de veículo.',
+          'Registre um boletim de ocorrência. Em muitos estados é possível fazer o registro pela internet, no site da Polícia Civil. Se a venda foi feita por um site ou aplicativo de anúncios, denuncie também o perfil na própria plataforma, para evitar novas vítimas.',
+          'Se você foi quem pagou e caiu em um golpe, por exemplo transferindo para um vendedor falso, procure imediatamente o seu banco pelo aplicativo ou pelos canais oficiais de atendimento e peça a abertura do Mecanismo Especial de Devolução (MED). Pelas regras do Banco Central, o pedido pode ser feito para transações de até 80 dias atrás, mas quanto mais cedo, maiores as chances de ainda haver saldo na conta do golpista. O banco pode pedir um relato do ocorrido e o boletim de ocorrência.',
+          'Depois do pedido, a instituição de quem recebeu o dinheiro analisa o caso. Se a fraude for confirmada, o valor pode ser devolvido no todo ou em parte, de acordo com o saldo disponível na conta usada no golpe. O MED não se aplica a transferências feitas por engano nem a desacordos comerciais comuns, como um produto que chegou com defeito; nesses casos, o caminho é negociar com o recebedor ou buscar os órgãos de defesa do consumidor.',
+          'Se o seu banco não registrar o pedido ou não der resposta, registre uma reclamação no canal de atendimento do Banco Central contra a instituição. Guarde os protocolos de todos os atendimentos.',
+        ],
+      },
+      {
+        h2: 'Como se proteger nas próximas vendas',
+        content: [
+          'Combine com seus clientes que a entrega só acontece depois que o valor aparecer no seu extrato, e deixe isso claro antes da negociação. Assim a conferência deixa de parecer desconfiança e vira regra do seu negócio.',
+          'Ative as notificações de Pix recebido no aplicativo do banco e, se possível, use uma conta separada para as vendas. Fica mais fácil localizar cada entrada pelo valor e pelo horário.',
+          'Para registrar o recebimento por escrito, emita um recibo depois de confirmar a entrada no extrato. O recibo de recebimento via Pix do ReciboNaHora informa de quem você recebeu, o valor por extenso e o motivo do pagamento, e traz um aviso de que não substitui o comprovante do banco.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Existe algum site que confirma se um comprovante Pix é verdadeiro?', a: 'Não existe uma consulta pública para validar comprovantes de terceiros. A forma segura é conferir a entrada no extrato do seu próprio banco, pelo aplicativo oficial.' },
+      { q: 'O comprovante tem ID da transação. Isso garante que é verdadeiro?', a: 'Não. O ID pode ser copiado de outro comprovante. Use o código para localizar a transação no seu extrato; se ela não aparece lá, o pagamento não está confirmado.' },
+      { q: 'O Pix pode demorar para cair?', a: 'Normalmente o crédito aparece em poucos segundos, a qualquer hora. Se a pessoa alega demora e pressiona para você liberar a entrega, espere o valor aparecer no extrato antes de entregar.' },
+      { q: 'Fui enganado com um comprovante falso. Posso usar o MED?', a: 'O MED serve para devolver valores de Pix feitos em casos de golpe ou fraude, a pedido de quem pagou. Se nenhum Pix entrou na sua conta, não há transação para contestar: registre boletim de ocorrência e reúna as provas do golpe.' },
+      { q: 'Um recibo de Pix pode ser usado como prova de pagamento?', a: 'O recibo é uma declaração de quem recebeu e ajuda a provar a quitação de uma dívida ou serviço. Ele não substitui o comprovante do banco nem o extrato, que são os registros da transferência.' },
+    ],
+    relatedLinks: [
+      { href: '/ferramentas/recibo-pix', label: 'Recibo de recebimento via Pix' },
+      { href: '/guias/recibo-pix-como-funciona', label: 'Recibo de Pix: quando emitir e como funciona' },
     ],
   },
 ]

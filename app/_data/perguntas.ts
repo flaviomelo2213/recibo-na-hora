@@ -11,6 +11,8 @@ export interface Pergunta {
   sections: Array<{ h2: string; paragraphs: string[] }>
   faqs: FAQ[]
   relatedLinks: { href: string; label: string }[]
+  /** Título só para o <title> (absoluto, sem sufixo). O H1 continua usando o campo principal. */
+  seoTitle?: string
 }
 
 const perguntas: Pergunta[] = [
@@ -608,7 +610,8 @@ const perguntas: Pergunta[] = [
     slug: 'recibo-antecipado-e-valido',
     question: 'Recibo antecipado (antes do pagamento) é válido?',
     shortAnswer: 'Um recibo emitido antes de receber o pagamento tem risco jurídico sério para o credor. Se o pagamento não for realizado, o recibo pode ser usado como prova de que a dívida foi quitada. Nunca assine recibo antes de receber.',
-    metaDescription: 'Posso emitir recibo antes de receber o pagamento? Entenda os riscos jurídicos do recibo antecipado e como se proteger.',
+    seoTitle: 'Recibo antecipado é válido? Riscos de assinar antes',
+    metaDescription: 'Recibo antecipado é válido, mas arriscado: quem assina declara que já recebeu. Veja os riscos de emitir antes do pagamento e como se proteger.',
     keywords: ['recibo antecipado', 'recibo antes pagamento', 'recibo futuro validade', 'recibo pre-datado'],
     datePublished: '2025-03-17',
     category: 'Validade Jurídica',

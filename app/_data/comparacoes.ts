@@ -20,6 +20,8 @@ export interface Comparacao {
   verdict: string
   faqs: FAQ[]
   relatedLinks: { href: string; label: string }[]
+  /** Título só para o <title> (absoluto, sem sufixo). O H1 continua usando o campo principal. */
+  seoTitle?: string
 }
 
 const comparacoes: Comparacao[] = [
@@ -123,7 +125,8 @@ const comparacoes: Comparacao[] = [
   {
     slug: 'nota-promissoria-vs-recibo',
     title: 'Nota Promissória vs Recibo: Diferenças e Quando Usar',
-    description: 'Nota promissória e recibo são documentos opostos: a promissória é uma promessa de pagamento futuro; o recibo comprova pagamento já realizado. Tabela comparativa completa.',
+    seoTitle: 'Nota promissória ou recibo? Diferenças e quando usar',
+    description: 'Nota promissória ou recibo? A promissória vem antes, como promessa de pagar; o recibo vem depois, como prova do pagamento. Veja a tabela comparativa.',
     keywords: ['nota promissoria vs recibo', 'diferenca nota promissoria recibo', 'promissoria ou recibo quando usar', 'nota promissoria recibo pagamento'],
     datePublished: '2025-04-03',
     docA: 'Nota Promissória',

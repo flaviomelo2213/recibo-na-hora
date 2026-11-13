@@ -2,14 +2,15 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import PreviewReciboPix from './PreviewReciboPix';
+import PreviewReciboPix, { type DadosReciboPix } from './PreviewReciboPix';
+import { verificarCpfCnpj } from '../../../lib/documento-br';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
 
 // Componente principal que une o formulário e a pré-visualização
 export default function FerramentaReciboPix() {
   // Estados para todos os campos do formulário
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<DadosReciboPix>({
     id: '0001',
     chavePix: '',
     nomeBeneficiario: '',
@@ -19,9 +20,19 @@ export default function FerramentaReciboPix() {
     valor: '',
     cidade: '',
     referente: 'Pagamento de serviço',
+    dataPix: '',
+    idTransacao: '',
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const previewRef = useRef(null);
+
+  // Aviso amigável quando o CPF/CNPJ (opcional) não confere nos dígitos verificadores
+  const avisoDocumento = (valor: string) =>
+    verificarCpfCnpj(valor) === 'invalido' ? (
+      <p className="mt-1 text-xs text-amber-700" role="status">
+        Este CPF/CNPJ não parece válido (os dígitos verificadores não conferem). Confira os números ou deixe o campo em branco: ele é opcional.
+      </p>
+    ) : null;
 
   // Função para atualizar o estado do formulário
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -80,8 +91,9 @@ export default function FerramentaReciboPix() {
               </div>
 
               <div>
-                <label htmlFor="cpfBeneficiario" className="block text-sm font-medium text-gray-900">CPF/CNPJ *</label>
-                <input type="text" name="cpfBeneficiario" id="cpfBeneficiario" value={formData.cpfBeneficiario} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="000.000.000-00" required />
+                <label htmlFor="cpfBeneficiario" className="block text-sm font-medium text-gray-900">CPF/CNPJ (opcional)</label>
+                <input type="text" name="cpfBeneficiario" id="cpfBeneficiario" value={formData.cpfBeneficiario} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="000.000.000-00" aria-invalid={verificarCpfCnpj(formData.cpfBeneficiario) === 'invalido'} />
+                {avisoDocumento(formData.cpfBeneficiario)}
               </div>
 
               <div>
@@ -103,8 +115,9 @@ export default function FerramentaReciboPix() {
               </div>
 
               <div>
-                <label htmlFor="cpfCnpjPagador" className="block text-sm font-medium text-gray-900">CPF/CNPJ *</label>
-                <input type="text" name="cpfCnpjPagador" id="cpfCnpjPagador" value={formData.cpfCnpjPagador} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="000.000.000-00" required />
+                <label htmlFor="cpfCnpjPagador" className="block text-sm font-medium text-gray-900">CPF/CNPJ (opcional)</label>
+                <input type="text" name="cpfCnpjPagador" id="cpfCnpjPagador" value={formData.cpfCnpjPagador} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="000.000.000-00" aria-invalid={verificarCpfCnpj(formData.cpfCnpjPagador) === 'invalido'} />
+                {avisoDocumento(formData.cpfCnpjPagador)}
               </div>
             </div>
           </div>
@@ -128,6 +141,17 @@ export default function FerramentaReciboPix() {
                 <label htmlFor="cidade" className="block text-sm font-medium text-gray-900">Cidade da Emissão</label>
                 <input type="text" name="cidade" id="cidade" value={formData.cidade} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: São Paulo" />
               </div>
+
+              <div>
+                <label htmlFor="dataPix" className="block text-sm font-medium text-gray-900">Data do Pix (opcional)</label>
+                <input type="date" name="dataPix" id="dataPix" value={formData.dataPix} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              </div>
+
+              <div>
+                <label htmlFor="idTransacao" className="block text-sm font-medium text-gray-900">ID da transação (opcional)</label>
+                <input type="text" name="idTransacao" id="idTransacao" value={formData.idTransacao} onChange={handleInputChange} maxLength={40} className="mt-1 w-full p-3 border border-gray-300 rounded-md font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: E1234567820261110..." />
+                <p className="mt-1 text-xs text-gray-500">Copie do comprovante que o banco gerou. No Pix, esse código costuma ter 32 caracteres e começar com a letra E.</p>
+              </div>
             </div>
           </div>
 
@@ -148,6 +172,10 @@ export default function FerramentaReciboPix() {
           <i className="fa-solid fa-file-arrow-down"></i>
           {isGenerating ? 'Gerando PDF...' : 'Baixar Recibo em PDF'}
         </button>
+        <p className="mt-3 text-xs text-gray-500 text-center">
+          Este recibo é uma declaração de quem recebeu o valor e não substitui o comprovante do banco. Usá-lo para enganar outra pessoa é proibido pelos{' '}
+          <a href="/termos-uso" className="underline font-medium">Termos de Uso</a>.
+        </p>
         <AdsKeeperWidget />
       </div>
 

@@ -20,6 +20,8 @@ export interface Profissao {
   /** Primary keyword (for meta title) */
   keyword: string
   metaDescription: string
+  /** Título só para o <title> (absoluto, sem sufixo). O H1 continua usando o campo principal. */
+  seoTitle?: string
 }
 
 const profissoes: Profissao[] = [
@@ -336,7 +338,8 @@ const profissoes: Profissao[] = [
     toolHref: '/ferramentas/recibo-simples',
     toolLabel: 'Gerar Recibo para Nutricionista',
     keyword: 'recibo para nutricionista',
-    metaDescription: 'Modelo gratuito de recibo para nutricionista. Para consultas de nutrição, planos alimentares e assessoria esportiva. Gere em PDF sem cadastro.',
+    seoTitle: 'Recibo para nutricionista: modelo grátis em PDF',
+    metaDescription: 'Recibo para nutricionista grátis: consultas, planos alimentares e assessoria esportiva, com CRN e dados do paciente. Preencha online e baixe em PDF.',
     intro: 'Nutricionistas autônomos que atendem pacientes de forma particular devem emitir recibo por consultas e elaboração de planos alimentares. O documento pode ser usado para reembolso.',
     quando: ['Por consulta nutricional particular', 'Para planos alimentares e acompanhamento', 'Por consultoria em empresas ou academias', 'Para assessoria nutricional esportiva'],
     campos: ['Nome, CRN e CPF do nutricionista', 'Nome e CPF do paciente', 'Descrição: tipo de atendimento', 'Valor recebido', 'Data do atendimento', 'Assinatura'],

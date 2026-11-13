@@ -188,7 +188,7 @@ export default function RecibosPillarPage() {
                 Gerador de Recibo PIX
               </h3>
               <p className="text-slate-600 mt-2 leading-relaxed">
-                Comprove transferências PIX com um recibo mais completo do que o comprovante bancário.
+                Para quem recebeu um Pix registrar de quem recebeu, quanto e por quê. Não substitui o comprovante do banco.
               </p>
             </Link>
 
