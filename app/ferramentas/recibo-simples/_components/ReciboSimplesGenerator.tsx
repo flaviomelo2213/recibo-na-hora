@@ -14,6 +14,7 @@ import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
 import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
 import { avisarDocumentoPronto } from '@/lib/documento-pronto';
+import AvisoGemini from '@/components/ai/AvisoGemini';
 
 interface ReciboData {
   pagadorNome: string;
@@ -364,6 +365,7 @@ export default function ReciboSimplesGenerator() {
               >
                 {aiLoadingDescricao ? 'Melhorando…' : 'Melhorar descrição com IA'}
               </button>
+              <AvisoGemini />
             </div>
           </div>
 

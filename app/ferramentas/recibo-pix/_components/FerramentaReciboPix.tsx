@@ -54,20 +54,33 @@ export default function FerramentaReciboPix() {
         import('jspdf'),
       ]);
 
-      const canvas = await html2canvas(previewRef.current, {
-        scale: 2, // Aumenta a resolução da captura
+      // Escala 2,5 sobre a prévia (~512 px) ≈ 170 dpi na largura útil do A4: nítido na impressão.
+      // Captura só o cartão do recibo (sem a sobra do contêiner), para centralizar bem no A4.
+      const alvo = (previewRef.current as HTMLElement).querySelector<HTMLElement>('#recibo-pix-preview') ?? previewRef.current;
+      const canvas = await html2canvas(alvo, {
+        scale: 2.5,
         useCORS: true,
         backgroundColor: '#ffffff',
+        // Mesmo layout em qualquer aparelho: a cópia capturada usa largura de computador (512 px, breakpoints sm).
+        windowWidth: 1024,
+        onclone: (doc) => {
+          const el = doc.getElementById('recibo-pix-preview');
+          if (el) { el.style.width = '512px'; el.style.maxWidth = '512px'; }
+        },
       });
 
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'px',
-        format: [canvas.width, canvas.height]
-      });
+      // JPEG em vez de PNG: o PDF cai de ~6 MB para algumas centenas de KB.
+      const imgData = canvas.toDataURL('image/jpeg', 0.85);
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
 
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      // Encaixa a imagem em A4 (210 × 297 mm) com margem de 10 mm, mantendo a proporção.
+      const margem = 10;
+      const larguraMax = 210 - margem * 2;
+      const alturaMax = 297 - margem * 2;
+      const escala = Math.min(larguraMax / canvas.width, alturaMax / canvas.height);
+      const largura = canvas.width * escala;
+      const altura = canvas.height * escala;
+      pdf.addImage(imgData, 'JPEG', (210 - largura) / 2, margem, largura, altura);
       pdf.save(`recibo-pix-${formData.id || 'doc'}.pdf`);
       avisarDocumentoPronto();
     } finally {

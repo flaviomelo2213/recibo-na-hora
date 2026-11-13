@@ -6,6 +6,7 @@ import SignaturePad from './SignaturePad';
 import { buildCurriculumPdf } from '@/lib/curriculum-pdf';
 import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
 import { avisarDocumentoPronto } from '@/lib/documento-pronto';
+import AvisoGemini from '@/components/ai/AvisoGemini';
 
 interface FerramentaCurriculoProfissionalProps {
   data: CurriculumData;
@@ -286,6 +287,7 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
             >
               {aiLoadingResumo ? 'Melhorando…' : 'Melhorar com IA'}
             </button>
+            <AvisoGemini />
           </div>
           <textarea
             name="resumo"
@@ -339,6 +341,7 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
                 >
                   {aiLoadingAtividades[item.id] ? 'Melhorando…' : 'Melhorar com IA'}
                 </button>
+                <AvisoGemini />
               </div>
 
               <textarea
@@ -392,6 +395,7 @@ export default function FerramentaCurriculoProfissional({ data, onDataChange }: 
             >
               {aiLoadingHabilidades ? 'Melhorando…' : 'Melhorar com IA'}
             </button>
+            <AvisoGemini />
           </div>
 
           <textarea

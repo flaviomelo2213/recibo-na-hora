@@ -10,6 +10,7 @@ import { Terminal, Wand2, KeyRound } from 'lucide-react';
 import { yieldToMain } from '../../../lib/yield-to-main';
 import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
 import { avisarDocumentoPronto } from '@/lib/documento-pronto';
+import AvisoGemini from '@/components/ai/AvisoGemini';
 
 interface LaiPedidoData {
   destinatarioNome: string;
@@ -286,6 +287,7 @@ export default function LaiPedidoGenerator() {
                 <Wand2 className="h-4 w-4" />
                 {aiLoading ? 'Gerando…' : 'Melhorar com IA'}
               </button>
+              <AvisoGemini />
             </div>
 
             <div className="space-y-4">

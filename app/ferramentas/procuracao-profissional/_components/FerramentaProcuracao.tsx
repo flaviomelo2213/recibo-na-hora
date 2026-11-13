@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { yieldToMain } from "../../../lib/yield-to-main";
 import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
 import { avisarDocumentoPronto } from '@/lib/documento-pronto';
+import AvisoGemini from '@/components/ai/AvisoGemini';
 
 export interface ProcuracaoData {
   outorganteNome: string;
@@ -251,6 +252,7 @@ ${data.outorganteNome}
           >
             {aiLoading ? "Melhorando…" : "Melhorar com IA"}
           </button>
+          <AvisoGemini />
         </div>
 
         <div className="grid grid-cols-1 gap-4">

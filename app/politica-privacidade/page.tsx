@@ -5,7 +5,7 @@ import { buildOpenGraph } from '@/lib/metadata';
 
 const title = "Política de Privacidade | ReciboNaHora - LGPD";
 const description =
-  "Política de Privacidade completa em conformidade com a LGPD. O ReciboNaHora NÃO retém, não armazena e não compartilha dados pessoais preenchidos nos formulários.";
+  "Privacidade (LGPD) do ReciboNaHora: documentos montados no navegador, sem banco de dados; os recursos opcionais de IA enviam texto ao Google Gemini.";
 
 export const metadata: Metadata = {
   title,
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: buildOpenGraph({ title, description, path: '/politica-privacidade' }),
 };
 
-const LAST_UPDATED = '06/02/2026';
+const LAST_UPDATED = '12/11/2026';
 
 export default function PoliticaPrivacidadePage() {
   return (
@@ -43,7 +43,7 @@ export default function PoliticaPrivacidadePage() {
             <div>
               <h3 className="font-bold text-green-900 mb-2">Declaração de Privacidade - Processamento Local</h3>
               <p className="text-sm text-slate-800 leading-relaxed">
-                <strong>O ReciboNaHora NÃO retém, não armazena e não compartilha dados pessoais preenchidos nos formulários.</strong> Todo o processamento de dados (nome, CPF, endereço, valores) inseridos nas ferramentas de geração de documentos acontece <strong>localmente no navegador do usuário</strong>. Não possuímos banco de dados de informações pessoais dos documentos gerados.
+                <strong>O ReciboNaHora não armazena os dados preenchidos nos formulários.</strong> Os documentos (nome, CPF, endereço, valores) são montados <strong>localmente no navegador do usuário</strong> e não possuímos banco de dados de informações pessoais dos documentos gerados. A única exceção é o botão opcional <strong>“Melhorar com IA”</strong>, presente em cinco ferramentas: quando você clica nele, o texto daquele campo é enviado ao Google Gemini (veja o item 3.1.1).
               </p>
             </div>
           </div>
@@ -83,9 +83,36 @@ export default function PoliticaPrivacidadePage() {
               <li>• Qualquer outro campo preenchido nos formulários</li>
             </ul>
             <p className="text-sm mt-2">
-              <strong>Estes dados NÃO são enviados aos nossos servidores, NÃO são armazenados em banco de dados e NÃO são compartilhados com terceiros.</strong> O documento gerado permanece apenas no seu dispositivo.
+              <strong>Estes dados NÃO são enviados aos nossos servidores, NÃO são armazenados em banco de dados e NÃO são compartilhados com terceiros</strong>, exceto o texto que você decidir enviar pelo botão “Melhorar com IA”, descrito no item 3.1.1. O documento gerado permanece apenas no seu dispositivo.
             </p>
           </div>
+
+          <h3>3.1.1. Recursos opcionais de IA (“Melhorar com IA”)</h3>
+          <p>
+            Algumas ferramentas têm um botão “Melhorar com IA”, que sugere uma redação mais clara para um campo de texto. Ele
+            funciona <strong>somente quando você clica no botão</strong> e só envia o texto daquele campo. As ferramentas que têm
+            esse recurso são:
+          </p>
+          <ul>
+            <li><Link href="/ferramentas/recibo-simples">Recibo Simples</Link>: campo de descrição do pagamento;</li>
+            <li><Link href="/ferramentas/curriculo-profissional">Currículo Profissional</Link>: resumo, atividades e habilidades;</li>
+            <li><Link href="/ferramentas/procuracao-profissional">Procuração Profissional</Link>: texto dos poderes;</li>
+            <li><Link href="/ferramentas/prefeitura">Central do Cidadão</Link> (requerimentos à prefeitura): texto do pedido;</li>
+            <li><Link href="/requerimentos/lai-pedido">Pedido de Acesso à Informação (LAI)</Link>: texto do pedido.</li>
+          </ul>
+          <p>
+            Ao clicar, o texto (até 6.000 caracteres) passa por uma função do nosso servidor, que apenas o repassa ao
+            <strong> Google Gemini</strong>, serviço de inteligência artificial do Google, usando a chave de API que você mesmo
+            informou. Nós não gravamos esse texto nem a resposta. O tratamento feito pelo Google segue os termos da API do Gemini
+            vinculados à sua chave: nos serviços gratuitos, o Google informa que pode usar o conteúdo enviado para melhorar seus
+            produtos, inclusive com revisão humana. Por isso, <strong>não inclua CPF, RG, endereço ou outros dados pessoais no texto
+            enviado à IA</strong>. Consulte os <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener noreferrer">termos da API do Gemini</a>.
+          </p>
+          <p>
+            Se você marcar a opção de lembrar a chave do Gemini, ela fica salva apenas no armazenamento local do seu navegador
+            (localStorage) e pode ser apagada a qualquer momento nas configurações de IA do site. Todas as demais ferramentas
+            funcionam só no navegador e não enviam o conteúdo preenchido a ninguém.
+          </p>
 
           <h3>3.2. Dados Coletados Automaticamente</h3>
           <p>
@@ -222,7 +249,7 @@ export default function PoliticaPrivacidadePage() {
 
           <h2>8. Armazenamento e Retenção de Dados</h2>
           <p>
-            <strong>Dados de Documentos Gerados:</strong> Como mencionado, NÃO armazenamos os dados preenchidos nas ferramentas. O processamento é local no seu navegador.
+            <strong>Dados de Documentos Gerados:</strong> Como mencionado, NÃO armazenamos os dados preenchidos nas ferramentas. O processamento é local no seu navegador. O texto enviado pelo botão “Melhorar com IA” é apenas repassado ao Google Gemini e não é gravado por nós (item 3.1.1).
           </p>
           <p>
             <strong>Dados de Contato:</strong> Informações fornecidas através de formulários de contato serão retidas apenas pelo tempo necessário para atender sua solicitação e conforme exigido por lei.

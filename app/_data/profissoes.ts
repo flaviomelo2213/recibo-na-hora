@@ -344,7 +344,7 @@ const profissoes: Profissao[] = [
     quando: ['Por consulta nutricional particular', 'Para planos alimentares e acompanhamento', 'Por consultoria em empresas ou academias', 'Para assessoria nutricional esportiva'],
     campos: ['Nome, CRN e CPF do nutricionista', 'Nome e CPF do paciente', 'Descrição: tipo de atendimento', 'Valor recebido', 'Data do atendimento', 'Assinatura'],
     faqs: [
-      { q: 'Recibo de nutricionista é dedutível do IR?', a: 'Nutricionistas não constam no rol de profissionais cujos serviços são dedutíveis no IR (limitado a médicos e dentistas). Verifique com seu contador caso haja atualização legal.' },
+      { q: 'Recibo de nutricionista é dedutível do IR?', a: 'Não. Segundo a Receita Federal, podem ser deduzidas como despesas médicas as consultas com médicos, dentistas, psicólogos, fisioterapeutas, terapeutas ocupacionais e fonoaudiólogos, além de despesas com hospitais. Consultas com nutricionista não são dedutíveis, a não ser que estejam incluídas na conta hospitalar. Fonte: Receita Federal, Perguntas Frequentes do IRPF, “Quais profissionais posso incluir como despesa médica?” (gov.br/receitafederal).' },
       { q: 'Nutricionista pode ser MEI?', a: 'Não. Nutricionistas são profissionais de saúde regulamentados pelo CRN e não podem ser MEI. Atuam como autônomos (CPF) ou abrem empresa (CNPJ).' },
       { q: 'Como formalizar atendimentos online de nutrição?', a: 'Para atendimentos telepresenciais, o recibo deve descrever "consulta nutricional online" com a data da sessão. O documento tem a mesma validade do atendimento presencial.' },
     ],

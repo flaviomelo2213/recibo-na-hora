@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import QRCode from 'qrcode';
 import { APOIO_PIX } from '../../_config/apoio';
 import { gerarBrCodeEstatico } from '../../lib/pix-brcode';
 import { EVENTO_DOCUMENTO_PRONTO } from '../../lib/documento-pronto';
+import { dicaPara } from './dicas';
 
 /** BR Code estático (sem valor) gerado a partir da chave de apoio. */
 const BR_CODE_APOIO = gerarBrCodeEstatico({ chave: APOIO_PIX.chave, nome: APOIO_PIX.titular, cidade: APOIO_PIX.cidade });
@@ -55,13 +57,14 @@ export function QrApoio({ tamanho = 160 }: { tamanho?: number }) {
 }
 
 /**
- * Caixa exibida abaixo do botão de download depois que o documento fica pronto.
- * A altura é reservada desde o início (invisível) para não causar pulo de layout nem empurrar anúncios.
+ * Caixa abaixo do botão de download: antes do download mostra uma dica da ferramenta; depois, o convite de apoio.
+ * A altura é fixa desde o início, então a troca não causa pulo de layout nem empurra anúncios.
  * Não é pop-up, modal nem elemento fixo; nunca entra no PDF (fica fora da área capturada e some na impressão).
  */
 export function ApoioPosDownload() {
   const [visivel, setVisivel] = useState(false);
   const [mostrarQr, setMostrarQr] = useState(false);
+  const dica = dicaPara(usePathname());
 
   useEffect(() => {
     const mostrar = () => setVisivel(true);
@@ -70,12 +73,17 @@ export function ApoioPosDownload() {
   }, []);
 
   return (
-    <div className="no-print print:hidden my-8 h-[250px] sm:h-[210px]" aria-hidden={!visivel}>
+    <div className="no-print print:hidden my-8 h-[250px] sm:h-[210px]">
       <section
-        aria-label="Apoie o ReciboNaHora"
-        className={`h-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-4 text-left text-sm text-slate-700 ${visivel ? 'visible' : 'invisible'}`}
+        aria-label={visivel ? 'Apoie o ReciboNaHora' : 'Dica'}
+        className="h-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-4 text-left text-sm text-slate-700"
       >
-        {mostrarQr ? (
+        {!visivel ? (
+          <div className="space-y-3">
+            <p><span className="font-semibold text-slate-900">Dica:</span> {dica.texto}</p>
+            <a href={dica.href} className="inline-block font-semibold text-slate-700 underline">{dica.link}</a>
+          </div>
+        ) : mostrarQr ? (
           <div className="flex h-full items-start gap-4 sm:items-center">
             <div className="shrink-0">
               <QrApoio tamanho={130} />

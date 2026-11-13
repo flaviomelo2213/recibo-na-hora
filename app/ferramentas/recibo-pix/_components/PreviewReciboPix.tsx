@@ -65,12 +65,15 @@ const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
   return (
     <div id="recibo-pix-preview" className="bg-white rounded-lg shadow-lg p-8 border border-slate-300 w-full max-w-lg text-slate-800">
       {/* Cabeçalho */}
-      <div className="flex justify-between items-start pb-4 border-b-2 border-dashed border-slate-300">
-        <div>
+      <div className="flex flex-col gap-2 pb-4 border-b-2 border-dashed border-slate-300 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold text-slate-900">Recibo de Recebimento via Pix</h2>
-          <p className="text-sm text-slate-500">Recibo emitido pelo recebedor</p>
+          <p className="mt-1 text-sm text-slate-700 break-words">Declaro que recebi, via Pix, o valor abaixo na chave informada.</p>
+          <p className="mt-1 text-xs italic text-slate-500 break-words">
+            Este recibo só tem validade com a assinatura do recebedor e após a confirmação do valor na conta de destino.
+          </p>
         </div>
-        <span className="font-mono text-lg text-slate-700 font-bold">Nº {data.id || '0001'}</span>
+        <span className="order-first self-end shrink-0 whitespace-nowrap font-mono text-lg text-slate-700 font-bold sm:order-last sm:self-start">Nº {data.id || '0001'}</span>
       </div>
 
       {/* Partes */}
@@ -94,32 +97,32 @@ const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
 
         {/* Valor — visual sóbrio, sem gradiente */}
         <div className="p-4 rounded-md border-2 border-slate-800">
-          <div className="flex justify-between items-baseline gap-4">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
             <span className="text-sm font-bold text-slate-700 tracking-wide">VALOR RECEBIDO</span>
-            <span className="text-2xl font-bold text-slate-900">R$ {data.valor || '0,00'}</span>
+            <span className="whitespace-nowrap text-2xl font-bold text-slate-900">R$ {data.valor || '0,00'}</span>
           </div>
-          {extenso && <p className="text-sm text-slate-600 text-right mt-1">({extenso})</p>}
+          {extenso && <p className="mt-1 text-sm text-slate-600 sm:text-right">({extenso})</p>}
         </div>
 
         {(dataPix || data.idTransacao) && (
           <div className="text-sm text-slate-700 space-y-1">
             {dataPix && <p><span className="font-semibold">Data do Pix:</span> {dataPix}</p>}
             {data.idTransacao && (
-              <p className="break-all"><span className="font-semibold">ID da transação (informado pelo emissor):</span> <span className="font-mono text-xs">{data.idTransacao}</span></p>
+              <p><span className="font-semibold">ID da transação (informado pelo emissor):</span> <span className="break-all font-mono text-xs">{data.idTransacao}</span></p>
             )}
           </div>
         )}
 
         <div className="pt-2">
-          <p className="text-sm text-slate-700 leading-relaxed">
-            Declaro que recebi de <strong className="font-bold">{data.nomePagador || '[PAGADOR]'}</strong> o valor acima,
-            referente a <strong className="font-bold">{data.referente || '[DESCRIÇÃO DO PAGAMENTO]'}</strong>, por meio de Pix.
+          <p className="text-sm text-slate-700 leading-relaxed break-words">
+            Pagador: <strong className="font-bold">{data.nomePagador || '[PAGADOR]'}</strong>. Referente a:{' '}
+            <strong className="font-bold">{data.referente || '[DESCRIÇÃO DO PAGAMENTO]'}</strong>.
           </p>
         </div>
       </div>
 
       {/* QR Code com os dados digitados */}
-      <div className="flex items-center gap-6 pt-6 border-t border-slate-200">
+      <div className="flex flex-col items-start gap-4 pt-6 border-t border-slate-200 sm:flex-row sm:items-center sm:gap-6">
         {qrCodeUrl ? (
           <img src={qrCodeUrl} alt="QR Code com os dados do recibo" className="w-32 h-32 shrink-0 border border-slate-200 p-1 rounded-md" />
         ) : (
