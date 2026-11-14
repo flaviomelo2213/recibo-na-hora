@@ -316,6 +316,58 @@ export default function RootLayout({
                 </div>
               </div>
 
+              {/* Bloco de Ferramentas Parceiras (SEO Interlinking) */}
+              <div className="border-t border-stone-200 pt-8 mb-6">
+                <h4 className="font-bold text-stone-900 text-sm uppercase tracking-wider mb-3">
+                  Ferramentas Parceiras
+                </h4>
+                <p className="text-xs text-stone-500 mb-4">
+                   Emitiu um recibo de autônomo (RPA) ou prestação de serviços? Consulte também nossas ferramentas gratuitas de apoio previdenciário, trabalhista e documental:
+                </p>
+                <div className="flex flex-wrap items-center gap-3 text-sm">
+                  <a
+                    href="https://guiadocontribuinte.com.br"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-stone-900 font-semibold border border-amber-200 transition-colors"
+                  >
+                    Guia do Contribuinte - Calculadora INSS e Códigos GPS
+                  </a>
+                  <a
+                    href="https://gerarcalculotrabalhista.com.br"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium border border-stone-200 transition-colors"
+                  >
+                    Gerar Cálculo Trabalhista
+                  </a>
+                  <a
+                    href="https://gerarcontratonahora.com.br"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium border border-stone-200 transition-colors"
+                  >
+                    Gerar Contrato na Hora
+                  </a>
+                  <a
+                    href="https://gerarorcamentonahora.com.br"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium border border-stone-200 transition-colors"
+                  >
+                    Gerar Orçamento na Hora
+                  </a>
+                  <a
+                    href="https://meucurriculonahora.com.br"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium border border-stone-200 transition-colors"
+                  >
+                    Meu Currículo na Hora
+                  </a>
+                </div>
+              </div>
+
               <div className="border-t border-stone-200 pt-8 mb-6">
                 <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-6 text-center">
                   <p className="text-slate-700 font-medium mb-3">
