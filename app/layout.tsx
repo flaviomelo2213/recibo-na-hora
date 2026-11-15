@@ -316,6 +316,27 @@ export default function RootLayout({
                 </div>
               </div>
 
+              <div className="border-t border-stone-200 pt-6 mb-6">
+                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="text-center sm:text-left">
+                    <p className="text-slate-800 font-bold text-sm">
+                      Pendências no CNIS ou vínculos antigos sumidos no INSS?
+                    </p>
+                    <p className="text-slate-600 text-xs mt-1">
+                      Conheça o Guia Prático: Destrave Seu CNIS (passo a passo visual • R$ 29,90).
+                    </p>
+                  </div>
+                  <a
+                    href="https://guiadocontribuinte.com.br/destrave-seu-cnis"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition-colors"
+                  >
+                    Ver Guia Prático →
+                  </a>
+                </div>
+              </div>
+
               <div className="border-t border-stone-200 pt-8 mb-6">
                 <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-6 text-center">
                   <p className="text-slate-700 font-medium mb-3">
