@@ -89,7 +89,6 @@ export function ConsentScripts() {
         gtag('config', 'G-YYX0MSP75Y', { anonymize_ip: true });
       `}</Script>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-YYX0MSP75Y" strategy="afterInteractive" />
-      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182690500" crossOrigin="anonymous" strategy="afterInteractive" />
       <Script src="https://jsc.adskeeper.com/site/1112891.js" strategy="afterInteractive" />
     </>
   );

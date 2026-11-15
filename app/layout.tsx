@@ -37,6 +37,43 @@ const personJsonLd = {
   "url": "https://www.recibonahora.com.br",
 };
 
+const softwareAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ReciboNaHora — Gerador de Recibos e Documentos Online",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://www.recibonahora.com.br",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL",
+  },
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O recibo gerado no ReciboNaHora tem validade jurídica?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Quando preenchido corretamente com identificação das partes, valor por extenso, descrição do pagamento, data e assinatura do recebedor, o recibo serve como prova de quitação nos termos do Código Civil.",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso fazer cadastro ou pagar para gerar recibos em PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. Todas as ferramentas do ReciboNaHora são gratuitas, funcionam direto no navegador e permitem imprimir ou salvar em PDF sem cadastro.",
+      },
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.recibonahora.com.br"),
   title: "Gerador de Recibos e Documentos Online Grátis | ReciboNaHora",
@@ -109,6 +146,17 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="google-adsense-account" content="ca-pub-4754892182690500" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.adsbygoogle=window.adsbygoogle||[];var npa=1;try{if(localStorage.getItem("rnh_cookie_consent")==="accepted")npa=0;}catch(e){}window.adsbygoogle.requestNonPersonalizedAds=npa;`,
+          }}
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4754892182690500"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -116,6 +164,14 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link
