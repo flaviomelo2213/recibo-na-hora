@@ -45,7 +45,7 @@ const faqItems = [
 
 export default function ReciboPixPage() {
   return (
-    <main className="bg-slate-50 py-12">
+    <main className="page-shell bg-slate-50 py-12">
       <div className="container mx-auto px-4 max-w-7xl">
 
       <Breadcrumb
@@ -57,7 +57,7 @@ export default function ReciboPixPage() {
         ]}
       />
 
-      <div className="text-center mb-12">
+      <div className="page-hero text-center mb-12">
         <span className="bg-blue-100 text-blue-800 text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
           Ferramenta Popular
         </span>

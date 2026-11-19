@@ -23,11 +23,11 @@ export function ToolShell({ children }: { children: React.ReactNode }) {
 // The header for a tool page, containing title and description.
 export function ToolShellHeader({ title, description, referenceLink }: { title:string, description: string, referenceLink?: { href: string; text: string; } }) {
     return (
-        <div className="mb-10">
+        <div className="page-hero mb-10">
             <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">{title}</h1>
-            <p className="mt-3 text-lg text-slate-600 max-w-3xl">{description}</p>
+            <p className="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">{description}</p>
             {referenceLink && (
-              <a href={referenceLink.href} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm text-indigo-600 hover:text-indigo-800 font-medium mt-3 transition-colors">
+              <a href={referenceLink.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm text-indigo-600 hover:text-indigo-800 font-medium mt-3 transition-colors">
                 {referenceLink.text}
                 <ExternalLink className="w-4 h-4 ml-1.5" />
               </a>

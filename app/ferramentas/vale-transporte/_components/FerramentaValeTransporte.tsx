@@ -23,9 +23,9 @@ export default function FerramentaValeTransporte() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="page-shell bg-white min-h-screen">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <div className="text-center mb-12">
+        <div className="page-hero text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-white mb-4">
             <Calculator className="w-8 h-8" />
           </div>
