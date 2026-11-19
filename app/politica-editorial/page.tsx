@@ -22,13 +22,13 @@ const LAST_UPDATED = '07/07/2026';
 
 export default function PoliticaEditorialPage() {
   return (
-    <main className="bg-white">
+    <main className="page-shell bg-white">
       <section className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
         <Breadcrumb
           className="mb-6"
           items={[{ label: "Início", href: "/" }, { label: "Política Editorial" }]}
         />
-        <header className="mb-10">
+        <header className="article-hero mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-white mb-4">
             <BookOpen className="w-8 h-8" />
           </div>

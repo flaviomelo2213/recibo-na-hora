@@ -20,9 +20,9 @@ const LAST_UPDATED = '06/02/2026';
 
 export default function PoliticaPrivacidadePage() {
   return (
-    <main className="bg-white">
+    <main className="page-shell bg-white">
       <section className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 pt-12 pb-16">
-        <header className="mb-10">
+        <header className="article-hero mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-white mb-4">
             <Shield className="w-8 h-8" />
           </div>
