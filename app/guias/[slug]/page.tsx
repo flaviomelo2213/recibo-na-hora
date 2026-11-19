@@ -68,7 +68,7 @@ export default function GuiaSlugPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSpeakable) }} />
 
-      <main className="bg-white min-h-screen">
+      <main className="page-shell bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
 
           {/* Breadcrumb */}
@@ -81,7 +81,7 @@ export default function GuiaSlugPage({ params }: Props) {
           </nav>
 
           {/* Header */}
-          <header className="mb-10">
+          <header className="article-hero mb-10">
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <span className="inline-flex items-center gap-1.5 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                 {g.category}

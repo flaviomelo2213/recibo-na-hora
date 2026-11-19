@@ -19,4 +19,11 @@
   .page-hero > p {
     @apply text-lg leading-relaxed;
   }
+  /* Cabeçalho dos artigos (guias, perguntas, blog, modelos, profissões) */
+  .article-hero {
+    @apply pb-10 border-b border-dashed border-stone-300;
+  }
+  .article-hero h1 {
+    @apply tracking-tight leading-[1.15];
+  }
 }

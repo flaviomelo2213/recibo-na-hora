@@ -50,7 +50,7 @@ export default function ComparacaoSlugPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSpeakable) }} />
 
-      <main className="bg-white min-h-screen">
+      <main className="page-shell bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
 
           <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-sm text-stone-500 mb-8">
@@ -61,7 +61,7 @@ export default function ComparacaoSlugPage({ params }: Props) {
             <span className="text-stone-900 font-medium">{c.docA} vs {c.docB}</span>
           </nav>
 
-          <header className="mb-10">
+          <header className="article-hero mb-10">
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <span className="text-sm font-bold text-white bg-stone-700 px-3 py-1 rounded-lg">{c.docA}</span>
               <span className="text-stone-500 font-bold text-lg">vs</span>
