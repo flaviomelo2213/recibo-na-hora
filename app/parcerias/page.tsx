@@ -100,9 +100,9 @@ export default function ParceriasPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <main className="container mx-auto px-4 py-12 md:py-20">
+      <main className="page-shell container mx-auto px-4 py-12 md:py-20">
         {/* Cabeçalho */}
-        <header className="text-center max-w-4xl mx-auto mb-12">
+        <header className="page-hero mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 mb-4 tracking-tight">
             Parcerias e Ferramentas Recomendadas
           </h1>

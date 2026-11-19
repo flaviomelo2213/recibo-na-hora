@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Layout inspirado no Mainline (somente cores já usadas no site) ── */
+@layer components {
+  /* Brilho suave no topo das páginas internas */
+  .page-shell {
+    background-image: radial-gradient(ellipse 90% 460px at 50% 0, theme('colors.amber.50'), transparent 72%);
+    background-repeat: no-repeat;
+  }
+  /* Cabeçalho padrão das páginas-índice */
+  .page-hero {
+    @apply mx-auto max-w-3xl text-center pt-4 pb-12 border-b border-dashed border-stone-300;
+  }
+  .page-hero h1 {
+    @apply text-4xl md:text-5xl font-bold tracking-tight leading-[1.1];
+  }
+  .page-hero > p {
+    @apply text-lg leading-relaxed;
+  }
+}
