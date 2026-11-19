@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 glass-effect border-b border-stone-200 shadow-sm">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
