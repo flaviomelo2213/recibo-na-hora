@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import Script from 'next/script';
 
 const STORAGE_KEY = 'rnh_cookie_consent';
@@ -12,6 +12,11 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   const [consent, setConsent] = useState<Consent>(null);
   const [ready, setReady] = useState(false);
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    if (ready && open && dialogRef.current && !dialogRef.current.open) dialogRef.current.showModal();
+  }, [ready, open]);
 
   useEffect(() => {
     try {
@@ -56,7 +61,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
             </button>
           </div>
           {open && (
-            <section aria-label="Preferências de cookies" className="fixed bottom-0 left-0 right-0 z-[9999] max-h-[80vh] overflow-y-auto border-t border-slate-200 bg-white p-4 shadow-lg">
+            <dialog ref={dialogRef} onCancel={() => setOpen(false)} aria-label="Preferências de cookies" className="fixed bottom-0 left-0 right-0 top-auto m-0 max-h-[80vh] w-full max-w-none overflow-y-auto border-t border-slate-200 bg-white p-4 shadow-lg backdrop:bg-black/25">
               <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="text-sm text-slate-700">
                   <p>Com sua permissão, usamos cookies para medir o uso e exibir anúncios. Você pode usar as ferramentas sem aceitar. Consulte nossa <a href="/politica-privacidade" className="font-semibold underline">Política de Privacidade</a>.</p>
@@ -68,7 +73,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
                   {consent && <button type="button" onClick={() => setOpen(false)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm">Fechar</button>}
                 </div>
               </div>
-            </section>
+            </dialog>
           )}
         </div>
       )}
