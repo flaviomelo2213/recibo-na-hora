@@ -37,6 +37,10 @@ const nextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Capas oficiais dos produtos de afiliado (página /recursos)
+    remotePatterns: [
+      { protocol: 'https', hostname: 'hotmart.s3.amazonaws.com', pathname: '/product_pictures/**' },
+    ],
   },
 
   experimental: {

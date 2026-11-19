@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import RecursosClient from './_components/RecursosClient';
+import { AFFILIATE_PRODUCTS, CATEGORY_META } from '@/_data/affiliateProducts';
 
 export const metadata: Metadata = {
   title: 'Recursos para Autônomos e MEI: Cursos, Contratos e Ferramentas | ReciboNaHora',
   description:
-    'Encontre os melhores cursos, modelos de contratos, planilhas e ferramentas digitais para autônomos, MEIs e freelancers. Curadoria gratuita com recursos de Hotmart, Kiwify e Monetizze.',
+    'Encontre cursos, planilhas, sistemas e guias digitais para autônomos, MEIs e pequenos negócios. Curadoria de produtos da Hotmart com link para a página de vendas oficial.',
   keywords: [
     'recursos autonomo',
     'cursos mei',
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.recibonahora.com.br/recursos',
   },
   // noindex, follow: a auditoria da Fase 4A confirmou que a página é um
-  // diretório de 65 links de afiliado (Hotmart/Kiwify/Monetizze) com descrição
+  // diretório de links de afiliado (Hotmart/Kiwify/Monetizze) com descrição
   // de uma linha por item, sem avaliação ou teste independente. Segue acessível
   // aos usuários e removida do sitemap; nenhum conteúdo foi apagado.
   robots: { index: false, follow: true },
@@ -44,15 +45,13 @@ const jsonLd = {
   mainEntity: {
     '@type': 'ItemList',
     name: 'Lista de Recursos Recomendados',
-    numberOfItems: 65,
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Documentos & Contratos', url: 'https://www.recibonahora.com.br/recursos#documentos' },
-      { '@type': 'ListItem', position: 2, name: 'MEI & Financeiro', url: 'https://www.recibonahora.com.br/recursos#mei-financeiro' },
-      { '@type': 'ListItem', position: 3, name: 'Imóveis & Locação', url: 'https://www.recibonahora.com.br/recursos#imoveis' },
-      { '@type': 'ListItem', position: 4, name: 'Carreira & Renda', url: 'https://www.recibonahora.com.br/recursos#carreira' },
-      { '@type': 'ListItem', position: 5, name: 'Tecnologia & Digital', url: 'https://www.recibonahora.com.br/recursos#tecnologia' },
-      { '@type': 'ListItem', position: 6, name: 'Comunidade', url: 'https://www.recibonahora.com.br/recursos#comunidade' },
-    ],
+    numberOfItems: AFFILIATE_PRODUCTS.length,
+    itemListElement: (Object.keys(CATEGORY_META) as Array<keyof typeof CATEGORY_META>).map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: CATEGORY_META[c].label,
+      url: `https://www.recibonahora.com.br/recursos#${c}`,
+    })),
   },
 };
 
@@ -65,7 +64,7 @@ const faqJsonLd = {
       name: 'Os links da página de Recursos são seguros?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Sim. Todos os links levam a plataformas reconhecidas (Hotmart, Kiwify, Monetizze e Telegram). Cada link abre em nova aba com rel="noopener noreferrer". Alguns são links de afiliado, sem custo extra para o usuário.',
+        text: 'Sim. Todos os links levam à página de vendas oficial de cada produto, pela plataforma Hotmart. Cada link abre em nova aba com rel="noopener noreferrer". São links de afiliado, sem custo extra para o usuário.',
       },
     },
     {
@@ -73,7 +72,7 @@ const faqJsonLd = {
       name: 'Como os recursos recomendados são selecionados?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Priorizamos recursos relevantes para autônomos, MEIs e freelancers: documentos, contratos, planilhas financeiras e educação para negócios.',
+        text: 'Priorizamos recursos relevantes para autônomos, MEIs e pequenos negócios: planilhas financeiras, sistemas de gestão, qualificação profissional e educação para negócios.',
       },
     },
     {
