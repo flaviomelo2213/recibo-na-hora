@@ -16,7 +16,8 @@ import {
   ArrowRight,
   CheckCircle2,
   Clock,
-  Download
+  Download,
+  QrCode
 } from "lucide-react";
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -176,6 +177,31 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* DESTAQUE — Recibo PIX (ferramenta mais acessada). Sem <h2> para não alterar a hierarquia de títulos. */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-12">
+        <Link
+          href="/ferramentas/recibo-pix"
+          className="group flex flex-col sm:flex-row sm:items-center gap-5 bg-white border-2 border-blue-200 hover:border-blue-900 rounded-2xl p-6 sm:p-7 shadow-xl shadow-blue-900/10 transition-colors"
+        >
+          <div className="w-14 h-14 rounded-xl bg-blue-900 flex items-center justify-center flex-shrink-0">
+            <QrCode className="w-7 h-7 text-green-300" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="inline-block text-xs font-semibold uppercase tracking-wide text-green-700 bg-green-100 rounded-full px-3 py-1 mb-2">
+              Mais usado
+            </span>
+            <p className="text-xl sm:text-2xl font-bold text-slate-900">Recibo com PIX</p>
+            <p className="text-slate-600 mt-1">
+              Recibo moderno com QR Code PIX para facilitar a quitação. Grátis, sem cadastro, em PDF.
+            </p>
+          </div>
+          <span className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-900 group-hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors whitespace-nowrap">
+            Gerar recibo PIX
+            <ArrowRight className="w-5 h-5" />
+          </span>
+        </Link>
+      </div>
 
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         {/* Bloco AEO */}
