@@ -7,6 +7,8 @@ import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
 import { Terminal, HelpCircle, Info } from 'lucide-react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function ItbiModeloGenerator() {
   const [requerente, setRequerente] = useState('');
@@ -152,6 +154,7 @@ export default function ItbiModeloGenerator() {
       doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
 
       doc.save('requerimento-itbi.pdf');
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -323,6 +326,7 @@ export default function ItbiModeloGenerator() {
               <>Gerar PDF do Requerimento</>
             )}
           </Button>
+          <ApoioPosDownload />
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <h4 className="text-sm font-semibold text-blue-900 mb-2">Documentos geralmente exigidos:</h4>

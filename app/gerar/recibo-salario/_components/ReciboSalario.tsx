@@ -3,6 +3,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import AdsKeeperWidget from "../../../components/ads/AdsKeeperWidget";
 import { yieldToMain } from "../../../lib/yield-to-main";
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 type DadosRecibo = {
   empresaNome: string;
@@ -145,6 +147,7 @@ export default function ReciboSalario() {
       desenharRecibo(150, "Via do Funcionário");
 
       doc.save("recibo_salario.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -272,6 +275,7 @@ export default function ReciboSalario() {
                 <><i className="fa-solid fa-print"></i> IMPRIMIR RECIBO (2 VIAS)</>
               )}
             </button>
+            <ApoioPosDownload />
             <AdsKeeperWidget />
           </div>
         </div>

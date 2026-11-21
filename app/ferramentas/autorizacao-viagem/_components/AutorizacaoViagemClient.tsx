@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function AutorizacaoViagemClient() {
   const [dados, setDados] = useState({
@@ -61,6 +63,7 @@ export default function AutorizacaoViagemClient() {
       addTexto(`Data: ${new Date().toLocaleDateString('pt-BR')}`, false, "center");
 
       doc.save("autorizacao_viagem.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -117,6 +120,7 @@ export default function AutorizacaoViagemClient() {
                   <><i className="fa-solid fa-file-pdf"></i> GERAR AUTORIZAÇÃO PDF</>
                 )}
             </button>
+            <ApoioPosDownload />
         </div>
       </div>
 

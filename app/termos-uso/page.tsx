@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: buildOpenGraph({ title, description, path: '/termos-uso' }),
 };
 
-const LAST_UPDATED = '06/02/2026';
+const LAST_UPDATED = '12/11/2026';
 
 export default function TermosUsoPage() {
   return (
@@ -261,7 +261,29 @@ export default function TermosUsoPage() {
                 <span className="text-red-600">✗</span>
                 <span>Reproduzir ou comercializar o código-fonte ou funcionalidades da Plataforma</span>
               </li>
+              <li className="flex items-start gap-2">
+                <span className="text-red-600">✗</span>
+                <span>Usar qualquer documento gerado para enganar terceiros, por exemplo para fingir que um pagamento foi feito ou recebido, induzir alguém a entregar bens, serviços ou dinheiro, ou se passar por outra pessoa ou empresa</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-red-600">✗</span>
+                <span>Emitir recibo de um valor que não foi efetivamente recebido, ou com dados de pagador, recebedor, valor ou data que não correspondam à realidade</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-red-600">✗</span>
+                <span>Apresentar um recibo da Plataforma como se fosse comprovante bancário, ou alterar o documento para imitar bancos, instituições de pagamento ou órgãos públicos</span>
+              </li>
             </ul>
+            <p className="mt-4">
+              <strong>7.1. Recibo de recebimento via Pix:</strong> o recibo é uma declaração preenchida por quem recebeu o
+              valor e não substitui o comprovante emitido pelo banco, que é o único documento oficial da transação. O
+              rodapé que identifica o emissor e informa essa limitação faz parte do documento e não deve ser removido.
+            </p>
+            <p className="mt-3">
+              <strong>7.2. Consequências:</strong> o uso de documentos para enganar outras pessoas pode configurar crime e
+              é de responsabilidade exclusiva de quem os emitiu ou utilizou. O ReciboNaHora pode colaborar com as
+              autoridades competentes quando houver requisição legal.
+            </p>
           </section>
 
           <section>
