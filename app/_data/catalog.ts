@@ -129,7 +129,7 @@ export const TOOLS: ToolItem[] = [
   {
     id: "recibo-pix",
     name: "Recibo com PIX",
-    description: "Recibo moderno com QR Code PIX para facilitar a quitação.",
+    description: "Recibo emitido por quem recebeu um Pix, com valor por extenso e motivo do pagamento.",
     categoryId: "recibos",
     href: "/ferramentas/recibo-pix",
     badges: ["Novo"],

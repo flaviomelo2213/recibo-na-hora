@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 const ReciboDeAluguelGenerator: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -44,6 +46,7 @@ const ReciboDeAluguelGenerator: React.FC = () => {
       doc.text(`Data de Recebimento: ${formData.dataRecebimento}`, 20, 110);
 
       doc.save("recibo_de_aluguel.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -134,6 +137,7 @@ const ReciboDeAluguelGenerator: React.FC = () => {
             <>Gerar PDF do Recibo</>
           )}
         </button>
+        <ApoioPosDownload />
         <AdsKeeperWidget />
       </div>
     </div>

@@ -20,6 +20,8 @@ export interface Profissao {
   /** Primary keyword (for meta title) */
   keyword: string
   metaDescription: string
+  /** Título só para o <title> (absoluto, sem sufixo). O H1 continua usando o campo principal. */
+  seoTitle?: string
 }
 
 const profissoes: Profissao[] = [
@@ -336,12 +338,13 @@ const profissoes: Profissao[] = [
     toolHref: '/ferramentas/recibo-simples',
     toolLabel: 'Gerar Recibo para Nutricionista',
     keyword: 'recibo para nutricionista',
-    metaDescription: 'Modelo gratuito de recibo para nutricionista. Para consultas de nutrição, planos alimentares e assessoria esportiva. Gere em PDF sem cadastro.',
+    seoTitle: 'Recibo para nutricionista: modelo grátis em PDF',
+    metaDescription: 'Recibo para nutricionista grátis: consultas, planos alimentares e assessoria esportiva, com CRN e dados do paciente. Preencha online e baixe em PDF.',
     intro: 'Nutricionistas autônomos que atendem pacientes de forma particular devem emitir recibo por consultas e elaboração de planos alimentares. O documento pode ser usado para reembolso.',
     quando: ['Por consulta nutricional particular', 'Para planos alimentares e acompanhamento', 'Por consultoria em empresas ou academias', 'Para assessoria nutricional esportiva'],
     campos: ['Nome, CRN e CPF do nutricionista', 'Nome e CPF do paciente', 'Descrição: tipo de atendimento', 'Valor recebido', 'Data do atendimento', 'Assinatura'],
     faqs: [
-      { q: 'Recibo de nutricionista é dedutível do IR?', a: 'Nutricionistas não constam no rol de profissionais cujos serviços são dedutíveis no IR (limitado a médicos e dentistas). Verifique com seu contador caso haja atualização legal.' },
+      { q: 'Recibo de nutricionista é dedutível do IR?', a: 'Não. Segundo a Receita Federal, podem ser deduzidas como despesas médicas as consultas com médicos, dentistas, psicólogos, fisioterapeutas, terapeutas ocupacionais e fonoaudiólogos, além de despesas com hospitais. Consultas com nutricionista não são dedutíveis, a não ser que estejam incluídas na conta hospitalar. Fonte: Receita Federal, Perguntas Frequentes do IRPF, “Quais profissionais posso incluir como despesa médica?” (gov.br/receitafederal).' },
       { q: 'Nutricionista pode ser MEI?', a: 'Não. Nutricionistas são profissionais de saúde regulamentados pelo CRN e não podem ser MEI. Atuam como autônomos (CPF) ou abrem empresa (CNPJ).' },
       { q: 'Como formalizar atendimentos online de nutrição?', a: 'Para atendimentos telepresenciais, o recibo deve descrever "consulta nutricional online" com a data da sessão. O documento tem a mesma validade do atendimento presencial.' },
     ],

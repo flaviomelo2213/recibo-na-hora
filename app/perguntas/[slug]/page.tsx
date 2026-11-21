@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!p) return {}
   const url = `${BASE}/perguntas/${p.slug}`
   return {
-    title: `${p.question} | ReciboNaHora`,
+    title: p.seoTitle ? { absolute: p.seoTitle } : `${p.question} | ReciboNaHora`,
     description: p.metaDescription,
     keywords: p.keywords,
     alternates: { canonical: url },

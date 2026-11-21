@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function ReciboVeiculo() {
   const [dados, setDados] = useState({
@@ -62,6 +64,7 @@ export default function ReciboVeiculo() {
       doc.text("Obs: Reconhecer firma das assinaturas em cartório para transferência.", 105, 200, { align: "center" });
 
       doc.save("recibo_veiculo.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -112,6 +115,7 @@ export default function ReciboVeiculo() {
                       <>GERAR RECIBO</>
                     )}
                 </button>
+                <ApoioPosDownload />
 
                 <AdsKeeperWidget />
              </div>
