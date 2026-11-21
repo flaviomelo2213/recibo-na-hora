@@ -5,16 +5,13 @@ import {
   CBS_REFERENCIA_PADRAO,
   TIPOS_OPERACAO,
   calcularRT,
+  lerNumeroBR,
   type AnoCalculo,
 } from '@/_config/reformaTributaria';
 
 const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const pct = (v: number) => `${v.toLocaleString('pt-BR', { maximumFractionDigits: 4 })}%`;
-const num = (s: string) => {
-  const limpo = s.trim().replace(/\s/g, '').replace(/R\$/i, '');
-  const n = limpo.includes(',') ? parseFloat(limpo.replace(/\./g, '').replace(',', '.')) : parseFloat(limpo);
-  return Number.isFinite(n) && n >= 0 ? n : 0;
-};
+const num = lerNumeroBR;
 
 export default function CalculadoraRT() {
   const [valor, setValor] = useState('1.000,00');

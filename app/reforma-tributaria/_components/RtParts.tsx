@@ -50,7 +50,9 @@ export function RtFaq({ faq }: { faq: Faq[] }) {
 }
 
 export function RtRodape({ atual }: { atual: string }) {
-  const outras = PAGINAS_RT.filter((p) => p.href !== atual).slice(0, 3);
+  const idx = PAGINAS_RT.findIndex((p) => p.href === atual);
+  const ordem = idx >= 0 ? [...PAGINAS_RT.slice(idx + 1), ...PAGINAS_RT.slice(0, idx)] : PAGINAS_RT;
+  const outras = ordem.slice(0, 3);
   return (
     <>
       <section className="mt-12 border-t border-dashed border-stone-300 pt-8">
