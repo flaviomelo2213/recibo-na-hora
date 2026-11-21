@@ -65,6 +65,16 @@ export default function Page() {
           </section>
 
           <section>
+            <h2 className="text-2xl font-bold text-stone-900 mb-3">E o MEI e o Simples Nacional?</h2>
+            <p>
+              A primeira fase começa pelas empresas que pagam CBS e IBS pelo regime regular, incluindo as do Simples que
+              escolheram o modelo híbrido. Para o MEI e para o Simples que paga tudo no DAS, a regra ainda não está fechada:
+              a Receita informou que a previsão é que o split alcance também a parcela de CBS e IBS que vai no DAS, mas não
+              os demais tributos. Acompanhe esta página: vamos atualizar quando sair a regulamentação.
+            </p>
+          </section>
+
+          <section>
             <h2 className="text-2xl font-bold text-stone-900 mb-3">O que não muda para quem compra</h2>
             <p>
               Para o consumidor, nada muda na hora de pagar: o preço é o mesmo e o pagamento é feito do jeito de sempre. O

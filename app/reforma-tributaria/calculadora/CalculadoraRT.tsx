@@ -139,6 +139,19 @@ export default function CalculadoraRT() {
           )}
         </div>
 
+        {ano === 2027 && (
+          <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-950">
+            <p className="font-semibold">Split payment: o que pode cair na sua conta</p>
+            <p className="mt-1">
+              A partir do 2º semestre de 2027, de forma opcional e entre empresas (Pix, boleto e transferência), o banco
+              poderá separar a CBS e o IBS no momento do pagamento. Nesse caso, cai na conta o valor do campo 1 e o
+              &quot;Total de tributos&quot; vai direto para o governo, descontados os créditos que você já tiver. Por isso,
+              cobre o preço final com os tributos calculados por fora.{' '}
+              <a href="/reforma-tributaria/split-payment" className="underline">Entenda o split payment</a>.
+            </p>
+          </div>
+        )}
+
         <div className="ml-card p-5">
           <h2 className="text-lg font-bold text-stone-900">Memória de cálculo</h2>
           <ol className="mt-3 space-y-1.5 text-sm text-stone-700 list-decimal pl-5">
