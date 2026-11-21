@@ -1,12 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { lerNumeroBR } from '@/_config/reformaTributaria';
 
-const num = (s: string) => {
-  const limpo = s.trim().replace(/\s/g, '').replace(/R\$/i, '');
-  const n = limpo.includes(',') ? parseFloat(limpo.replace(/\./g, '').replace(',', '.')) : parseFloat(limpo);
-  return Number.isFinite(n) && n >= 0 ? n : 0;
-};
+const num = lerNumeroBR;
 
 /** LC 214/2025, art. 251: pessoa física é contribuinte se, no ano anterior, alugou mais de 3 imóveis E recebeu mais de R$ 240 mil. */
 const LIMITE_RECEITA = 240000;

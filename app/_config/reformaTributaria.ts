@@ -99,3 +99,14 @@ export const PAGINAS_RT = [
   { href: '/reforma-tributaria/mei', titulo: 'Reforma Tributária para MEI', resumo: 'O DAS ganha R$ 1,00 de CBS e IBS em 2027, nota fiscal em todas as vendas e o nanoempreendedor.' },
   { href: '/reforma-tributaria/aluguel', titulo: 'Reforma Tributária no aluguel', resumo: 'Quem paga IBS e CBS sobre aluguel, a redução de 70% e o redutor de R$ 600.' },
 ];
+
+/** Lê número no formato brasileiro: "1.000", "1.000,50", "1000,5", "1000.50" (ponto decimal só se não for milhar). */
+export function lerNumeroBR(s: string): number {
+  const limpo = s.trim().replace(/\s/g, '').replace(/R\$/i, '');
+  let normal: string;
+  if (limpo.includes(',')) normal = limpo.replace(/\./g, '').replace(',', '.');
+  else if (/^\d{1,3}(\.\d{3})+$/.test(limpo)) normal = limpo.replace(/\./g, '');
+  else normal = limpo;
+  const n = parseFloat(normal);
+  return Number.isFinite(n) && n >= 0 ? n : 0;
+}
