@@ -17,7 +17,8 @@ import {
   CheckCircle2,
   Clock,
   Download,
-  QrCode
+  QrCode,
+  Calculator
 } from "lucide-react";
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -201,9 +202,27 @@ export default function HomePage() {
             <ArrowRight className="w-5 h-5" />
           </span>
         </Link>
-        <p className="mt-3 text-center text-sm text-stone-500">
-          Novo: <Link href="/reforma-tributaria" className="text-amber-700 hover:underline">Reforma Tributária 2027: guia e calculadora de CBS e IBS</Link>
-        </p>
+        <Link
+          href="/reforma-tributaria/calculadora"
+          className="group mt-4 flex flex-col sm:flex-row sm:items-center gap-5 bg-white border-2 border-blue-200 hover:border-blue-900 rounded-2xl p-6 sm:p-7 shadow-xl shadow-blue-900/10 transition-colors"
+        >
+          <div className="w-14 h-14 rounded-xl bg-blue-900 flex items-center justify-center flex-shrink-0">
+            <Calculator className="w-7 h-7 text-green-300" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="inline-block text-xs font-semibold uppercase tracking-wide text-amber-800 bg-amber-100 rounded-full px-3 py-1 mb-2">
+              Novo · Reforma Tributária
+            </span>
+            <p className="text-xl sm:text-2xl font-bold text-slate-900">Calculadora de CBS e IBS</p>
+            <p className="text-slate-600 mt-1">
+              Veja quanto de CBS e IBS incide sobre um valor em 2026 e 2027, com a conta passo a passo. Grátis, sem cadastro.
+            </p>
+          </div>
+          <span className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-900 group-hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors whitespace-nowrap">
+            Calcular agora
+            <ArrowRight className="w-5 h-5" />
+          </span>
+        </Link>
       </div>
 
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16">

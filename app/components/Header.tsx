@@ -26,7 +26,7 @@ export default function Header() {
           </a>
 
           {/* Menu Desktop */}
-          <nav className="hidden lg:flex items-center gap-4 text-sm font-medium text-stone-600">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-4 text-sm font-medium text-stone-600">
             <a href="/" className="hover:text-amber-600 transition">
               Início
             </a>
@@ -96,6 +96,9 @@ export default function Header() {
                 </div>
               </div>
             </div>
+            <a href="/reforma-tributaria" className="hover:text-amber-600 transition whitespace-nowrap">
+              Reforma Tributária
+            </a>
             <a href="/recursos" className="hover:text-amber-600 transition">
               Recursos
             </a>

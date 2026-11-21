@@ -153,6 +153,9 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
               </div>
             )}
           </div>
+          <Link href="/reforma-tributaria" className="px-3 py-2 hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+            Reforma Tributária
+          </Link>
           <Link href="/recursos" className="px-3 py-2 hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
             <i className="fa-solid fa-bookmark mr-2" />
             Recursos
