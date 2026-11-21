@@ -74,10 +74,10 @@ export default function RequerimentosPage() {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="page-shell max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
         {/* Cabeçalho */}
-        <section className="text-center mb-12">
+        <section className="page-hero mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
             Gerador de Requerimentos
           </h1>

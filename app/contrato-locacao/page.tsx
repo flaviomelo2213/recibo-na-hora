@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 
 export default function ContratoAluguelPage() {
   return (
-    <div className="bg-slate-50 py-12 md:py-20">
+    <div className="page-shell bg-slate-50 py-12 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <header className="text-center mb-12 max-w-3xl mx-auto">
+        <header className="page-hero text-center mb-12 max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
                 Contrato de Aluguel Residencial
             </h1>

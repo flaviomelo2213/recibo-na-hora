@@ -21,11 +21,13 @@ export default function ApoiePage() {
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <Breadcrumb className="mb-6" items={[{ label: 'Início', href: '/' }, { label: 'Apoie o projeto' }]} />
 
+        <div className="article-hero mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Apoie o ReciboNaHora</h1>
         <p className="mt-4 text-lg leading-relaxed text-slate-600">
           O ReciboNaHora é gratuito e mantido por uma pessoa. Se as ferramentas ajudaram você, é possível apoiar o
           projeto com qualquer valor via Pix. O apoio é totalmente opcional: tudo continua gratuito para quem não apoiar.
         </p>
+        </div>
 
         <div className="mt-10 space-y-8 text-slate-700">
           <section>

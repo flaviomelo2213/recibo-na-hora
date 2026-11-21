@@ -72,9 +72,9 @@ export default function AutorizacaoViagemClient() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 mb-12">
-        <div className="text-center mb-8 bg-pink-600 text-white p-6 rounded-xl">
-             <h1 className="text-2xl font-bold"><i className="fa-solid fa-child-reaching"></i> Autorização de Viagem Nacional</h1>
-             <p className="text-pink-100 text-sm">Modelo para menores em viagem dentro do território nacional.</p>
+        <div className="tool-hero">
+             <h1><i className="fa-solid fa-child-reaching"></i> Autorização de Viagem Nacional</h1>
+             <p>Modelo para menores em viagem dentro do território nacional.</p>
         </div>
 
         <div className="space-y-6">

@@ -39,11 +39,11 @@ export default function ProfissoesPage() {
   const profissoesList = Object.values(PROFISSOES)
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="page-shell bg-white min-h-screen">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Header */}
-        <header className="mb-12 text-center">
+        <header className="page-hero mb-12">
           <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
             <i className="fa-solid fa-briefcase" />
             Por Profissão

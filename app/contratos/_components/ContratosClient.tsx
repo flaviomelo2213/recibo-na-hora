@@ -47,14 +47,14 @@ export default function ContratosClient() {
   const [showLeadModal, setShowLeadModal] = useState(false);
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="page-shell bg-white min-h-screen">
       <div className="container mx-auto px-4 py-12 md:py-16 max-w-6xl">
         <Breadcrumb
           className="mb-6"
           items={[{ label: "Início", href: "/" }, { label: "Contratos" }]}
         />
-        <header className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-white mb-4">
+        <header className="page-hero mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 ring-1 ring-amber-200 mb-4">
             <FileSignature className="w-8 h-8" />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">

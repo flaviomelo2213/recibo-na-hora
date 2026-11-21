@@ -82,13 +82,13 @@ export default function MeiPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <main className="container mx-auto px-4 py-12 md:py-20">
+      <main className="page-shell container mx-auto px-4 py-12 md:py-20">
         <Breadcrumb
           className="mb-6"
           items={[{ label: "Início", href: "/" }, { label: "MEI" }]}
         />
         {/* Cabeçalho */}
-        <header className="text-center max-w-4xl mx-auto mb-16">
+        <header className="page-hero mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold text-stone-800 mb-4 tracking-tight">
             Ferramentas para MEI e Autônomos
           </h1>

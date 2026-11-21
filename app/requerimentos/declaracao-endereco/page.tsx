@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function DeclaracaoEnderecoPage() {
   return (
-    <main className="w-full mx-auto py-12 px-4 md:px-6 lg:px-8">
-      <div className="mb-10 text-center">
+    <main className="page-shell w-full mx-auto py-12 px-4 md:px-6 lg:px-8">
+      <div className="page-hero mb-10 text-center">
         <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
           Gerador de Declaração de Residência
         </h1>

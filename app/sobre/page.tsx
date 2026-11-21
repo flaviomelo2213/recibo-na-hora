@@ -22,13 +22,13 @@ const LAST_UPDATED = '07/07/2026';
 
 export default function SobrePage() {
   return (
-    <div className="bg-white py-16 sm:py-24">
+    <div className="page-shell bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Breadcrumb
           className="mb-6"
           items={[{ label: "Início", href: "/" }, { label: "Sobre Nós" }]}
         />
-        <div className="mx-auto max-w-3xl lg:mx-0">
+        <div className="article-hero mb-10 mx-auto max-w-3xl lg:mx-0">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Sobre o ReciboNaHora</h1>
           <p className="mt-3 text-sm text-slate-500">Última atualização: {LAST_UPDATED}</p>
           <p className="mt-6 text-lg leading-8 text-slate-700">

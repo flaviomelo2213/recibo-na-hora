@@ -51,7 +51,7 @@ const faqJsonLd = {
 
 export default function OrcamentoPage() {
   return (
-    <main className="container mx-auto px-4 py-8 max-w-6xl">
+    <main className="page-shell container mx-auto px-4 py-8 max-w-6xl">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -66,7 +66,7 @@ export default function OrcamentoPage() {
         ]}
       />
 
-      <div className="text-center mb-10">
+      <div className="page-hero text-center mb-10">
         <h1 className="text-3xl md:text-5xl font-bold text-stone-900 mb-4">
           Gerador de Orçamento Profissional
         </h1>

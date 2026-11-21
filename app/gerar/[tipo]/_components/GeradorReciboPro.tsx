@@ -112,9 +112,9 @@ export default function GeradorReciboPro() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg border border-slate-200">
-      <div className="text-center mb-8 bg-slate-900 text-white p-6 rounded-lg">
-        <h1 className="text-3xl font-bold mb-2"><i className="fa-solid fa-receipt text-yellow-400"></i> Recibo Profissional 2.0</h1>
-        <p className="text-slate-300 text-sm">Adicione logo, assinatura e gere um documento oficial.</p>
+      <div className="tool-hero">
+        <h1><i className="fa-solid fa-receipt"></i> Recibo Profissional 2.0</h1>
+        <p>Adicione logo, assinatura e gere um documento oficial.</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">

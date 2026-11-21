@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function EstrategiaVencedoraConsorcioPage() {
   return (
-    <main className="bg-white min-h-screen">
+    <main className="page-shell bg-white min-h-screen">
       <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href="/"
@@ -28,7 +28,7 @@ export default function EstrategiaVencedoraConsorcioPage() {
           Voltar para início
         </Link>
 
-        <header className="mb-8">
+        <header className="article-hero mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
             Educação Financeira: Como Usar Estratégias de Crédito para Alavancar Seu Negócio
           </h1>

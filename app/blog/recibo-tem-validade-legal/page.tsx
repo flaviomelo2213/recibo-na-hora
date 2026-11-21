@@ -76,14 +76,14 @@ export default function ReciboValidadeLegalPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <main className="bg-white min-h-screen">
+      <main className="page-shell bg-white min-h-screen">
         <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
           <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-stone-900 mb-8">
             <ArrowLeft className="w-4 h-4" />
             Voltar ao Blog
           </Link>
 
-          <header className="mb-10">
+          <header className="article-hero mb-10">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Jurídico</span>
               <span className="text-xs text-stone-400">5 min de leitura</span>

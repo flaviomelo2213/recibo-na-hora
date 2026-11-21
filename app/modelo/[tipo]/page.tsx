@@ -265,7 +265,7 @@ function FormatoPage({ tipo }: { tipo: string }) {
   const detalhe = MODELO_DETALHES[parsed.base];
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="page-shell bg-white min-h-screen">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
         <nav
           aria-label="Breadcrumb"
@@ -280,7 +280,7 @@ function FormatoPage({ tipo }: { tipo: string }) {
           </Link>
         </nav>
 
-        <header className="mb-8">
+        <header className="article-hero mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-stone-900 leading-tight mb-4">
             {modelo.h1}
           </h1>
@@ -358,7 +358,7 @@ export default function ModeloPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <main className="bg-white min-h-screen">
+      <main className="page-shell bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
           <nav
             aria-label="Breadcrumb"
@@ -371,7 +371,7 @@ export default function ModeloPage({ params }: Props) {
             <span className="text-stone-900 font-medium truncate">{modelo.h1}</span>
           </nav>
 
-          <header className="mb-10">
+          <header className="article-hero mb-10">
             <h1 className="text-3xl sm:text-4xl font-bold text-stone-900 leading-tight mb-4">
               {modelo.h1}
             </h1>

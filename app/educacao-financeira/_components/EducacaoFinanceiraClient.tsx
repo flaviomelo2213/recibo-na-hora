@@ -74,8 +74,8 @@ export default function EducacaoFinanceiraClient() {
           </div>
         </div>
 
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900 text-white mb-4">
+        <div className="page-hero text-center mb-12">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 ring-1 ring-amber-200 mb-4">
             <PieChart className="w-8 h-8" />
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">

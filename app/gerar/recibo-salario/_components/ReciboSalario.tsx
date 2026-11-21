@@ -157,11 +157,11 @@ export default function ReciboSalario() {
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       {/* --- GERADOR --- */}
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-12">
-        <div className="bg-blue-800 text-white p-6 text-center">
-          <h1 className="text-2xl font-bold">
+        <div className="tool-hero">
+          <h1>
             <i className="fa-solid fa-money-check-dollar"></i> Recibo de Salário / Diarista
           </h1>
-          <p className="text-blue-200 text-sm">Gera 2 vias automaticamente (Empregador e Funcionário).</p>
+          <p>Gera 2 vias automaticamente (Empregador e Funcionário).</p>
         </div>
 
         <div className="p-8 grid md:grid-cols-2 gap-8">

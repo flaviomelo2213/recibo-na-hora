@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 
 export default function FerramentasPage() {
   return (
-    <main className="bg-slate-50">
+    <main className="page-shell bg-slate-50">
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <header className="mb-10 text-center">
+        <header className="page-hero mb-10">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
             Nossas Ferramentas
           </h1>
