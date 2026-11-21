@@ -13,6 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE, changeFrequency: 'daily',   priority: 1.0 },
     { url: `${BASE}/ferramentas`, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/reforma-tributaria`, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/reforma-tributaria/calculadora`, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/reforma-tributaria/cronograma`, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/reforma-tributaria/cbs`, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/recibos`, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/contratos`, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/orcamentos`, changeFrequency: 'weekly',  priority: 0.9 },

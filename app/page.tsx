@@ -201,6 +201,9 @@ export default function HomePage() {
             <ArrowRight className="w-5 h-5" />
           </span>
         </Link>
+        <p className="mt-3 text-center text-sm text-stone-500">
+          Novo: <Link href="/reforma-tributaria" className="text-amber-700 hover:underline">Reforma Tributária 2027: guia e calculadora de CBS e IBS</Link>
+        </p>
       </div>
 
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
