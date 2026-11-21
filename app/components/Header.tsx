@@ -9,9 +9,9 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 px-3 pt-3 sm:px-4">
-        <div className="mx-auto max-w-6xl h-16 px-4 sm:px-6 flex items-center justify-between rounded-full border border-stone-200 bg-white/85 backdrop-blur-md shadow-sm">
+        <div className="mx-auto max-w-7xl h-16 px-4 sm:px-6 flex items-center justify-between gap-4 rounded-full border border-stone-200 bg-white/85 backdrop-blur-md shadow-sm">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
+          <a href="/" className="flex shrink-0 items-center gap-3 group">
             <div className="bg-stone-800 text-amber-50 w-9 h-9 rounded-xl flex items-center justify-center shadow-lg shadow-stone-800/20 transition-transform group-hover:scale-110">
               <i className="fa-solid fa-file-invoice text-xl" />
             </div>
@@ -26,7 +26,7 @@ export default function Header() {
           </a>
 
           {/* Menu Desktop */}
-          <nav className="hidden lg:flex items-center gap-4 text-sm font-medium text-stone-600">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-4 text-sm font-medium text-stone-600">
             <a href="/" className="hover:text-amber-600 transition">
               Início
             </a>
@@ -77,10 +77,10 @@ export default function Header() {
             <a href="/orcamentos" className="hover:text-amber-600 transition">
               Orçamentos
             </a>
-            <a href="/apoio-corretor" className="hover:text-amber-600 transition">
+            <a href="/apoio-corretor" className="hidden xl:inline hover:text-amber-600 transition">
               Corretor
             </a>
-            <a href="/requerimentos" className="hover:text-amber-600 transition">
+            <a href="/requerimentos" className="hidden xl:inline hover:text-amber-600 transition">
               Requerimentos
             </a>
             <div className="relative group">
@@ -96,12 +96,15 @@ export default function Header() {
                 </div>
               </div>
             </div>
+            <a href="/reforma-tributaria" className="hover:text-amber-600 transition whitespace-nowrap">
+              Reforma Tributária
+            </a>
             <a href="/recursos" className="hover:text-amber-600 transition">
               Recursos
             </a>
             <a
               href="/educacao-financeira"
-              className="text-amber-800 font-semibold hover:bg-amber-100 transition flex items-center gap-2 bg-amber-50 ring-1 ring-amber-200 px-3 py-1.5 rounded-full"
+              className="text-amber-800 font-semibold hover:bg-amber-100 transition flex shrink-0 whitespace-nowrap items-center gap-2 bg-amber-50 ring-1 ring-amber-200 px-3 py-1.5 rounded-full"
             >
               <i className="fa-solid fa-graduation-cap" /> Educação
             </a>
