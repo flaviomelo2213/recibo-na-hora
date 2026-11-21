@@ -77,15 +77,15 @@ export default function BlogIndexPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }} />
       <main className="min-h-screen bg-stone-50">
-        <section className="bg-stone-900 text-white py-14 px-4">
-          <div className="container mx-auto max-w-4xl text-center">
-            <span className="inline-block bg-amber-500 text-stone-900 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+        <section className="page-shell py-14 px-4">
+          <div className="page-hero container mx-auto max-w-4xl text-center">
+            <span className="inline-block bg-amber-100 text-amber-800 ring-1 ring-amber-200 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
               Blog
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-stone-900 mb-4">
               Documentos, Finanças e Direito para Autônomos
             </h1>
-            <p className="text-stone-300 max-w-2xl mx-auto">
+            <p className="text-stone-600 max-w-2xl mx-auto">
               Artigos práticos sobre recibos, contratos, MEI e educação financeira.
               Conteúdo gratuito para quem trabalha por conta própria.
             </p>

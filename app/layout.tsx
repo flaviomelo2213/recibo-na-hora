@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, DM_Sans } from "next/font/google";
 import { ConsentProvider, ConsentScripts } from "./components/CookieBanner";
 import ClientOnly from "./components/ClientOnly";
 import { AiProvider } from "./components/ai/AiProvider";
@@ -13,6 +13,13 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  variable: "--font-display",
 });
 
 const organizationJsonLd = {
@@ -182,7 +189,7 @@ export default function RootLayout({
 
       </head>
 
-      <body className={`${inter.className} bg-stone-50 text-stone-800 flex flex-col min-h-screen`}>
+      <body className={`${inter.className} ${inter.variable} ${dmSans.variable} bg-stone-50 text-stone-800 flex flex-col min-h-screen`}>
         <ConsentProvider>
         <ConsentScripts />
         <AiProvider>

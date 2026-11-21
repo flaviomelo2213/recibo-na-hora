@@ -61,9 +61,9 @@ export default function MeiRelatorioClient() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-12">
-        <div className="bg-blue-600 text-white p-6 text-center">
-             <h1 className="text-2xl font-bold"><i className="fa-solid fa-chart-line"></i> Relatório Mensal MEI</h1>
-             <p className="text-blue-100 text-sm">Preencha mensalmente para facilitar sua declaração anual (DASN).</p>
+        <div className="tool-hero">
+             <h1><i className="fa-solid fa-chart-line"></i> Relatório Mensal MEI</h1>
+             <p>Preencha mensalmente para facilitar sua declaração anual (DASN).</p>
         </div>
 
         <div className="p-8">

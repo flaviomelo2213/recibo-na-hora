@@ -73,9 +73,9 @@ export default function ReciboVeiculo() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-12">
-        <div className="bg-red-700 text-white p-6 text-center">
-             <h1 className="text-2xl font-bold"><i className="fa-solid fa-car"></i> Recibo de Veículo (Simples)</h1>
-             <p className="text-red-100 text-sm">Para venda de Carros, Motos e Caminhões.</p>
+        <div className="tool-hero">
+             <h1><i className="fa-solid fa-car"></i> Recibo de Veículo (Simples)</h1>
+             <p>Para venda de Carros, Motos e Caminhões.</p>
         </div>
 
         <div className="p-8 grid md:grid-cols-2 gap-6">

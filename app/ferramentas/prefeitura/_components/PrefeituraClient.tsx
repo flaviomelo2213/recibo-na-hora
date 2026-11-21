@@ -197,11 +197,11 @@ export default function PrefeituraClient() {
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
 
-        <div className="bg-[#003399] text-white p-8 text-center">
-          <h1 className="text-3xl font-bold mb-2 flex justify-center items-center gap-3">
+        <div className="tool-hero">
+          <h1>
             <i className="fa-solid fa-building-columns"></i> Central do Cidadão
           </h1>
-          <p className="text-blue-100">Gere requerimentos oficiais e exerça seus direitos com facilidade.</p>
+          <p>Gere requerimentos oficiais e exerça seus direitos com facilidade.</p>
         </div>
 
         <div className="flex border-b border-gray-200 bg-gray-50">

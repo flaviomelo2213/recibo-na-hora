@@ -3,7 +3,27 @@
 @tailwind utilities;
 
 /* ── Layout inspirado no Mainline (somente cores já usadas no site) ── */
+@layer base {
+  /* Títulos com DM Sans, como no Mainline */
+  h1, h2, h3 { font-family: var(--font-display), var(--font-inter), ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.015em; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid theme('colors.amber.400'); outline-offset: 1px; }
+}
+
 @layer components {
+  /* Cabeçalho claro das ferramentas (substitui as faixas coloridas) */
+  .tool-hero {
+    @apply text-center px-6 py-8 mb-8 border-b border-dashed border-stone-300 bg-gradient-to-b from-amber-50 to-white;
+  }
+  .tool-hero h1 {
+    @apply text-2xl md:text-3xl font-bold text-stone-900 tracking-tight flex justify-center items-center gap-3 mb-2;
+  }
+  .tool-hero h1 i { @apply text-amber-600; }
+  .tool-hero p { @apply text-stone-600 text-sm md:text-base; }
+  /* Cartão padrão do Mainline */
+  .ml-card {
+    @apply rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-md;
+  }
+
   /* Brilho suave no topo das páginas internas */
   .page-shell {
     background-image: radial-gradient(ellipse 90% 460px at 50% 0, theme('colors.amber.50'), transparent 72%);

@@ -164,11 +164,11 @@ export default function ContratoCompletoClient() {
       <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
         
         {/* Cabeçalho Visual */}
-        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-8 text-center">
-          <h1 className="text-3xl font-bold mb-2 flex justify-center items-center gap-3">
-            <i className="fa-solid fa-file-contract text-yellow-400"></i> Contrato de Locação Blindado
+        <div className="tool-hero">
+          <h1>
+            <i className="fa-solid fa-file-contract"></i> Contrato de Locação Blindado
           </h1>
-          <p className="text-slate-300">Baseado na Lei do Inquilinato (Lei 8.245/91) com proteção jurídica completa.</p>
+          <p>Baseado na Lei do Inquilinato (Lei 8.245/91) com proteção jurídica completa.</p>
         </div>
 
         <div className="p-8">
