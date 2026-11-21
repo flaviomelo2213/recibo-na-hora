@@ -31,7 +31,7 @@ export default function PerguntasPage() {
   const other = list.filter((p) => !knownCats.has(p.category))
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="page-shell bg-white min-h-screen">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
 
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-stone-500 mb-8">
@@ -40,7 +40,7 @@ export default function PerguntasPage() {
           <span className="text-stone-900 font-medium">Perguntas</span>
         </nav>
 
-        <header className="mb-12 text-center">
+        <header className="page-hero mb-12">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
             <i className="fa-solid fa-circle-question" />
             Dúvidas Frequentes

@@ -91,7 +91,7 @@ export default function ProfissaoCidadePage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 
-      <main className="bg-white min-h-screen">
+      <main className="page-shell bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
 
           {/* Breadcrumb */}
@@ -106,7 +106,7 @@ export default function ProfissaoCidadePage({ params }: Props) {
           </nav>
 
           {/* Header */}
-          <header className="mb-10">
+          <header className="article-hero mb-10">
             <div className="inline-flex items-center gap-2 bg-stone-100 text-stone-600 px-3 py-1.5 rounded-full text-xs font-medium mb-4">
               <i className="fa-solid fa-location-dot text-amber-600" />
               {city.name} · {city.state}

@@ -16,7 +16,8 @@ import {
   ArrowRight,
   CheckCircle2,
   Clock,
-  Download
+  Download,
+  QrCode
 } from "lucide-react";
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -94,58 +95,113 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
     <main className="bg-white">
+      {/* HERO — layout inspirado no Mainline (2 colunas + lista de benefícios), paleta original preservada */}
       <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:32px_32px]" />
-        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-              <Receipt className="w-4 h-4 text-green-300" />
-              <span className="text-sm font-medium text-white">Gratuito e Instantâneo</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
-              Recibo Grátis
-              <span className="block text-green-300 mt-2">
-                e Documentos Essenciais
-              </span>
-            </h1>
-            <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Gere recibos, contratos, procurações e documentos profissionais online. Rápido, fácil e totalmente gratuito.
-            </p>
-          </div>
-
-          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-              <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
-                <CheckCircle2 className="w-6 h-6 text-green-300" />
+        {/* Grade sutil de fundo (apenas branco translúcido, sem cores novas) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            {/* Coluna esquerda: mensagem principal */}
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
+                <Receipt className="w-4 h-4 text-green-300" />
+                <span className="text-sm font-medium text-white">Gratuito e Instantâneo</span>
               </div>
-              <h3 className="text-xl font-bold mb-2">100% Gratuito</h3>
-              <p className="text-blue-100 text-sm">
-                Todos os documentos sem custo. Sem cadastro obrigatório, sem taxas escondidas.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
+                Recibo Grátis
+                <span className="block text-green-300 mt-2">
+                  e Documentos Essenciais
+                </span>
+              </h1>
+              <p className="text-lg sm:text-xl text-blue-100 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Gere recibos, contratos, procurações e documentos profissionais online. Rápido, fácil e totalmente gratuito.
               </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                <Link
+                  href="/ferramentas/recibo-simples"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+                >
+                  Gerar recibo grátis
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="/ferramentas"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+                >
+                  Ver todas as ferramentas
+                </Link>
+              </div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-blue-300" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Instantâneo</h3>
-              <p className="text-blue-100 text-sm">
-                Preencha o formulário e baixe seu documento em segundos, pronto para imprimir.
-              </p>
-            </div>
+            {/* Coluna direita: benefícios em lista (estilo Mainline) */}
+            <ul className="bg-white/5 backdrop-blur-sm border border-white/15 rounded-2xl divide-y divide-dashed divide-white/15">
+              <li className="flex items-start gap-4 p-6">
+                <div className="w-11 h-11 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                  <CheckCircle2 className="w-5 h-5 text-green-300" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">100% Gratuito</h3>
+                  <p className="text-blue-100 text-sm leading-relaxed">
+                    Todos os documentos sem custo. Sem cadastro obrigatório, sem taxas escondidas.
+                  </p>
+                </div>
+              </li>
 
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-              <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
-                <Download className="w-6 h-6 text-purple-300" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">PDF Profissional</h3>
-              <p className="text-blue-100 text-sm">
-                Documentos formatados profissionalmente, prontos para uso oficial.
-              </p>
-            </div>
+              <li className="flex items-start gap-4 p-6">
+                <div className="w-11 h-11 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-5 h-5 text-blue-300" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Instantâneo</h3>
+                  <p className="text-blue-100 text-sm leading-relaxed">
+                    Preencha o formulário e baixe seu documento em segundos, pronto para imprimir.
+                  </p>
+                </div>
+              </li>
+
+              <li className="flex items-start gap-4 p-6">
+                <div className="w-11 h-11 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                  <Download className="w-5 h-5 text-purple-300" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">PDF Profissional</h3>
+                  <p className="text-blue-100 text-sm leading-relaxed">
+                    Documentos formatados profissionalmente, prontos para uso oficial.
+                  </p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
+
+      {/* DESTAQUE — Recibo PIX (ferramenta mais acessada). Sem <h2> para não alterar a hierarquia de títulos. */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-12">
+        <Link
+          href="/ferramentas/recibo-pix"
+          className="group flex flex-col sm:flex-row sm:items-center gap-5 bg-white border-2 border-blue-200 hover:border-blue-900 rounded-2xl p-6 sm:p-7 shadow-xl shadow-blue-900/10 transition-colors"
+        >
+          <div className="w-14 h-14 rounded-xl bg-blue-900 flex items-center justify-center flex-shrink-0">
+            <QrCode className="w-7 h-7 text-green-300" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="inline-block text-xs font-semibold uppercase tracking-wide text-green-700 bg-green-100 rounded-full px-3 py-1 mb-2">
+              Mais usado
+            </span>
+            <p className="text-xl sm:text-2xl font-bold text-slate-900">Recibo com PIX</p>
+            <p className="text-slate-600 mt-1">
+              Recibo moderno com QR Code PIX para facilitar a quitação. Grátis, sem cadastro, em PDF.
+            </p>
+          </div>
+          <span className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-900 group-hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors whitespace-nowrap">
+            Gerar recibo PIX
+            <ArrowRight className="w-5 h-5" />
+          </span>
+        </Link>
+      </div>
 
       <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         {/* Bloco AEO */}

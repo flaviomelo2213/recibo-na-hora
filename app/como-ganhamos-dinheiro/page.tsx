@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function ComoGanhamosDinheiroPage() {
   return (
-    <div className="bg-white py-16 sm:py-24">
+    <div className="page-shell bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Como Ganhamos Dinheiro (Transparência)</h1>

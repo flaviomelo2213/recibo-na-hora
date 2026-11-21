@@ -96,7 +96,7 @@ function DisabledCard({
 
 export default function RecibosPillarPage() {
   return (
-    <main className="bg-slate-50 text-slate-800">
+    <main className="page-shell bg-slate-50 text-slate-800">
       {/* FAQ Schema (JSON-LD) */}
       <script
         type="application/ld+json"
@@ -110,7 +110,7 @@ export default function RecibosPillarPage() {
         />
 
         {/* Cabeçalho e Introdução */}
-        <header className="text-center mb-16">
+        <header className="page-hero mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
             Gerador de Recibos Online em PDF
           </h1>

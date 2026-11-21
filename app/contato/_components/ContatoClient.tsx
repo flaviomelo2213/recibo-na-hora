@@ -53,9 +53,9 @@ export default function ContatoClient() {
   };
 
   return (
-    <div className="bg-white py-16 sm:py-24">
+    <div className="page-shell bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="page-hero mx-auto max-w-2xl text-center">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Entre em Contato</h1>
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Preencha o formulário abaixo ou envie um e-mail diretamente. Respondemos em até 48 horas úteis.

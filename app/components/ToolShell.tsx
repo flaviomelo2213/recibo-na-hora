@@ -10,9 +10,9 @@ interface ToolShellProps {
 
 export default function ToolShell({ title, subtitle, left, right, actions }: ToolShellProps) {
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-12">
+    <div className="page-shell container mx-auto max-w-7xl px-4 py-12">
       {/* Cabeçalho */}
-      <header className="text-center mb-12">
+      <header className="page-hero text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 tracking-tight">
           {title}
         </h1>

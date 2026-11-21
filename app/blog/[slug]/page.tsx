@@ -165,7 +165,7 @@ export default function BlogSlugPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 
-      <main className="bg-white min-h-screen">
+      <main className="page-shell bg-white min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
 
           {/* Breadcrumb */}
@@ -178,7 +178,7 @@ export default function BlogSlugPage({ params }: Props) {
           </nav>
 
           {/* Header */}
-          <header className="mb-10">
+          <header className="article-hero mb-10">
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <span className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                 {post.category}

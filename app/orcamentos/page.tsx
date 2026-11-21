@@ -79,7 +79,7 @@ export default function OrcamentosPage() {
       />
       
       {/* Main content */}
-      <main className="bg-slate-50 text-slate-800">
+      <main className="page-shell bg-slate-50 text-slate-800">
         <div className="container mx-auto max-w-5xl px-4 py-12 md:py-20">
           <Breadcrumb
             className="mb-6"
@@ -87,7 +87,7 @@ export default function OrcamentosPage() {
           />
 
           {/* Header */}
-          <header className="text-center max-w-4xl mx-auto mb-16">
+          <header className="page-hero mb-16">
             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
               Gerador de Orçamentos Online em PDF
             </h1>
