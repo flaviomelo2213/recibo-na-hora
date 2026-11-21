@@ -98,6 +98,9 @@ export const PAGINAS_RT = [
   { href: '/reforma-tributaria/simples-nacional', titulo: 'Reforma Tributária no Simples Nacional', resumo: 'Simples puro ou híbrido: como fica o DAS e quando vale pagar CBS e IBS por fora.' },
   { href: '/reforma-tributaria/mei', titulo: 'Reforma Tributária para MEI', resumo: 'O DAS ganha R$ 1,00 de CBS e IBS em 2027, nota fiscal em todas as vendas e o nanoempreendedor.' },
   { href: '/reforma-tributaria/aluguel', titulo: 'Reforma Tributária no aluguel', resumo: 'Quem paga IBS e CBS sobre aluguel, a redução de 70% e o redutor de R$ 600.' },
+  { href: '/reforma-tributaria/ibs', titulo: 'O que é IBS', resumo: 'O imposto de estados e municípios que substitui ICMS e ISS até 2033, cobrado no destino.' },
+  { href: '/reforma-tributaria/imposto-seletivo', titulo: 'Imposto Seletivo 2027', resumo: 'Quais produtos pagam o "imposto do pecado" a partir de fevereiro de 2027 e com quais alíquotas.' },
+  { href: '/reforma-tributaria/split-payment', titulo: 'Split payment', resumo: 'O imposto separado na hora do pagamento: quando começa e o que muda para quem vende.' },
 ];
 
 /** Lê número no formato brasileiro: "1.000", "1.000,50", "1000,5", "1000.50" (ponto decimal só se não for milhar). */
