@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
+import AvisoGemini from '@/components/ai/AvisoGemini';
 
 export default function PrefeituraClient() {
   const [servico, setServico] = useState('geral');
@@ -184,6 +187,7 @@ export default function PrefeituraClient() {
       doc.text("Gerado gratuitamente via ReciboNaHora.com.br - Ferramenta de Cidadania", 105, 285, { align: "center" });
 
       doc.save(`requerimento-${servico}.pdf`);
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -293,6 +297,7 @@ export default function PrefeituraClient() {
               >
                 {aiLoading ? 'Melhorando…' : improveLabel}
               </button>
+              <AvisoGemini />
             </div>
           </div>
 
@@ -334,6 +339,7 @@ export default function PrefeituraClient() {
               <><i className="fa-solid fa-print"></i> Gerar Requerimento Oficial</>
             )}
           </button>
+          <ApoioPosDownload />
         </div>
       </div>
     </div>

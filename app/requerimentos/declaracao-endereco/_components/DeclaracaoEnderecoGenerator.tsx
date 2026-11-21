@@ -7,6 +7,8 @@ import { Button } from '../../../components/ui/Button';
 import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/Alert';
 import { Terminal } from 'lucide-react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function DeclaracaoEnderecoGenerator() {
   const [nome, setNome] = useState('');
@@ -119,6 +121,7 @@ export default function DeclaracaoEnderecoGenerator() {
       doc.text('Gerado por ReciboNaHora.com.br', pageWidth / 2, pageHeight - 10, { align: 'center' });
 
       doc.save('declaracao-de-residencia.pdf');
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -150,6 +153,7 @@ export default function DeclaracaoEnderecoGenerator() {
               <>Gerar PDF</>
             )}
           </Button>
+          <ApoioPosDownload />
         </section>
 
         {/* Preview */}

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!p) return {}
   const url = `${BASE}/profissoes/${p.slug}`
   return {
-    title: `Recibo ${p.prepoLabel} — Modelo Gratuito | ReciboNaHora`,
+    title: p.seoTitle ? { absolute: p.seoTitle } : `Recibo ${p.prepoLabel} — Modelo Gratuito | ReciboNaHora`,
     description: p.metaDescription,
     keywords: [p.keyword, `modelo recibo ${p.slug}`, `recibo ${p.slug} pdf`, `${p.slug} autonomo recibo`],
     alternates: { canonical: url },

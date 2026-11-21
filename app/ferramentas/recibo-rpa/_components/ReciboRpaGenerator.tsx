@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import AdsKeeperWidget from "../../../components/ads/AdsKeeperWidget";
 import { yieldToMain } from "../../../lib/yield-to-main";
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 interface RpaData {
   numeroRecibo: string;
@@ -159,6 +161,7 @@ export default function ReciboRpaGenerator() {
       doc.text(`CPF: ${data.prestadorCPF || "[000.000.000-00]"}`, pageWidth / 2, yPos, { align: "center" });
 
       doc.save(`recibo-rpa-${data.numeroRecibo}.pdf`);
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -344,6 +347,7 @@ export default function ReciboRpaGenerator() {
             Gerar PDF</>
             )}
           </button>
+          <ApoioPosDownload />
 
           <AdsKeeperWidget />
         </div>

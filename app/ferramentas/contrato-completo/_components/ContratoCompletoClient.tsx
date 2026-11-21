@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { yieldToMain } from '../../../lib/yield-to-main';
+import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
+import { avisarDocumentoPronto } from '@/lib/documento-pronto';
 
 export default function ContratoCompletoClient() {
   const [passo, setPasso] = useState(1);
@@ -151,6 +153,7 @@ export default function ContratoCompletoClient() {
       }
 
       doc.save("contrato-locacao-completo.pdf");
+      avisarDocumentoPronto();
     } finally {
       setGerandoPdf(false);
     }
@@ -278,6 +281,7 @@ export default function ContratoCompletoClient() {
                   )}
                 </button>
               </div>
+              <ApoioPosDownload />
             </div>
           )}
 
