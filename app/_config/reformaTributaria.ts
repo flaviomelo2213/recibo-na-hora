@@ -95,4 +95,7 @@ export const PAGINAS_RT = [
   { href: '/reforma-tributaria/calculadora', titulo: 'Calculadora da Reforma Tributária', resumo: 'Calcule CBS e IBS sobre um valor em 2026 e 2027, com a memória de cálculo.' },
   { href: '/reforma-tributaria/cronograma', titulo: 'Cronograma 2026 a 2033', resumo: 'O que muda em cada ano, do teste de 2026 ao fim do ICMS e do ISS.' },
   { href: '/reforma-tributaria/cbs', titulo: 'O que é CBS e qual a alíquota em 2027', resumo: 'A contribuição federal que substitui PIS e Cofins, e os 11,3% em análise no Senado.' },
+  { href: '/reforma-tributaria/simples-nacional', titulo: 'Reforma Tributária no Simples Nacional', resumo: 'Simples puro ou híbrido: como fica o DAS e quando vale pagar CBS e IBS por fora.' },
+  { href: '/reforma-tributaria/mei', titulo: 'Reforma Tributária para MEI', resumo: 'O DAS ganha R$ 1,00 de CBS e IBS em 2027, nota fiscal em todas as vendas e o nanoempreendedor.' },
+  { href: '/reforma-tributaria/aluguel', titulo: 'Reforma Tributária no aluguel', resumo: 'Quem paga IBS e CBS sobre aluguel, a redução de 70% e o redutor de R$ 600.' },
 ];

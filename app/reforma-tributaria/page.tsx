@@ -70,19 +70,18 @@ export default function Page() {
             </p>
             <h3 className="text-lg font-semibold text-stone-900 mt-4">MEI</h3>
             <p>
-              O MEI continua existindo e segue pagando pelo DAS. A conta da calculadora vale para o regime regular, não para o
-              MEI. Se você é MEI e emite recibos de serviço, veja os{' '}
-              <Link href="/recibos" className="text-amber-700 underline">modelos de recibo do site</Link>.
+              O MEI continua existindo e segue pagando pelo DAS, que ganha uma parcela fixa de CBS e IBS a partir de 2027.
+              Veja os valores em <Link href="/reforma-tributaria/mei" className="text-amber-700 underline">Reforma Tributária para MEI</Link>.
             </p>
             <h3 className="text-lg font-semibold text-stone-900 mt-4">Empresas do Simples Nacional</h3>
             <p>
               O Simples Nacional continua. A empresa segue pagando pelo DAS, e a lei abre a possibilidade de recolher CBS e
-              IBS fora da guia em alguns casos. Converse com o contador antes de decidir.
+              IBS fora da guia (o chamado Simples híbrido). Entenda em <Link href="/reforma-tributaria/simples-nacional" className="text-amber-700 underline">Reforma Tributária no Simples Nacional</Link>.
             </p>
             <h3 className="text-lg font-semibold text-stone-900 mt-4">Quem aluga imóvel</h3>
             <p>
               A locação de imóveis passa a ter CBS e IBS com <strong>redução de 70%</strong> na alíquota. No aluguel residencial
-              há ainda um redutor social de R$ 600 por imóvel, descontado antes do cálculo. Para o dia a dia do aluguel, use o{' '}
+              há ainda um redutor social de R$ 600 por imóvel. Pessoa física só paga em casos específicos: veja <Link href="/reforma-tributaria/aluguel" className="text-amber-700 underline">quem paga IBS e CBS no aluguel</Link>. Para o dia a dia, use o{' '}
               <Link href="/ferramentas/imobiliario" className="text-amber-700 underline">gerador de recibo de aluguel</Link>.
             </p>
           </section>
