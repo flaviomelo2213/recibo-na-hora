@@ -200,6 +200,11 @@ export default function FerramentaReciboPix() {
               Recebeu um comprovante e ficou em dúvida? Veja como saber se um comprovante Pix é falso →
             </a>
           </p>
+          <p className="mt-1">
+            <a href="/guias/como-conferir-recebedor-antes-de-pagar-pix" className="font-semibold underline">
+              Vai pagar? Veja como conferir quem vai receber antes de confirmar o Pix →
+            </a>
+          </p>
         </div>
         <ApoioPosDownload />
         <AdsKeeperWidget />

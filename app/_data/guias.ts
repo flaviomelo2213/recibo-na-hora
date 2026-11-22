@@ -323,7 +323,7 @@ const guias: Guia[] = [
       {
         h2: 'Como criar um recibo de pagamento por PIX',
         content: [
-          'O recibo de PIX é igual a qualquer outro recibo, com a adição da informação de pagamento: "pago via PIX, ID da transação: XXXX".',
+          'O recibo de PIX traz os dados de quem recebe e de quem paga, o valor por extenso, o motivo do pagamento e a chave Pix de quem recebe. Ele só tem validade junto com o comprovante da transação emitido pelo banco: guarde os dois juntos.',
           'No nosso gerador de recibo PIX, você preenche os dados e o documento já traz o QR Code para pagar na sua chave. Ele só vale junto com o comprovante da transação emitido pelo banco.',
         ],
       },
@@ -331,7 +331,7 @@ const guias: Guia[] = [
     faqs: [
       { q: 'Posso usar só o comprovante de PIX como recibo?', a: 'Para transações simples e sem disputas, o comprovante pode ser suficiente. Mas para serviços prestados, aluguel ou valores altos, emita sempre um recibo formal — o comprovante sozinho não especifica o motivo do pagamento.' },
       { q: 'Recibo de PIX precisa de assinatura?', a: 'Recibo em PDF digital não precisa de assinatura manuscrita para ter validade. Mas incluir assinatura digital (ou física escaneada) aumenta a segurança jurídica.' },
-      { q: 'E se o PIX cair na conta errada?', a: 'O recibo protege você: ele comprova que você pagou. Para recuperar o valor enviado por engano, o processo é com o banco (MED — Mecanismo Especial de Devolução do Banco Central). O recibo não interfere nesse processo.' },
+      { q: 'E se o PIX cair na conta errada?', a: 'Quem prova que você pagou é o comprovante emitido pelo seu banco; o recibo só explica a que o pagamento se refere. Se o Pix foi para a pessoa errada por golpe ou fraude, peça ao seu banco a abertura do MED (Mecanismo Especial de Devolução). Se foi só um erro de digitação, fale com o banco e com quem recebeu, porque o MED não se aplica. Para evitar o problema, confira na tela do banco o nome de quem recebe antes de confirmar.' },
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-pix', label: 'Gerar Recibo de PIX' },
@@ -497,7 +497,8 @@ const guias: Guia[] = [
         content: [
           'Combine com seus clientes que a entrega só acontece depois que o valor aparecer no seu extrato, e deixe isso claro antes da negociação. Assim a conferência deixa de parecer desconfiança e vira regra do seu negócio.',
           'Ative as notificações de Pix recebido no aplicativo do banco e, se possível, use uma conta separada para as vendas. Fica mais fácil localizar cada entrada pelo valor e pelo horário.',
-          'Para registrar o recebimento por escrito, emita um recibo depois de confirmar a entrada no extrato. O recibo de recebimento via Pix do ReciboNaHora informa de quem você recebeu, o valor por extenso e o motivo do pagamento, e traz um aviso de que não substitui o comprovante do banco.',
+          'Envie você os dados de pagamento. O recibo de recebimento via Pix do ReciboNaHora traz a sua chave e um QR Code para o cliente pagar e conferir o seu nome no aplicativo do banco. O documento diz em destaque que só vale junto com o comprovante da transação, e a entrega continua dependendo de o valor aparecer no seu extrato.',
+          'Entenda também o que diz a lei em "Comprovante Pix falso é crime" e ensine seus clientes a conferir o recebedor antes de pagar.',
         ],
       },
     ],
@@ -506,11 +507,146 @@ const guias: Guia[] = [
       { q: 'O comprovante tem ID da transação. Isso garante que é verdadeiro?', a: 'Não. O ID pode ser copiado de outro comprovante. Use o código para localizar a transação no seu extrato; se ela não aparece lá, o pagamento não está confirmado.' },
       { q: 'O Pix pode demorar para cair?', a: 'Normalmente o crédito aparece em poucos segundos, a qualquer hora. Se a pessoa alega demora e pressiona para você liberar a entrega, espere o valor aparecer no extrato antes de entregar.' },
       { q: 'Fui enganado com um comprovante falso. Posso usar o MED?', a: 'O MED serve para devolver valores de Pix feitos em casos de golpe ou fraude, a pedido de quem pagou. Se nenhum Pix entrou na sua conta, não há transação para contestar: registre boletim de ocorrência e reúna as provas do golpe.' },
-      { q: 'Um recibo de Pix pode ser usado como prova de pagamento?', a: 'O recibo é uma declaração de quem recebeu e ajuda a provar a quitação de uma dívida ou serviço. Ele não substitui o comprovante do banco nem o extrato, que são os registros da transferência.' },
+      { q: 'Um recibo de Pix pode ser usado como prova de pagamento?', a: 'Sozinho, não. O recibo explica a que o pagamento se refere, mas só tem validade junto com o comprovante da transação emitido pelo banco. Quem prova a transferência é o comprovante, e quem prova que o dinheiro chegou é o extrato de quem recebeu.' },
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-pix', label: 'Recibo de recebimento via Pix' },
       { href: '/guias/recibo-pix-como-funciona', label: 'Recibo de Pix: quando emitir e como funciona' },
+      { href: '/guias/comprovante-pix-falso-e-crime', label: 'Comprovante Pix falso é crime' },
+      { href: '/guias/como-conferir-recebedor-antes-de-pagar-pix', label: 'Como conferir quem vai receber antes de pagar um Pix' },
+    ],
+  },
+  {
+    slug: 'comprovante-pix-falso-e-crime',
+    title: 'Comprovante Pix falso é crime: como o golpe funciona e como se proteger',
+    seoTitle: 'Comprovante Pix falso é crime: entenda a lei e proteja-se | ReciboNaHora',
+    description: 'Gerar ou usar comprovante Pix falso é estelionato. Veja o que diz a lei, por que "geradores" e "simuladores" são armadilha e como vendedores se protegem.',
+    keywords: ['comprovante pix falso é crime', 'gerador de comprovante pix falso', 'simulador de comprovante pix', 'golpe do comprovante pix', 'estelionato pix'],
+    datePublished: '2026-11-21',
+    category: 'Dúvidas Legais',
+    readTime: '7 min',
+    intro: 'Mostrar um comprovante de Pix falso para levar um produto ou serviço sem pagar é crime de estelionato, e os tribunais brasileiros têm condenado quem faz isso. Também não existe "gerador" ou "simulador" de comprovante que funcione: o vendedor confere o extrato, o golpe é descoberto e quem enviou a imagem deixa um rastro. Este guia explica a lei, mostra por que essas ferramentas são uma armadilha e ensina como se proteger.',
+    sections: [
+      {
+        h2: 'O que diz a lei sobre comprovante Pix falso',
+        content: [
+          'Enganar alguém com um documento falso para obter vantagem é estelionato, previsto no artigo 171 do Código Penal, com pena de reclusão de 1 a 5 anos e multa. Quando a fraude acontece por meios eletrônicos, a Lei 14.155/2021 criou a forma qualificada do artigo 171, § 2º-A, com pena de 4 a 8 anos de reclusão e multa.',
+          'Os tribunais aplicam essas regras a comprovantes de Pix. Em outubro de 2025, o Tribunal de Justiça do Distrito Federal (TJDFT) manteve a condenação por estelionato de uma mulher que apresentou um comprovante falso de transferência para levar pneus de uma loja. Em janeiro de 2026, o Tribunal de Justiça de Mato Grosso (TJMT) manteve a condenação por estelionato eletrônico de uma pessoa que enviou um comprovante falso de Pix para uma papelaria.',
+          'O mesmo vale para o comprovante de Pix agendado que depois é cancelado. Em fevereiro de 2025, o TJDFT entendeu que apresentar esse comprovante para receber um produto mostra intenção de enganar e caracteriza estelionato.',
+          'Além da pena, quem aplica o golpe pode ser obrigado a devolver o produto ou indenizar a vítima. Este conteúdo é informativo e não substitui a orientação de um advogado.',
+        ],
+      },
+      {
+        h2: '"Gerador" ou "simulador" de comprovante Pix: por que é armadilha',
+        content: [
+          'Nenhum banco oferece "simulador" de comprovante. O comprovante oficial só existe dentro do aplicativo ou do internet banking, depois que a transferência é feita. Qualquer site ou aplicativo que promete gerar um comprovante com a cara de um banco produz apenas uma imagem montada, sem nenhum valor.',
+          'Esses sites e aplicativos costumam ser golpe contra quem os procura. É comum pedirem pagamento, instalação de aplicativos fora das lojas oficiais ou dados pessoais, e assim roubam senhas, dados bancários e contas de redes sociais de quem tenta usá-los.',
+          'O golpe também não funciona. Quem vende pode conferir o extrato em segundos e ver que o dinheiro não entrou. Enquanto isso, a conversa, o número de telefone, o endereço de entrega e a própria imagem enviada ficam como prova para o boletim de ocorrência.',
+          'O ReciboNaHora não gera comprovantes bancários. O recibo de recebimento via Pix do site é um pedido de pagamento emitido por quem vai receber, com a chave Pix dessa pessoa, e diz em destaque que só vale junto com o comprovante da transação emitido pelo banco.',
+        ],
+      },
+      {
+        h2: 'Como o golpe do comprovante falso é descoberto',
+        content: [
+          'O dinheiro não aparece no extrato. A entrada de um Pix fica registrada na conta de quem recebe, com notificação na maioria dos aplicativos. Um print não muda o extrato.',
+          'O ID da transação não existe. Todo Pix tem um código único de 32 caracteres que começa com a letra E. Se o código do comprovante não aparece no extrato de quem recebeu, o comprovante não corresponde a nenhum Pix feito para essa conta.',
+          'Os dados não batem. Nome do recebedor, chave, banco, centavos ou horário diferentes do esperado denunciam a montagem.',
+          'O agendamento é cancelado. No golpe do Pix agendado, o comprovante diz "agendado" ou mostra uma data futura. Quem recebe deve esperar o dinheiro entrar de fato.',
+        ],
+      },
+      {
+        h2: 'Se você vende: regras simples que acabam com o golpe',
+        content: [
+          'Só entregue o produto ou serviço depois que o valor aparecer no extrato da sua conta. Avise isso antes da negociação, para que a conferência seja vista como regra do seu negócio, e não como desconfiança.',
+          'Não aceite pressa como argumento. Pressão para "liberar logo" com base em um print é o sinal mais comum do golpe.',
+          'Mande você os dados de pagamento. Um documento com a sua chave Pix e um QR Code, como o recibo de recebimento via Pix do ReciboNaHora, faz o cliente pagar diretamente na sua chave e conferir o seu nome no aplicativo do banco antes de confirmar.',
+          'Veja o passo a passo completo em "Como saber se um comprovante Pix é falso".',
+        ],
+      },
+      {
+        h2: 'Se você foi vítima de um comprovante falso',
+        content: [
+          'Guarde tudo: a imagem do comprovante, as conversas, o número de telefone, o perfil do anúncio e o endereço de entrega, se houver.',
+          'Registre um boletim de ocorrência. Em muitos estados é possível fazer o registro pela internet, no site da Polícia Civil. Se a venda foi por um site ou aplicativo de anúncios, denuncie também o perfil na plataforma.',
+          'Como nenhum Pix entrou na sua conta, não há transferência para contestar no banco. O caminho é a polícia e, se for o caso, uma ação para cobrar o prejuízo.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Usar comprovante Pix falso é crime?', a: 'Sim. Usar um comprovante falso para levar um produto ou serviço sem pagar é estelionato (art. 171 do Código Penal), com pena de 1 a 5 anos de reclusão e multa. Quando a fraude é feita por meios eletrônicos, há decisões que aplicam o estelionato eletrônico (art. 171, § 2º-A), com pena de 4 a 8 anos.' },
+      { q: 'Existe gerador ou simulador de comprovante Pix de verdade?', a: 'Não. O comprovante oficial só é emitido pelo aplicativo do banco depois que o Pix é feito. Sites e aplicativos que prometem gerar comprovantes produzem apenas imagens montadas e muitas vezes são golpes que roubam dados de quem os usa.' },
+      { q: 'Existe simulador de comprovante do Nubank ou de outro banco?', a: 'Não. Nenhum banco tem ferramenta para simular comprovantes. Qualquer imagem com o visual de um banco pode ser montada, por isso a única confirmação segura é a entrada do valor no extrato de quem recebe.' },
+      { q: 'O recibo Pix do ReciboNaHora serve como comprovante?', a: 'Não. Ele é um pedido de pagamento emitido por quem vai receber, com a chave Pix dessa pessoa e um QR Code para pagar. O documento diz em destaque que só vale junto com o comprovante da transação emitido pelo banco.' },
+      { q: 'Recebi um comprovante falso. O banco devolve o dinheiro?', a: 'Não há o que devolver, porque nenhuma transferência foi feita para a sua conta. Registre um boletim de ocorrência com todas as provas e denuncie o perfil na plataforma onde a venda aconteceu.' },
+    ],
+    relatedLinks: [
+      { href: '/guias/como-saber-se-comprovante-pix-e-falso', label: 'Como saber se um comprovante Pix é falso' },
+      { href: '/guias/como-conferir-recebedor-antes-de-pagar-pix', label: 'Como conferir quem vai receber antes de pagar um Pix' },
+      { href: '/ferramentas/recibo-pix', label: 'Recibo de recebimento via Pix' },
+    ],
+  },
+  {
+    slug: 'como-conferir-recebedor-antes-de-pagar-pix',
+    title: 'Como conferir quem vai receber antes de pagar um Pix',
+    description: 'Antes de confirmar um Pix, o app do banco mostra nome, parte do CPF/CNPJ e instituição de quem recebe. Veja como conferir esses dados e evitar golpes.',
+    keywords: ['conferir recebedor pix', 'como saber para quem estou pagando pix', 'pix qr code conferir dados', 'golpe chave pix trocada', 'pix copia e cola é seguro'],
+    datePublished: '2026-11-21',
+    category: 'Como Fazer',
+    readTime: '5 min',
+    intro: 'Todo Pix passa por uma tela de confirmação no aplicativo do banco antes de ser enviado. Essa tela mostra quem vai receber o dinheiro, com dados que vêm do próprio sistema do Pix, e não do documento ou da mensagem que você recebeu. Conferir essa tela com calma é a forma mais simples de não pagar para a pessoa errada.',
+    sections: [
+      {
+        h2: 'O que aparece na tela de confirmação do banco',
+        content: [
+          'Ao escanear um QR Code, colar um Pix Copia e Cola ou digitar uma chave, o aplicativo consulta a chave no sistema do Pix e mostra o nome de quem recebe, parte do CPF ou o CNPJ, a instituição financeira e o valor.',
+          'Esses dados vêm do cadastro da chave no banco de quem recebe. Por isso valem mais do que qualquer nome escrito em um documento, em um anúncio ou em uma mensagem: um documento pode ser editado, mas a tela do banco mostra o dono real da chave.',
+        ],
+      },
+      {
+        h2: 'Passo a passo para pagar com segurança',
+        content: [
+          'Abra o aplicativo do seu banco e escolha pagar com QR Code ou Pix Copia e Cola.',
+          'Escaneie o QR Code ou cole o código. Se o documento tiver valor definido, ele já aparece preenchido.',
+          'Antes de confirmar, compare o nome e a instituição mostrados pelo banco com os de quem você está pagando. Confira também o valor.',
+          'Se tudo bate, confirme o Pix e guarde o comprovante emitido pelo banco. Se receber um recibo, guarde os dois juntos: o recibo explica o pagamento e o comprovante prova a transferência.',
+        ],
+      },
+      {
+        h2: 'Sinais de alerta antes de confirmar',
+        content: [
+          'O nome não é o de quem vende. Se você está comprando de uma loja e aparece o nome de uma pessoa física desconhecida, ou o contrário, pare e pergunte antes de pagar.',
+          'A instituição é estranha ou diferente da combinada.',
+          'A chave mudou de repente. Mensagens como "troquei de banco, pague nesta outra chave" são comuns em golpes com perfis clonados. Confirme por outro canal, por exemplo ligando para o número que você já conhecia.',
+          'Há pressa ou pressão para pagar antes de conferir.',
+        ],
+      },
+      {
+        h2: 'QR Code em recibos e cobranças: como funciona',
+        content: [
+          'Um QR Code Pix estático guarda a chave de quem recebe e, se quiser, o valor. Qualquer pessoa pode gerar um para a própria chave, e isso é permitido pelo padrão do Banco Central.',
+          'No recibo de recebimento via Pix do ReciboNaHora, quem vai receber preenche os próprios dados e a chave, e o documento traz um QR Code para pagar. Quem paga escaneia, confere no aplicativo o nome e o valor, e confirma. O recibo só vale junto com o comprovante da transação emitido pelo banco.',
+          'Se o nome que aparece no banco for diferente do nome no documento, não pague: alguém pode ter trocado a chave.',
+        ],
+      },
+      {
+        h2: 'Paguei para a pessoa errada. E agora?',
+        content: [
+          'Se foi um golpe ou uma fraude, procure imediatamente o seu banco pelo aplicativo ou pelos canais oficiais e peça a abertura do MED, o Mecanismo Especial de Devolução do Pix. Quanto mais rápido o pedido, maior a chance de haver saldo para devolução.',
+          'Se foi um erro de digitação, sem golpe, entre em contato com o seu banco e tente falar com quem recebeu. Nesse caso o MED não se aplica, e a devolução depende de quem recebeu.',
+          'Registre um boletim de ocorrência em caso de golpe e guarde todos os comprovantes e conversas.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Como saber para quem estou pagando um Pix?', a: 'Na tela de confirmação, antes de enviar, o aplicativo do banco mostra o nome de quem recebe, parte do CPF ou o CNPJ e a instituição. Esses dados vêm do cadastro da chave e não podem ser alterados por quem enviou o QR Code.' },
+      { q: 'Pix Copia e Cola é seguro?', a: 'O código em si é seguro e segue o padrão do Banco Central, mas ele leva o dinheiro para a chave que estiver dentro dele. Por isso sempre confira, na tela do banco, se o nome de quem recebe é o esperado.' },
+      { q: 'O nome no banco é diferente do nome no documento. O que faço?', a: 'Não pague. Pergunte a quem cobrou por um canal que você já conhecia. Em golpes, é comum trocar a chave ou o QR Code de um documento verdadeiro.' },
+      { q: 'O QR Code do recibo do ReciboNaHora é seguro?', a: 'Ele é um QR Code Pix estático com a chave e o valor que o próprio recebedor informou. Antes de confirmar, o seu banco mostra o nome de quem recebe para você conferir. O recibo só vale junto com o comprovante da transação.' },
+    ],
+    relatedLinks: [
+      { href: '/ferramentas/recibo-pix', label: 'Recibo de recebimento via Pix' },
+      { href: '/guias/comprovante-pix-falso-e-crime', label: 'Comprovante Pix falso é crime' },
+      { href: '/guias/como-saber-se-comprovante-pix-e-falso', label: 'Como saber se um comprovante Pix é falso' },
     ],
   },
 ]
