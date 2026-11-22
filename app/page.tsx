@@ -18,7 +18,8 @@ import {
   Clock,
   Download,
   QrCode,
-  Calculator
+  Calculator,
+  KeyRound,
 } from "lucide-react";
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -220,6 +221,27 @@ export default function HomePage() {
           </div>
           <span className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-900 group-hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors whitespace-nowrap">
             Calcular agora
+            <ArrowRight className="w-5 h-5" />
+          </span>
+        </Link>
+        <Link
+          href="/contrato-locacao"
+          className="group mt-4 flex flex-col sm:flex-row sm:items-center gap-5 bg-white border-2 border-blue-200 hover:border-blue-900 rounded-2xl p-6 sm:p-7 shadow-xl shadow-blue-900/10 transition-colors"
+        >
+          <div className="w-14 h-14 rounded-xl bg-blue-900 flex items-center justify-center flex-shrink-0">
+            <KeyRound className="w-7 h-7 text-green-300" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="inline-block text-xs font-semibold uppercase tracking-wide text-amber-800 bg-amber-100 rounded-full px-3 py-1 mb-2">
+              Novo · Residencial e Comercial
+            </span>
+            <p className="text-xl sm:text-2xl font-bold text-slate-900">Contrato de Aluguel Completo</p>
+            <p className="text-slate-600 mt-1">
+              Escolha residencial ou comercial e as cláusulas se ajustam: caução, fiador ou seguro-fiança, encargos, reajuste e multas. Prévia ao vivo e PDF grátis.
+            </p>
+          </div>
+          <span className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-900 group-hover:bg-blue-800 text-white font-semibold rounded-lg transition-colors whitespace-nowrap">
+            Fazer contrato
             <ArrowRight className="w-5 h-5" />
           </span>
         </Link>
