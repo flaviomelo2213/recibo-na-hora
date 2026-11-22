@@ -8,6 +8,7 @@ import AdsKeeperWidget from '../../../components/ads/AdsKeeperWidget';
 import { yieldToMain } from '../../../lib/yield-to-main';
 import { ApoioPosDownload } from '@/components/apoio/ApoioPix';
 import { avisarDocumentoPronto } from '@/lib/documento-pronto';
+import { normalizarChavePix } from '../../../lib/pix-brcode';
 
 // Componente principal que une o formulário e a pré-visualização
 export default function FerramentaReciboPix() {
@@ -22,8 +23,6 @@ export default function FerramentaReciboPix() {
     valor: '',
     cidade: '',
     referente: 'Pagamento de serviço',
-    dataPix: '',
-    idTransacao: '',
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const previewRef = useRef(null);
@@ -115,7 +114,12 @@ export default function FerramentaReciboPix() {
               <div>
                 <label htmlFor="chavePix" className="block text-sm font-medium text-gray-900">Chave PIX de Destino *</label>
                 <input type="text" name="chavePix" id="chavePix" value={formData.chavePix} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="CPF, CNPJ, Celular, E-mail ou Chave Aleatória" required />
-                <p className="mt-1 text-xs text-gray-500">Informe a chave PIX que receberá o pagamento</p>
+                <p className="mt-1 text-xs text-gray-500">Informe a chave PIX que receberá o pagamento. Celular com DDD (ex.: (11) 91234-5678), CPF/CNPJ, e-mail ou chave aleatória.</p>
+                {formData.chavePix.trim() && !normalizarChavePix(formData.chavePix) && (
+                  <p className="mt-1 text-xs text-amber-700" role="status">
+                    Não reconhecemos essa chave Pix, então o QR Code de pagamento não será gerado. Confira se digitou certo.
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -158,16 +162,6 @@ export default function FerramentaReciboPix() {
                 <input type="text" name="cidade" id="cidade" value={formData.cidade} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: São Paulo" />
               </div>
 
-              <div>
-                <label htmlFor="dataPix" className="block text-sm font-medium text-gray-900">Data do Pix (opcional)</label>
-                <input type="date" name="dataPix" id="dataPix" value={formData.dataPix} onChange={handleInputChange} className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-              </div>
-
-              <div>
-                <label htmlFor="idTransacao" className="block text-sm font-medium text-gray-900">ID da transação (opcional)</label>
-                <input type="text" name="idTransacao" id="idTransacao" value={formData.idTransacao} onChange={handleInputChange} maxLength={40} className="mt-1 w-full p-3 border border-gray-300 rounded-md font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: E1234567820261110..." />
-                <p className="mt-1 text-xs text-gray-500">Copie do comprovante que o banco gerou. No Pix, esse código costuma ter 32 caracteres e começar com a letra E.</p>
-              </div>
             </div>
           </div>
 
@@ -188,11 +182,26 @@ export default function FerramentaReciboPix() {
           <i className="fa-solid fa-file-arrow-down"></i>
           {isGenerating ? 'Gerando PDF...' : 'Baixar Recibo em PDF'}
         </button>
-        <ApoioPosDownload />
-        <p className="mt-3 text-xs text-gray-500 text-center">
-          Este recibo é uma declaração de quem recebeu o valor e não substitui o comprovante do banco. Usá-lo para enganar outra pessoa é proibido pelos{' '}
-          <a href="/termos-uso" className="underline font-medium">Termos de Uso</a>.
+        <p className="mt-3 text-xs text-gray-600 text-center">
+          Ao baixar, você declara que os dados são verdadeiros e que a chave Pix informada é sua.
         </p>
+        <div className="mt-4 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="font-semibold">
+            <i className="fa-solid fa-shield-halved mr-2" aria-hidden="true"></i>
+            Este recibo só vale com o comprovante bancário
+          </p>
+          <p className="mt-1">
+            O documento é um pedido de pagamento. O pagamento só se confirma pelo comprovante da transação emitido pelo
+            banco e pelo valor no extrato de quem recebe. Usá-lo para enganar alguém é proibido pelos{' '}
+            <a href="/termos-uso" className="underline font-medium">Termos de Uso</a> e pode configurar estelionato (art. 171 do Código Penal).
+          </p>
+          <p className="mt-2">
+            <a href="/guias/como-saber-se-comprovante-pix-e-falso" className="font-semibold underline">
+              Recebeu um comprovante e ficou em dúvida? Veja como saber se um comprovante Pix é falso →
+            </a>
+          </p>
+        </div>
+        <ApoioPosDownload />
         <AdsKeeperWidget />
       </div>
 

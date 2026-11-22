@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 import { parseValorBR, valorPorExtenso } from '../../../lib/valor-extenso';
+import { gerarBrCodeEstatico, normalizarChavePix, valorBrCode } from '../../../lib/pix-brcode';
 
 export interface DadosReciboPix {
   id: string;
@@ -14,30 +15,17 @@ export interface DadosReciboPix {
   valor: string;
   cidade: string;
   referente: string;
-  dataPix: string; // AAAA-MM-DD (opcional)
-  idTransacao: string; // opcional
-}
-
-/** "2026-11-10" → "10/11/2026" */
-export function formatarData(iso: string): string {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
-  return m ? `${m[3]}/${m[2]}/${m[1]}` : '';
 }
 
 /**
- * Conteúdo do QR Code: texto simples com os dados digitados pelo emissor.
- * Propositalmente NÃO segue o padrão BR Code (EMV) — não pode ser lido como Pix pagável.
+ * Pix Copia e Cola (BR Code estático) para o pagador pagar ao recebedor.
+ * Devolve '' enquanto a chave ou o valor não forem válidos — aí o QR Code não aparece.
  */
-export function textoQrRecibo(d: DadosReciboPix, dataEmissao: string): string {
-  return [
-    'RECIBO DE RECEBIMENTO VIA PIX - NAO E CODIGO DE PAGAMENTO',
-    `Numero: ${d.id || '-'}`,
-    `Recebedor: ${d.nomeBeneficiario || '-'}`,
-    `Pagador: ${d.nomePagador || '-'}`,
-    `Valor: R$ ${d.valor || '-'}`,
-    `Data: ${formatarData(d.dataPix) || dataEmissao}`,
-    'Dados informados pelo emissor via recibonahora.com.br',
-  ].join('\n');
+export function brCodePedido(d: DadosReciboPix): string {
+  const chave = normalizarChavePix(d.chavePix);
+  const valor = valorBrCode(parseValorBR(d.valor));
+  if (!chave || !valor || !d.nomeBeneficiario.trim()) return '';
+  return gerarBrCodeEstatico({ chave, nome: d.nomeBeneficiario, cidade: d.cidade, valor });
 }
 
 const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
@@ -49,18 +37,20 @@ const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
     setDataEmissao(new Date().toLocaleDateString('pt-BR'));
   }, []);
 
+  const copiaECola = brCodePedido(data);
+
   useEffect(() => {
     let ativo = true;
-    QRCode.toDataURL(textoQrRecibo(data, dataEmissao), { width: 320, margin: 1, errorCorrectionLevel: 'M' })
+    if (!copiaECola) { setQrCodeUrl(''); return; }
+    QRCode.toDataURL(copiaECola, { width: 320, margin: 1, errorCorrectionLevel: 'M' })
       .then((url: string) => { if (ativo) setQrCodeUrl(url); })
       .catch((err: unknown) => console.error('Falha ao gerar QR Code:', err));
     return () => { ativo = false; };
-  }, [data, dataEmissao]);
+  }, [copiaECola]);
 
   const valorNumero = parseValorBR(data.valor);
   const extenso = valorNumero !== null && valorNumero > 0 ? valorPorExtenso(valorNumero) : '';
   const recebedor = data.nomeBeneficiario || '[nome do recebedor]';
-  const dataPix = formatarData(data.dataPix);
 
   return (
     <div id="recibo-pix-preview" className="bg-white rounded-lg shadow-lg p-8 border border-slate-300 w-full max-w-lg text-slate-800">
@@ -68,12 +58,20 @@ const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
       <div className="flex flex-col gap-2 pb-4 border-b-2 border-dashed border-slate-300 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold text-slate-900">Recibo de Recebimento via Pix</h2>
-          <p className="mt-1 text-sm text-slate-700 break-words">Declaro que recebi, via Pix, o valor abaixo na chave informada.</p>
-          <p className="mt-1 text-xs italic text-slate-500 break-words">
-            Este recibo só tem validade com a assinatura do recebedor e após a confirmação do valor na conta de destino.
+          <p className="mt-1 text-sm text-slate-700 break-words">
+            Pedido de pagamento via Pix. Pague na chave informada e guarde o comprovante do seu banco.
           </p>
         </div>
         <span className="order-first self-end shrink-0 whitespace-nowrap font-mono text-lg text-slate-700 font-bold sm:order-last sm:self-start">Nº {data.id || '0001'}</span>
+      </div>
+
+      {/* Aviso em destaque: faz parte do documento e sai sempre no PDF */}
+      <div className="mt-4 rounded-md border-2 border-amber-500 bg-amber-50 p-3 text-sm text-amber-900">
+        <p className="font-bold uppercase tracking-wide">Válido somente com o comprovante bancário</p>
+        <p className="mt-1 break-words">
+          Este recibo só tem validade acompanhado do comprovante da transação emitido pelo banco.
+          Sozinho, ele não prova que o pagamento foi feito.
+        </p>
       </div>
 
       {/* Partes */}
@@ -98,42 +96,46 @@ const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
         {/* Valor — visual sóbrio, sem gradiente */}
         <div className="p-4 rounded-md border-2 border-slate-800">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-            <span className="text-sm font-bold text-slate-700 tracking-wide">VALOR RECEBIDO</span>
+            <span className="text-sm font-bold text-slate-700 tracking-wide">VALOR A PAGAR</span>
             <span className="whitespace-nowrap text-2xl font-bold text-slate-900">R$ {data.valor || '0,00'}</span>
           </div>
           {extenso && <p className="mt-1 text-sm text-slate-600 sm:text-right">({extenso})</p>}
         </div>
-
-        {(dataPix || data.idTransacao) && (
-          <div className="text-sm text-slate-700 space-y-1">
-            {dataPix && <p><span className="font-semibold">Data do Pix:</span> {dataPix}</p>}
-            {data.idTransacao && (
-              <p><span className="font-semibold">ID da transação (informado pelo emissor):</span> <span className="break-all font-mono text-xs">{data.idTransacao}</span></p>
-            )}
-          </div>
-        )}
 
         <div className="pt-2">
           <p className="text-sm text-slate-700 leading-relaxed break-words">
             Pagador: <strong className="font-bold">{data.nomePagador || '[PAGADOR]'}</strong>. Referente a:{' '}
             <strong className="font-bold">{data.referente || '[DESCRIÇÃO DO PAGAMENTO]'}</strong>.
           </p>
+          <p className="mt-2 text-sm text-slate-700 leading-relaxed break-words">
+            Depois de pago, este documento serve como recibo de quitação, desde que acompanhado do comprovante da
+            transação emitido pelo banco.
+          </p>
         </div>
       </div>
 
-      {/* QR Code com os dados digitados */}
-      <div className="flex flex-col items-start gap-4 pt-6 border-t border-slate-200 sm:flex-row sm:items-center sm:gap-6">
-        {qrCodeUrl ? (
-          <img src={qrCodeUrl} alt="QR Code com os dados do recibo" className="w-32 h-32 shrink-0 border border-slate-200 p-1 rounded-md" />
-        ) : (
-          <div className="w-32 h-32 shrink-0 bg-slate-100 rounded-md" />
-        )}
-        <div>
-          <h4 className="font-bold text-slate-900">Dados informados pelo emissor</h4>
-          <p className="text-sm text-slate-600">
-            Este QR Code reúne os dados digitados por quem emitiu o recibo. O comprovante oficial é emitido pelo banco.
+      {/* Pague por Pix: QR Code pagável (BR Code estático) para a chave do recebedor */}
+      <div className="pt-6 border-t border-slate-200">
+        <h4 className="font-bold text-slate-900">Pague por Pix e confira os dados</h4>
+        <div className="mt-3 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+          {qrCodeUrl ? (
+            <img src={qrCodeUrl} alt="QR Code Pix para pagamento" className="w-32 h-32 shrink-0 border border-slate-200 p-1 rounded-md" />
+          ) : (
+            <div className="w-32 h-32 shrink-0 bg-slate-100 rounded-md flex items-center justify-center p-2 text-center text-[11px] text-slate-500">
+              Preencha nome, chave Pix e valor para gerar o QR Code
+            </div>
+          )}
+          <p className="text-sm text-slate-600 break-words">
+            Escaneie o QR Code ou use o Pix Copia e Cola no aplicativo do seu banco. Antes de confirmar, confira se o
+            nome de quem recebe e o valor mostrados no app são os mesmos deste documento.
           </p>
         </div>
+        {copiaECola && (
+          <div className="mt-3">
+            <p className="text-xs font-semibold text-slate-600">Pix Copia e Cola:</p>
+            <p className="mt-1 break-all rounded bg-slate-50 p-2 font-mono text-[10px] leading-snug text-slate-700">{copiaECola}</p>
+          </div>
+        )}
       </div>
 
       {/* Assinatura e data de emissão */}
@@ -149,7 +151,8 @@ const PreviewReciboPix = ({ data }: { data: DadosReciboPix }) => {
 
       {/* Rodapé fixo: faz parte do recibo e sai sempre no PDF */}
       <p className="mt-8 pt-3 border-t border-slate-200 text-[11px] leading-snug text-slate-500 text-center">
-        Documento emitido por {recebedor} via recibonahora.com.br. Não substitui o comprovante emitido pelo banco.
+        Documento emitido por {recebedor} via recibonahora.com.br. Não é comprovante bancário: só tem validade
+        acompanhado do comprovante da transação emitido pelo banco.
       </p>
     </div>
   );

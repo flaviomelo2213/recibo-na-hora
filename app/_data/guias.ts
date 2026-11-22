@@ -324,7 +324,7 @@ const guias: Guia[] = [
         h2: 'Como criar um recibo de pagamento por PIX',
         content: [
           'O recibo de PIX é igual a qualquer outro recibo, com a adição da informação de pagamento: "pago via PIX, ID da transação: XXXX".',
-          'No nosso gerador de recibo PIX, você preenche os dados e o documento já inclui o campo para identificar o pagamento como PIX e o código de transação.',
+          'No nosso gerador de recibo PIX, você preenche os dados e o documento já traz o QR Code para pagar na sua chave. Ele só vale junto com o comprovante da transação emitido pelo banco.',
         ],
       },
     ],

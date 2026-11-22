@@ -10,7 +10,7 @@ import RelatedDocuments from "../../components/RelatedDocuments";
 export const metadata: Metadata = {
   title: "Recibo de Recebimento via Pix Grátis em PDF | ReciboNaHora",
   description:
-    "Recibo de recebimento via Pix para quem recebeu: valor por extenso, motivo e assinatura. Grátis e sem cadastro. O comprovante oficial é sempre o do banco.",
+    "Recibo de recebimento via Pix com QR Code para pagar, valor por extenso e motivo. Grátis e sem cadastro. Só vale junto com o comprovante do banco.",
   keywords: ["recibo pix", "recibo de recebimento pix", "recibo de pagamento via pix", "recibo pix pdf"],
   alternates: {
     canonical: "https://www.recibonahora.com.br/ferramentas/recibo-pix",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Recibo de Recebimento via Pix Grátis em PDF | ReciboNaHora",
     description:
-      "Recibo de recebimento via Pix para quem recebeu: valor por extenso, motivo e assinatura. O comprovante oficial é sempre o do banco.",
+      "Recibo de recebimento via Pix com QR Code para pagar, valor por extenso e motivo. Só vale junto com o comprovante do banco.",
     url: "https://www.recibonahora.com.br/ferramentas/recibo-pix",
     images: [{ url: "https://www.recibonahora.com.br/opengraph-image", width: 1200, height: 630, alt: "ReciboNaHora - Gerador gratuito de recibos e documentos" }],
   },
@@ -27,15 +27,23 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     question: "Qual é a diferença entre o recibo e o comprovante do Pix?",
-    answer: "O comprovante é emitido pelo aplicativo do banco e mostra que a transferência foi feita. O recibo é uma declaração de quem recebeu o dinheiro: diz de quem recebeu, quanto e por qual motivo. Um não substitui o outro, e somente o banco emite o comprovante oficial da transação."
+    answer: "O comprovante é emitido pelo aplicativo do banco e mostra que a transferência foi feita. O recibo é emitido por quem vai receber: diz quem paga, quanto e por qual motivo, e traz o QR Code para pagar. O recibo só tem validade junto com o comprovante da transação, e somente o banco emite esse comprovante."
+  },
+  {
+    question: "O recibo vale sem o comprovante do banco?",
+    answer: "Não. O recibo é um pedido de pagamento com os dados de quem recebe. O pagamento só se confirma pelo comprovante da transação emitido pelo banco e pelo valor no extrato de quem recebeu. Guarde os dois juntos: o recibo explica o pagamento e o comprovante prova a transferência."
   },
   {
     question: "Quem deve emitir o recibo de recebimento via Pix?",
-    answer: "Quem recebeu o valor. O recibo é uma declaração do recebedor, por isso é ele quem preenche, confere os dados e assina. Quem pagou pode pedir o recibo para guardar junto com o comprovante do banco."
+    answer: "Quem vai receber o valor. Ele preenche os próprios dados e a chave Pix, envia o documento ao pagador e assina. Quem paga usa o QR Code ou o Pix Copia e Cola, confere no aplicativo do banco o nome e o valor, e guarda o recibo junto com o comprovante do banco."
   },
   {
     question: "O QR Code do recibo faz pagamento?",
-    answer: "Não. O QR Code apenas reúne, em texto simples, os dados digitados por quem emitiu o recibo (número, recebedor, pagador, valor e data). Ele não é um código Pix de pagamento e não confirma que a transferência aconteceu; para isso, consulte o extrato ou o comprovante no aplicativo do banco."
+    answer: "Sim. É um QR Code Pix estático, no padrão do Banco Central, com a chave e o valor informados por quem emitiu o recibo. Antes de confirmar o pagamento, o aplicativo do banco mostra o nome de quem vai receber e o valor: confira se são os mesmos do documento. O QR Code não prova que o pagamento aconteceu; para isso vale o comprovante do banco."
+  },
+  {
+    question: "Usar comprovante ou recibo Pix falso é crime?",
+    answer: "Sim. Usar um documento para convencer alguém de que um pagamento aconteceu sem que ele tenha acontecido pode configurar estelionato (art. 171 do Código Penal), além de falsidade documental. Por isso este recibo não serve como prova de pagamento: ele só vale com o comprovante da transação emitido pelo banco."
   },
   {
     question: "Os dados que eu preencho ficam guardados no site?",
@@ -43,7 +51,7 @@ const faqItems = [
   },
   {
     question: "Este site tem ligação com o Banco Central ou com algum banco?",
-    answer: "Não. O ReciboNaHora é uma plataforma independente. O Pix é um meio de pagamento criado pelo Banco Central, e esta ferramenta apenas ajuda quem recebeu um Pix a registrar o recebimento por escrito."
+    answer: "Não. O ReciboNaHora é uma plataforma independente. O Pix é um meio de pagamento criado pelo Banco Central, e esta ferramenta apenas ajuda quem vai receber um Pix a pedir o pagamento e registrar o motivo por escrito."
   }
 ];
 
@@ -69,8 +77,8 @@ export default function ReciboPixPage() {
           Recibo de Recebimento via Pix
         </h1>
         <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-          Para quem recebeu um Pix registrar por escrito de quem recebeu, quanto e por quê. Preencha, confira a pré-visualização e baixe o PDF.
-          O comprovante oficial da transferência é sempre o do aplicativo do banco.
+          Preencha seus dados e a sua chave Pix, envie o PDF a quem vai pagar e receba pelo QR Code.
+          <strong className="block mt-2 text-slate-800">O recibo só tem validade junto com o comprovante da transação emitido pelo banco.</strong>
         </p>
       </div>
 
@@ -83,17 +91,17 @@ export default function ReciboPixPage() {
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-3">O que é o recibo de recebimento via Pix?</h2>
           <p className="leading-relaxed">
-            É uma declaração assinada por quem recebeu um Pix. Ela registra de quem o dinheiro veio, o valor (em
-            números e por extenso) e o motivo do pagamento, como um serviço prestado, um aluguel ou uma venda.
-            O comprovante do banco mostra que a transferência foi feita; o recibo explica a que ela se refere e
-            serve como quitação dada pelo recebedor.
+            É um pedido de pagamento emitido por quem vai receber. Ele registra quem paga, o valor (em números e
+            por extenso), o motivo do pagamento, como um serviço, um aluguel ou uma venda, e traz um QR Code Pix
+            para pagar. O comprovante do banco mostra que a transferência foi feita; o recibo explica a que ela se
+            refere. Juntos, servem como quitação. Sem o comprovante do banco, o recibo não vale.
           </p>
         </div>
         <div className="rounded-xl border border-slate-300 bg-white p-5">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Recibo não é comprovante bancário</h2>
           <p className="leading-relaxed">
             Somente o aplicativo ou o internet banking da instituição emite o comprovante oficial de um Pix. Este
-            recibo é preenchido por quem recebeu e não confirma, sozinho, que o dinheiro entrou na conta. Para ter
+            recibo é preenchido por quem vai receber e não confirma, sozinho, que o dinheiro entrou na conta. Para ter
             certeza de que um Pix caiu, confira o extrato no aplicativo do seu banco, e não uma imagem enviada por
             mensagem.
           </p>
@@ -108,17 +116,17 @@ export default function ReciboPixPage() {
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Quando usar</h2>
           <ul className="list-disc pl-6 space-y-1.5">
-            <li>Você prestou um serviço (diarista, aulas, consertos, freelas) e recebeu por Pix;</li>
-            <li>Você recebeu aluguel ou uma parcela de um acordo entre pessoas físicas;</li>
-            <li>Você vendeu um item usado ou um produto artesanal e quer registrar a quitação;</li>
-            <li>Quem pagou pediu um documento que descreva o motivo do pagamento.</li>
+            <li>Você prestou um serviço (diarista, aulas, consertos, freelas) e quer cobrar por Pix;</li>
+            <li>Você vai receber aluguel ou uma parcela de um acordo entre pessoas físicas;</li>
+            <li>Você vendeu um item usado ou um produto artesanal e quer enviar os dados para pagamento;</li>
+            <li>Quem vai pagar pediu um documento que descreva o motivo do pagamento.</li>
           </ul>
         </div>
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Quando não usar</h2>
           <p className="leading-relaxed">
-            Nunca emita o recibo para um Pix que você não recebeu, nem o use para convencer alguém de que um
-            pagamento aconteceu: isso é proibido pelos <a href="/termos-uso" className="underline">Termos de Uso</a> e
+            Nunca use o recibo para convencer alguém de que um pagamento aconteceu, nem coloque uma chave Pix que
+            não é sua: isso é proibido pelos <a href="/termos-uso" className="underline">Termos de Uso</a> e
             pode configurar crime. O recibo também não substitui a Nota Fiscal quando a operação exige emissão
             fiscal. Em negócios de valor alto ou com obrigações futuras, prefira também um contrato por escrito.
           </p>
@@ -126,19 +134,19 @@ export default function ReciboPixPage() {
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Como preencher</h2>
           <ol className="list-decimal pl-6 space-y-1.5">
-            <li>Confira no extrato do seu banco que o Pix realmente entrou na sua conta;</li>
-            <li>Preencha seus dados (quem recebeu) e os de quem pagou. CPF e CNPJ são opcionais, mas a ferramenta avisa se os números não conferem;</li>
+            <li>Preencha seus dados e a sua chave Pix (quem recebe) e os de quem vai pagar. CPF e CNPJ são opcionais, mas a ferramenta avisa se os números não conferem;</li>
             <li>Descreva o motivo de forma específica (ex.: &quot;manutenção elétrica realizada em 10/03&quot;);</li>
-            <li>Se quiser, copie a data e o ID da transação do comprovante do banco;</li>
-            <li>Confira o valor por extenso, baixe o PDF e assine.</li>
+            <li>Confira o valor por extenso, baixe o PDF, assine e envie a quem vai pagar;</li>
+            <li>Quem paga escaneia o QR Code e confere no aplicativo do banco o nome e o valor antes de confirmar;</li>
+            <li>Confira no extrato do seu banco que o Pix entrou e guarde o recibo junto com o comprovante da transação.</li>
           </ol>
         </div>
         <div>
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Erros comuns</h2>
           <ul className="list-disc pl-6 space-y-1.5">
-            <li>Emitir o recibo antes de conferir no extrato que o Pix caiu;</li>
+            <li>Dar o pagamento por feito sem conferir no extrato que o Pix caiu;</li>
             <li>Descrever o motivo de forma vaga demais (ex.: &quot;serviço&quot;), o que dificulta comprovar depois;</li>
-            <li>Achar que o QR Code do recibo é um código de pagamento: ele só reúne os dados digitados;</li>
+            <li>Pagar pelo QR Code sem conferir no aplicativo do banco o nome de quem recebe e o valor;</li>
             <li>Tratar o recibo como substituto do comprovante do banco ou da Nota Fiscal.</li>
           </ul>
         </div>
