@@ -45,6 +45,18 @@ export interface ResultadoRT {
 const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const pct = (v: number) => `${v.toLocaleString('pt-BR', { maximumFractionDigits: 4 })}%`;
 
+/** Arredonda em centavos com "meio para o par" (HALF_EVEN), como a calculadora oficial. */
+export function arredondarFiscal(v: number): number {
+  const centavos = v * 100;
+  const r = Math.round(centavos * 1e6) / 1e6; // remove ruído de ponto flutuante
+  const piso = Math.floor(r);
+  const dif = r - piso;
+  let inteiro: number;
+  if (Math.abs(dif - 0.5) < 1e-9) inteiro = piso % 2 === 0 ? piso : piso + 1;
+  else inteiro = Math.round(r);
+  return inteiro / 100;
+}
+
 /** Cálculo "por fora": Tributo = Valor × Alíquota × (1 − Redução). */
 export function calcularRT(valor: number, ano: AnoCalculo, reducao: number, cbsReferencia: number): ResultadoRT {
   let cbsAliq: number;
@@ -63,10 +75,12 @@ export function calcularRT(valor: number, ano: AnoCalculo, reducao: number, cbsR
   }
 
   const fator = 1 - reducao;
-  const cbs = (valor * cbsAliq * fator) / 100;
-  const ibsEst = (valor * ibsEstAliq * fator) / 100;
-  const ibsMun = (valor * ibsMunAliq * fator) / 100;
-  const total = cbs + ibsEst + ibsMun;
+  // Mesmo critério da calculadora oficial da Receita (ArredondamentoUtils): cada valor é
+  // arredondado uma vez, em 2 casas, "meio para o par" (ABNT NBR 5891); o total soma os valores arredondados.
+  const cbs = arredondarFiscal((valor * cbsAliq * fator) / 100);
+  const ibsEst = arredondarFiscal((valor * ibsEstAliq * fator) / 100);
+  const ibsMun = arredondarFiscal((valor * ibsMunAliq * fator) / 100);
+  const total = arredondarFiscal(cbs + ibsEst + ibsMun);
   const red = reducao > 0 ? ` × (1 − ${pct(reducao * 100).replace('%', '')}%)` : '';
 
   const memoria = [
@@ -82,12 +96,13 @@ export function calcularRT(valor: number, ano: AnoCalculo, reducao: number, cbsR
     `Preço final = ${brl(valor)} + ${brl(total)} = ${brl(valor + total)}`,
   ];
 
-  return { ano, valor, reducao, cbsAliq, ibsEstAliq, ibsMunAliq, cbs, ibsEst, ibsMun, total, precoFinal: valor + total, memoria };
+  return { ano, valor, reducao, cbsAliq, ibsEstAliq, ibsMunAliq, cbs, ibsEst, ibsMun, total, precoFinal: arredondarFiscal(valor + total), memoria };
 }
 
 export const FONTES_OFICIAIS = [
   { nome: 'Lei Complementar nº 214/2025 (Planalto)', url: 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm' },
   { nome: 'Medida Provisória nº 1.399/2026 (Senado)', url: 'https://legis.senado.leg.br/norma/44331919' },
+  { nome: 'Receita Federal: código aberto da calculadora oficial (GitHub)', url: 'https://github.com/ReceitaFederal/calculadora-rtc-regime-regular' },
   { nome: 'TCU: Painel da Reforma Tributária (cronograma)', url: 'https://sites.tcu.gov.br/recursos/reforma-tributaria/Painel%20da%20Reforma%20Tribut%C3%A1ria_Cronograma_v5.pdf' },
 ];
 
