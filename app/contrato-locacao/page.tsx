@@ -5,8 +5,8 @@ import SeoContentBlock from '@/components/SeoContentBlock';
 import LegalDisclaimer from '@/components/LegalDisclaimer';
 import { buildOpenGraph } from '@/lib/metadata';
 
-const title = 'Fazer Contrato de Aluguel Online Grátis: Residencial e Comercial em PDF';
-const description = 'Faça seu contrato de aluguel residencial ou comercial online e grátis: escolha a garantia (caução, fiador ou seguro-fiança), os encargos e baixe o PDF com as cláusulas da Lei do Inquilinato.';
+const title = 'Contrato de Aluguel Grátis em PDF: Gerador Online Residencial e Comercial';
+const description = 'Gerador de contrato de aluguel 100% grátis e sem cadastro: preencha online, escolha residencial ou comercial, a garantia e os encargos, e baixe o PDF pronto para imprimir e assinar.';
 
 export const metadata: Metadata = {
   title,
@@ -17,20 +17,38 @@ export const metadata: Metadata = {
   openGraph: buildOpenGraph({ title, description, path: '/contrato-locacao' }),
 };
 
+const FAQ = [
+  { q: 'O gerador de contrato de aluguel é grátis mesmo?', a: 'Sim. Você preenche, vê a prévia e baixa o PDF sem pagar nada e sem criar conta. O site é mantido por anúncios.' },
+  { q: 'Como fazer um contrato de aluguel passo a passo?', a: 'Escolha residencial ou comercial, preencha os dados do locador e do inquilino, o endereço do imóvel, o prazo, o valor e o dia de vencimento. Depois marque quem paga IPTU, condomínio, água e luz, escolha a garantia e clique em baixar o PDF.' },
+  { q: 'Como baixar o contrato de aluguel em PDF grátis?', a: 'Depois de preencher o formulário, use o botão de baixar PDF. O arquivo sai com várias páginas numeradas, espaço para rubrica e as assinaturas das partes e das testemunhas.' },
+  { q: 'Posso imprimir um contrato de aluguel em branco?', a: 'Sim. Se preferir preencher à mão, use o modelo de contrato de aluguel simples para imprimir, que tem os campos em branco.' },
+  { q: 'Tem modelo de contrato de aluguel em Word?', a: 'O gerador desta página entrega em PDF. Se quiser editar no Word, baixe o modelo de contrato de locação em Word editável.' },
+  { q: 'Dá para fazer contrato de aluguel com água e luz inclusas?', a: 'Sim. Na parte de encargos, marque a opção de água e luz inclusas no aluguel e o contrato passa a dizer que essas contas ficam com o locador.' },
+  { q: 'Qual a diferença entre contrato residencial e comercial?', a: 'O residencial é para moradia; o comercial informa a atividade da empresa e costuma ter prazo maior. Com 5 anos ou mais, o comercial pode garantir ao inquilino o direito de renovar o contrato (art. 51 da Lei 8.245/91).' },
+  { q: 'O contrato de aluguel precisa ser registrado em cartório?', a: 'Não é obrigatório. Reconhecer as firmas das assinaturas dá mais segurança, e o registro no cartório de imóveis só é necessário em casos específicos, como para garantir a vigência se o imóvel for vendido.' },
+];
+
 export default function ContratoAluguelPage() {
   return (
     <div className="page-shell bg-slate-50 py-12 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <header className="page-hero text-center mb-12 max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-                Contrato de Aluguel Residencial e Comercial
+                Contrato de Aluguel Grátis: Residencial e Comercial
             </h1>
+            <ul className="mt-5 flex flex-wrap justify-center gap-2 text-sm font-semibold text-emerald-800">
+                {['100% grátis', 'Sem cadastro', 'Download do PDF grátis', 'Pronto para imprimir'].map((selo) => (
+                    <li key={selo} className="rounded-full bg-emerald-50 px-3 py-1 ring-1 ring-emerald-200">✓ {selo}</li>
+                ))}
+            </ul>
             <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-                Escolha entre locação residencial ou comercial e as cláusulas se ajustam sozinhas: prazo, encargos, garantia (caução, fiador ou seguro-fiança), reajuste, multas e cláusulas extras. Veja a prévia ao vivo e baixe o PDF pronto para assinar.
+                Escolha entre locação residencial ou comercial e as cláusulas se ajustam sozinhas: prazo, encargos, garantia (caução, fiador ou seguro-fiança), reajuste, multas e cláusulas extras. Veja a prévia ao vivo e baixe o PDF grátis, pronto para imprimir e assinar. Não pedimos cadastro e os dados ficam só no seu navegador.
             </p>
             <p className="mt-3 text-sm text-slate-500">
                 Prefere ver o texto antes ou imprimir em branco? Veja o{' '}
-                <a href="/modelo/contrato-locacao" className="font-semibold underline">modelo de contrato de aluguel simples</a>.
+                <a href="/modelo/contrato-locacao" className="font-semibold underline">modelo de contrato de aluguel simples para imprimir</a>{' '}
+                ou baixe o{' '}
+                <a href="/modelo/contrato-locacao-word" className="font-semibold underline">modelo em Word editável</a>.
             </p>
         </header>
 
@@ -58,6 +76,16 @@ export default function ContratoAluguelPage() {
                 <li><strong>Garantia:</strong> Tipo de garantia (caução, fiador ou seguro-fiança)</li>
                 <li><strong>Responsabilidades:</strong> Quem paga condomínio, IPTU e despesas</li>
             </ul>
+
+            <h2 className="text-2xl font-bold text-slate-900">Perguntas frequentes sobre o contrato de aluguel grátis</h2>
+            <div className="space-y-4 not-prose">
+                {FAQ.map((item) => (
+                    <details key={item.q} className="rounded-xl border border-slate-200 bg-white p-4">
+                        <summary className="cursor-pointer font-semibold text-slate-900">{item.q}</summary>
+                        <p className="mt-2 text-slate-600 leading-relaxed">{item.a}</p>
+                    </details>
+                ))}
+            </div>
         </section>
 
         <LegalDisclaimer showProcuracaoWarning={false} />
