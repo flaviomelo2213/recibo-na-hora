@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { BLOG_POSTS } from '@/_data/blogPosts';
 
 export const metadata: Metadata = {
   title: 'Blog sobre Documentos, Recibos e Finanças para Autônomos | ReciboNaHora',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const posts = [
+const staticPosts = [
   {
     slug: 'como-fazer-recibo',
     title: 'Como Fazer um Recibo: Guia Completo Passo a Passo',
@@ -24,22 +25,6 @@ const posts = [
     date: '2026-02-20',
     category: 'Recibos',
     readTime: '6 min',
-  },
-  {
-    slug: 'recibo-tem-validade-legal',
-    title: 'Recibo Tem Validade Jurídica? Tudo que Você Precisa Saber',
-    description: 'Entenda quando o recibo é válido como prova de pagamento, o que a lei diz e como proteger seu negócio.',
-    date: '2026-02-25',
-    category: 'Jurídico',
-    readTime: '5 min',
-  },
-  {
-    slug: 'diferenca-recibo-nota-fiscal',
-    title: 'Diferença entre Recibo e Nota Fiscal: Quando Usar Cada Um',
-    description: 'Recibo ou NF? Descubra a diferença, quando o recibo substitui a nota fiscal e quando você precisa emitir NF-e.',
-    date: '2026-03-01',
-    category: 'MEI & Fiscal',
-    readTime: '7 min',
   },
   {
     slug: 'estrategia-vencedora-consorcio',
@@ -58,6 +43,20 @@ const posts = [
     readTime: '7 min',
   },
 ];
+
+// Todos os posts: os do blogPosts.ts (rota dinâmica) + os estáticos acima.
+// Antes só os estáticos eram listados, e os posts dinâmicos ficavam sem link a partir do blog.
+const posts = [
+  ...Object.values(BLOG_POSTS).map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    description: p.description,
+    date: p.datePublished,
+    category: p.category,
+    readTime: p.readTime,
+  })),
+  ...staticPosts,
+].sort((a, b) => (a.category === 'Finanças' || a.category === 'Imóveis' ? 1 : 0) - (b.category === 'Finanças' || b.category === 'Imóveis' ? 1 : 0) || b.date.localeCompare(a.date));
 
 const blogJsonLd = {
   '@context': 'https://schema.org',

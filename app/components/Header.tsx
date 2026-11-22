@@ -91,8 +91,8 @@ export default function Header() {
                 <div className="py-2">
                   <a href="/blog" className="block px-3 py-2 rounded-xl hover:bg-amber-50 transition">Ver Todos os Posts</a>
                   <a href="/blog/como-fazer-recibo" className="block px-3 py-2 rounded-xl hover:bg-amber-50 transition">Como fazer um recibo</a>
-                  <a href="/blog/recibo-tem-validade-legal" className="block px-3 py-2 rounded-xl hover:bg-amber-50 transition">Recibo tem validade legal?</a>
-                  <a href="/blog/diferenca-recibo-nota-fiscal" className="block px-3 py-2 rounded-xl hover:bg-amber-50 transition">Recibo vs Nota Fiscal</a>
+                  <a href="/guias/recibo-tem-valor-legal" className="block px-3 py-2 rounded-xl hover:bg-amber-50 transition">Recibo tem validade legal?</a>
+                  <a href="/comparacoes/recibo-vs-nota-fiscal" className="block px-3 py-2 rounded-xl hover:bg-amber-50 transition">Recibo vs Nota Fiscal</a>
                 </div>
               </div>
             </div>

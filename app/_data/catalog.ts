@@ -252,4 +252,22 @@ export const TOOLS: ToolItem[] = [
     badges: ["Grátis"],
     iconKey: "fileSignature",
   },
+  {
+    id: "recibo-salario",
+    name: "Recibo de Salário e Diarista",
+    description: "Recibo de pagamento de salário ou diária em duas vias, com descontos e valor líquido.",
+    categoryId: "recibos",
+    href: "/gerar/recibo-salario",
+    badges: ["Grátis"],
+    iconKey: "receipt",
+  },
+  {
+    id: "recibo-venda-veiculo",
+    name: "Recibo de Compra e Venda de Veículo",
+    description: "Recibo de venda de carro ou moto com RENAVAM, placa, chassi e dados de comprador e vendedor.",
+    categoryId: "recibos",
+    href: "/gerar/venda-veiculo",
+    badges: ["Grátis"],
+    iconKey: "receipt",
+  },
 ];

@@ -209,11 +209,11 @@ export default function ComoFazerReciboPage() {
             <section>
               <h2 className="text-2xl font-bold text-stone-900 mb-4">Leia também</h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Link href="/blog/recibo-tem-validade-legal" className="group p-4 bg-stone-50 rounded-xl border border-stone-200 hover:border-amber-300 transition">
+                <Link href="/guias/recibo-tem-valor-legal" className="group p-4 bg-stone-50 rounded-xl border border-stone-200 hover:border-amber-300 transition">
                   <span className="text-xs text-amber-600 font-semibold">Jurídico</span>
                   <p className="font-semibold text-stone-900 mt-1 group-hover:text-amber-700 transition text-sm">Recibo Tem Validade Jurídica?</p>
                 </Link>
-                <Link href="/blog/diferenca-recibo-nota-fiscal" className="group p-4 bg-stone-50 rounded-xl border border-stone-200 hover:border-amber-300 transition">
+                <Link href="/comparacoes/recibo-vs-nota-fiscal" className="group p-4 bg-stone-50 rounded-xl border border-stone-200 hover:border-amber-300 transition">
                   <span className="text-xs text-amber-600 font-semibold">MEI & Fiscal</span>
                   <p className="font-semibold text-stone-900 mt-1 group-hover:text-amber-700 transition text-sm">Diferença entre Recibo e Nota Fiscal</p>
                 </Link>

@@ -144,10 +144,10 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
                 <Link href="/blog/como-fazer-recibo" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
                   Como fazer um recibo
                 </Link>
-                <Link href="/blog/recibo-tem-validade-legal" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+                <Link href="/guias/recibo-tem-valor-legal" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
                   Recibo tem validade legal?
                 </Link>
-                <Link href="/blog/diferenca-recibo-nota-fiscal" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
+                <Link href="/comparacoes/recibo-vs-nota-fiscal" className="block px-3 py-2 text-sm hover:bg-amber-50 rounded transition" onClick={() => setIsOpen(false)}>
                   Recibo vs Nota Fiscal
                 </Link>
               </div>

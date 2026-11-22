@@ -13,7 +13,7 @@ const DICAS: [prefixo: string, dica: Dica][] = [
   }],
   ['/ferramentas/recibo-rpa', {
     texto: 'Confira os descontos e guarde uma via assinada do RPA para a sua contabilidade.',
-    href: '/guias/o-que-e-rpa',
+    href: '/blog/como-fazer-rpa',
     link: 'O que é RPA e quando usar',
   }],
   ['/ferramentas/imobiliario', {
@@ -38,7 +38,7 @@ const DICAS: [prefixo: string, dica: Dica][] = [
   }],
   ['/ferramentas/orcamento', {
     texto: 'Guarde o orçamento aprovado pelo cliente e, depois do pagamento, emita um recibo.',
-    href: '/guias/como-fazer-recibo-autonomo',
+    href: '/blog/recibo-prestacao-servico-autonomo',
     link: 'Como fazer recibo de autônomo',
   }],
   ['/ferramentas/recibo-simples', {

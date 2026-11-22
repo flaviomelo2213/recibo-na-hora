@@ -77,7 +77,7 @@ const guias: Guia[] = [
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo Simples' },
       { href: '/guias/recibo-precisa-de-cpf', label: 'Recibo precisa de CPF?' },
-      { href: '/blog/recibo-tem-validade-legal', label: 'Artigo completo sobre validade' },
+      { href: '/guias/recibo-tem-valor-legal', label: 'Artigo completo sobre validade' },
     ],
   },
   {
@@ -127,58 +127,6 @@ const guias: Guia[] = [
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo com CPF' },
-      { href: '/guias/recibo-tem-valor-legal', label: 'Recibo tem valor legal?' },
-    ],
-  },
-  {
-    slug: 'nota-fiscal-ou-recibo-quando-usar',
-    title: 'Nota Fiscal ou Recibo: qual documento usar em cada situação?',
-    description: 'Guia prático: quando o recibo simples é suficiente e quando você é obrigado a emitir nota fiscal. Exemplos reais para MEI, autônomo e empresas.',
-    keywords: ['nota fiscal ou recibo', 'quando emitir nota fiscal', 'recibo substitui nota fiscal', 'mei nota fiscal ou recibo', 'rpa ou nota fiscal'],
-    datePublished: '2025-01-20',
-    category: 'Dúvidas Legais',
-    readTime: '6 min',
-    intro: 'Recibo e nota fiscal cumprem funções parecidas, mas têm implicações fiscais completamente diferentes. Usar o documento errado pode resultar em problemas com a Receita Federal e o Fisco municipal.',
-    sections: [
-      {
-        h2: 'O que é cada documento',
-        content: [
-          'Recibo simples: documento privado que comprova o recebimento de pagamento. Não tem número fiscal, não alimenta o sistema tributário. Válido para serviços entre pessoas físicas.',
-          'Nota Fiscal de Serviços (NFS-e): documento fiscal emitido por empresas (incluindo MEI) ou profissionais obrigados por lei municipal. Alimenta o sistema de ISS (Imposto sobre Serviços) e serve como base para escrituração contábil.',
-          'RPA (Recibo de Pagamento de Autônomo): documento emitido quando uma empresa (CNPJ) paga um autônomo (CPF). A empresa retém INSS, IR e ISS antes de pagar o líquido.',
-        ],
-      },
-      {
-        h2: 'Quando usar recibo simples',
-        content: [
-          'Use recibo simples quando: pessoa física paga para outra pessoa física (ex: contratante paga pedreiro autônomo), valor abaixo do limite de isenção de IR, serviço eventual ou único.',
-          'Não use recibo simples quando: empresa (CNPJ) está contratando (use RPA ou NFS-e), você é MEI (deve emitir NFS-e), você está obrigado a emitir nota fiscal pelo município.',
-        ],
-      },
-      {
-        h2: 'Quando usar RPA',
-        content: [
-          'O RPA é usado quando uma pessoa jurídica paga por serviços prestados por pessoa física autônoma. Cabe à empresa reter, na fonte, a contribuição previdenciária (INSS), o IRRF pela tabela progressiva e o ISS quando o município exigir. As alíquotas variam conforme o enquadramento do prestador, a atividade e o município, e são reajustadas periodicamente — confirme as vigentes na data do pagamento.',
-          'O autônomo recebe o valor líquido e fica com o RPA como comprovante. Os valores retidos são repassados pela empresa ao governo.',
-        ],
-      },
-      {
-        h2: 'Quando emitir nota fiscal (NFS-e)',
-        content: [
-          'MEI: deve emitir NFS-e para empresas (CNPJ). Para pessoas físicas, pode emitir recibo, mas NFS-e é aceita.',
-          'Empresas: sempre emitem NFS-e. Não existe "recibo" para empresa.',
-          'Profissionais liberais (médicos, advogados, contadores) podem ser obrigados a emitir NFS-e dependendo do município, mesmo atuando como pessoa física.',
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Empresa pode aceitar recibo de autônomo?', a: 'Não. Quando uma empresa contrata autônomo, o documento correto é o RPA — não o recibo simples. O RPA inclui as retenções fiscais obrigatórias.' },
-      { q: 'MEI pode emitir recibo para pessoa física?', a: 'Sim. Para serviços prestados a pessoas físicas, o MEI pode emitir recibo simples. Mas para empresas (CNPJ), deve emitir nota fiscal de serviços (NFS-e).' },
-      { q: 'Recibo serve para declarar IR?', a: 'Sim. Rendimentos comprovados por recibo devem ser declarados no IRPF. Se receber de pessoas físicas, recolha Carnê-Leão mensalmente.' },
-    ],
-    relatedLinks: [
-      { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo Simples' },
-      { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
       { href: '/guias/recibo-tem-valor-legal', label: 'Recibo tem valor legal?' },
     ],
   },
@@ -239,63 +187,6 @@ const guias: Guia[] = [
     ],
   },
   {
-    slug: 'o-que-e-rpa',
-    title: 'O que é RPA (Recibo de Pagamento de Autônomo)?',
-    description: 'Entenda o que é RPA, quando usar, quais impostos são retidos e como preencher corretamente o Recibo de Pagamento de Autônomo.',
-    keywords: ['o que e rpa', 'recibo pagamento autonomo', 'rpa impostos retidos', 'como preencher rpa'],
-    datePublished: '2025-02-01',
-    category: 'Documentos Fiscais',
-    readTime: '6 min',
-    intro: 'RPA é o Recibo de Pagamento de Autônomo — o documento usado quando uma empresa (CNPJ) paga por serviços de pessoa física autônoma. Nele, a empresa desconta INSS, IR e ISS antes de realizar o pagamento.',
-    sections: [
-      {
-        h2: 'Quando o RPA é obrigatório',
-        content: [
-          'O RPA é obrigatório sempre que uma empresa (pessoa jurídica) paga por serviços de um trabalhador autônomo (pessoa física sem CNPJ). Exemplos: empresa que contrata consultor autônomo, escritório que usa serviço de um técnico de TI sem CNPJ, empresa que paga a um pedreiro pessoa física.',
-          'Sem o RPA, a empresa não pode deduzir a despesa no IRPJ/CSLL e fica sem comprovação adequada para a Receita Federal.',
-        ],
-      },
-      {
-        h2: 'Quais impostos são retidos no RPA',
-        content: [
-          'INSS: a contribuição do prestador é retida sobre o valor bruto e limitada ao teto do salário de contribuição, reajustado periodicamente. Além dessa retenção, a empresa recolhe a parte patronal por fora. Consulte as alíquotas e o teto vigentes na data do pagamento.',
-          'IRRF: conforme a tabela progressiva do IR, descontado sobre o valor bruto menos o INSS.',
-          'ISS: a alíquota é definida por lei municipal, dentro dos limites da Lei Complementar 116/2003, e varia conforme o município e o tipo de serviço. Algumas cidades isentam autônomos, e nem sempre há retenção na fonte. Consulte a legislação da sua prefeitura.',
-          'O autônomo recebe o valor líquido (bruto - INSS - IR - ISS) e usa o RPA como comprovante.',
-        ],
-      },
-      {
-        h2: 'Como preencher o RPA',
-        content: [
-          'Dados do prestador: nome completo, CPF, endereço, PIS/PASEP (se tiver)',
-          'Dados do tomador: razão social, CNPJ, endereço',
-          'Descrição do serviço prestado',
-          'Valor bruto dos serviços',
-          'Descontos: INSS, IRRF, ISS (com alíquotas)',
-          'Valor líquido a receber',
-          'Data e assinaturas de ambas as partes',
-        ],
-      },
-      {
-        h2: 'RPA x Recibo Simples x Nota Fiscal',
-        content: [
-          'RPA: empresa → autônomo pessoa física. Há retenção de impostos.',
-          'Recibo simples: pessoa física → pessoa física. Sem retenção.',
-          'Nota fiscal: MEI ou empresa → qualquer cliente. Sem retenção pelo tomador (exceto para algumas categorias).',
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Autônomo com MEI emite RPA?', a: 'Não. MEI é pessoa jurídica e deve emitir nota fiscal de serviços (NFS-e), não RPA. O RPA é exclusivo para autônomos pessoa física sem CNPJ.' },
-      { q: 'O INSS retido no RPA conta para aposentadoria?', a: 'Sim. O INSS retido no RPA é recolhido pela empresa como contribuição previdenciária do autônomo. Ele conta como contribuição para fins de aposentadoria e benefícios do INSS.' },
-      { q: 'Posso recusar o RPA e usar recibo simples?', a: 'Não é recomendado. A empresa é obrigada a fazer as retenções. Se usar recibo simples no lugar do RPA, a empresa fica em situação irregular perante a Receita Federal e o INSS.' },
-    ],
-    relatedLinks: [
-      { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/diferenca-recibo-nota-fiscal', label: 'Diferença: Recibo x Nota Fiscal' },
-    ],
-  },
-  {
     slug: 'recibo-pix-como-funciona',
     title: 'Recibo de PIX: quando emitir e como funciona',
     description: 'O comprovante de PIX substitui o recibo? Descubra quando emitir recibo após pagamento por PIX e como criar um documento válido.',
@@ -336,61 +227,6 @@ const guias: Guia[] = [
     relatedLinks: [
       { href: '/ferramentas/recibo-pix', label: 'Gerar Recibo de PIX' },
       { href: '/guias/recibo-tem-valor-legal', label: 'Recibo tem valor legal?' },
-    ],
-  },
-  {
-    slug: 'como-fazer-recibo-autonomo',
-    title: 'Como fazer recibo de autônomo: passo a passo completo',
-    description: 'Aprenda como fazer um recibo de autônomo correto. O que colocar, como calcular impostos e quando usar recibo simples ou RPA.',
-    keywords: ['como fazer recibo autonomo', 'recibo autonomo passo a passo', 'recibo servico autonomo', 'modelo recibo autonomo'],
-    datePublished: '2025-02-10',
-    category: 'Como Fazer',
-    readTime: '7 min',
-    intro: 'Fazer um recibo de autônomo é simples, mas exige atenção aos dados corretos. O tipo de recibo varia dependendo de quem é o contratante: pessoa física usa recibo simples; empresa usa RPA.',
-    sections: [
-      {
-        h2: 'Passo 1: Identifique o tipo de contratante',
-        content: [
-          'Pessoa física (CPF): use recibo simples. Você recebe o valor combinado integralmente.',
-          'Empresa (CNPJ): use RPA. A empresa descontará a contribuição previdenciária, o IRRF pela tabela progressiva e o ISS, quando devido, antes de pagar o valor líquido — nas alíquotas vigentes para o seu caso.',
-          'MEI contratando: tecnicamente MEI é pessoa jurídica, mas na prática pode pagar com recibo simples para autônomos de baixo valor. Para segurança, use RPA.',
-        ],
-      },
-      {
-        h2: 'Passo 2: Reúna os dados necessários',
-        content: [
-          'Seus dados: nome completo, CPF, endereço, telefone.',
-          'Dados do contratante: nome/razão social, CPF/CNPJ, endereço.',
-          'Descrição do serviço: seja específico (ex: "instalação elétrica em cozinha, conforme orçamento nº 123").',
-          'Valor: numérico e por extenso.',
-          'Forma de pagamento: dinheiro, PIX, transferência.',
-          'Data do recebimento.',
-        ],
-      },
-      {
-        h2: 'Passo 3: Preencha o recibo',
-        content: [
-          'Use nosso gerador online — você preenche os campos e o PDF é gerado automaticamente, com layout profissional e todos os campos obrigatórios.',
-          'Para RPA, use nosso gerador de RPA que calcula automaticamente INSS, IR e ISS com base no valor bruto informado.',
-        ],
-      },
-      {
-        h2: 'Passo 4: Assine e arquive',
-        content: [
-          'Imprima em 2 vias: uma para você, uma para o contratante. Se o pagamento for por PIX/transferência, o PDF enviado por e-mail já funciona como comprovante digital.',
-          'Guarde todos os recibos por pelo menos 5 anos para fins do IRPF (Carnê-Leão e declaração anual).',
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Preciso de papel específico para o recibo?', a: 'Não. Qualquer papel A4 branco serve. O importante são os dados corretos. Nosso gerador produz PDF pronto para impressão.' },
-      { q: 'Posso fazer recibo à mão?', a: 'Sim. Recibo manuscrito tem a mesma validade jurídica. Mas recibo digitado ou gerado por sistema é mais legível e menos sujeito a rasuras.' },
-      { q: 'Recibo de autônomo conta para aposentadoria?', a: 'Recibo simples não recolhe INSS automaticamente. Para contar para aposentadoria, o autônomo deve recolher o INSS por conta própria (Contribuinte Individual, código 1163) mensalmente.' },
-    ],
-    relatedLinks: [
-      { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo Simples' },
-      { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/o-que-e-rpa', label: 'O que é RPA?' },
     ],
   },
   {

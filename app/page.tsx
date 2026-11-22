@@ -422,6 +422,28 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Auditoria nov/2026: links da página inicial para guias e dúvidas, que antes só recebiam 1 link interno */}
+      <section className="bg-white border-t border-slate-200">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
+          <h2 className="text-2xl font-bold text-slate-900">Guias e dúvidas mais procuradas</h2>
+          <p className="mt-2 text-slate-600">Respostas diretas sobre recibos, contratos e pagamentos, revisadas pela equipe do ReciboNaHora.</p>
+          <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {GUIAS_HOME.map((grupo) => (
+              <div key={grupo.titulo}>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">{grupo.titulo}</h3>
+                <ul className="mt-3 space-y-2">
+                  {grupo.links.map(([href, label]) => (
+                    <li key={href}>
+                      <Link href={href} className="text-sm text-blue-900 hover:underline">{label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-slate-50 border-t border-slate-200">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid gap-6 sm:grid-cols-2">
@@ -463,3 +485,50 @@ export default function HomePage() {
     </>
   );
 }
+
+const GUIAS_HOME: Array<{ titulo: string; links: Array<[string, string]> }> = [
+  {
+    titulo: 'Validade do recibo',
+    links: [
+      ['/perguntas/recibo-antecipado-e-valido', 'Recibo antecipado é válido?'],
+      ['/perguntas/recibo-sem-assinatura-vale', 'Recibo sem assinatura vale?'],
+      ['/perguntas/recibo-pode-ser-manuscrito', 'Recibo escrito à mão é válido?'],
+      ['/perguntas/recibo-precisa-de-testemunha', 'Recibo precisa de testemunha?'],
+      ['/guias/recibo-tem-valor-legal', 'Recibo tem valor legal?'],
+      ['/guias/recibo-precisa-de-cpf', 'Recibo precisa de CPF?'],
+    ],
+  },
+  {
+    titulo: 'Situações do dia a dia',
+    links: [
+      ['/perguntas/recibo-cancelado-como-fazer', 'Como cancelar um recibo'],
+      ['/perguntas/recibo-valor-errado-como-corrigir', 'Recibo com valor errado'],
+      ['/perguntas/recibo-parcial-como-fazer', 'Recibo de pagamento parcial'],
+      ['/perguntas/recibo-de-quitacao-o-que-e', 'O que é recibo de quitação'],
+      ['/perguntas/recibo-serve-comprovante-renda', 'Recibo comprova renda?'],
+      ['/perguntas/empresa-pode-emitir-recibo', 'Empresa pode emitir recibo?'],
+    ],
+  },
+  {
+    titulo: 'Comparações',
+    links: [
+      ['/comparacoes/recibo-vs-nota-fiscal', 'Recibo ou nota fiscal?'],
+      ['/comparacoes/nota-promissoria-vs-recibo', 'Nota promissória ou recibo?'],
+      ['/comparacoes/recibo-simples-vs-rpa', 'Recibo simples ou RPA?'],
+      ['/comparacoes/rpa-vs-nota-fiscal', 'RPA ou nota fiscal?'],
+      ['/comparacoes/recibo-vs-contrato', 'Recibo ou contrato?'],
+      ['/blog/mei-nota-fiscal-ou-recibo', 'MEI: nota fiscal ou recibo?'],
+    ],
+  },
+  {
+    titulo: 'Pix e aluguel',
+    links: [
+      ['/guias/recibo-pix-como-funciona', 'Recibo de Pix: como funciona'],
+      ['/guias/como-saber-se-comprovante-pix-e-falso', 'Como saber se um comprovante Pix é falso'],
+      ['/guias/como-conferir-recebedor-antes-de-pagar-pix', 'Conferir o recebedor antes de pagar'],
+      ['/guias/recibo-aluguel-obrigatorio', 'Recibo de aluguel é obrigatório?'],
+      ['/modelo/contrato-locacao', 'Modelo de contrato de aluguel'],
+      ['/blog/como-fazer-rpa', 'Como fazer RPA'],
+    ],
+  },
+];

@@ -2,6 +2,8 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import FerramentasClient from './FerramentasClient';
+import Link from 'next/link';
+import { CATEGORIES, TOOLS } from '@/_data/catalog';
 
 export const metadata: Metadata = {
   title: 'Ferramentas para Gerar Documentos Online Grátis | Recibos, Contratos e Mais — ReciboNaHora',
@@ -49,16 +51,42 @@ export default function FerramentasPage() {
 
         {/* O Suspense é usado para aguardar o carregamento do FerramentasClient, que é um Client Component. */}
         <Suspense 
-          fallback={
-            <div className="text-center">
-              <i className="fa-solid fa-spinner fa-spin text-4xl text-slate-500"></i>
-              <p className="mt-2 text-slate-600">Carregando ferramentas...</p>
-            </div>
-          }
+          fallback={<ListaEstatica />}
         >
           <FerramentasClient />
         </Suspense>
       </section>
     </main>
+  );
+}
+
+/**
+ * Lista completa renderizada no servidor. Aparece no HTML inicial (o que o Google baixa)
+ * enquanto o filtro interativo carrega. Antes o HTML só tinha "Carregando ferramentas...".
+ */
+function ListaEstatica() {
+  return (
+    <div className="space-y-10">
+      {CATEGORIES.map((cat) => {
+        const itens = TOOLS.filter((t) => t.categoryId === cat.id && t.href && !t.comingSoon);
+        if (itens.length === 0) return null;
+        return (
+          <section key={cat.id}>
+            <h2 className="text-2xl font-bold text-slate-900">{cat.label}</h2>
+            {cat.description && <p className="mt-1 text-slate-600">{cat.description}</p>}
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {itens.map((t) => (
+                <li key={t.id} className="rounded-xl border border-slate-200 bg-white p-4">
+                  <Link href={t.href!} className="font-semibold text-slate-900 hover:text-indigo-700">
+                    {t.name}
+                  </Link>
+                  <p className="mt-1 text-sm text-slate-600">{t.description}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
   );
 }

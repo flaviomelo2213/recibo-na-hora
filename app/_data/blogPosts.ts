@@ -104,7 +104,6 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
       { q: 'Recibo de aluguel serve como contrato?', a: 'Não. O recibo comprova o pagamento de uma competência específica. O contrato de locação é o documento que rege a relação de aluguel. Você precisa dos dois.' },
     ],
     relatedPosts: [
-      { slug: 'recibo-tem-validade-legal', title: 'Recibo tem validade jurídica?' },
       { slug: 'como-fazer-recibo', title: 'Como fazer um recibo' },
     ],
     relatedTools: [
@@ -176,10 +175,12 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
       { q: 'Posso emitir recibo mesmo sem CNPJ?', a: 'Sim. Qualquer pessoa física pode emitir recibo de prestação de serviço. O recibo é feito com seu CPF e não precisa de CNPJ.' },
       { q: 'Recibo de serviço precisa de testemunhas?', a: 'Não obrigatoriamente. Para serviços simples do dia a dia, o recibo com assinatura das duas partes já é suficiente. Testemunhas são recomendadas para valores altos.' },
       { q: 'Por quanto tempo guardar?', a: 'Guarde por pelo menos 5 anos. O prazo prescricional para cobrança de dívidas de serviços é de 5 anos (Art. 206, § 5º do Código Civil).' },
+      { q: 'Preciso de papel específico para o recibo?', a: 'Não. Qualquer papel A4 branco serve. O importante são os dados corretos. Nosso gerador produz PDF pronto para impressão.' },
+      { q: 'Posso fazer recibo à mão?', a: 'Sim. Recibo manuscrito tem a mesma validade jurídica. Mas recibo digitado ou gerado por sistema é mais legível e menos sujeito a rasuras.' },
+      { q: 'Recibo de autônomo conta para aposentadoria?', a: 'Recibo simples não recolhe INSS automaticamente. Para contar para aposentadoria, o autônomo deve recolher o INSS por conta própria (Contribuinte Individual, código 1163) mensalmente.' },
     ],
     relatedPosts: [
       { slug: 'como-fazer-recibo', title: 'Como fazer um recibo' },
-      { slug: 'diferenca-recibo-nota-fiscal', title: 'Recibo vs Nota Fiscal' },
     ],
     relatedTools: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo Simples' },
@@ -250,9 +251,11 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
       { q: 'Posso recusar emitir RPA?', a: 'Formalmente não cabe ao autônomo emitir o RPA — é a empresa quem elabora o documento. O autônomo assina o RPA como comprovante de que recebeu o valor líquido.' },
       { q: 'RPA substitui nota fiscal?', a: 'Para autônomo sem CNPJ, sim. O RPA é o documento fiscal equivalente à nota fiscal para prestadores sem CNPJ. Se você tiver MEI ou empresa, deve emitir nota fiscal.' },
       { q: 'E se a empresa não emitir o RPA?', a: 'Exija o RPA. Sem ele, você pode ter dificuldades para comprovar renda (financiamentos, etc.) e a empresa fica em situação irregular perante a Receita Federal.' },
+      { q: 'Autônomo com MEI emite RPA?', a: 'Não. MEI é pessoa jurídica e deve emitir nota fiscal de serviços (NFS-e), não RPA. O RPA é exclusivo para autônomos pessoa física sem CNPJ.' },
+      { q: 'O INSS retido no RPA conta para aposentadoria?', a: 'Sim. O INSS retido no RPA é recolhido pela empresa como contribuição previdenciária do autônomo. Ele conta como contribuição para fins de aposentadoria e benefícios do INSS.' },
+      { q: 'Posso recusar o RPA e usar recibo simples?', a: 'Não é recomendado. A empresa é obrigada a fazer as retenções. Se usar recibo simples no lugar do RPA, a empresa fica em situação irregular perante a Receita Federal e o INSS.' },
     ],
     relatedPosts: [
-      { slug: 'diferenca-recibo-nota-fiscal', title: 'Diferença entre recibo e nota fiscal' },
       { slug: 'recibo-prestacao-servico-autonomo', title: 'Recibo de serviço para autônomo' },
     ],
     relatedTools: [
@@ -328,9 +331,13 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
       { q: 'MEI pode emitir recibo simples para empresa?', a: 'Não é recomendado e pode gerar problemas. Para empresas, emita sempre a NFS-e. O recibo simples não substitui nota fiscal na relação MEI-empresa.' },
       { q: 'Existe limite de notas fiscais para MEI?', a: 'Não há limite de quantidade de notas. O limite do MEI é de receita: R$ 81.000/ano (serviços) ou R$ 144.000/ano para comércio + serviços a partir de 2024.' },
       { q: 'MEI que fez serviço mas não emitiu nota, e agora?', a: 'Emita a nota mesmo que atrasada. A data de emissão pode diferir da data do serviço — inclua a descrição com a data real do serviço prestado. Evite deixar sem nota por risco de multa.' },
+      { q: 'MEI é obrigado a emitir nota fiscal para pessoa física?', a: 'Não é obrigado, mas pode emitir. Para pessoa física, o recibo simples ou a NFS-e são igualmente válidos. A escolha fica a critério do MEI e do cliente.' },
+      { q: 'Como MEI emite nota fiscal de serviços?', a: 'Pelo portal eletrônico da prefeitura do seu município (cada cidade tem seu próprio sistema). Acesse com seu CNPJ MEI e emita a NFS-e gratuitamente.' },
+      { q: 'MEI de comércio usa recibo?', a: 'MEI que vende produtos deve emitir NF-e (nota fiscal eletrônica de produto), não recibo. Para serviços, segue a regra acima.' },
+      { q: 'Recibo de MEI para empresa tem problema?', a: 'Pode ter para a empresa: sem nota fiscal, a empresa não consegue deduzir a despesa na contabilidade. Para o MEI, o problema é menor — mas é melhor oferecer nota fiscal para não perder clientes corporativos.' },
+      { q: 'MEI que presta serviço para outro MEI usa recibo?', a: 'Pode usar recibo, pois ambos são formalmente PJ mas MEI é simplificado. Mas se o cliente MEI precisar da nota para seus registros contábeis, emita NFS-e.' },
     ],
     relatedPosts: [
-      { slug: 'diferenca-recibo-nota-fiscal', title: 'Diferença entre recibo e nota fiscal' },
       { slug: 'como-fazer-rpa', title: 'Como fazer RPA' },
     ],
     relatedTools: [
@@ -340,221 +347,8 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
     ],
   },
 
-  'contrato-prestacao-servico-modelo': {
-    slug: 'contrato-prestacao-servico-modelo',
-    title: 'Contrato de Prestação de Serviço: Modelo Gratuito e Guia Completo 2026',
-    description:
-      'Modelo gratuito de contrato de prestação de serviço. Cláusulas essenciais, validade jurídica, como assinar e exemplos práticos para autônomos e freelancers.',
-    datePublished: '2026-02-01',
-    category: 'Contratos',
-    readTime: '8 min',
-    keywords: ['contrato prestacao servico modelo', 'contrato servico gratis', 'modelo contrato autonomo', 'contrato freelancer'],
-    intro:
-      'Um contrato de prestação de serviço protege tanto o prestador quanto o contratante. Neste guia você aprende o que incluir, como assinar e onde gerar um modelo gratuito.',
-    sections: [
-      {
-        h2: 'Cláusulas obrigatórias em um contrato de serviço',
-        content: [
-          { type: 'ol', items: [
-            'Qualificação das partes: nome completo, CPF/CNPJ, endereço de ambas as partes',
-            'Objeto: descrição detalhada do serviço a ser prestado',
-            'Prazo: data de início e prazo para entrega/conclusão',
-            'Valor e forma de pagamento: valor total, parcelamento, vencimentos',
-            'Obrigações do prestador: o que será entregue e quando',
-            'Obrigações do contratante: o que precisa fornecer ao prestador',
-            'Cláusula de rescisão: condições para encerrar o contrato',
-            'Penalidades: multa por descumprimento de cada parte',
-            'Foro: cidade onde eventuais disputas serão resolvidas',
-          ]},
-        ],
-      },
-      {
-        h2: 'Contrato verbal tem validade?',
-        content: [
-          { type: 'text', content: 'Sim, contratos verbais têm validade no Brasil (Art. 107 do Código Civil). No entanto, sem documento escrito, fica muito difícil provar o acordo em caso de disputa.' },
-          { type: 'callout', variant: 'warning', title: 'Risco do contrato verbal', content: 'Em disputas judiciais sobre contratos verbais, a prova precisa ser feita por testemunhas ou outros meios indiretos. Um contrato escrito é sempre mais seguro e economiza tempo e dinheiro em conflitos.' },
-        ],
-      },
-      {
-        h2: 'Como dar força de título executivo ao contrato',
-        content: [
-          { type: 'text', content: 'Um contrato de prestação de serviço assinado por duas testemunhas adquire força de título executivo extrajudicial (Art. 784, III do CPC). Isso significa que, em caso de inadimplência, você pode cobrar judicialmente sem precisar de processo de conhecimento.' },
-          { type: 'list', items: [
-            'Assine na presença de 2 testemunhas (nome, CPF e assinatura de cada)',
-            'Cada parte fica com uma via original',
-            'Guarde o contrato em local seguro por no mínimo 5 anos',
-          ]},
-        ],
-      },
-      {
-        h2: 'Posso assinar contrato digitalmente?',
-        content: [
-          { type: 'text', content: 'Sim. Assinaturas digitais têm plena validade jurídica no Brasil. Você pode usar plataformas como ClickSign, DocuSign, Autentique ou a assinatura gov.br.' },
-          { type: 'callout', variant: 'success', title: 'Dica', content: 'A assinatura gov.br (via Certificado Digital ICP-Brasil) tem a maior força jurídica e é aceita em contratos de qualquer valor.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Preciso de advogado para fazer um contrato de serviço?', a: 'Não é obrigatório para contratos simples. Para contratos de alto valor ou com cláusulas específicas (exclusividade, propriedade intelectual, etc.), consultar um advogado é recomendado.' },
-      { q: 'Contrato de serviço precisa de reconhecimento de firma?', a: 'Não é obrigatório, mas é recomendado para contratos de maior valor. O reconhecimento de firma autentica a assinatura das partes perante o cartório.' },
-      { q: 'Como cobrar se o cliente não pagar?', a: 'Com contrato assinado + 2 testemunhas (título executivo), você pode entrar com ação de execução diretamente. Sem as testemunhas, você precisa de uma ação de cobrança antes.' },
-    ],
-    relatedPosts: [
-      { slug: 'como-fazer-recibo', title: 'Como fazer um recibo' },
-      { slug: 'recibo-prestacao-servico-autonomo', title: 'Recibo de serviço para autônomo' },
-    ],
-    relatedTools: [
-      { href: '/ferramentas/contrato-completo', label: 'Gerar Contrato Grátis' },
-      { href: '/modelo/contrato-simples', label: 'Modelo de Contrato Simples' },
-      { href: '/contratos', label: 'Todos os Contratos' },
-    ],
-  },
 
-  'declaracao-endereco-como-fazer': {
-    slug: 'declaracao-endereco-como-fazer',
-    title: 'Declaração de Endereço: Como Fazer, Modelo e Validade Jurídica 2026',
-    description:
-      'Como fazer uma declaração de endereço residencial válida. Quando é exigida, modelo gratuito, se precisa de reconhecimento de firma e onde entregar.',
-    datePublished: '2026-02-05',
-    category: 'Documentos',
-    readTime: '5 min',
-    keywords: ['declaracao endereco', 'declaracao residencia modelo', 'comprovante de residencia declaracao', 'declaracao endereco gratis'],
-    intro:
-      'A declaração de endereço é aceita como comprovante de residência em muitas situações: abertura de conta, financiamentos, cadastros e processos administrativos. Saiba como fazer a sua.',
-    sections: [
-      {
-        h2: 'Quando a declaração de endereço é aceita',
-        content: [
-          { type: 'list', items: [
-            'Abertura de conta em banco ou fintech',
-            'Cadastros em órgãos públicos',
-            'Processos de financiamento e crédito',
-            'Transferência de veículo no DETRAN',
-            'Matrícula escolar em algumas instituições',
-            'Programas sociais e benefícios governamentais',
-          ]},
-          { type: 'callout', variant: 'amber', title: 'Importante', content: 'Cada instituição pode aceitar ou não a declaração. Sempre confirme com a empresa ou órgão antes de apresentar. Para bancos e financeiras, a declaração geralmente é aceita como complemento à falta de comprovante formal.' },
-        ],
-      },
-      {
-        h2: 'O que deve conter na declaração',
-        content: [
-          { type: 'ol', items: [
-            'Seu nome completo e CPF',
-            'Endereço completo (rua, número, complemento, bairro, CEP, cidade, estado)',
-            'Declaração de que reside no endereço informado',
-            'Período aproximado que mora no local',
-            'Data da declaração',
-            'Sua assinatura',
-          ]},
-          { type: 'text', content: 'Algumas situações exigem reconhecimento de firma em cartório. Verifique o requisito específico da instituição.' },
-        ],
-      },
-      {
-        h2: 'Declaração assinada por terceiro',
-        content: [
-          { type: 'text', content: 'Se você mora na casa de um familiar ou amigo (sem seu nome na conta de água ou luz), pode apresentar uma declaração assinada pelo proprietário do imóvel, confirmando que você reside no local.' },
-          { type: 'list', items: [
-            'O declarante precisa ser maior de 18 anos',
-            'Incluir RG e CPF do declarante',
-            'Preferencialmente com reconhecimento de firma',
-            'Pode ser necessário apresentar um comprovante do declarante junto',
-          ]},
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Declaração de endereço tem prazo de validade?', a: 'Formalmente não existe prazo legal, mas a maioria das instituições aceita apenas declarações com até 90 dias de emissão. Emita sempre com a data atual.' },
-      { q: 'Precisa de reconhecimento de firma?', a: 'Depende da instituição. Muitos órgãos públicos e bancos aceitam sem reconhecimento. Cartórios, DETRAN e alguns financiamentos podem exigir firma reconhecida.' },
-      { q: 'Declaração de endereço serve para tirar RG?', a: 'Geralmente não. Para documentos de identidade, a maioria dos institutos de identificação exige comprovante de endereço emitido por concessionária (água, luz, gás) ou banco. Consulte o IFP/SSP do seu estado.' },
-    ],
-    relatedPosts: [
-      { slug: 'como-fazer-recibo', title: 'Como fazer um recibo' },
-    ],
-    relatedTools: [
-      { href: '/requerimentos/declaracao-endereco', label: 'Gerar Declaração de Endereço' },
-      { href: '/requerimentos', label: 'Todos os Requerimentos' },
-    ],
-  },
 
-  'nota-promissoria-como-funciona': {
-    slug: 'nota-promissoria-como-funciona',
-    title: 'Nota Promissória: Como Funciona, Como Preencher e Modelo Gratuito 2026',
-    description:
-      'Tudo sobre nota promissória: o que é, como preencher corretamente, prazo de prescrição, como protestar e modelo gratuito para baixar em PDF.',
-    datePublished: '2026-02-10',
-    category: 'Documentos',
-    readTime: '7 min',
-    keywords: ['nota promissoria como funciona', 'nota promissoria modelo', 'como preencher nota promissoria', 'nota promissoria pdf'],
-    intro:
-      'A nota promissória é um título de crédito que representa uma promessa de pagamento. É amplamente usada em acordos de dívidas, parcelamentos e empréstimos entre particulares.',
-    sections: [
-      {
-        h2: 'O que é nota promissória e para que serve',
-        content: [
-          { type: 'text', content: 'A nota promissória é um título de crédito regulado pelo Decreto nº 57.663/66 (Lei Uniforme de Genebra). Ela representa uma promessa incondicional de pagamento de uma quantia em dinheiro, feita por uma pessoa (emitente) a outra (beneficiário).' },
-          { type: 'list', items: [
-            'Parcelamento de dívidas entre pessoas físicas',
-            'Garantia em empréstimos pessoais',
-            'Acordos extrajudiciais de pagamento',
-            'Compra e venda de bens com pagamento parcelado',
-          ]},
-          { type: 'callout', variant: 'success', title: 'Vantagem', content: 'A nota promissória é um título executivo extrajudicial. Em caso de não pagamento, o credor pode protestar diretamente no cartório e iniciar cobrança judicial sem ação de conhecimento.' },
-        ],
-      },
-      {
-        h2: 'Como preencher corretamente',
-        content: [
-          { type: 'ol', items: [
-            'Valor da promissória: em número e por extenso',
-            'Prazo: data de vencimento (ou "à vista")',
-            'Local e data de emissão',
-            'Nome completo e CPF do emitente (quem deve)',
-            'Nome completo e CPF do beneficiário (quem vai receber)',
-            'Assinatura do emitente (e do avalista, se houver)',
-          ]},
-          { type: 'callout', variant: 'warning', title: 'Campo crítico', content: 'Se não preencher a data de vencimento, a nota vira "promissória à vista" (paga imediatamente quando apresentada). Sempre defina um vencimento claro.' },
-        ],
-      },
-      {
-        h2: 'Prazo para cobrar: prescrição da nota promissória',
-        content: [
-          { type: 'table', rows: [
-            ['Situação', 'Prazo de prescrição'],
-            ['Ação contra o emitente', '3 anos da data de vencimento'],
-            ['Ação contra endossante/avalista', '1 ano'],
-            ['Ação de enriquecimento', '2 anos após a prescrição'],
-          ]},
-          { type: 'callout', variant: 'warning', title: 'Atenção ao prazo', content: 'Após a prescrição, o título perde a executividade. Ainda é possível cobrar via ação ordinária de cobrança, mas o processo é mais demorado e caro.' },
-        ],
-      },
-      {
-        h2: 'Como protestar a nota promissória',
-        content: [
-          { type: 'ol', items: [
-            'Aguarde o vencimento sem o pagamento',
-            'Leve o título original ao Cartório de Protesto de Títulos',
-            'O cartório notifica o devedor em até 3 dias úteis',
-            'O devedor tem 3 dias para pagar e sustar o protesto',
-            'Se não pagar, o protesto é lavrado e o nome vai a banco de dados de inadimplentes',
-            'Com o título protestado, você pode iniciar ação de execução',
-          ]},
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Nota promissória precisa de reconhecimento de firma?', a: 'Não é legalmente obrigatório para a validade do título. No entanto, o reconhecimento de firma dificulta alegações de falsidade e é recomendado para valores altos.' },
-      { q: 'Posso fazer nota promissória à mão?', a: 'Sim. A nota promissória pode ser escrita à mão, desde que contenha todos os elementos essenciais. Use caneta azul ou preta, sem rasuras.' },
-      { q: 'Nota promissória vencida tem juros automáticos?', a: 'Sim. Após o vencimento, incidem juros de mora de 1% ao mês e correção monetária pelo IPCA, salvo condição diversa expressa no título.' },
-    ],
-    relatedPosts: [
-      { slug: 'contrato-prestacao-servico-modelo', title: 'Contrato de Prestação de Serviço' },
-    ],
-    relatedTools: [
-      { href: '/ferramentas/nota-promissoria', label: 'Gerar Nota Promissória Grátis' },
-      { href: '/contratos', label: 'Todos os Contratos' },
-    ],
-  },
 
   'como-assinar-contrato-digital': {
     slug: 'como-assinar-contrato-digital',
@@ -612,7 +406,6 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
       { q: 'E se a outra parte não quiser assinar digitalmente?', a: 'Você pode imprimir o contrato, assinar fisicamente e enviar para que a outra parte também assine fisicamente. Ambas as formas têm validade.' },
     ],
     relatedPosts: [
-      { slug: 'contrato-prestacao-servico-modelo', title: 'Contrato de Prestação de Serviço' },
     ],
     relatedTools: [
       { href: '/ferramentas/contrato-completo', label: 'Gerar Contrato' },

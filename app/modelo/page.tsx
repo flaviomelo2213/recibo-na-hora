@@ -60,8 +60,11 @@ export default function ModeloIndexPage() {
                     href={`/modelo/${m.slug}`}
                     className="flex items-center gap-3 border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 hover:border-amber-400 hover:bg-amber-50 transition group"
                   >
-                    <span className="text-stone-700 font-medium group-hover:text-amber-800 text-sm leading-snug">
-                      {m.h1}
+                    <span className="flex flex-col">
+                      <span className="text-stone-700 font-medium group-hover:text-amber-800 text-sm leading-snug">
+                        {m.h1}
+                      </span>
+                      <span className="mt-1 text-xs text-stone-500 leading-snug">{m.metaDescription}</span>
                     </span>
                     <i className="fa-solid fa-arrow-right text-xs text-stone-400 group-hover:text-amber-600 ml-auto flex-shrink-0" />
                   </Link>

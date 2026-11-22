@@ -95,10 +95,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static blog posts (directories)
   const blogStaticPages: MetadataRoute.Sitemap = [
     '/blog/como-fazer-recibo',
-    '/blog/recibo-tem-validade-legal',
-    '/blog/diferenca-recibo-nota-fiscal',
-    '/blog/estrategia-vencedora-consorcio',
-    '/blog/guia-lance-embutido',
+    // Auditoria nov/2026: recibo-tem-validade-legal e diferenca-recibo-nota-fiscal foram unidos
+    // (redirect em next.config.js); os posts de consórcio ficaram com noindex (fora do tema do site).
   ].map((path) => ({
     url: `${BASE}${path}`,
     changeFrequency: 'monthly' as const,

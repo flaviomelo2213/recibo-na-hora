@@ -8,6 +8,7 @@ import FaqAccordion from '../components/FaqAccordion';
 export const metadata: Metadata = {
   title: 'Gerador de Requerimentos Oficiais - Modelos Prontos para Protocolo',
   description: 'Crie e baixe requerimentos para prefeitura, cartório e órgãos públicos. Modelos de pedido via LAI, solicitação de ITBI, declaração de endereço e mais.',
+  alternates: { canonical: 'https://www.recibonahora.com.br/requerimentos' },
   openGraph: {
     title: 'Gerador de Requerimentos Oficiais - Modelos Prontos para Protocolo',
     description: 'Crie e baixe requerimentos para prefeitura, cartório e órgãos públicos. Modelos de pedido via LAI, solicitação de ITBI, declaração de endereço e mais.',

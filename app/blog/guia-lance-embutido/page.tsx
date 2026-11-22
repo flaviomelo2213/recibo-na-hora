@@ -8,6 +8,8 @@ const description =
   "Entenda como funciona a estratégia de lance fixo de 44 parcelas em consórcios. Guia educativo com cálculos, vantagens e como essa estratégia pode acelerar sua contemplação.";
 
 export const metadata: Metadata = {
+  // Fora do tema principal do site (recibos e documentos): noindex desde a auditoria de nov/2026.
+  robots: { index: false, follow: true },
   title,
   description,
   alternates: {

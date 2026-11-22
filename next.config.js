@@ -79,6 +79,52 @@ const nextConfig = {
         destination: '/educacao-financeira',
         permanent: true,
       },
+      // Auditoria de indexação (nov/2026): páginas duplicadas unidas na versão mais forte.
+      {
+        source: '/blog/diferenca-recibo-nota-fiscal',
+        destination: '/comparacoes/recibo-vs-nota-fiscal',
+        permanent: true,
+      },
+      {
+        source: '/guias/nota-fiscal-ou-recibo-quando-usar',
+        destination: '/comparacoes/recibo-vs-nota-fiscal',
+        permanent: true,
+      },
+      {
+        source: '/blog/recibo-tem-validade-legal',
+        destination: '/guias/recibo-tem-valor-legal',
+        permanent: true,
+      },
+      {
+        source: '/guias/o-que-e-rpa',
+        destination: '/blog/como-fazer-rpa',
+        permanent: true,
+      },
+      {
+        source: '/guias/como-fazer-recibo-autonomo',
+        destination: '/blog/recibo-prestacao-servico-autonomo',
+        permanent: true,
+      },
+      {
+        source: '/blog/contrato-prestacao-servico-modelo',
+        destination: '/modelo/contrato-prestacao-servico',
+        permanent: true,
+      },
+      {
+        source: '/blog/declaracao-endereco-como-fazer',
+        destination: '/modelo/declaracao-endereco',
+        permanent: true,
+      },
+      {
+        source: '/blog/nota-promissoria-como-funciona',
+        destination: '/modelo/nota-promissoria',
+        permanent: true,
+      },
+      {
+        source: '/perguntas/recibo-correto-para-mei',
+        destination: '/blog/mei-nota-fiscal-ou-recibo',
+        permanent: true,
+      },
     ];
   },
 

@@ -167,7 +167,7 @@ const perguntas: Pergunta[] = [
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo para Comprovar Renda' },
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/o-que-e-rpa', label: 'O que é RPA?' },
+      { href: '/blog/como-fazer-rpa', label: 'O que é RPA?' },
     ],
   },
   {
@@ -385,7 +385,7 @@ const perguntas: Pergunta[] = [
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo para IR' },
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/o-que-e-rpa', label: 'O que é RPA?' },
+      { href: '/blog/como-fazer-rpa', label: 'O que é RPA?' },
     ],
   },
   {
@@ -457,7 +457,7 @@ const perguntas: Pergunta[] = [
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo Corretamente' },
-      { href: '/guias/o-que-e-rpa', label: 'O que é RPA?' },
+      { href: '/blog/como-fazer-rpa', label: 'O que é RPA?' },
     ],
   },
   {
@@ -529,45 +529,8 @@ const perguntas: Pergunta[] = [
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo' },
-      { href: '/guias/diferenca-recibo-nota-fiscal', label: 'Guia: Nota Fiscal vs Recibo' },
+      { href: '/comparacoes/recibo-vs-nota-fiscal', label: 'Guia: Nota Fiscal vs Recibo' },
       { href: '/comparacoes/recibo-vs-nota-fiscal', label: 'Recibo vs Nota Fiscal' },
-    ],
-  },
-  {
-    slug: 'recibo-correto-para-mei',
-    question: 'MEI deve emitir recibo ou nota fiscal?',
-    shortAnswer: 'MEI deve emitir Nota Fiscal de Serviços (NFS-e) para pessoas jurídicas (CNPJ). Para pessoas físicas, pode usar recibo simples. Para vendas de produtos, deve emitir NF-e (nota fiscal de produto). O recibo NÃO é adequado para MEI em todas as situações.',
-    metaDescription: 'MEI usa recibo ou nota fiscal? Descubra o documento correto para cada cliente do MEI: pessoa física, empresa e comércio.',
-    keywords: ['mei recibo ou nota fiscal', 'mei emitir nota fiscal', 'recibo para mei', 'mei documento fiscal correto'],
-    datePublished: '2025-03-15',
-    category: 'Fiscal',
-    sections: [
-      {
-        h2: 'As regras do MEI para documentos fiscais',
-        paragraphs: [
-          'O MEI (Microempreendedor Individual) é uma pessoa jurídica e, como tal, tem obrigações fiscais diferentes de uma pessoa física autônoma. A principal: para clientes CNPJ, a NFS-e (Nota Fiscal de Serviços Eletrônica) é obrigatória se o contratante exigir, e fortemente recomendada mesmo se não exigir.',
-          'Para clientes CPF (pessoa física), o MEI pode emitir recibo simples. Não é obrigado a emitir nota fiscal nesse caso, mas pode fazer se quiser — especialmente se o cliente precisar do documento para deduções.',
-        ],
-      },
-      {
-        h2: 'Quando o MEI pode usar recibo',
-        paragraphs: [
-          'Recibo simples é adequado para: serviços de baixo valor a pessoas físicas, situações em que o cliente não pede nota fiscal, serviços avulsos e informais. Use nosso gerador de recibo — mesmo sendo MEI, o recibo tem validade para esses casos.',
-          'O limite do recibo: ele não tem valor fiscal para o cliente. Empresas que precisam lançar sua despesa na contabilidade geralmente exigem nota fiscal. Se o seu cliente for empresa e pedir nota, você precisa emitir NFS-e pelo portal do seu município.',
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'MEI é obrigado a emitir nota fiscal para pessoa física?', a: 'Não é obrigado, mas pode emitir. Para pessoa física, o recibo simples ou a NFS-e são igualmente válidos. A escolha fica a critério do MEI e do cliente.' },
-      { q: 'Como MEI emite nota fiscal de serviços?', a: 'Pelo portal eletrônico da prefeitura do seu município (cada cidade tem seu próprio sistema). Acesse com seu CNPJ MEI e emita a NFS-e gratuitamente.' },
-      { q: 'MEI de comércio usa recibo?', a: 'MEI que vende produtos deve emitir NF-e (nota fiscal eletrônica de produto), não recibo. Para serviços, segue a regra acima.' },
-      { q: 'Recibo de MEI para empresa tem problema?', a: 'Pode ter para a empresa: sem nota fiscal, a empresa não consegue deduzir a despesa na contabilidade. Para o MEI, o problema é menor — mas é melhor oferecer nota fiscal para não perder clientes corporativos.' },
-      { q: 'MEI que presta serviço para outro MEI usa recibo?', a: 'Pode usar recibo, pois ambos são formalmente PJ mas MEI é simplificado. Mas se o cliente MEI precisar da nota para seus registros contábeis, emita NFS-e.' },
-    ],
-    relatedLinks: [
-      { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo MEI' },
-      { href: '/mei', label: 'Ferramentas para MEI' },
-      { href: '/guias/nota-fiscal-ou-recibo-quando-usar', label: 'Nota Fiscal ou Recibo: quando usar?' },
     ],
   },
   {
@@ -603,7 +566,7 @@ const perguntas: Pergunta[] = [
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA (Autônomo para Empresa)' },
-      { href: '/guias/nota-fiscal-ou-recibo-quando-usar', label: 'Nota Fiscal ou Recibo?' },
+      { href: '/comparacoes/recibo-vs-nota-fiscal', label: 'Nota Fiscal ou Recibo?' },
     ],
   },
   {

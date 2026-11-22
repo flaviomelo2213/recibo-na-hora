@@ -93,7 +93,7 @@ export const MODELOS: Record<string, ModeloData> = {
     relatedLinks: [
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
       { href: '/mei', label: 'Ferramentas para MEI' },
-      { href: '/blog/diferenca-recibo-nota-fiscal', label: 'Recibo vs Nota Fiscal' },
+      { href: '/comparacoes/recibo-vs-nota-fiscal', label: 'Recibo vs Nota Fiscal' },
     ],
   },
   'recibo-prestacao-servico': {
@@ -134,7 +134,7 @@ export const MODELOS: Record<string, ModeloData> = {
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Recibo Simples' },
       { href: '/ferramentas/recibo-pix', label: 'Recibo com PIX' },
-      { href: '/blog/recibo-tem-validade-legal', label: 'Validade Jurídica do Recibo' },
+      { href: '/guias/recibo-tem-valor-legal', label: 'Validade Jurídica do Recibo' },
     ],
   },
   'recibo-pagamento': {
@@ -307,8 +307,10 @@ export const MODELOS: Record<string, ModeloData> = {
       { q: 'Nota promissória precisa de reconhecimento de firma?', a: 'Não é obrigatório para a validade do título, mas é recomendado para valores altos para dificultar contestações de falsidade.' },
       { q: 'Qual o prazo para cobrar uma nota promissória?', a: 'O prazo prescricional é de 3 anos a partir do vencimento para ação contra o emitente. Após esse prazo, o título perde a executividade.' },
       { q: 'Nota promissória pode ser parcelada?', a: 'Sim. Você pode emitir uma nota para cada parcela, ou uma nota com várias datas de vencimento especificadas no documento.' },
+      { q: 'Posso fazer nota promissória à mão?', a: 'Sim. A nota promissória pode ser escrita à mão, desde que contenha todos os elementos essenciais. Use caneta azul ou preta, sem rasuras.' },
+      { q: 'Nota promissória vencida tem juros automáticos?', a: 'Sim. Após o vencimento, incidem juros de mora de 1% ao mês e correção monetária pelo IPCA, salvo condição diversa expressa no título.' },
     ],
-    relatedLinks: [{ href: '/ferramentas/nota-promissoria', label: 'Gerar Nota Promissória' }, { href: '/contratos', label: 'Modelos de Contratos' }, { href: '/blog/nota-promissoria-como-funciona', label: 'Como funciona a Nota Promissória' }],
+    relatedLinks: [{ href: '/ferramentas/nota-promissoria', label: 'Gerar Nota Promissória' }, { href: '/contratos', label: 'Modelos de Contratos' }, { href: '/modelo/nota-promissoria', label: 'Como funciona a Nota Promissória' }],
   },
   'declaracao-endereco': {
     slug: 'declaracao-endereco',
@@ -325,8 +327,9 @@ export const MODELOS: Record<string, ModeloData> = {
       { q: 'Declaração de endereço tem prazo de validade?', a: 'Formalmente não, mas a maioria das instituições aceita apenas declarações com até 90 dias. Emita sempre com a data atual.' },
       { q: 'Precisa de reconhecimento de firma?', a: 'Depende da instituição. Bancos digitais geralmente aceitam sem reconhecimento. Órgãos públicos e cartórios podem exigir firma reconhecida.' },
       { q: 'Posso fazer a declaração para outra pessoa?', a: 'Sim. Se você é proprietário ou responsável pelo imóvel, pode declarar que outra pessoa reside no local.' },
+      { q: 'Declaração de endereço serve para tirar RG?', a: 'Geralmente não. Para documentos de identidade, a maioria dos institutos de identificação exige comprovante de endereço emitido por concessionária (água, luz, gás) ou banco. Consulte o IFP/SSP do seu estado.' },
     ],
-    relatedLinks: [{ href: '/requerimentos/declaracao-endereco', label: 'Gerar Declaração de Endereço' }, { href: '/requerimentos', label: 'Todos os Requerimentos' }, { href: '/blog/declaracao-endereco-como-fazer', label: 'Como Fazer Declaração de Endereço' }],
+    relatedLinks: [{ href: '/requerimentos/declaracao-endereco', label: 'Gerar Declaração de Endereço' }, { href: '/requerimentos', label: 'Todos os Requerimentos' }, { href: '/modelo/declaracao-endereco', label: 'Como Fazer Declaração de Endereço' }],
   },
   'recibo-sinal': {
     slug: 'recibo-sinal',
@@ -379,8 +382,11 @@ export const MODELOS: Record<string, ModeloData> = {
       { q: 'Qual a diferença entre contrato de serviço e CLT?', a: 'No contrato PJ ou autônomo, não há vínculo empregatício. Na CLT, há subordinação e habitualidade. Usar contrato de serviço para disfarçar vínculo CLT é "pejotização" ilegal.' },
       { q: 'Contrato de serviço pode ser renovado automaticamente?', a: 'Sim, se houver cláusula de renovação automática. Inclua o prazo de aviso prévio para não renovar (ex: 30 dias antes do vencimento).' },
       { q: 'Posso ter multa rescisória por parte do contratante?', a: 'Sim. É recomendado incluir multa para ambas as partes em caso de rescisão antecipada sem justa causa.' },
+      { q: 'Preciso de advogado para fazer um contrato de serviço?', a: 'Não é obrigatório para contratos simples. Para contratos de alto valor ou com cláusulas específicas (exclusividade, propriedade intelectual, etc.), consultar um advogado é recomendado.' },
+      { q: 'Contrato de serviço precisa de reconhecimento de firma?', a: 'Não é obrigatório, mas é recomendado para contratos de maior valor. O reconhecimento de firma autentica a assinatura das partes perante o cartório.' },
+      { q: 'Como cobrar se o cliente não pagar?', a: 'Com contrato assinado + 2 testemunhas (título executivo), você pode entrar com ação de execução diretamente. Sem as testemunhas, você precisa de uma ação de cobrança antes.' },
     ],
-    relatedLinks: [{ href: '/ferramentas/contrato-completo', label: 'Gerar Contrato' }, { href: '/modelo/contrato-simples', label: 'Contrato Simples' }, { href: '/blog/contrato-prestacao-servico-modelo', label: 'Guia de Contrato de Serviço' }],
+    relatedLinks: [{ href: '/ferramentas/contrato-completo', label: 'Gerar Contrato' }, { href: '/modelo/contrato-simples', label: 'Contrato Simples' }, { href: '/modelo/contrato-prestacao-servico', label: 'Guia de Contrato de Serviço' }],
   },
   'autorizacao-viagem': {
     slug: 'autorizacao-viagem',

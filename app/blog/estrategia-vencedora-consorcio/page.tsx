@@ -8,6 +8,8 @@ const description =
   "Análise educativa sobre estratégias de crédito planejado para empresas. Entenda como substituir empréstimos caros por alternativas com custos administrativos previsíveis.";
 
 export const metadata: Metadata = {
+  // Fora do tema principal do site (recibos e documentos): noindex desde a auditoria de nov/2026.
+  robots: { index: false, follow: true },
   title,
   description,
   alternates: {

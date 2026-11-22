@@ -67,11 +67,13 @@ const comparacoes: Comparacao[] = [
       { q: 'Posso pedir nota fiscal em vez de recibo?', a: 'Se o prestador for pessoa jurídica, sim. Se for pessoa física autônoma, o correto é recibo simples (para pessoa física) ou RPA (para empresa).' },
       { q: 'Nota fiscal substitui recibo de pagamento?', a: 'A nota fiscal prova a operação comercial, mas não necessariamente o pagamento. Para confirmar o pagamento, emita recibo separado ou use nota fiscal com campo "quitação".' },
       { q: 'Profissional liberal (advogado, médico) usa recibo ou NF?', a: 'Para clientes pessoa física: recibo de honorários ou NFS-e. Para empresas: NFS-e obrigatória na maioria dos municípios.' },
+      { q: 'MEI pode emitir recibo para pessoa física?', a: 'Sim. Para serviços prestados a pessoas físicas, o MEI pode emitir recibo simples. Mas para empresas (CNPJ), deve emitir nota fiscal de serviços (NFS-e).' },
+      { q: 'Recibo serve para declarar IR?', a: 'Sim. Rendimentos comprovados por recibo devem ser declarados no IRPF. Se receber de pessoas físicas, recolha Carnê-Leão mensalmente.' },
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo' },
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/nota-fiscal-ou-recibo-quando-usar', label: 'Guia Completo: NF ou Recibo?' },
+      { href: '/comparacoes/recibo-vs-nota-fiscal', label: 'Guia Completo: NF ou Recibo?' },
     ],
   },
   {
@@ -215,7 +217,7 @@ const comparacoes: Comparacao[] = [
     ],
     relatedLinks: [
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/o-que-e-rpa', label: 'O que é RPA?' },
+      { href: '/blog/como-fazer-rpa', label: 'O que é RPA?' },
       { href: '/mei', label: 'Ferramentas MEI' },
     ],
   },
@@ -265,7 +267,7 @@ const comparacoes: Comparacao[] = [
     relatedLinks: [
       { href: '/ferramentas/recibo-simples', label: 'Gerar Recibo Simples' },
       { href: '/ferramentas/recibo-rpa', label: 'Gerar RPA' },
-      { href: '/guias/o-que-e-rpa', label: 'O que é RPA? Guia completo' },
+      { href: '/blog/como-fazer-rpa', label: 'O que é RPA? Guia completo' },
     ],
   },
 ]
