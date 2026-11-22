@@ -19,6 +19,10 @@ export interface ModeloDetalhe {
   limitacoes: string;
   /** Base legal, quando há norma específica aplicável e confirmável */
   baseLegal?: string;
+  /** Texto do modelo exibido na página (com lacunas ___ para preencher à mão) */
+  textoModelo?: { titulo: string; intro: string; clausulas: string[]; fechamento: string[] };
+  /** Seções extras específicas deste documento */
+  secoesExtras?: Array<{ h2: string; paragrafos: string[] }>;
 }
 
 export const MODELO_DETALHES: Record<string, ModeloDetalhe> = {
@@ -183,6 +187,46 @@ export const MODELO_DETALHES: Record<string, ModeloDetalhe> = {
       'O contrato vale entre locador e locatário mesmo sem registro e sem imobiliária. O que ele não faz: não dispensa a vistoria, não garante desocupação rápida por si só e não afasta as regras da Lei do Inquilinato, que prevalecem sobre cláusula em sentido contrário. Condomínios e prefeituras podem exigir documentação adicional.',
     baseLegal:
       'Lei 8.245/91 (Lei do Inquilinato). O art. 37 lista as modalidades de garantia locatícia e o parágrafo único veda a exigência de mais de uma delas no mesmo contrato.',
+    textoModelo: {
+      titulo: 'CONTRATO DE LOCAÇÃO RESIDENCIAL',
+      intro:
+        'Modelo simples para imprimir e preencher à mão ou para usar como base. Os trechos com ____ devem ser completados; o que estiver entre colchetes é opcional. Se preferir, o gerador gratuito preenche tudo e baixa o PDF pronto.',
+      clausulas: [
+        'PARTES. LOCADOR: ____________________, CPF ______________, RG ______________, residente em ____________________. LOCATÁRIO: ____________________, CPF ______________, RG ______________, residente em ____________________.',
+        'CLÁUSULA 1ª — OBJETO. O LOCADOR aluga ao LOCATÁRIO, para fins exclusivamente residenciais, o imóvel situado em ____________________ (rua, número, complemento, bairro, cidade, UF, CEP), [com vaga de garagem nº ____], no estado descrito no laudo de vistoria anexo, assinado pelas partes.',
+        'CLÁUSULA 2ª — PRAZO. A locação terá prazo de ____ meses, com início em ___/___/______ e término em ___/___/______.',
+        'CLÁUSULA 3ª — ALUGUEL E PAGAMENTO. O aluguel mensal é de R$ ________ (________________________), a ser pago até o dia ____ de cada mês, por [Pix na chave ____________ / depósito na conta ____________]. O LOCADOR fornecerá recibo de cada pagamento, com os valores discriminados.',
+        'CLÁUSULA 4ª — REAJUSTE. O aluguel será reajustado a cada 12 meses pela variação acumulada do índice ________ (por exemplo, IPCA ou IGP-M).',
+        'CLÁUSULA 5ª — ENCARGOS. Ficam por conta do LOCATÁRIO: [IPTU] [condomínio ordinário] [água] [energia elétrica] [gás]. As despesas extraordinárias de condomínio ficam por conta do LOCADOR.',
+        'CLÁUSULA 6ª — GARANTIA. Como garantia, o LOCATÁRIO oferece uma única modalidade: [caução de R$ ________, limitada a três aluguéis] [fiador: ____________________, CPF ______________] [seguro-fiança da seguradora ____________].',
+        'CLÁUSULA 7ª — CONSERVAÇÃO E BENFEITORIAS. O LOCATÁRIO usará o imóvel com cuidado e o devolverá no estado em que o recebeu, conforme a vistoria, ressalvado o desgaste normal pelo uso. Obras e modificações dependem de autorização por escrito do LOCADOR.',
+        'CLÁUSULA 8ª — DEVOLUÇÃO ANTECIPADA. Se o LOCATÁRIO devolver o imóvel antes do fim do prazo, pagará multa de ____ aluguéis, reduzida proporcionalmente ao tempo de contrato já cumprido.',
+        'CLÁUSULA 9ª — FORO. Fica eleito o foro da comarca de ____________________ para resolver questões deste contrato.',
+      ],
+      fechamento: [
+        '____________________, ___ de ____________ de ______.',
+        'LOCADOR: ____________________     LOCATÁRIO: ____________________',
+        '[FIADOR: ____________________]',
+        'Testemunha 1: ____________________ CPF ______________     Testemunha 2: ____________________ CPF ______________',
+      ],
+    },
+    secoesExtras: [
+      {
+        h2: 'Contrato de aluguel com água e luz inclusas',
+        paragrafos: [
+          'Quando o valor do aluguel já cobre as contas de água e energia, troque a cláusula de encargos por um texto que deixe isso explícito, por exemplo: "O valor do aluguel já inclui as despesas de água e energia elétrica do imóvel, cujas contas permanecem em nome do LOCADOR."',
+          'Para evitar discussão sobre consumo exagerado, vale acrescentar um limite: "O consumo que ultrapassar R$ ______ por mês em cada conta será reembolsado pelo LOCATÁRIO, mediante apresentação da fatura." Combine o valor antes de assinar e mantenha as contas guardadas.',
+          'Se só uma das contas estiver inclusa, cite apenas ela e deixe a outra como encargo do inquilino na cláusula de encargos.',
+        ],
+      },
+      {
+        h2: 'Contrato de aluguel simples: o que não pode faltar',
+        paragrafos: [
+          'Um contrato simples pode caber em uma ou duas folhas, desde que tenha o essencial: identificação das partes, endereço completo do imóvel, prazo, valor, dia e forma de pagamento, índice de reajuste, quem paga cada encargo, a garantia escolhida e as assinaturas.',
+          'Anexe o laudo de vistoria com fotos. Ele é o que permite cobrar danos na devolução, e muitos contratos simples falham justamente por não ter vistoria.',
+        ],
+      },
+    ],
   },
 
   'procuracao-simples': {

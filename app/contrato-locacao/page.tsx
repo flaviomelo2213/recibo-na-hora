@@ -5,8 +5,8 @@ import SeoContentBlock from '@/components/SeoContentBlock';
 import LegalDisclaimer from '@/components/LegalDisclaimer';
 import { buildOpenGraph } from '@/lib/metadata';
 
-const title = 'Contrato de Aluguel Grátis | Modelo Residencial em PDF';
-const description = 'Gere contrato de aluguel residencial online grátis. Modelo completo com todas as cláusulas legais. Preencha dados do locador, locatário e imóvel. Download em PDF.';
+const title = 'Fazer Contrato de Aluguel Online Grátis: Gerador em PDF';
+const description = 'Faça seu contrato de aluguel residencial online e grátis: preencha locador, inquilino e imóvel e baixe o PDF pronto com as cláusulas da Lei do Inquilinato.';
 
 export const metadata: Metadata = {
   title,
@@ -27,6 +27,10 @@ export default function ContratoAluguelPage() {
             </h1>
             <p className="mt-4 text-lg text-slate-600 leading-relaxed">
                 Gere seu contrato de locação residencial completo. Preencha os dados e baixe em PDF profissional com todas as cláusulas legais necessárias.
+            </p>
+            <p className="mt-3 text-sm text-slate-500">
+                Prefere ver o texto antes ou imprimir em branco? Veja o{' '}
+                <a href="/modelo/contrato-locacao" className="font-semibold underline">modelo de contrato de aluguel simples</a>.
             </p>
         </header>
 

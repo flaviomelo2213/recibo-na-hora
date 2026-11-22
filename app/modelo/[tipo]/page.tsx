@@ -144,6 +144,24 @@ function CorpoModelo({
         <p className="text-stone-700 leading-relaxed">{modelo.whatIs}</p>
       </section>
 
+      {detalhe?.textoModelo && (
+        <section>
+          <h2 className="text-2xl font-bold text-stone-900 mb-3">Modelo para preencher e imprimir</h2>
+          <p className="text-stone-600 text-sm leading-relaxed mb-4">{detalhe.textoModelo.intro}</p>
+          <div className="rounded-xl border border-stone-300 bg-white p-5 sm:p-7 shadow-sm font-serif text-[15px] leading-relaxed text-stone-800 space-y-3">
+            <p className="text-center font-bold tracking-wide">{detalhe.textoModelo.titulo}</p>
+            {detalhe.textoModelo.clausulas.map((c, i) => (
+              <p key={i} className="break-words">{c}</p>
+            ))}
+            <div className="pt-3 space-y-2">
+              {detalhe.textoModelo.fechamento.map((c, i) => (
+                <p key={i} className="break-words">{c}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section>
         <h2 className="text-2xl font-bold text-stone-900 mb-4">Quando usar?</h2>
         <ListaChecada itens={modelo.whenToUse} />
@@ -167,6 +185,17 @@ function CorpoModelo({
         <h2 className="text-2xl font-bold text-stone-900 mb-4">Campos obrigatórios</h2>
         <ListaNumerada itens={modelo.requiredFields} />
       </section>
+
+      {detalhe?.secoesExtras?.map((sec) => (
+        <section key={sec.h2}>
+          <h2 className="text-2xl font-bold text-stone-900 mb-4">{sec.h2}</h2>
+          <div className="space-y-3">
+            {sec.paragrafos.map((par, i) => (
+              <p key={i} className="text-stone-700 leading-relaxed">{par}</p>
+            ))}
+          </div>
+        </section>
+      ))}
 
       {detalhe && (
         <>

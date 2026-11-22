@@ -125,8 +125,8 @@ const comparacoes: Comparacao[] = [
   {
     slug: 'nota-promissoria-vs-recibo',
     title: 'Nota Promissória vs Recibo: Diferenças e Quando Usar',
-    seoTitle: 'Nota promissória ou recibo? Diferenças e quando usar',
-    description: 'Nota promissória ou recibo? A promissória vem antes, como promessa de pagar; o recibo vem depois, como prova do pagamento. Veja a tabela comparativa.',
+    seoTitle: 'Nota promissória ou recibo? Qual usar e quando (com tabela)',
+    description: 'Recibo prova que você já pagou; nota promissória prova que alguém ainda deve. Veja a diferença em uma tabela e gere os dois modelos grátis em PDF.',
     keywords: ['nota promissoria vs recibo', 'diferenca nota promissoria recibo', 'promissoria ou recibo quando usar', 'nota promissoria recibo pagamento'],
     datePublished: '2025-04-03',
     docA: 'Nota Promissória',

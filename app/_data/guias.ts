@@ -83,8 +83,8 @@ const guias: Guia[] = [
   {
     slug: 'recibo-precisa-de-cpf',
     title: 'Recibo precisa de CPF? O que é obrigatório',
-    seoTitle: 'Recibo precisa de CPF? O que é obrigatório e por quê',
-    description: 'Recibo precisa de CPF? Não é exigido por lei em recibos simples, mas é muito recomendado. Veja quando usar CNPJ e quais dados não podem faltar.',
+    seoTitle: 'Recibo precisa de CPF? Não é obrigatório, mas convém',
+    description: 'Resposta direta: a lei não exige CPF em recibo simples, mas sem ele fica difícil provar quem pagou e quem recebeu. Veja quando usar CNPJ e o que não pode faltar.',
     keywords: ['recibo precisa de cpf', 'cpf no recibo obrigatorio', 'dados obrigatorios recibo', 'recibo sem cpf vale'],
     datePublished: '2025-01-15',
     category: 'Dúvidas Legais',
