@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { ALL_SLUGS } from './modelo/[tipo]/data'
 import { ALL_BLOG_SLUGS } from './_data/blogPosts'
-import { ALL_PROFISSAO_SLUGS } from './_data/profissoes'
+import { ALL_PROFISSAO_SLUGS, PROFISSOES_INDEXADAS } from './_data/profissoes'
 import { ALL_GUIA_SLUGS } from './_data/guias'
 import { ALL_PERGUNTA_SLUGS } from './_data/perguntas'
 import { ALL_COMPARACAO_SLUGS } from './_data/comparacoes'
@@ -113,7 +113,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Profissoes base pages (30)
   const profissoesBasePages: MetadataRoute.Sitemap = [
     { url: `${BASE}/profissoes`, changeFrequency: 'weekly' as const, priority: 0.8 },
-    ...ALL_PROFISSAO_SLUGS.map((slug) => ({
+    ...ALL_PROFISSAO_SLUGS.filter((slug) => PROFISSOES_INDEXADAS.has(slug)).map((slug) => ({
       url: `${BASE}/profissoes/${slug}`,
       changeFrequency: 'monthly' as const,
       priority: 0.7,

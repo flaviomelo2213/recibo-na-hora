@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { PROFISSOES, ALL_PROFISSAO_SLUGS } from '@/_data/profissoes'
+import { PROFISSOES, ALL_PROFISSAO_SLUGS, PROFISSOES_INDEXADAS } from '@/_data/profissoes'
 import { buildHowTo, buildFAQPage, buildBreadcrumb } from '@/lib/schema'
 
 const BASE = 'https://www.recibonahora.com.br'
@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: p.metaDescription,
     keywords: [p.keyword, `modelo recibo ${p.slug}`, `recibo ${p.slug} pdf`, `${p.slug} autonomo recibo`],
     alternates: { canonical: url },
+    // Auditoria nov/2026 (opção A): só as profissões com procura ficam no Google.
+    ...(PROFISSOES_INDEXADAS.has(p.slug) ? {} : { robots: { index: false, follow: true } }),
     openGraph: {
       title: `Recibo ${p.prepoLabel} — Modelo Gratuito | ReciboNaHora`,
       description: p.metaDescription,
@@ -129,6 +131,17 @@ export default function ProfissaoPage({ params }: Props) {
                 ))}
               </ol>
             </section>
+
+            {p.secoes?.map((sec) => (
+              <section key={sec.h2}>
+                <h2 className="text-2xl font-bold text-stone-900 mb-4">{sec.h2}</h2>
+                <div className="space-y-3">
+                  {sec.paragrafos.map((par, i) => (
+                    <p key={i} className="text-stone-700 leading-relaxed">{par}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
 
             {/* Validade e limites */}
             <section className="bg-stone-50 border border-stone-200 rounded-xl p-5">

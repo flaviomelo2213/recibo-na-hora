@@ -22,7 +22,18 @@ export interface Profissao {
   metaDescription: string
   /** Título só para o <title> (absoluto, sem sufixo). O H1 continua usando o campo principal. */
   seoTitle?: string
+  /** Seções com conteúdo próprio da profissão (só nas profissões indexadas) */
+  secoes?: Array<{ h2: string; paragrafos: string[] }>
 }
+
+/**
+ * Profissões indexadas no Google (auditoria nov/2026, opção A): as com procura real.
+ * As demais continuam no site, mas com noindex, para não pesar como conteúdo repetido.
+ */
+export const PROFISSOES_INDEXADAS = new Set([
+  'arquiteto', 'nutricionista', 'fisioterapeuta', 'personal-trainer', 'professor', 'freelancer',
+  'diarista', 'baba', 'cuidador-de-idosos', 'consultor', 'jardineiro', 'eletricista',
+])
 
 const profissoes: Profissao[] = [
   {
@@ -58,6 +69,11 @@ const profissoes: Profissao[] = [
       { q: 'Diarista precisa assinar carteira?', a: 'Diarista que trabalha em até 2 dias por semana para o mesmo empregador é considerada autônoma (não precisa de registro). Acima de 2 dias por semana para o mesmo empregador, deve ter carteira assinada.' },
       { q: 'Recibo de diarista serve como comprovante de renda?', a: 'Sim. O recibo pode ser usado para comprovar renda em bancos, financeiras e financiamentos. Para aprovação de crédito, some 3 a 6 meses de recibos para mostrar histórico de renda.' },
       { q: 'Diarista MEI pode emitir recibo?', a: 'Diaristas geralmente não podem ser MEI, pois a atividade não está na lista de ocupações permitidas pelo MEI. Como autônoma, emite recibo simples.' },
+      { q: 'Quantos dias por semana a diarista pode trabalhar sem vínculo?', a: 'Até 2 dias por semana na mesma residência. A partir de 3 dias, a lei considera trabalho doméstico com vínculo, que exige registro no eSocial.' },
+      { q: 'Recibo de diarista precisa de CPF?', a: 'Não é obrigatório, mas é recomendado para identificar quem recebeu. Com CPF e assinatura, o recibo fica muito mais seguro para os dois lados.' },
+    ],
+    secoes: [
+      { h2: 'Diarista ou empregada doméstica: a regra dos 2 dias', paragrafos: ['Pela Lei Complementar 150/2015, quem trabalha na mesma casa por mais de 2 dias por semana é empregada doméstica, com registro no eSocial. Até 2 dias por semana, é diarista, sem vínculo, e o recibo por diária é o documento adequado.', 'No recibo, coloque a data de cada diária, o endereço do serviço e o valor. Um recibo por semana ou por mês, listando as datas, também funciona.'] },
     ],
     related: ['faxineiro', 'cuidador-de-idosos', 'baba'],
   },
@@ -95,6 +111,12 @@ const profissoes: Profissao[] = [
       { q: 'Freelancer sem CNPJ pode emitir recibo?', a: 'Sim. Qualquer pessoa física pode emitir recibo de prestação de serviço sem precisar de CNPJ. Para clientes empresas, o ideal é o RPA.' },
       { q: 'Qual a diferença entre recibo e contrato para freelancer?', a: 'O contrato define o que será feito, prazo, valor e condições. O recibo comprova o pagamento. Você precisa dos dois: contrato antes do serviço, recibo depois do pagamento.' },
       { q: 'Freelancer deve emitir nota fiscal?', a: 'Para pessoas físicas, o recibo basta. Para empresas, o ideal é ter MEI e emitir nota fiscal de serviços. Sem MEI, use o RPA.' },
+      { q: 'Freelancer sem CNPJ pode dar recibo?', a: 'Pode. Com CPF, o recibo é válido entre as partes. Quando o cliente é empresa, ela costuma pedir um RPA, que é um recibo com retenção de impostos.' },
+      { q: 'Freelancer que recebe do exterior precisa de recibo?', a: 'O recibo ajuda a documentar o serviço, mas quem recebe de fora como pessoa física declara os valores no Carnê-Leão. Guarde também o comprovante do câmbio.' },
+    ],
+    secoes: [
+      { h2: 'Pessoa física, RPA ou nota fiscal?', paragrafos: ['Se o cliente é pessoa física, o recibo com seu CPF resolve, e os valores entram no Carnê-Leão. Se o cliente é empresa e você não tem CNPJ, a empresa normalmente faz um RPA (Recibo de Pagamento a Autônomo) e retém INSS e, quando devido, Imposto de Renda. Se você tem CNPJ (MEI ou outro), o correto é emitir nota fiscal de serviço.'] },
+      { h2: 'Como descrever o trabalho no recibo', paragrafos: ['Cite o projeto e as entregas: "criação de identidade visual (logo e manual) – parcela 2 de 3", por exemplo. Descrições vagas como "serviços prestados" dificultam provar o que foi pago.'] },
     ],
     related: ['programador', 'designer', 'consultor'],
   },
@@ -131,6 +153,12 @@ const profissoes: Profissao[] = [
       { q: 'Professor particular precisa de CNPJ?', a: 'Não obrigatoriamente. Como autônomo, o professor pode emitir recibos simples para alunos pessoa física. Se quiser MEI, há restrições — professores particulares geralmente não se enquadram como MEI.' },
       { q: 'Recibo de aula particular vale para imposto de renda?', a: 'O recibo registra o rendimento que deve ser declarado no IRPF. Pais que pagam aulas podem usar o recibo para deduzir despesas de educação dentro dos limites legais.' },
       { q: 'Professor pode cobrar por PIX e emitir recibo?', a: 'Sim. O meio de pagamento (PIX, dinheiro, transferência) não altera a necessidade de emitir recibo. O recibo especifica o que foi pago e formaliza o serviço.' },
+      { q: 'Aula particular pode ser deduzida no IR?', a: 'Não. Só despesas com ensino formal (educação infantil, fundamental, médio, superior e técnico) são dedutíveis.' },
+      { q: 'Professor particular precisa de CNPJ para dar recibo?', a: 'Não. Como pessoa física, o professor pode emitir recibo com CPF. Os valores recebidos de pessoas físicas entram no Carnê-Leão.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo de aulas particulares', paragrafos: ['Descreva a disciplina, o nome do aluno, a quantidade de aulas e o período (por exemplo, 8 aulas de matemática em março). Se a aula é online, indique isso.', 'Para pais que pagam aulas dos filhos, coloque o nome do responsável como pagador e o do aluno na descrição.'] },
+      { h2: 'Aula particular é dedutível no Imposto de Renda?', paragrafos: ['Não. A dedução de educação no IRPF vale só para ensino formal (escola, faculdade, curso técnico). Aulas particulares, reforço e cursos livres não entram.'] },
     ],
     related: ['autonomo', 'freelancer', 'consultor'],
   },
@@ -167,6 +195,11 @@ const profissoes: Profissao[] = [
       { q: 'Consultor deve ter empresa (CNPJ) para prestar serviços?', a: 'Não é obrigatório. Como pessoa física (autônomo), o consultor emite RPA para empresas ou recibo simples para pessoas físicas. Ter CNPJ (PJ) pode ser vantajoso para impostos e credibilidade.' },
       { q: 'Como precificar consultoria?', a: 'Consultores cobram por hora, por projeto, ou por retainer mensal. A precificação depende da especialidade, experiência e mercado. Documente sempre o valor acordado em contrato.' },
       { q: 'Recibo de consultoria pode ser emitido em nome da empresa?', a: 'Se você tem CNPJ, emita nota fiscal em nome da empresa. O recibo é para autônomos pessoa física.' },
+      { q: 'Consultor pessoa física pode emitir recibo para empresa?', a: 'Pode, mas a empresa normalmente transforma o pagamento em RPA e retém INSS e, quando devido, Imposto de Renda. Com CNPJ, o documento é a nota fiscal de serviço.' },
+      { q: 'Preciso de contrato além do recibo na consultoria?', a: 'É o recomendado. O contrato define escopo, prazos e entregas; o recibo comprova cada pagamento feito dentro dele.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo de consultoria', paragrafos: ['Cite o contrato ou a proposta aprovada, a etapa ou as horas pagas e as entregas (relatório, diagnóstico, treinamento). Em consultoria por hora, informe a quantidade de horas e o valor da hora.', 'Se o cliente é empresa, ela pode exigir nota fiscal (se você tem CNPJ) ou fazer um RPA com retenção de impostos (se você atua como pessoa física).'] },
     ],
     related: ['autonomo', 'freelancer', 'programador'],
   },
@@ -203,6 +236,11 @@ const profissoes: Profissao[] = [
       { q: 'Eletricista precisa de registro no CREA?', a: 'Para serviços que exigem ART (instalações de médio e grande porte), sim. Para reparos residenciais simples, a obrigatoriedade varia por estado e município.' },
       { q: 'Eletricista MEI pode trabalhar para empresas?', a: 'Sim. Eletricista pode ser MEI (Eletricista - CNAE 4321-5/00). Como MEI, emite nota fiscal para empresas contratantes.' },
       { q: 'Recibo de eletricista serve como garantia do serviço?', a: 'Não automaticamente. Para garantias de serviço, inclua no recibo ou contrato o prazo de garantia (ex: "90 dias de garantia para a instalação realizada").' },
+      { q: 'Recibo de eletricista precisa separar material e mão de obra?', a: 'É o recomendado: o cliente sabe o que pagou e você comprova o custo dos materiais.' },
+      { q: 'Qual a garantia de um serviço elétrico?', a: 'O Código de Defesa do Consumidor dá 90 dias para reclamar de defeitos em serviços duráveis. Você pode oferecer um prazo maior e escrever isso no recibo.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo do eletricista', paragrafos: ['Descreva o serviço (instalação, troca de quadro, revisão da rede, conserto), o endereço e separe mão de obra e materiais. Se der garantia do serviço, escreva o prazo no recibo.', 'Pelo Código de Defesa do Consumidor, o cliente tem 90 dias para reclamar de defeitos em serviços duráveis. Por isso, guarde a sua via do recibo com a descrição do que foi feito.'] },
     ],
     related: ['pedreiro', 'encanador', 'pintor'],
   },
@@ -311,6 +349,12 @@ const profissoes: Profissao[] = [
       { q: 'Arquiteto precisa de ART no recibo?', a: 'A ART (Anotação de Responsabilidade Técnica) é um documento separado obrigatório para projetos. O recibo é o comprovante de pagamento dos honorários.' },
       { q: 'Arquiteto autônomo pode emitir nota fiscal?', a: 'Arquitetos podem abrir MEI para projetos de menor escala. Para projetos maiores, abrir uma empresa (Simples Nacional) permite emitir nota fiscal com alíquota menor.' },
       { q: 'Como parcelar honorários de arquitetura?', a: 'É comum parcelar em etapas do projeto: sinal na contratação, pagamento na entrega de anteprojeto e pagamento final na entrega do projeto executivo. Emita recibo em cada parcela.' },
+      { q: 'Recibo de arquiteto precisa ter o número do CAU?', a: 'Não há regra que obrigue, mas é recomendado: identifica o profissional habilitado e ajuda a comprovar que o serviço foi prestado por arquiteto registrado.' },
+      { q: 'Recibo de projeto arquitetônico serve para quem contratou?', a: 'Sim. Ele comprova o pagamento de cada etapa e, junto com o contrato e o RRT, documenta o serviço contratado.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo do arquiteto', paragrafos: ['Inclua o número de registro no CAU (Conselho de Arquitetura e Urbanismo) e, quando o serviço exigir, o número do RRT (Registro de Responsabilidade Técnica) da obra ou do projeto. Isso liga o pagamento ao serviço registrado.', 'Descreva a etapa paga: estudo preliminar, anteprojeto, projeto executivo, acompanhamento de obra ou consultoria. Em projetos pagos em parcelas, emita um recibo por parcela, citando o contrato.'] },
+      { h2: 'Impostos: pessoa física ou empresa', paragrafos: ['Se você atua como pessoa física e recebe de outra pessoa física, os valores entram no Carnê-Leão. Se quem paga é uma empresa, o mais comum é a empresa emitir um RPA e reter os tributos. Com CNPJ, o documento correto é a nota fiscal de serviço.'] },
     ],
     related: ['consultor', 'engenheiro', 'autonomo'],
   },
@@ -348,6 +392,12 @@ const profissoes: Profissao[] = [
       { q: 'Recibo de nutricionista é dedutível do IR?', a: 'Não. Segundo a Receita Federal, podem ser deduzidas como despesas médicas as consultas com médicos, dentistas, psicólogos, fisioterapeutas, terapeutas ocupacionais e fonoaudiólogos, além de despesas com hospitais. Consultas com nutricionista não são dedutíveis, a não ser que estejam incluídas na conta hospitalar. Fonte: Receita Federal, Perguntas Frequentes do IRPF, “Quais profissionais posso incluir como despesa médica?” (gov.br/receitafederal).' },
       { q: 'Nutricionista pode ser MEI?', a: 'Não. Nutricionistas são profissionais de saúde regulamentados pelo CRN e não podem ser MEI. Atuam como autônomos (CPF) ou abrem empresa (CNPJ).' },
       { q: 'Como formalizar atendimentos online de nutrição?', a: 'Para atendimentos telepresenciais, o recibo deve descrever "consulta nutricional online" com a data da sessão. O documento tem a mesma validade do atendimento presencial.' },
+      { q: 'Recibo de nutricionista serve para reembolso do plano de saúde?', a: 'Depende do contrato do plano. Quando há cobertura, o plano costuma pedir recibo com nome e CPF do paciente, número do CRN, data e valor da consulta.' },
+      { q: 'Posso deduzir nutricionista no Imposto de Renda?', a: 'Não. Nutricionista não está entre os profissionais de saúde cujos pagamentos podem ser deduzidos no IRPF.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo do nutricionista', paragrafos: ['Informe o número de registro no CRN com a região (por exemplo, CRN-3), o nome do paciente, a data da consulta e o tipo de atendimento: consulta inicial, retorno, plano alimentar ou acompanhamento mensal.', 'Para pacotes de consultas, descreva quantas sessões o valor cobre e em que período.'] },
+      { h2: 'Consulta com nutricionista é dedutível no Imposto de Renda?', paragrafos: ['Não. A lei do Imposto de Renda permite deduzir pagamentos a médicos, dentistas, psicólogos, fisioterapeutas, fonoaudiólogos, terapeutas ocupacionais e hospitais, mas não a nutricionistas. O recibo continua útil como comprovante do pagamento e para reembolso de plano de saúde, quando o plano cobre o atendimento.'] },
     ],
     related: ['medico', 'fisioterapeuta', 'personal-trainer'],
   },
@@ -366,6 +416,12 @@ const profissoes: Profissao[] = [
       { q: 'Recibo de fisioterapia pode ser reembolsado pelo plano?', a: 'Depende do plano e da cobertura. Planos com cobertura ambulatorial podem reembolsar sessões com fisioterapeuta credenciado. Emita o recibo com CREFITO para facilitar.' },
       { q: 'Fisioterapeuta pode ser MEI?', a: 'Não. Fisioterapeutas são profissionais de saúde regulamentados e não podem ser MEI.' },
       { q: 'Como cobrar sessões domiciliares de fisioterapia?', a: 'Sessões domiciliares geralmente têm valor adicional pela deslocamento. Inclua no recibo se a taxa de deslocamento está incluída ou discriminada separadamente.' },
+      { q: 'Recibo de fisioterapia pode ser usado no Imposto de Renda?', a: 'Sim. Fisioterapia é despesa médica dedutível. O recibo precisa trazer nome, endereço e CPF ou CNPJ do fisioterapeuta, valor, data e nome do paciente.' },
+      { q: 'Posso fazer um recibo por mês em vez de um por sessão?', a: 'Pode. Liste as datas das sessões e o valor total do mês. Isso facilita a declaração do paciente e o seu controle.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo do fisioterapeuta', paragrafos: ['Coloque o número do CREFITO, o nome e o CPF do paciente, as datas ou a quantidade de sessões e o valor de cada uma. Em tratamentos longos, um recibo mensal com a lista de sessões é o mais prático.'] },
+      { h2: 'Recibo para deduzir no Imposto de Renda', paragrafos: ['Fisioterapia é despesa dedutível no IRPF. Para a Receita aceitar, o recibo precisa ter o nome, o endereço e o CPF ou CNPJ de quem prestou o serviço, além do valor, da data e do nome do paciente. Sem esses dados, a dedução pode ser glosada.'] },
     ],
     related: ['medico', 'nutricionista', 'personal-trainer'],
   },
@@ -384,6 +440,12 @@ const profissoes: Profissao[] = [
       { q: 'Personal trainer pode ser MEI?', a: 'Personal Trainer (Instrutor de Academia - CNAE 9313-1/00) está na lista MEI. Como MEI, pode emitir nota fiscal para academias e empresas.' },
       { q: 'Como cobrar personal trainer por mensalidade?', a: 'Defina o pacote (ex: 3x por semana = 12 sessões/mês). Emita um único recibo mensal com o total pago e o número de sessões.' },
       { q: 'Recibo de personal trainer serve para dedução no IR?', a: 'Não. Gastos com personal trainer não são dedutíveis no IRPF (apenas despesas médicas em sentido estrito são dedutíveis).' },
+      { q: 'Personal trainer precisa colocar o CREF no recibo?', a: 'É recomendado. O CREF mostra que o serviço foi prestado por profissional habilitado em educação física.' },
+      { q: 'Recibo de pacote de aulas precisa dizer o prazo?', a: 'Sim, é o melhor caminho: informe quantas aulas o valor cobre e até quando podem ser usadas, para evitar discussão depois.' },
+    ],
+    secoes: [
+      { h2: 'O que é específico no recibo do personal trainer', paragrafos: ['Informe o número do CREF (Conselho Regional de Educação Física), o período (mês ou pacote), a quantidade de aulas e o local, como academia, condomínio ou domicílio.', 'Em pacotes pagos adiantado, emita o recibo do pagamento e deixe claro quantas aulas ele cobre e até quando podem ser usadas.'] },
+      { h2: 'Personal trainer é dedutível no Imposto de Renda?', paragrafos: ['Não. Aulas de educação física não estão entre as despesas dedutíveis no IRPF, mesmo com indicação médica. O recibo serve como comprovante do pagamento entre aluno e profissional.'] },
     ],
     related: ['fisioterapeuta', 'nutricionista', 'autonomo'],
   },
@@ -456,6 +518,12 @@ const profissoes: Profissao[] = [
       { q: 'Cuidador de idosos precisa de carteira assinada?', a: 'Cuidadores que trabalham mais de 2 dias por semana para a mesma família devem ter carteira assinada (emprego doméstico). Para trabalhos avulsos ou menos de 2 dias/semana, é autônomo.' },
       { q: 'Gastos com cuidador de idoso são dedutíveis do IR?', a: 'Não diretamente. Porém, se o cuidador for contratado formalmente (eSocial Doméstico), o INSS pago pelo empregador pode ser deduzido no IRPF.' },
       { q: 'Como comprovante de renda para financiamento como cuidador?', a: 'Acumule recibos mensais (pelo menos 3-6 meses) e extratos bancários mostrando os créditos. Bancos digitais costumam aceitar essa documentação.' },
+      { q: 'Cuidador de idosos que faz plantões precisa de registro?', a: 'Se trabalha mais de 2 dias por semana para a mesma família, sim. Plantões eventuais ou até 2 dias por semana podem ser pagos com recibo.' },
+      { q: 'Como fazer recibo de plantão de cuidador?', a: 'Liste as datas, os horários de início e fim de cada plantão, o nome do idoso, o valor por plantão e o total pago.' },
+    ],
+    secoes: [
+      { h2: 'Cuidador autônomo ou empregado doméstico', paragrafos: ['A regra é a mesma do trabalho doméstico: mais de 2 dias por semana na mesma residência caracteriza vínculo, com registro no eSocial (Lei Complementar 150/2015). Para plantões eventuais ou até 2 dias por semana, o recibo por plantão é o documento adequado.', 'Informe as datas e os horários dos plantões (por exemplo, 12x36 em 3, 5 e 7 de março), o nome do idoso atendido e o valor por plantão.'] },
+      { h2: 'Cuidador de idosos é dedutível no Imposto de Renda?', paragrafos: ['Em regra, não. Só são dedutíveis despesas com profissionais de saúde listados na lei (médicos, fisioterapeutas, psicólogos e outros) e com hospitais. Serviços de cuidador sem essa natureza não entram.'] },
     ],
     related: ['diarista', 'baba', 'autonomo'],
   },
@@ -474,6 +542,11 @@ const profissoes: Profissao[] = [
       { q: 'Babá que trabalha todo dia precisa de carteira assinada?', a: 'Sim. Babá que trabalha 3 ou mais dias por semana para a mesma família é empregada doméstica e precisa ter carteira assinada e ser registrada no eSocial Doméstico.' },
       { q: 'Babá pode ser MEI?', a: 'Babá não está na lista de atividades MEI. Como autônoma (menos de 3 dias/semana), emite recibo simples.' },
       { q: 'Gastos com babá são dedutíveis do IR?', a: 'Não diretamente. Se a babá for empregada doméstica formal, o INSS patronal pode ser deduzido no limite legal do IRPF.' },
+      { q: 'Babá que trabalha 3 dias por semana precisa ser registrada?', a: 'Sim. Mais de 2 dias por semana na mesma casa caracteriza emprego doméstico, com registro no eSocial.' },
+      { q: 'Recibo de babá serve para o Imposto de Renda?', a: 'Não para dedução: gastos com babá não são dedutíveis no IRPF. Ele serve como comprovante do pagamento entre a família e a babá.' },
+    ],
+    secoes: [
+      { h2: 'Babá diarista ou babá registrada', paragrafos: ['Se a babá trabalha na mesma casa por mais de 2 dias por semana, a Lei Complementar 150/2015 considera emprego doméstico, com registro no eSocial e contracheque. O recibo simples serve para quem cuida das crianças até 2 dias por semana ou de forma eventual (por exemplo, à noite ou em fins de semana).', 'Descreva as datas e os horários, o nome das crianças (ou só "2 crianças") e o valor por hora ou por diária.'] },
     ],
     related: ['diarista', 'cuidador-de-idosos', 'autonomo'],
   },
@@ -510,6 +583,11 @@ const profissoes: Profissao[] = [
       { q: 'Jardineiro pode ser MEI?', a: 'Sim. Jardineiro (CNAE 0161-0/03) está na lista MEI.' },
       { q: 'Como cobrar manutenção de jardim: por visita ou por mês?', a: 'Mensalidade é mais comum para jardins de manutenção regular. Defina o número de visitas mensais incluídas e emita um recibo mensal.' },
       { q: 'Jardineiro deve incluir materiais no recibo?', a: 'Sim, se cobra pelos materiais junto (terra, adubo, plantas). Discrimine "mão de obra" e "materiais" para maior transparência.' },
+      { q: 'Recibo de jardinagem deve separar material e mão de obra?', a: 'É recomendado. Fica claro quanto foi gasto com mudas, adubo e outros materiais e quanto foi o serviço.' },
+      { q: 'Jardineiro que vai toda semana precisa de registro?', a: 'Se trabalha mais de 2 dias por semana na mesma residência, sim. Visitas de até 2 dias por semana podem ser pagas com recibo.' },
+    ],
+    secoes: [
+      { h2: 'Manutenção mensal ou serviço avulso', paragrafos: ['Para manutenção periódica, um recibo mensal com as datas das visitas é o mais prático. Para serviços avulsos (poda, plantio, paisagismo), descreva o trabalho feito e separe mão de obra e materiais, como mudas, adubo e terra.', 'Atenção: o jardineiro que trabalha na mesma residência por mais de 2 dias por semana pode ser considerado empregado doméstico (Lei Complementar 150/2015).'] },
     ],
     related: ['pedreiro', 'autonomo', 'faxineiro'],
   },
